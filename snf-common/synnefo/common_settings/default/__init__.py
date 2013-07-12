@@ -13,4 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.settings.default.admins import *
+from .services import *
+from .admins import *
+from .cloudbar import *

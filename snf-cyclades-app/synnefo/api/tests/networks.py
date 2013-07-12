@@ -15,14 +15,15 @@
 
 from snf_django.utils.testing import (BaseAPITest, override_settings)
 from django.utils import simplejson as json
-from synnefo.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 import synnefo.db.models_factory as dbmf
 from synnefo.db.models import Network, QuotaHolderSerial
 from django.conf import settings
 
-NETWORK_URL = get_service_path(cyclades_services, 'network',
+synnefo_services = settings.SYNNEFO_SERVICES
+
+NETWORK_URL = get_service_path(synnefo_services, 'cyclades_network',
                                version='v2.0')
 NETWORKS_URL = join_urls(NETWORK_URL, "networks/")
 

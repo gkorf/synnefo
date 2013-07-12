@@ -1,9 +1,16 @@
 #!/bin/sh
 set -e
 
+if [ -z "${SYNNEFO_TEST_SETTINGS_DIR}" ]; then
+    SYNNEFO_TEST_SETTINGS_DIR="/etc/synnefo-test-settings"
+fi
+export SYNNEFO_SETTINGS_DIR="${SYNNEFO_TEST_SETTINGS_DIR}"
+
+SNF_MANAGE=$(which snf-manage) ||
+	{ echo "Cannot find snf-manage in $PATH" 1>&2; exit 1; }
+
 runAstakosTests () {
     if [ -z "$astakos_tests" ]; then return; fi
-
     export SYNNEFO_EXCLUDE_PACKAGES="snf-cyclades-app"
     CURRENT_COMPONENT=astakos
     createSnfManageTest $astakos_tests
@@ -39,7 +46,7 @@ runAstakosclientTests () {
 }
 
 createSnfManageTest () {
-    TEST="$SNF_MANAGE test $* --traceback --noinput --settings=synnefo.settings.test"
+    TEST="$SNF_MANAGE test $* --traceback --noinput --settings=synnefo.settings"
 }
 
 createNoseTest () {
@@ -127,7 +134,10 @@ extract_tests () {
     usage $1
 }
 
-export SYNNEFO_SETTINGS_DIR=/tmp/snf-test-settings
+export SYNNEFO_RELAX_MANDATORY_SETTINGS=1
+export ASTAKOS_BASE_URL='https://astakos.example.synnefo.org/accounts'
+export CYCLADES_BASE_URL='https://cyclades.example.synnefo.org/compute'
+export PITHOS_BASE_URL='https://pithos.example.synnefo.org/object-store'
 
 astakos_all_tests="im quotaholder_app oa2"
 cyclades_all_tests="api db logic plankton quotas vmapi helpdesk userdata volume"

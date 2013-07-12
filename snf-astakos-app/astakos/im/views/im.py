@@ -32,7 +32,7 @@ from django.utils import simplejson as json
 from django.template import RequestContext
 
 from synnefo_branding import utils as branding
-from synnefo_branding import settings as branding_settings
+from synnefo_branding import branding_settings
 
 import astakos.im.messages as astakos_messages
 
@@ -56,6 +56,8 @@ from astakos.im.views.decorators import cookie_fix, signed_terms_required,\
     required_auth_methods_assigned, valid_astakos_user_required, login_required
 from astakos.api import projects as projects_api
 from astakos.api.util import _dthandler
+
+from django.conf import settings as django_settings
 
 logger = logging.getLogger(__name__)
 
@@ -205,7 +207,7 @@ def api_access_config(request, template_name='im/api_access_config.html',
     else:
         cloud_name = branding_settings.SERVICE_NAME.replace(' ', '_').lower()
 
-    url = get_public_endpoint(settings.astakos_services, 'identity')
+    url = get_public_endpoint(django_settings.SYNNEFO_SERVICES, 'identity')
 
     context = {
         'user': request.user,
@@ -236,7 +238,7 @@ def api_access(request, template_name='im/api_access.html',
     """
     context = {}
 
-    url = get_public_endpoint(settings.astakos_services, 'identity')
+    url = get_public_endpoint(django_settings.SYNNEFO_SERVICES, 'identity')
     context['services'] = Component.catalog()
     context['token_url'] = url
     context['user'] = request.user
@@ -746,11 +748,10 @@ def change_email(request, activation_key=None,
             transaction.rollback()
             return HttpResponseRedirect(reverse('index'))
 
-        return render_response(confirm_template_name,
-                               modified_user=user if 'user' in locals()
-                               else None,
-                               context_instance=get_context(request,
-                                                            extra_context))
+        return render_response(
+            confirm_template_name,
+            modified_user=user if 'user' in locals() else None,
+            context_instance=get_context(request, extra_context))
 
     if not request.user.is_authenticated():
         path = quote(request.get_full_path())

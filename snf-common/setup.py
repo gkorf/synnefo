@@ -70,5 +70,11 @@ setup(
     extras_require=EXTRAS_REQUIRES,
     tests_require=TESTS_REQUIRES,
 
-    dependency_links=['http://www.synnefo.org/packages/pypi']
+    dependency_links=['http://www.synnefo.org/packages/pypi'],
+    entry_points={
+     'synnefo': [
+         'default_settings = synnefo.common_settings.default'
+         ],
+      },
+
 )
