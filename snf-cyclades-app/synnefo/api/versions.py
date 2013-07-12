@@ -45,7 +45,7 @@ log = getLogger('synnefo.api')
 
 
 VERSION_2_0 = {
-    "id": "v2.0",
+    "id": "v2",
     "status": "CURRENT",
     "updated": "2011-01-21T11:33:21-06:00",
     "links": [

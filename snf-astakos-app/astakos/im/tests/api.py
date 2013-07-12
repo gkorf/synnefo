@@ -31,7 +31,11 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from astakos.im.tests.common import *
+from astakos.im.tests.common import (
+    Client, Component, register, get_local_user, quotas,
+    AstakosUser, Service, Endpoint, assertIn, activation_backends)
+
+from astakos.im.settings import BASE_HOST
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 
@@ -45,7 +49,7 @@ synnefo_services = settings.SYNNEFO_SERVICES
 
 import json
 
-ROOT = get_service_path(synnefo_services, 'astakos_account', 'v1.0')
+ROOT = get_service_path(synnefo_services, 'astakos_account', '1.0')
 u = lambda url: ROOT + url
 
 
@@ -336,7 +340,7 @@ class QuotaAPITest(TestCase):
         self.assertEqual(r.status_code, 200)
 
         reject_data = {'reject': ""}
-        post_data = json.dumps(accept_data)
+        post_data = json.dumps(reject_data)
         r = client.post(u('commissions/' + str(serial) + '/action'), post_data,
                         content_type='application/json', **s1_headers)
         self.assertEqual(r.status_code, 404)
@@ -403,14 +407,14 @@ class TokensApiTest(TestCase):
         s1.save()
         e1 = Endpoint(service=s1)
         e1.save()
-        e1.data.create(key='versionId', value='v1.0')
+        e1.data.create(key='versionId', value='1.0')
         e1.data.create(key='publicURL', value='http://localhost:8000/s1/v1.0')
 
         s2 = Service(component=c1, type='type2', name='service2')
         s2.save()
         e2 = Endpoint(service=s2)
         e2.save()
-        e2.data.create(key='versionId', value='v1.0')
+        e2.data.create(key='versionId', value='1.0')
         e2.data.create(key='publicURL', value='http://localhost:8000/s2/v1.0')
 
         c2 = Component(name='component2', url='http://localhost/component2')
@@ -419,7 +423,7 @@ class TokensApiTest(TestCase):
         s3.save()
         e3 = Endpoint(service=s3)
         e3.save()
-        e3.data.create(key='versionId', value='v2.0')
+        e3.data.create(key='versionId', value='2.0')
         e3.data.create(key='publicURL', value='http://localhost:8000/s3/v2.0')
 
     def test_authenticate(self):
@@ -585,18 +589,18 @@ class TokensApiTest(TestCase):
 
 
 class WrongPathAPITest(TestCase):
-    def test_catch_wrong_api_paths(self, *args):
-        path = get_service_path(synnefo_services, 'account', '1.0')
-        path = join_urls(settings.ASTAKOS_BASE_HOST, path, 'nonexistent')
+    def test_catch_wrong_account_paths(self, *args):
+        path = get_service_path(synnefo_services, 'astakos_account', '1.0')
+        path = join_urls(BASE_HOST, path, 'nonexistent')
         response = self.client.get(path)
         self.assertEqual(response.status_code, 400)
         try:
-            error = json.loads(response.content)
+            json.loads(response.content)
         except ValueError:
             self.assertTrue(False)
 
     def test_catch_wrong_api_paths(self, *args):
-        path = get_service_path(synnefo_services, 'identity', '2.0')
+        path = get_service_path(synnefo_services, 'astakos_identity', '2.0')
         path = join_urls(settings.ASTAKOS_BASE_HOST, path, 'nonexistent')
         response = self.client.get(path)
         self.assertEqual(response.status_code, 400)

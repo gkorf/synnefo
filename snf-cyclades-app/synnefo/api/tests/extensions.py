@@ -35,11 +35,12 @@ import json
 
 from snf_django.utils.testing import BaseAPITest
 from synnefo.lib.services import get_service_path
-from synnefo.cyclades_settings import cyclades_services
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
-COMPUTE_URL = get_service_path(cyclades_services, 'compute',
-                               version='v2.0')
+COMPUTE_URL = get_service_path(synnefo_services, 'cyclades_compute',
+                               version='2')
 EXTENSIONS_URL = join_urls(COMPUTE_URL, "extensions/")
 
 

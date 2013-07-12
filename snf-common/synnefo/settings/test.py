@@ -1,6 +1,4 @@
 import os
-os.environ['SYNNEFO_SETTINGS_DIR'] = '/etc/synnefo-test-settings'
-
 from synnefo.settings import *
 
 DEBUG = False

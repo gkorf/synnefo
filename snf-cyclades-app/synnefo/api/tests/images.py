@@ -60,7 +60,8 @@ class ComputeAPITest(BaseAPITest):
         super(ComputeAPITest, self).setUp(*args, **kwargs)
         self.compute_path = get_service_path(synnefo_services,
                                              'cyclades_compute',
-                                             version='v2.0')
+                                             version='2')
+
     def myget(self, path, *args, **kwargs):
         path = join_urls(self.compute_path, path)
         return self.get(path, *args, **kwargs)
@@ -102,12 +103,12 @@ class ImageAPITest(ComputeAPITest):
     def test_list_images_detail(self, mimage):
         images = [{'id': 1,
                    'name': 'image-1',
-                   'status':'available',
+                   'status': 'available',
                    'created_at': '2012-11-26 11:52:54',
                    'updated_at': '2012-12-26 11:52:54',
                    'owner': 'user1',
                    'deleted_at': '',
-                   'properties': {'foo':'bar'}},
+                   'properties': {'foo': 'bar'}},
                   {'id': 2,
                    'name': 'image-2',
                    'status': 'deleted',
@@ -127,13 +128,13 @@ class ImageAPITest(ComputeAPITest):
         result_images = [
                   {'id': 1,
                    'name': 'image-1',
-                   'status':'ACTIVE',
+                   'status': 'ACTIVE',
                    'progress': 100,
                    'created': '2012-11-26T11:52:54+00:00',
                    'updated': '2012-12-26T11:52:54+00:00',
                    'user_id': 'user1',
                    'tenant_id': 'user1',
-                   'metadata': {'foo':'bar'}},
+                   'metadata': {'foo': 'bar'}},
                   {'id': 2,
                    'name': 'image-2',
                    'status': 'DELETED',
@@ -170,7 +171,7 @@ class ImageAPITest(ComputeAPITest):
         images = [
                   {'id': 1,
                    'name': 'image-1',
-                   'status':'available',
+                   'status': 'available',
                    'progress': 100,
                    'created_at': old_time.isoformat(),
                    'deleted_at': '',

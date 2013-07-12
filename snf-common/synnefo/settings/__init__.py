@@ -65,7 +65,7 @@ if os.path.exists(SYNNEFO_SETTINGS_DIR):
                      f.endswith(".conf")]
     except Exception as e:
         print >> sys.stderr, "Failed to list *.conf files under %s" % \
-                            SYNNEFO_SETTINGS_DIR
+            SYNNEFO_SETTINGS_DIR
         raise SystemExit(1)
     conffiles.sort()
     for f in conffiles:
@@ -73,16 +73,18 @@ if os.path.exists(SYNNEFO_SETTINGS_DIR):
             execfile(os.path.abspath(f))
         except Exception as e:
             print >> sys.stderr, "Failed to read settings file: %s [%r]" % \
-                                (os.path.abspath(f), e)
+                (os.path.abspath(f), e)
             raise SystemExit(1)
 
 
+import sys
 from .setup import postproc_settings
 postproc_settings(sys.modules[__name__])
 del postproc_settings
 
 for _module_path in SYNNEFO_SETTINGS_SETUP_MODULES:
-    _temp = __import__(_module_path, globals(), locals(), ['setup_settings'], 0)
+    _temp = __import__(_module_path, globals(), locals(),
+                       ['setup_settings'], 0)
     _temp.setup_settings(sys.modules[__name__])
 
 del _temp

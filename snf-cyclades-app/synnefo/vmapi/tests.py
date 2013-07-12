@@ -47,9 +47,9 @@ synnefo_services = settings.SYNNEFO_SERVICES
 class VMAPITest(TestCase):
     def setUp(self, *args, **kwargs):
         super(VMAPITest, self).setUp(*args, **kwargs)
-        self.api_path = get_service_path(synnefo_services,
-                                         'cyclades_vmapi',
-                                         version='v1.0')
+        self.api_path = get_service_path(synnefo_services, 'cyclades_vmapi',
+                                         version='1.0')
+
     def myget(self, path, *args, **kwargs):
         path = join_urls(self.api_path, path)
         return self.client.get(path, *args, **kwargs)

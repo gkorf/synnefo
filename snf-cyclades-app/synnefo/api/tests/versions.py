@@ -44,17 +44,17 @@ class APITest(TestCase):
     def test_api_version(self):
         """Check API version."""
         path = get_service_path(synnefo_services, 'cyclades_compute',
-                                version='v2.0')
+                                version='2')
         with astakos_user('user'):
             response = self.client.get(path)
         self.assertEqual(response.status_code, 200)
         api_version = json.loads(response.content)['version']
-        self.assertEqual(api_version['id'], 'v2.0')
+        self.assertEqual(api_version['id'], 'v2')
         self.assertEqual(api_version['status'], 'CURRENT')
 
     def test_catch_wrong_api_paths(self, *args):
         path = get_service_path(synnefo_services, 'cyclades_compute',
-                                version='v2.0')
+                                version='2')
         response = self.client.get(join_urls(path, 'nonexistent'))
         self.assertEqual(response.status_code, 400)
         try:

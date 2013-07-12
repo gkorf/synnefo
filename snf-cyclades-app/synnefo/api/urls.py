@@ -57,8 +57,8 @@ api20_patterns = patterns(
 urlpatterns = patterns(
     '',
     (r'^(?:.json|.xml|.atom)?$', versions_list),
-    (r'^v2.0/(?:.json|.xml|.atom)?$', version_details,
+    (r'^v2/(?:.json|.xml|.atom)?$', version_details,
         {'api_version': 'v1.1'}),
-    (r'^v2.0/', include(api20_patterns)),
+    (r'^v2/', include(api20_patterns)),
     (r'^.*', api_endpoint_not_found),
 )

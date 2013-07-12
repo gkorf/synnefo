@@ -376,49 +376,49 @@ Example json response:
             {"endpoints_links": [],
              "endpoints": [{
                 "SNF:uiURL": "https://accounts.example.synnefo.org/ui",
-                "versionId": "v1.0",
+                "versionId": "1.0",
                 "publicURL": "https://accounts.example.synnefo.org/account/v1.0"}],
              "type": "account",
              "name": "astakos_account"},
             {"endpoints_links": [],
              "endpoints": [{
                  "SNF:uiURL": "https://accounts.example.synnefo.org/ui",
-                 "versionId": "v2.0",
+                 "versionId": "2.0",
                  "publicURL": "https://accounts.example.synnefo.org/account/v2.0"}],
              "type": "identity",
              "name": "astakos_identity"},
             {"endpoints_links": [],
              "endpoints": [{
                  "SNF:uiURL": "https://cyclades.example.synnefo.org/ui",
-                 "versionId": "v2.0",
-                 "publicURL": "https://cyclades.example.synnefo.org/cyclades/compute/v2.0"}],
+                 "versionId": "2",
+                 "publicURL": "https://cyclades.example.synnefo.org/cyclades/compute/v2"}],
              "type": "compute",
              "name": "cyclades_compute"},
             {"endpoints_links": [],
              "endpoints": [{
                  "SNF:uiURL": "https://cyclades.example.synnefo.org/ui",
-                 "versionId": "v1.0",
+                 "versionId": "1.0",
                  "publicURL": "https://cyclades.example.synnefo.org/cyclades/vmapi/v1.0"}],
              "type": "cyclades_vmapi",
              "name": "cyclades_vmapi"},
             {"endpoints_links": [],
              "endpoints": [{
                  "SNF:uiURL": "https://cyclades.example.synnefo.org/ui",
-                 "versionId": "v1.0",
+                 "versionId": "1.0",
                  "publicURL": "https://cyclades.example.synnefo.org/cyclades/image/v1.0"}],
              "type": "image",
              "name": "cyclades_plankton"},
             {"endpoints_links": [],
              "endpoints": [{
                  "SNF:uiURL": "https://object-store.example.synnefo.org/ui",
-                 "versionId": "v2.0",
+                 "versionId": "2.0",
                  "publicURL": "https://object-store.example.synnefo.org/pithos/public/v2.0"}],
              "type": "public",
              "name": "pithos_public"},
             {"endpoints_links": [],
              "endpoints": [{
                  "SNF:uiURL": "https://object-store.example.synnefo.org/ui",
-                 "versionId": "v1",
+                 "versionId": "1",
                  "publicURL": "https://object-store.example.synnefo.org/pithos/object-store/v1"}],
              "type": "object-store",
              "name": "pithos_object-store"},
@@ -454,25 +454,25 @@ Example xml response:
         </user>
         <serviceCatalog>
             <service type="account" name="astakos_account">
-                <endpoint  SNF:uiURL="https://accounts.example.synnefo.org/ui"  versionId="v1.0"  publicURL="https://accounts.example.synnefo.org/account/v1.0"  />
+                <endpoint  SNF:uiURL="https://accounts.example.synnefo.org/ui"  versionId="1.0"  publicURL="https://accounts.example.synnefo.org/account/v1.0"  />
             </service>
             <service type="identity" name="astakos_identity">
-                <endpoint  SNF:uiURL="https://accounts.example.synnefo.org/ui"  versionId="v2.0"  publicURL="https://accounts.example.synnefo.org/account/v2.0"  />
+                <endpoint  SNF:uiURL="https://accounts.example.synnefo.org/ui"  versionId="2.0"  publicURL="https://accounts.example.synnefo.org/account/v2.0"  />
             </service>
             <service type="compute" name="cyclades_compute">
-                <endpoint  SNF:uiURL="https://cyclades.example.synnefo.org/ui"  versionId="v2.0"  publicURL="https://cyclades.example.synnefo.org/cyclades/compute/v2.0"  />
+                <endpoint  SNF:uiURL="https://cyclades.example.synnefo.org/ui"  versionId="2"  publicURL="https://cyclades.example.synnefo.org/cyclades/compute/v2"  />
             </service>
             <service type="cyclades_vmapi" name="cyclades_vmapi">
-                <endpoint  SNF:uiURL="https://cyclades.example.synnefo.org/ui"  versionId="v1.0"  publicURL="https://cyclades.example.synnefo.org/cyclades/vmapi/v1.0"  />
+                <endpoint  SNF:uiURL="https://cyclades.example.synnefo.org/ui"  versionId="1.0"  publicURL="https://cyclades.example.synnefo.org/cyclades/vmapi/v1.0"  />
             </service>
             <service type="image" name="cyclades_plankton">
-                <endpoint  SNF:uiURL="https://cyclades.example.synnefo.org/ui"  versionId="v1.0"  publicURL="https://cyclades.example.synnefo.org/cyclades/image/v1.0"  />
+                <endpoint  SNF:uiURL="https://cyclades.example.synnefo.org/ui"  versionId="1.0"  publicURL="https://cyclades.example.synnefo.org/cyclades/image/v1.0"  />
             </service>
             <service type="public" name="pithos_public">
-                <endpoint  SNF:uiURL="https://object-store.example.synnefo.org/ui"  versionId="v2.0"  publicURL="https://object-store.example.synnefo.org/pithos/public/v2.0"  />
+                <endpoint  SNF:uiURL="https://object-store.example.synnefo.org/ui"  versionId="2.0"  publicURL="https://object-store.example.synnefo.org/pithos/public/v2.0"  />
             </service>
             <service type="object-store" name="pithos_object-store">
-                <endpoint  SNF:uiURL="https://object-store.example.synnefo.org/ui"  versionId="v1"  publicURL="https://object-store.example.synnefo.org/pithos/object-store/v1"  /> </service>
+                <endpoint  SNF:uiURL="https://object-store.example.synnefo.org/ui"  versionId="1"  publicURL="https://object-store.example.synnefo.org/pithos/object-store/v1"  /> </service>
             <service type="astakos_weblogin" name="astakos_weblogin">
                 <endpoint  SNF:uiURL="htftps://accounts.example.synnefo.org/ui"  versionId=""  "SNF:webloginURL": "http://localhost:8080/astakos/weblogin"  publicURL="https://accounts.example.synnefo.org/astakos/weblogin"  />
         </serviceCatalog>

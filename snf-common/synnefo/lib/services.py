@@ -37,17 +37,24 @@ from synnefo.util.keypath import get_path, set_path
 from urlparse import urlparse
 
 
+class ServiceNotFound(Exception):
+    pass
+
+
 def fill_endpoints(service, base_url):
     prefix = get_path(service, 'prefix')
     endpoints = get_path(service, 'endpoints')
     for endpoint in endpoints:
         version = get_path(endpoint, 'versionId')
+        if version and version[0].isdigit():
+            version = 'v' + version
+
         publicURL = get_path(endpoint, 'publicURL')
         if publicURL is not None:
             continue
 
-        publicURL = join_urls(base_url, prefix, version).rstrip('/') + '/'
-        set_path(endpoint, 'publicURL', publicURL)
+    publicURL = join_urls(base_url, prefix, version).rstrip('/') + '/'
+    set_path(endpoint, 'publicURL', publicURL)
 
 
 def filter_public(services):
@@ -63,7 +70,7 @@ def filter_component(services, component_name):
     for name, service in services.iteritems():
         if service['component'] == component_name:
             component_services[name] = service
-    return compoment_services
+    return component_services
 
 
 def get_service_prefix(services, service_name):
@@ -91,7 +98,7 @@ def get_public_endpoint(services, service_type, version=None):
         m = "No endpoint found for service type '{0}'".format(service_type)
         if version is not None:
             m += " and version '{0}'".format(version)
-        raise ValueError(m)
+        raise ServiceNotFound(m)
 
     selected = sorted(found_endpoints.keys())[-1]
     return found_endpoints[selected]['publicURL']
@@ -115,5 +122,6 @@ def get_service_path(services, service_name, version=None):
         m = "No endpoint found for service '{0}'".format(service_name)
         if version is not None:
             m += " and version '{0}'".format(version)
+        raise ServiceNotFound(m)
     service_url = endpoints[0]['publicURL']
     return urlparse(service_url).path.rstrip('/') + '/'

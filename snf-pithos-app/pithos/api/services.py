@@ -39,7 +39,7 @@ pithos_services = {
         'prefix': 'object-store',
         'public': True,
         'endpoints': [
-            {'versionId': 'v1',
+            {'versionId': '1',
              'publicURL': None},
         ],
         'resources': {
@@ -59,7 +59,7 @@ pithos_services = {
         'prefix': 'public',
         'public': False,
         'endpoints': [
-            {'versionId': 'v1.0',
+            {'versionId': '1.0',
              'publicURL': None},
         ],
         'resources': {},

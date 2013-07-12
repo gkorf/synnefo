@@ -1,10 +1,7 @@
 from django.conf import settings
 from synnefo_branding import settings as synnefo_settings
-from synnefo.lib import parse_base_url
 from synnefo.lib import join_urls
-from synnefo.lib.services import fill_endpoints, get_service_prefix
-
-from copy import deepcopy
+from synnefo.lib.services import get_service_prefix
 
 
 BASE_URL = settings.ASTAKOS_BASE_URL

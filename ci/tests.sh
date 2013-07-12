@@ -16,7 +16,7 @@ runtest () {
     fi
 }
 
-export SYNNEFO_SETTINGS_DIR=/tmp/snf-test-settings
+export SYNNEFO_SETTINGS_DIR=/etc/synnefo-test-settings
 
 ASTAKOS_APPS="im quotaholder_app"
 CYCLADES_APPS="api db logic plankton quotas vmapi helpdesk"

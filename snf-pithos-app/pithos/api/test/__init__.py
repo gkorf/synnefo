@@ -128,7 +128,7 @@ class PithosAPITest(TestCase):
 
         self.user = 'user'
         self.pithos_path = join_urls(get_service_path(
-            pithos_settings.pithos_services, 'object-store'))
+            settings.SYNNEFO_SERVICES, 'pithos_object-store'))
 
     def tearDown(self):
         #delete additionally created metadata

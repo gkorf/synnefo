@@ -44,11 +44,11 @@ synnefo_services = settings.SYNNEFO_SERVICES
 
 
 class ComputeAPITest(BaseAPITest):
-    def setUp(self, *args, **kwargs):
-        super(ComputeAPITest, self).setUp(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(ComputeAPITest, self).__init__(*args, **kwargs)
         self.compute_path = get_service_path(synnefo_services,
                                              'cyclades_compute',
-                                             version='2.0')
+                                             version='2')
 
     def myget(self, path, *args, **kwargs):
         path = join_urls(self.compute_path, path)
@@ -118,8 +118,11 @@ class NetworkAPITest(ComputeAPITest):
     def test_invalid_data_1(self, mrapi):
         """Test invalid flavor"""
         request = {
-            'network': {'name': 'foo', 'type': 'LoLo'}
+            'network': {
+                'name': 'foo',
+                'type': 'LoLo',
             }
+        }
         response = self.mypost('networks/', 'user1',
                                json.dumps(request), 'json')
         self.assertBadRequest(response)
@@ -128,9 +131,11 @@ class NetworkAPITest(ComputeAPITest):
     def test_invalid_data_2(self, mrapi):
         """Test invalid data/subnet"""
         request = {
-            'network': {'name': 'foo',
-                        'cidr': '10.0.0.0/8', "type":
-                        "MAC_FILTERED"}
+            'network': {
+                'name': 'foo',
+                'cidr': '10.0.0.0/8',
+                "type": "MAC_FILTERED",
+            }
         }
         response = self.mypost('networks/', 'user1',
                                json.dumps(request), 'json')
@@ -139,10 +144,12 @@ class NetworkAPITest(ComputeAPITest):
     def test_invalid_data_3(self, mrapi):
         """Test unauthorized to create public network"""
         request = {
-                'network': {'name': 'foo',
-                            "public": "True",
-                            "type": "MAC_FILTERED"}
+            'network': {
+                'name': 'foo',
+                "public": "True",
+                "type": "MAC_FILTERED",
             }
+        }
         response = self.mypost('networks/', 'user1',
                                json.dumps(request), 'json')
         self.assertFault(response, 403, "forbidden")
@@ -150,8 +157,8 @@ class NetworkAPITest(ComputeAPITest):
     def test_invalid_data_4(self, mrapi):
         """Test unauthorized to create network not in settings"""
         request = {
-                'network': {'name': 'foo', 'type': 'CUSTOM'}
-            }
+            'network': {'name': 'foo', 'type': 'CUSTOM'}
+        }
         response = self.mypost('networks/', 'user1',
                                json.dumps(request), 'json')
         self.assertFault(response, 403, "forbidden")
@@ -427,9 +434,11 @@ class NetworkAPITest(ComputeAPITest):
         vm = mfactory.VirtualMachineFactory(name='yo', userid=user)
         net = mfactory.NetworkFactory(state='ACTIVE', userid=user)
         nic = mfactory.NetworkInterfaceFactory(machine=vm, network=net)
-        request = {'remove':
-                    {'att234achment': 'nic-%s-%s' % (vm.id, nic.index)}
-                  }
+        request = {
+            'remove': {
+                'att234achment': 'nic-%s-%s' % (vm.id, nic.index)
+            }
+        }
         response = self.mypost('networks/%d/action' % net.id,
                                net.userid, json.dumps(request), 'json')
         self.assertBadRequest(response)
@@ -438,9 +447,11 @@ class NetworkAPITest(ComputeAPITest):
         user = 'userr'
         vm = mfactory.VirtualMachineFactory(name='yo', userid=user)
         net = mfactory.NetworkFactory(state='ACTIVE', userid=user)
-        request = {'remove':
-                    {'attachment': 'nic-%s' % vm.id}
-                  }
+        request = {
+            'remove': {
+                'attachment': 'nic-%s' % vm.id
+            }
+        }
         response = self.mypost('networks/%d/action' % net.id,
                                net.userid, json.dumps(request), 'json')
         self.assertBadRequest(response)

@@ -42,12 +42,14 @@ from synnefo.db.models_factory import (FloatingIPFactory, NetworkFactory,
 from mock import patch, Mock
 from functools import partial
 
-from synnefo.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
 
-compute_path = get_service_path(cyclades_services, "compute", version="v2.0")
+compute_path = get_service_path(synnefo_services, "cyclades_compute",
+                                version="2")
 URL = join_urls(compute_path, "os-floating-ips")
 NETWORKS_URL = join_urls(compute_path, "networks")
 SERVERS_URL = join_urls(compute_path, "servers")

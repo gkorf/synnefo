@@ -12,7 +12,7 @@ astakos_services = {
         'prefix': 'account',
         'public': True,
         'endpoints': [
-            {'versionId': 'v1.0',
+            {'versionId': '1.0',
              'publicURL': None},
         ],
         'resources': {
@@ -31,7 +31,7 @@ astakos_services = {
         'prefix': 'identity',
         'public': True,
         'endpoints': [
-            {'versionId': 'v2.0',
+            {'versionId': '2.0',
              'publicURL': None},
         ],
         'resources': {},
@@ -67,7 +67,7 @@ cyclades_services = {
         'prefix': 'compute',
         'public': True,
         'endpoints': [
-            {'versionId': 'v2.0',
+            {'versionId': '2.0',
              'publicURL': None},
         ],
         'resources': {
@@ -112,7 +112,7 @@ cyclades_services = {
         'prefix': 'image',
         'public': True,
         'endpoints': [
-            {'versionId': 'v1.0',
+            {'versionId': '1.0',
              'publicURL': None},
         ],
         'resources': {},
@@ -124,7 +124,7 @@ cyclades_services = {
         'prefix': 'vmapi',
         'public': True,
         'endpoints': [
-            {'versionId': 'v1.0',
+            {'versionId': '1.0',
              'publicURL': None},
         ],
         'resources': {},
@@ -173,7 +173,7 @@ pithos_services = {
         'prefix': 'object-store',
         'public': True,
         'endpoints': [
-            {'versionId': 'v1',
+            {'versionId': '1',
              'publicURL': None},
         ],
         'resources': {
@@ -193,7 +193,7 @@ pithos_services = {
         'prefix': 'public',
         'public': False,
         'endpoints': [
-            {'versionId': 'v1.0',
+            {'versionId': '1.0',
              'publicURL': None},
         ],
         'resources': {},

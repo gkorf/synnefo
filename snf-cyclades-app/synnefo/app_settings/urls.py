@@ -38,6 +38,7 @@ from snf_django.utils.urls import extend_with_root_redirects
 from snf_django.lib.api.urls import api_patterns
 from synnefo.cyclades_settings import (
     BASE_ASTAKOS_PROXY_PATH, PROXY_USER_SERVICES)
+from django.conf import settings
 
 from functools import partial
 
@@ -45,7 +46,8 @@ from functools import partial
 astakos_proxy = partial(proxy, proxy_base=BASE_ASTAKOS_PROXY_PATH,
                         target_base=settings.ASTAKOS_BASE_URL)
 
-cyclades_patterns = api_patterns('',
+cyclades_patterns = api_patterns(
+    '',
     (prefix_pattern_of('cyclades_vmapi'), include('synnefo.vmapi.urls')),
     (prefix_pattern_of('cyclades_plankton'), include('synnefo.plankton.urls')),
     (prefix_pattern_of('cyclades_compute'), include('synnefo.api.urls')),
@@ -53,7 +55,8 @@ cyclades_patterns = api_patterns('',
     (prefix_pattern_of('cyclades_admin'), include('synnefo.admin.urls')),
 )
 
-cyclades_patterns += patterns('',
+cyclades_patterns += patterns(
+    '',
     (prefix_pattern_of('cyclades_ui'), include('synnefo.ui.urls')),
     (prefix_pattern_of('cyclades_helpdesk'), include('synnefo.helpdesk.urls')),
 )
@@ -67,7 +70,8 @@ if PROXY_USER_SERVICES:
     astakos_proxy = partial(proxy, proxy_base=BASE_ASTAKOS_PROXY_PATH,
                             target_base=settings.ASTAKOS_BASE_URL)
 
-    proxy_patterns = patterns('', 
+    proxy_patterns = patterns(
+        '',
         (prefix_pattern_of('astakos_ui'), astakos_proxy),
     )
     proxy_patterns += api_patterns(

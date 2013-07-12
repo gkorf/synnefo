@@ -41,7 +41,6 @@ from string import digits, lowercase, uppercase
 
 from Crypto.Cipher import AES
 
-from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils import simplejson as json
@@ -55,22 +54,26 @@ from synnefo.db.models import (Flavor, VirtualMachine, VirtualMachineMetadata,
 from synnefo.db.pools import EmptyPool
 
 from synnefo.plankton.utils import image_backend
-from synnefo.settings import MAX_CIDR_BLOCK
 
-from synnefo.cyclades_settings import cyclades_services, BASE_HOST
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
+MAX_CIDR_BLOCK = settings.MAX_CIDR_BLOCK
+
 
 COMPUTE_URL = \
-    join_urls(BASE_HOST,
-              get_service_path(cyclades_services, "compute", version="v2.0"))
+    join_urls(settings.CYCLADES_BASE_HOST,
+              get_service_path(synnefo_services, "cyclades_compute",
+                               version="2"))
 SERVERS_URL = join_urls(COMPUTE_URL, "servers/")
 NETWORKS_URL = join_urls(COMPUTE_URL, "networks/")
 FLAVORS_URL = join_urls(COMPUTE_URL, "flavors/")
 IMAGES_URL = join_urls(COMPUTE_URL, "images/")
 PLANKTON_URL = \
-    join_urls(BASE_HOST,
-              get_service_path(cyclades_services, "image", version="v1.0"))
+    join_urls(settings.CYCLADES_BASE_HOST,
+              get_service_path(synnefo_services, "cyclades_plankton",
+                               version="1.0"))
 IMAGES_PLANKTON_URL = join_urls(PLANKTON_URL, "images/")
 
 

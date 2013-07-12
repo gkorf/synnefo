@@ -50,13 +50,11 @@ class FlavorAPITest(BaseAPITest):
         self.flavor3 = FlavorFactory()
         self.compute_path = get_service_path(synnefo_services,
                                              'cyclades_compute',
-                                             version='v2.0')
-
+                                             version='2')
 
     def myget(self, path):
         path = join_urls(self.compute_path, path)
         return self.get(path)
-
 
     def test_flavor_list(self):
         """Test if the expected list of flavors is returned."""

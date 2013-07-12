@@ -47,7 +47,8 @@ class PlanktonAPITest(BaseAPITest):
     def setUp(self, *args, **kwargs):
         super(PlanktonAPITest, self).setUp(*args, **kwargs)
         self.api_path = get_service_path(synnefo_services, 'cyclades_plankton',
-                                         version='v1.0')
+                                         version='1.0')
+
     def myget(self, path, *args, **kwargs):
         path = join_urls(self.api_path, path)
         return self.get(path, *args, **kwargs)
@@ -83,7 +84,7 @@ UPDATE_FIELDS = ('name', 'disk_format', 'container_format', 'is_public',
 
 
 DummyImages = {
- '0786a349-9725-48ec-8b86-8598eefc4043':
+'0786a349-9725-48ec-8b86-8598eefc4043':
  {'checksum': u'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
   u'container_format': u'bare',
   'created_at': '2012-12-04 09:50:20',
@@ -157,48 +158,48 @@ def assert_backend_closed(func):
 class PlanktonTest(PlanktonAPITest):
     @assert_backend_closed
     def test_list_images(self, backend):
-        backend.return_value.list_images.return_value =\
-                deepcopy(DummyImages).values()
+        backend.return_value.list_images.return_value = \
+            deepcopy(DummyImages).values()
         response = self.myget("images/")
         self.assertSuccess(response)
         images = json.loads(response.content)
         for api_image in images:
             id = api_image['id']
-            pithos_image = dict([(key, val)\
-                                for key, val in DummyImages[id].items()\
+            pithos_image = dict([(key, val)
+                                for key, val in DummyImages[id].items()
                                 if key in LIST_FIELDS])
             self.assertEqual(api_image, pithos_image)
         backend.return_value\
-                .list_images.assert_called_once_with({}, {'sort_key': 'created_at',
-                                                   'sort_dir': 'desc'})
+            .list_images.assert_called_once_with(
+                {}, {'sort_key': 'created_at', 'sort_dir': 'desc'})
 
     @assert_backend_closed
     def test_list_images_detail(self, backend):
-        backend.return_value.list_images.return_value =\
+        backend.return_value.list_images.return_value = \
                 deepcopy(DummyImages).values()
         response = self.myget("images/detail")
         self.assertSuccess(response)
         images = json.loads(response.content)
         for api_image in images:
             id = api_image['id']
-            pithos_image = dict([(key, val)\
-                                for key, val in DummyImages[id].items()\
+            pithos_image = dict([(key, val)
+                                for key, val in DummyImages[id].items()
                                 if key in DETAIL_FIELDS])
             self.assertEqual(api_image, pithos_image)
         backend.return_value\
-                .list_images.assert_called_once_with({}, {'sort_key': 'created_at',
-                                                   'sort_dir': 'desc'})
+            .list_images.assert_called_once_with(
+                {}, {'sort_key': 'created_at', 'sort_dir': 'desc'})
 
     @assert_backend_closed
     def test_list_images_filters(self, backend):
-        backend.return_value.list_images.return_value =\
-                deepcopy(DummyImages).values()
+        backend.return_value.list_images.return_value = \
+            deepcopy(DummyImages).values()
         response = self.myget("images/?size_max=1000")
         self.assertSuccess(response)
         backend.return_value\
-                .list_images.assert_called_once_with({'size_max': 1000},
-                                                     {'sort_key': 'created_at',
-                                                     'sort_dir': 'desc'})
+            .list_images.assert_called_once_with({'size_max': 1000},
+                                                 {'sort_key': 'created_at',
+                                                  'sort_dir': 'desc'})
 
     @assert_backend_closed
     def test_list_images_filters_error_1(self, backend):
@@ -217,8 +218,8 @@ class PlanktonTest(PlanktonAPITest):
                               json.dumps({}),
                               'json', HTTP_X_IMAGE_META_OWNER='user2')
         self.assertSuccess(response)
-        backend.return_value.update_metadata.assert_called_once_with(db_image['id'],
-                                                                     {"owner": "user2"})
+        backend.return_value.update_metadata.assert_called_once_with(
+            db_image['id'], {"owner": "user2"})
 
     @assert_backend_closed
     def test_add_image_member(self, backend):
@@ -226,16 +227,16 @@ class PlanktonTest(PlanktonAPITest):
         response = self.myput("images/%s/members/user3" % image_id,
                               json.dumps({}), 'json')
         self.assertSuccess(response)
-        backend.return_value.add_user.assert_called_once_with(image_id,
-                                                             'user3')
+        backend.return_value.add_user.assert_called_once_with(
+            image_id, 'user3')
 
     @assert_backend_closed
     def test_remove_image_member(self, backend):
         image_id = DummyImages.values()[0]['id']
         response = self.mydelete("images/%s/members/user3" % image_id)
         self.assertSuccess(response)
-        backend.return_value.remove_user.assert_called_once_with(image_id,
-                                                                'user3')
+        backend.return_value.remove_user.assert_called_once_with(
+            image_id, 'user3')
 
     @assert_backend_closed
     def test_add_image(self, backend):
@@ -247,9 +248,8 @@ class PlanktonTest(PlanktonAPITest):
                                HTTP_X_IMAGE_META_OWNER='dummy_owner',
                                HTTP_X_IMAGE_META_LOCATION=location)
         self.assertSuccess(response)
-        backend.return_value.register.assert_called_once_with('dummy_name',
-                                                              location,
-                                                      {'owner': 'dummy_owner'})
+        backend.return_value.register.assert_called_once_with(
+            'dummy_name', location, {'owner': 'dummy_owner'})
 
     @assert_backend_closed
     def test_get_image(self, backend):
