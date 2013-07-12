@@ -28,6 +28,12 @@ from synnefo.settings.default import *
 # autodetect default settings provided by synnefo applications
 extend_settings(__name__, 'synnefo')
 
+SYNNEFO_SETTINGS_SETUP_MODULES = ['synnefo.settings.setup.services']
+
+from .setup import preproc_settings
+preproc_settings(sys.modules[__name__])
+del preproc_settings
+
 # extend default settings with settings provided within *.conf user files
 # located in directory specified in the SYNNEFO_SETTINGS_DIR
 # environment variable
@@ -59,3 +65,16 @@ from os import environ
 if environ.get('SYNNEFO_TRACE'):
     from synnefo.lib import trace
     trace.set_signal_trap()
+
+
+from .setup import postproc_settings
+postproc_settings(sys.modules[__name__])
+del postproc_settings
+
+for _module_path in SYNNEFO_SETTINGS_SETUP_MODULES:
+    _temp = __import__(_module_path, globals(), locals(),
+                       ['setup_settings'], 0)
+    _temp.setup_settings(sys.modules[__name__])
+
+del _temp
+del _module_path

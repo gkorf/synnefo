@@ -18,9 +18,6 @@ import logging
 import synnefo.cyclades_settings as cyclades
 
 from django.conf import settings
-from astakosclient import AstakosClient
-
-from synnefo import cyclades_settings
 
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_public_endpoint as endpoint
@@ -28,17 +25,16 @@ from synnefo.lib.services import get_public_endpoint as endpoint
 
 logger = logging.getLogger(__name__)
 
-BASE_PATH = cyclades.BASE_PATH
+BASE_PATH = settings.CYCLADES_BASE_PATH
 if not BASE_PATH.startswith("/"):
     BASE_PATH = "/" + BASE_PATH
 
-cyclades_services = cyclades_settings.cyclades_services
-
-VOLUME_URL = endpoint(cyclades_services, 'volume', 'v2.0').rstrip('/')
-GLANCE_URL = endpoint(cyclades_services, 'image', 'v1.0').rstrip('/')
-COMPUTE_URL = endpoint(cyclades_services, 'compute', 'v2.0').rstrip('/')
-NETWORK_URL = endpoint(cyclades_services, 'network', 'v2.0').rstrip('/')
-USERDATA_URL = endpoint(cyclades_services, 'cyclades_userdata', '').rstrip('/')
+synnefo_services = settings.SYNNEFO_SERVICES
+VOLUME_URL = endpoint(synnefo_services, 'volume', 'v2.0').rstrip('/')
+GLANCE_URL = endpoint(synnefo_services, 'image', 'v1.0').rstrip('/')
+COMPUTE_URL = endpoint(synnefo_services, 'compute', 'v2.0').rstrip('/')
+NETWORK_URL = endpoint(synnefo_services, 'network', 'v2.0').rstrip('/')
+USERDATA_URL = endpoint(synnefo_services, 'cyclades_userdata', '').rstrip('/')
 
 ACCOUNT_URL = join_urls('/', cyclades.ASTAKOS_ACCOUNT_PROXY_PATH)
 
