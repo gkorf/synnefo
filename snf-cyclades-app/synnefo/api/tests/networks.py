@@ -37,16 +37,18 @@ from mock import patch
 from snf_django.utils.testing import BaseAPITest, mocked_quotaholder
 from synnefo.db.models import Network, NetworkInterface
 from synnefo.db import models_factory as mfactory
-from synnefo.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
 
 class ComputeAPITest(BaseAPITest):
-    def __init__(self, *args, **kwargs):
-        super(ComputeAPITest, self).__init__(*args, **kwargs)
-        self.compute_path = get_service_path(cyclades_services, 'compute',
-                                             version='v2.0')
+    def setUp(self, *args, **kwargs):
+        super(ComputeAPITest, self).setUp(*args, **kwargs)
+        self.compute_path = get_service_path(synnefo_services,
+                                             'cyclades_compute',
+                                             version='2.0')
 
     def myget(self, path, *args, **kwargs):
         path = join_urls(self.compute_path, path)

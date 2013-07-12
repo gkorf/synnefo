@@ -1,4 +1,4 @@
-# Copyright 2011 GRNET S.A. All rights reserved.
+# Copyright 2011-2013 GRNET S.A. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or
 # without modification, are permitted provided that the following
@@ -42,9 +42,16 @@ synnefo.__file__ = os.path.join(synnefo.__path__[0], '__init__.py')
 
 # import default settings
 from synnefo.settings.default import *
+from .setup import Example, Default
 
 # autodetect default settings provided by synnefo applications
 extend_settings(__name__, 'synnefo')
+
+SYNNEFO_SETTINGS_SETUP_MODULES = ['synnefo.settings.setup.services']
+
+from .setup import preproc_settings
+preproc_settings(sys.modules[__name__])
+del preproc_settings
 
 # extend default settings with settings provided within *.conf user files
 # located in directory specified in the SYNNEFO_SETTINGS_DIR
@@ -57,7 +64,7 @@ if os.path.exists(SYNNEFO_SETTINGS_DIR):
         conffiles = [f for f in entries if os.path.isfile(f) and
                      f.endswith(".conf")]
     except Exception as e:
-        print >>sys.stderr, "Failed to list *.conf files under %s" % \
+        print >> sys.stderr, "Failed to list *.conf files under %s" % \
                             SYNNEFO_SETTINGS_DIR
         raise SystemExit(1)
     conffiles.sort()
@@ -65,6 +72,18 @@ if os.path.exists(SYNNEFO_SETTINGS_DIR):
         try:
             execfile(os.path.abspath(f))
         except Exception as e:
-            print >>sys.stderr, "Failed to read settings file: %s [%r]" % \
+            print >> sys.stderr, "Failed to read settings file: %s [%r]" % \
                                 (os.path.abspath(f), e)
             raise SystemExit(1)
+
+
+from .setup import postproc_settings
+postproc_settings(sys.modules[__name__])
+del postproc_settings
+
+for _module_path in SYNNEFO_SETTINGS_SETUP_MODULES:
+    _temp = __import__(_module_path, globals(), locals(), ['setup_settings'], 0)
+    _temp.setup_settings(sys.modules[__name__])
+
+del _temp
+del _module_path

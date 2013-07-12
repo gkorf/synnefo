@@ -33,13 +33,14 @@
 
 from django.utils import simplejson as json
 from django.core.management.base import NoArgsCommand
-from pithos.api.settings import pithos_services
-from synnefo.lib.services import filter_public
+from django.conf.settings import SYNNEFO_SERVICES
+from synnefo.lib.services import filter_public, filter_component
 
 
 class Command(NoArgsCommand):
     help = "Export Pithos services in JSON format."
 
     def handle(self, *args, **options):
+        pithos_services = filter_component(SYNNEFO_SERVICES, 'pithos')
         output = json.dumps(filter_public(pithos_services), indent=4)
         self.stdout.write(output + "\n")

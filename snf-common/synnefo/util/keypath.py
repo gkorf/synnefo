@@ -246,6 +246,11 @@ def set_path(container, path, value, sep='.',
         raise ValueError(m)
 
 
+def customize_from_items(document, items):
+    for path, value in items:
+        set_path(document, path, value)
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()

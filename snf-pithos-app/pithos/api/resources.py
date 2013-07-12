@@ -31,7 +31,8 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from synnefo.util.keypath import get_path
-from pithos.api.settings import pithos_services
+from django.conf.settings import SYNNEFO_SERVICES
+from synnefo.lib.services import get_service_resources
 
-resources = get_path(pithos_services, 'pithos_object-store.resources').values()
+resources = get_service_resources(SYNNEFO_SERVICES, 'pithos_object-store')
+resources = resources.values()

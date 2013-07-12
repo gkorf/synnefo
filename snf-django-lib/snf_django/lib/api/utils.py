@@ -37,6 +37,7 @@ from django.utils import simplejson as json
 
 from django.conf import settings
 from snf_django.lib.api import faults
+from synnefo.lib.services import get_service_prefix
 
 
 class UTC(datetime.tzinfo):
@@ -115,6 +116,11 @@ def prefix_pattern(prefix):
         prefix += '/'
     pattern = '^' + prefix
     return pattern
+
+
+def prefix_pattern_of(service_name):
+    prefix = get_service_prefix(settings.SYNNEFO_SERVICES, service_name)
+    return prefix_pattern(prefix)
 
 
 def filter_modified_since(request, objects):

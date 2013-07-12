@@ -36,8 +36,9 @@ import json
 from snf_django.lib.api import faults
 from snf_django.utils.testing import BaseAPITest
 from synnefo.lib.services import get_service_path
-from synnefo.cyclades_settings import cyclades_services
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
 from mock import patch
 from functools import wraps
@@ -57,7 +58,8 @@ def assert_backend_closed(func):
 class ComputeAPITest(BaseAPITest):
     def setUp(self, *args, **kwargs):
         super(ComputeAPITest, self).setUp(*args, **kwargs)
-        self.compute_path = get_service_path(cyclades_services, 'compute',
+        self.compute_path = get_service_path(synnefo_services,
+                                             'cyclades_compute',
                                              version='v2.0')
     def myget(self, path, *args, **kwargs):
         path = join_urls(self.compute_path, path)

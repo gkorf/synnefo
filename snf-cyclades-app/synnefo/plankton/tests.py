@@ -37,16 +37,17 @@ from mock import patch
 from functools import wraps
 from copy import deepcopy
 from snf_django.utils.testing import BaseAPITest
-from synnefo.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
 
 class PlanktonAPITest(BaseAPITest):
     def setUp(self, *args, **kwargs):
         super(PlanktonAPITest, self).setUp(*args, **kwargs)
-        self.api_path = get_service_path(cyclades_services, 'image',
-                                             version='v1.0')
+        self.api_path = get_service_path(synnefo_services, 'cyclades_plankton',
+                                         version='v1.0')
     def myget(self, path, *args, **kwargs):
         path = join_urls(self.api_path, path)
         return self.get(path, *args, **kwargs)

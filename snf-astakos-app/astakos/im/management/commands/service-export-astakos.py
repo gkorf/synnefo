@@ -34,13 +34,14 @@
 from django.utils import simplejson as json
 from django.core.management.base import NoArgsCommand
 # import from settings, after any post-processing
-from astakos.im.settings import astakos_services
-from synnefo.lib.services import filter_public
+from django.conf.settings import SYNNEFO_SERVICES
+from synnefo.lib.services import filter_public, filter_component
 
 
 class Command(NoArgsCommand):
     help = "Export Astakos services in JSON format."
 
     def handle(self, *args, **options):
+        astakos_services = filter_component(SYNNEFO_SERVICES, 'astakos')
         output = json.dumps(filter_public(astakos_services), indent=4)
         self.stdout.write(output + "\n")

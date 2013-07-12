@@ -38,15 +38,17 @@ from django.utils import simplejson as json
 from synnefo.lib import join_urls
 from synnefo.vmapi import settings
 
-from synnefo.cyclades_settings import cyclades_services, BASE_HOST
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
 
 class VMAPITest(TestCase):
     def setUp(self, *args, **kwargs):
         super(VMAPITest, self).setUp(*args, **kwargs)
-        self.api_path = get_service_path(cyclades_services, 'vmapi',
+        self.api_path = get_service_path(synnefo_services,
+                                         'cyclades_vmapi',
                                          version='v1.0')
     def myget(self, path, *args, **kwargs):
         path = join_urls(self.api_path, path)
@@ -94,7 +96,7 @@ class TestServerParams(VMAPITest):
         uuid = create_server_params(sender=vm, created_vm_params=params)
 
         self.assertEqual(vm.config_url,
-                         join_urls(BASE_HOST, self.api_path,
+                         join_urls(settings.CYCLADES_BASE_HOST, self.api_path,
                                    'server-params/%s' % uuid))
         key = "vmapi_%s" % uuid
         self.assertEqual(type(backend.get(key)), str)

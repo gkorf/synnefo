@@ -34,16 +34,17 @@
 from django.utils import simplejson as json
 from django.test import TestCase
 from snf_django.utils.testing import astakos_user
-from synnefo.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
 
 class APITest(TestCase):
     def test_api_version(self):
         """Check API version."""
-        path = get_service_path(cyclades_services,
-                                'compute', version='v2.0')
+        path = get_service_path(synnefo_services, 'cyclades_compute',
+                                version='v2.0')
         with astakos_user('user'):
             response = self.client.get(path)
         self.assertEqual(response.status_code, 200)
@@ -52,8 +53,8 @@ class APITest(TestCase):
         self.assertEqual(api_version['status'], 'CURRENT')
 
     def test_catch_wrong_api_paths(self, *args):
-        path = get_service_path(cyclades_services,
-                                'compute', version='v2.0')
+        path = get_service_path(synnefo_services, 'cyclades_compute',
+                                version='v2.0')
         response = self.client.get(join_urls(path, 'nonexistent'))
         self.assertEqual(response.status_code, 400)
         try:

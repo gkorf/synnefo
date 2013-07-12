@@ -1,4 +1,4 @@
-# Copyright 2011-2012 GRNET S.A. All rights reserved.
+# Copyright 2013 GRNET S.A. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or
 # without modification, are permitted provided that the following
@@ -31,28 +31,16 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from django.conf.urls.defaults import include, patterns
-from synnefo.lib import join_urls
-from snf_django.lib.api.utils import prefix_pattern_of, prefix_pattern
-from snf_django.utils.urls import extend_with_root_redirects
+from django.utils import simplejson as json
+from django.core.management.base import NoArgsCommand
 from django.conf import settings
-
-astakos_patterns = patterns(
-    '',
-    (prefix_pattern_of('astakos_ui'), include('astakos.im.urls')),
-    (prefix_pattern_of('astakos_account'), include('astakos.api.urls')),
-    (prefix_pattern_of('astakos_identity'),
-            include('astakos.api.keystone_urls')),
-    (prefix_pattern_of('astakos_weblogin'),
-            include('astakos.im.weblogin_urls')),
-)
+from synnefo.lib.services import filter_public
 
 
-urlpatterns = patterns(
-    '',
-    (prefix_pattern(settings.ASTAKOS_BASE_PATH), include(astakos_patterns)),
-)
+class Command(NoArgsCommand):
+    help = "Export currently installed synnefo services in JSON format."
 
-# set utility redirects
-extend_with_root_redirects(urlpatterns, settings.SYNNEFO_COMPONENTS['astakos'],
-                           'astakos_ui', settings.ASTAKOS_BASE_PATH)
+    def handle(self, *args, **options):
+        synnefo_services = settings.SYNNEFO_SERVICES
+        output = json.dumps(filter_public(synnefo_services), indent=4)
+        self.stdout.write(output + "\n")

@@ -6,9 +6,6 @@
 
 DEBUG = False
 
-# Top-level URL for deployment. Numerous other URLs depend on this.
-CYCLADES_BASE_URL = "https://compute.example.synnefo.org/compute/"
-
 # The API will return HTTP Bad Request if the ?changes-since
 # parameter refers to a point in time more than POLL_LIMIT seconds ago.
 POLL_LIMIT = 3600

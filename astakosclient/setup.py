@@ -177,5 +177,9 @@ setup(
 
     install_requires=INSTALL_REQUIRES,
 
-    entry_points={},
+    entry_points={
+        'synnefo': [
+            'services = astakosclient.services:astakos_services',
+        ],
+    },
 )

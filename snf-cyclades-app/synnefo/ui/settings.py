@@ -33,28 +33,27 @@
 #
 
 import synnefo.cyclades_settings as cyclades
-from synnefo.cyclades_settings import cyclades_services, astakos_services
 
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_public_endpoint as endpoint
 
 from django.conf import settings
 
-BASE_PATH = cyclades.BASE_PATH
+BASE_PATH = settings.CYCLADES_BASE_PATH
 if not BASE_PATH.startswith("/"):
     BASE_PATH = "/" + BASE_PATH
 
-GLANCE_URL = endpoint(cyclades_services, 'image', 'v1.0').rstrip('/')
-COMPUTE_URL = endpoint(cyclades_services, 'compute', 'v2.0').rstrip('/')
-USERDATA_URL = endpoint(cyclades_services, 'cyclades_userdata', '').rstrip('/')
-ASTAKOS_UI_URL = endpoint(astakos_services, 'astakos_ui', '').rstrip('/')
-
+synnefo_services = settings.SYNNEFO_SERVICES
+GLANCE_URL = endpoint(synnefo_services, 'image', 'v1.0').rstrip('/')
+COMPUTE_URL = endpoint(synnefo_services, 'compute', 'v2.0').rstrip('/')
+USERDATA_URL = endpoint(synnefo_services, 'cyclades_userdata', '').rstrip('/')
+ASTAKOS_UI_URL = endpoint(synnefo_services, 'astakos_ui', '').rstrip('/')
 
 if cyclades.PROXY_USER_SERVICES:
     ACCOUNT_URL = join_urls('/', cyclades.BASE_ASTAKOS_PROXY_PATH,
                             cyclades.ASTAKOS_ACCOUNTS_PREFIX, 'v1.0')
 else:
-    ACCOUNT_URL = endpoint(astakos_services, 'account', 'v1.0')
+    ACCOUNT_URL = endpoint(synnefo_services, 'account', 'v1.0')
 
 
 USER_CATALOG_URL = join_urls(ACCOUNT_URL, 'user_catalogs')

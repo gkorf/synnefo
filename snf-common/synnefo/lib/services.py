@@ -37,18 +37,17 @@ from synnefo.util.keypath import get_path, set_path
 from urlparse import urlparse
 
 
-def fill_endpoints(services, base_url):
-    for name, service in services.iteritems():
-        prefix = get_path(service, 'prefix')
-        endpoints = get_path(service, 'endpoints')
-        for endpoint in endpoints:
-            version = get_path(endpoint, 'versionId')
-            publicURL = get_path(endpoint, 'publicURL')
-            if publicURL is not None:
-                continue
+def fill_endpoints(service, base_url):
+    prefix = get_path(service, 'prefix')
+    endpoints = get_path(service, 'endpoints')
+    for endpoint in endpoints:
+        version = get_path(endpoint, 'versionId')
+        publicURL = get_path(endpoint, 'publicURL')
+        if publicURL is not None:
+            continue
 
-            publicURL = join_urls(base_url, prefix, version).rstrip('/') + '/'
-            set_path(endpoint, 'publicURL', publicURL)
+        publicURL = join_urls(base_url, prefix, version).rstrip('/') + '/'
+        set_path(endpoint, 'publicURL', publicURL)
 
 
 def filter_public(services):
@@ -57,6 +56,22 @@ def filter_public(services):
         if service.get('public', False):
             public_services[name] = deepcopy(service)
     return public_services
+
+
+def filter_component(services, component_name):
+    component_services = {}
+    for name, service in services.iteritems():
+        if service['component'] == component_name:
+            component_services[name] = service
+    return compoment_services
+
+
+def get_service_prefix(services, service_name):
+    return get_path(services, service_name + '.prefix')
+
+
+def get_service_resources(services, service_name):
+    return get_path(services, service_name + '.resources')
 
 
 def get_public_endpoint(services, service_type, version=None):
@@ -82,6 +97,23 @@ def get_public_endpoint(services, service_type, version=None):
     return found_endpoints[selected]['publicURL']
 
 
-def get_service_path(services, service_type, version=None):
-    service_url = get_public_endpoint(services, service_type, version=version)
+def get_service_endpoints(services, service_name, version=None):
+    endpoints = get_path(services, service_name + '.endpoints')
+    if version is not None:
+        filtered = []
+        for endpoint in endpoints:
+            if endpoint['versionId'] != version:
+                continue
+            filtered.append(endpoint)
+        endpoints = filtered
+    return endpoints
+
+
+def get_service_path(services, service_name, version=None):
+    endpoints = get_service_endpoints(services, service_name, version=version)
+    if not endpoints:
+        m = "No endpoint found for service '{0}'".format(service_name)
+        if version is not None:
+            m += " and version '{0}'".format(version)
+    service_url = endpoints[0]['publicURL']
     return urlparse(service_url).path.rstrip('/') + '/'

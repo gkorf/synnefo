@@ -77,6 +77,8 @@ from astakos.im.views.util import render_response, _resources_catalog
 from astakos.im.views.decorators import cookie_fix, signed_terms_required,\
     required_auth_methods_assigned, valid_astakos_user_required, login_required
 
+from django.conf import settings as django_settings
+
 logger = logging.getLogger(__name__)
 
 
@@ -231,7 +233,7 @@ def api_access_config(request, template_name='im/api_access_config.html',
     else:
         cloud_name = branding_settings.SERVICE_NAME.replace(' ', '_').lower()
 
-    url = get_public_endpoint(settings.astakos_services, 'identity')
+    url = get_public_endpoint(django_settings.SYNNEFO_SERVICES, 'identity')
 
     context = {
         'user': request.user,
@@ -262,7 +264,7 @@ def api_access(request, template_name='im/api_access.html',
     """
     context = {}
 
-    url = get_public_endpoint(settings.astakos_services, 'identity')
+    url = get_public_endpoint(django_settings.SYNNEFO_SERVICES, 'identity')
     context['services'] = Component.catalog()
     context['token_url'] = url
     context['user'] = request.user

@@ -1,26 +1,21 @@
 from django.conf import settings
 from synnefo_branding import settings as synnefo_settings
 from synnefo.lib import parse_base_url
-from astakosclient import astakos_services as vanilla_astakos_services
-from synnefo.util.keypath import get_path
 from synnefo.lib import join_urls
-from synnefo.lib.services import fill_endpoints
+from synnefo.lib.services import fill_endpoints, get_service_prefix
 
 from copy import deepcopy
 
 
-BASE_URL = getattr(settings, 'ASTAKOS_BASE_URL',
-                   'https://accounts.example.synnefo.org')
+BASE_URL = settings.ASTAKOS_BASE_URL
+BASE_HOST = settings.ASTAKOS_BASE_HOST
+BASE_PATH = settings.ASTAKOS_BASE_PATH
 
-
-BASE_HOST, BASE_PATH = parse_base_url(BASE_URL)
-
-astakos_services = deepcopy(vanilla_astakos_services)
-fill_endpoints(astakos_services, BASE_URL)
-ACCOUNTS_PREFIX = get_path(astakos_services, 'astakos_account.prefix')
-VIEWS_PREFIX = get_path(astakos_services, 'astakos_ui.prefix')
-KEYSTONE_PREFIX = get_path(astakos_services, 'astakos_identity.prefix')
-WEBLOGIN_PREFIX = get_path(astakos_services, 'astakos_weblogin.prefix')
+synnefo_services = settings.SYNNEFO_SERVICES
+ACCOUNTS_PREFIX = get_service_prefix(synnefo_services, 'astakos_account')
+VIEWS_PREFIX = get_service_prefix(synnefo_services, 'astakos_ui')
+KEYSTONE_PREFIX = get_service_prefix(synnefo_services, 'astakos_identity')
+WEBLOGIN_PREFIX = get_service_prefix(synnefo_services, 'astakos_weblogin')
 
 # Set the expiration time of newly created auth tokens
 # to be this many hours after their creation time.

@@ -32,57 +32,36 @@
 # or implied, of GRNET S.A.
 
 from django.conf import settings
-from synnefo.lib import join_urls, parse_base_url
-from synnefo.util.keypath import get_path, set_path
-from synnefo.api.services import cyclades_services as vanilla_cyclades_services
-from synnefo.lib.services import fill_endpoints
-from astakosclient import astakos_services as vanilla_astakos_services
-
-from copy import deepcopy
-
+from synnefo.lib import join_urls
+from synnefo.lib.services import get_service_prefix
 
 # Process Cyclades settings
 
-BASE_URL = getattr(settings, 'CYCLADES_BASE_URL',
-                   'https://compute.example.synnefo.org/compute/')
-BASE_HOST, BASE_PATH = parse_base_url(BASE_URL)
+BASE_URL = settings.CYCLADES_BASE_URL
+BASE_HOST = settings.CYCLADES_BASE_HOST
+BASE_PATH = settings.CYCLADES_BASE_PATH
 
-CUSTOMIZE_SERVICES = getattr(settings, 'CYCLADES_CUSTOMIZE_SERVICES', ())
-cyclades_services = deepcopy(vanilla_cyclades_services)
-fill_endpoints(cyclades_services, BASE_URL)
-for path, value in CUSTOMIZE_SERVICES:
-    set_path(cyclades_services, path, value, createpath=True)
-
-COMPUTE_PREFIX = get_path(cyclades_services, 'cyclades_compute.prefix')
-VMAPI_PREFIX = get_path(cyclades_services, 'cyclades_vmapi.prefix')
-PLANKTON_PREFIX = get_path(cyclades_services, 'cyclades_plankton.prefix')
-HELPDESK_PREFIX = get_path(cyclades_services, 'cyclades_helpdesk.prefix')
-UI_PREFIX = get_path(cyclades_services, 'cyclades_ui.prefix')
-USERDATA_PREFIX = get_path(cyclades_services, 'cyclades_userdata.prefix')
-ADMIN_PREFIX = get_path(cyclades_services, 'cyclades_admin.prefix')
+synnefo_services = settings.SYNNEFO_SERVICES
+COMPUTE_PREFIX = get_service_prefix(synnefo_services, 'cyclades_compute')
+VMAPI_PREFIX = get_service_prefix(synnefo_services, 'cyclades_vmapi')
+PLANKTON_PREFIX = get_service_prefix(synnefo_services, 'cyclades_plankton')
+HELPDESK_PREFIX = get_service_prefix(synnefo_services, 'cyclades_helpdesk')
+UI_PREFIX = get_service_prefix(synnefo_services, 'cyclades_ui')
+USERDATA_PREFIX = get_service_prefix(synnefo_services, 'cyclades_userdata')
+ADMIN_PREFIX = get_service_prefix(synnefo_services, 'cyclades_admin')
 
 COMPUTE_ROOT_URL = join_urls(BASE_URL, COMPUTE_PREFIX)
 
 
 # Process Astakos settings
 
-ASTAKOS_BASE_URL = getattr(settings, 'ASTAKOS_BASE_URL',
-                           'https://accounts.example.synnefo.org/astakos/')
-ASTAKOS_BASE_HOST, ASTAKOS_BASE_PATH = parse_base_url(ASTAKOS_BASE_URL)
+ASTAKOS_BASE_URL = settings.ASTAKOS_BASE_URL
+ASTAKOS_BASE_HOST = settings.ASTAKOS_BASE_HOST
+ASTAKOS_BASE_PATH = settings.ASTAKOS_BASE_PATH
 
-# Patch astakosclient directly, otherwise it will not see any customization
-#astakos_services = deepcopy(vanilla_astakos_services)
-CUSTOMIZE_ASTAKOS_SERVICES = \
-    getattr(settings, 'CYCLADES_CUSTOMIZE_ASTAKOS_SERVICES', ())
-
-astakos_services = deepcopy(vanilla_astakos_services)
-fill_endpoints(astakos_services, ASTAKOS_BASE_URL)
-for path, value in CUSTOMIZE_ASTAKOS_SERVICES:
-    set_path(astakos_services, path, value, createpath=True)
-
-ASTAKOS_ACCOUNTS_PREFIX = get_path(astakos_services, 'astakos_account.prefix')
-ASTAKOS_VIEWS_PREFIX = get_path(astakos_services, 'astakos_ui.prefix')
-ASTAKOS_KEYSTONE_PREFIX = get_path(astakos_services, 'astakos_identity.prefix')
+ASTAKOS_ACCOUNTS_PREFIX = get_service_prefix(synnefo_services, 'astakos_account')
+ASTAKOS_VIEWS_PREFIX = get_service_prefix(synnefo_services, 'astakos_ui')
+ASTAKOS_KEYSTONE_PREFIX = get_service_prefix(synnefo_services, 'astakos_identity')
 
 
 # Proxy Astakos settings
