@@ -61,16 +61,3 @@ middlware_classes = [
 ]
 
 static_files = {'astakos.im': ''}
-
-# The following settings will replace the default django settings
-AUTHENTICATION_BACKENDS = (
-    'astakos.im.auth_backends.EmailBackend',
-    'astakos.im.auth_backends.TokenBackend')
-
-CUSTOM_USER_MODEL = 'astakos.im.AstakosUser'
-
-#SOUTH_TESTS_MIGRATE = False
-
-BROKER_URL = ''
-
-# INTERNAL_IPS = ('127.0.0.1',)

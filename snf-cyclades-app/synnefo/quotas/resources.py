@@ -13,8 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.api.services import cyclades_services
+from django.conf.settings import SYNNEFO_SERVICES
+from synnefo.lib.services import get_service_resources
 
 resources = \
-    cyclades_services['cyclades_compute']['resources'].values() +\
-    cyclades_services['cyclades_network']['resources'].values()
+    get_service_resources(SYNNEFO_SERVICES, 'cyclades_compute').values() +\
+    get_service_resources(SYNNEFO_SERVICES, 'cyclades_network').values()

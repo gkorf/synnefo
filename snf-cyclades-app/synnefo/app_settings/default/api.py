@@ -3,11 +3,7 @@
 # API configuration
 #####################
 
-
 DEBUG = False
-
-# Top-level URL for deployment. Numerous other URLs depend on this.
-CYCLADES_BASE_URL = "https://compute.example.synnefo.org/compute/"
 
 # The API will return HTTP Bad Request if the ?changes-since
 # parameter refers to a point in time more than POLL_LIMIT seconds ago.
@@ -106,10 +102,6 @@ MAX_PERSONALITY = 5
 
 # The maximum size, in bytes, for each personality file
 MAX_PERSONALITY_SIZE = 10240
-
-
-# Authentication URL of the astakos instance to be used for user management
-ASTAKOS_AUTH_URL = 'https://accounts.example.synnefo.org/identity/v2.0'
 
 # Tune the size of the Astakos http client connection pool
 # This limit the number of concurrent requests to Astakos.

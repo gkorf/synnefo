@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pithos.api.settings import pithos_services
+from django.conf import settings
+from synnefo.lib.services import get_service_resources
 
-resources = pithos_services['pithos_object-store']['resources'].values()
+resources = get_service_resources(settings.SYNNEFO_SERVICES,
+                                  'pithos_object-store')
+resources = resources.values()
