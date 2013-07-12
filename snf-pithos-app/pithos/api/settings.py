@@ -35,33 +35,38 @@
 import logging
 
 from django.conf import settings
-from synnefo.lib import parse_base_url, join_urls
-from synnefo.lib.services import fill_endpoints
-from pithos.api.services import pithos_services as vanilla_pithos_services
+from synnefo.lib import join_urls
+from synnefo.lib.services import get_service_prefix
 from astakosclient import AstakosClient
-
-from copy import deepcopy
-
 
 logger = logging.getLogger(__name__)
 
 # --------------------------------------------------------------------
 # Process Pithos settings
 
-# Top-level URL for Pithos. Must set.
-BASE_URL = getattr(settings, 'PITHOS_BASE_URL',
-                   "https://object-store.example.synnefo.org/pithos/")
 # Service Token acquired by identity provider.
 SERVICE_TOKEN = getattr(settings, 'PITHOS_SERVICE_TOKEN', '')
 
-BASE_HOST, BASE_PATH = parse_base_url(BASE_URL)
+BASE_URL = settings.PITHOS_BASE_URL
+BASE_HOST = settings.PITHOS_BASE_HOST
+BASE_PATH = settings.PITHOS_BASE_PATH
 
-pithos_services = deepcopy(vanilla_pithos_services)
-fill_endpoints(pithos_services, BASE_URL)
-PITHOS_PREFIX = pithos_services['pithos_object-store']['prefix']
-PUBLIC_PREFIX = pithos_services['pithos_public']['prefix']
-UI_PREFIX = pithos_services['pithos_ui']['prefix']
-VIEW_PREFIX = join_urls(UI_PREFIX, 'view')
+ASTAKOS_BASE_URL = settings.ASTAKOS_BASE_URL
+ASTAKOS_BASE_HOST = settings.ASTAKOS_BASE_HOST,
+ASTAKOS_BASE_PATH = settings.ASTAKOS_BASE_PATH
+
+synnefo_services = settings.SYNNEFO_SERVICES
+
+PITHOS_PREFIX = get_service_prefix(synnefo_services, 'pithos_object-store')
+PUBLIC_PREFIX = get_service_prefix(synnefo_services, 'pithos_public')
+UI_PREFIX = get_service_prefix(synnefo_services, 'pithos_ui')
+VIEW_PREFIX = get_service_prefix(synnefo_services, 'pithos_view')
+
+ASTAKOS_ACCOUNTS_PREFIX = get_service_prefix(synnefo_services,
+                                             'astakos_account')
+ASTAKOS_VIEWS_PREFIX = get_service_prefix(synnefo_services, 'astakos_ui')
+ASTAKOS_KEYSTONE_PREFIX = get_service_prefix(synnefo_services,
+                                             'astakos_identity')
 
 
 # --------------------------------------------------------------------

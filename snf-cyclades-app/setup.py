@@ -220,6 +220,7 @@ setup(
          'web_context_processors = synnefo.app_settings:synnefo_web_context_processors',
          'urls = synnefo.app_settings.urls:urlpatterns',
          'web_static = synnefo.app_settings:synnefo_static_files',
+         'services = synnefo.api.services:cyclades_services',
          ]
       },
 )

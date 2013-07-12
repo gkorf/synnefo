@@ -33,14 +33,14 @@
 
 from django.conf.urls import include, patterns
 
-from astakos.im.settings import BASE_PATH, ACCOUNTS_PREFIX, \
-    VIEWS_PREFIX, KEYSTONE_PREFIX, WEBLOGIN_PREFIX, ADMIN_PREFIX
-from snf_django.lib.api.utils import prefix_pattern
+from snf_django.lib.api.utils import prefix_pattern_of, prefix_pattern
 from snf_django.utils.urls import \
     extend_with_root_redirects, extend_endpoint_with_slash
-from astakos.im.settings import astakos_services
+from django.conf import settings
 
 urlpatterns = []
+
+astakos_services = settings.SYNNEFO_COMPONENTS['astakos']
 
 # Redirects should be first, otherwise they may get overridden by wildcards
 extend_endpoint_with_slash(urlpatterns, astakos_services, 'astakos_ui')
@@ -48,19 +48,21 @@ extend_endpoint_with_slash(urlpatterns, astakos_services, 'astakos_weblogin')
 
 astakos_patterns = patterns(
     '',
-    (prefix_pattern(VIEWS_PREFIX), include('astakos.im.urls')),
-    (prefix_pattern(ACCOUNTS_PREFIX), include('astakos.api.urls')),
-    (prefix_pattern(KEYSTONE_PREFIX), include('astakos.api.keystone_urls')),
-    (prefix_pattern(WEBLOGIN_PREFIX), include('astakos.im.weblogin_urls')),
-    (prefix_pattern(ADMIN_PREFIX), include('astakos.admin.admin_urls')),
+    (prefix_pattern_of('astakos_ui'), include('astakos.im.urls')),
+    (prefix_pattern_of('astakos_account'), include('astakos.api.urls')),
+    (prefix_pattern_of('astakos_identity'),
+     include('astakos.api.keystone_urls')),
+    (prefix_pattern_of('astakos_weblogin'),
+     include('astakos.im.weblogin_urls')),
+    (prefix_pattern_of('astakos_admin'), include('astakos.admin.admin_urls')),
     ('', include('astakos.oa2.urls')),
 )
 
 urlpatterns += patterns(
     '',
-    (prefix_pattern(BASE_PATH), include(astakos_patterns)),
+    (prefix_pattern(settings.ASTAKOS_BASE_PATH), include(astakos_patterns)),
 )
 
 # set utility redirects
 extend_with_root_redirects(urlpatterns, astakos_services,
-                           'astakos_ui', BASE_PATH)
+                           'astakos_ui', settings.ASTAKOS_BASE_PATH)

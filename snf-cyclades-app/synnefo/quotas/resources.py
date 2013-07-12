@@ -31,8 +31,9 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from synnefo.api.services import cyclades_services
+from django.conf.settings import SYNNEFO_SERVICES
+from synnefo.lib.services import get_service_resources
 
 resources = \
-    cyclades_services['cyclades_compute']['resources'].values() +\
-    cyclades_services['cyclades_network']['resources'].values()
+    get_service_resources(SYNNEFO_SERVICES, 'cyclades_compute').values() +\
+    get_service_resources(SYNNEFO_SERVICES, 'cyclades_network').values()

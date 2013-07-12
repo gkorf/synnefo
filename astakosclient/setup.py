@@ -178,5 +178,9 @@ setup(
     install_requires=INSTALL_REQUIRES,
     tests_require=['mock'],
 
-    entry_points={},
+    entry_points={
+        'synnefo': [
+            'services = astakosclient.services:astakos_services',
+        ],
+    },
 )

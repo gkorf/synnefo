@@ -31,6 +31,7 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from astakos.im.settings import astakos_services
+from django.conf.settings import SYNNEFO_SERVICES
+from synnefo.lib.services import get_service_resources
 
-resources = astakos_services['astakos_account']['resources'].values()
+resources = get_service_resources(SYNNEFO_SERVICES, 'astakos_account')

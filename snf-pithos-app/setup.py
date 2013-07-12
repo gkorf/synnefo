@@ -202,7 +202,8 @@ setup(
             'default_settings = pithos.api.synnefo_settings',
             'web_apps = pithos.api.synnefo_settings:synnefo_installed_apps',
             'web_middleware = pithos.api.synnefo_settings:synnefo_middlewares',
-            'urls = pithos.api.urls:urlpatterns'
+            'urls = pithos.api.urls:urlpatterns',
+            'services = pithos.api.services:pithos_services',
         ]
     },
 )

@@ -33,13 +33,15 @@
 # or implied, of GRNET S.A.
 
 from astakos.im.tests.common import *
-from astakos.im.settings import astakos_services, BASE_HOST
 from astakos.oa2.backends import DjangoBackend
 
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 
 from django.core.urlresolvers import reverse
+from django.conf import settings
+
+synnefo_services = settings.SYNNEFO_SERVICES
 
 from datetime import date
 
@@ -48,8 +50,7 @@ from datetime import date
 import json
 import time
 
-ROOT = "/%s/%s/%s/" % (
-    astakos_settings.BASE_PATH, astakos_settings.ACCOUNTS_PREFIX, 'v1.0')
+ROOT = get_service_path(synnefo_services, 'astakos_account', 'v1.0')
 u = lambda url: ROOT + url
 
 
@@ -754,9 +755,9 @@ class UserCatalogsTest(TestCase):
 
 
 class WrongPathAPITest(TestCase):
-    def test_catch_wrong_account_paths(self, *args):
-        path = get_service_path(astakos_services, 'account', 'v1.0')
-        path = join_urls(BASE_HOST, path, 'nonexistent')
+    def test_catch_wrong_api_paths(self, *args):
+        path = get_service_path(synnefo_services, 'account', '1.0')
+        path = join_urls(settings.ASTAKOS_BASE_HOST, path, 'nonexistent')
         response = self.client.get(path)
         self.assertEqual(response.status_code, 400)
         try:
@@ -764,9 +765,9 @@ class WrongPathAPITest(TestCase):
         except ValueError:
             self.assertTrue(False)
 
-    def test_catch_wrong_identity_paths(self, *args):
-        path = get_service_path(astakos_services, 'identity', 'v2.0')
-        path = join_urls(BASE_HOST, path, 'nonexistent')
+    def test_catch_wrong_api_paths(self, *args):
+        path = get_service_path(synnefo_services, 'identity', '2.0')
+        path = join_urls(settings.ASTAKOS_BASE_HOST, path, 'nonexistent')
         response = self.client.get(path)
         self.assertEqual(response.status_code, 400)
         try:

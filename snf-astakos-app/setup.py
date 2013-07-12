@@ -209,7 +209,8 @@ setup(
             'web_middleware = astakos.synnefo_settings:middlware_classes',
             'web_context_processors = astakos.synnefo_settings:context_processors',
             'urls = astakos.urls:urlpatterns',
-            'web_static = astakos.synnefo_settings:static_files'
+            'web_static = astakos.synnefo_settings:static_files',
+            'services = astakos.api.services:astakos_services',
         ],
         'console_scripts': [
             'snf-service-export = astakos.scripts.snf_service_export:main',

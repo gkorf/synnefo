@@ -1,4 +1,4 @@
-# Copyright 2013-2014 GRNET S.A. All rights reserved.
+# Copyright 2013 GRNET S.A. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or
 # without modification, are permitted provided that the following
@@ -31,8 +31,16 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from django.conf.settings import SYNNEFO_SERVICES
-from synnefo.lib.services import get_service_resources
+from django.utils import simplejson as json
+from django.core.management.base import NoArgsCommand
+from django.conf import settings
+from synnefo.lib.services import filter_public
 
-resources = get_service_resources(SYNNEFO_SERVICES, 'pithos_object-store')
-resources = resources.values()
+
+class Command(NoArgsCommand):
+    help = "Export currently installed synnefo services in JSON format."
+
+    def handle(self, *args, **options):
+        synnefo_services = settings.SYNNEFO_SERVICES
+        output = json.dumps(filter_public(synnefo_services), indent=4)
+        self.stdout.write(output + "\n")
