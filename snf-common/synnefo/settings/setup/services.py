@@ -57,6 +57,7 @@ def setup_services(settings):
 
 
 def setup_base_urls(settings):
+    import os
     for component_name in settings.SYNNEFO_COMPONENTS.keys():
         name_upper = component_name.upper()
         base_url_name = name_upper + '_BASE_URL'
@@ -64,11 +65,17 @@ def setup_base_urls(settings):
         base_path_name = name_upper + '_BASE_PATH'
         base_url = getattr(settings, base_url_name, None)
         if base_url is None:
-            m = ("No '{setting_name}' setting found even though "
-                 "component '{component_name}' is installed!\n")
-            m = m.format(setting_name=base_url_name,
-                         component_name=component_name)
-            raise AssertionError(m)
+            # try environment variable
+            base_url = os.environ.get(base_url_name)
+            if base_url is None:
+                # give up
+                m = ("No '{setting_name}' setting found even though "
+                     "component '{component_name}' is installed!\n")
+                m = m.format(setting_name=base_url_name,
+                             component_name=component_name)
+                raise AssertionError(m)
+            else:
+                setattr(settings, base_url_name, base_url)
 
         base_host, base_path = parse_base_url(base_url)
         setattr(settings, base_host_name, base_host)

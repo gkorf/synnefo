@@ -52,7 +52,7 @@ class Default(object):
     def __init__(self, default_value, example=None, description=None):
         self.default_value = default_value
         if example is None:
-            example_value = default_value
+            example = default_value
         self.example_value = example
         self.description = description
 
@@ -100,14 +100,19 @@ def postproc_settings(settings):
     configured = {}
     defaults = settings._DEFAULTS
     failed = []
+    import os
+    relax_mandatory = bool(os.environ.get('SYNNEFO_RELAX_MANDATORY_SETTINGS'))
 
     for name, value in get_all_settings(settings):
         if isinstance(value, Example):
-            m = ("Setting '{name}' is mandatory. "
-                 "Please provide a real value. "
-                 "Example value: '{example}'")
-            m = m.format(name=name, example=value.example_value)
-            failed.append(m)
+            if relax_mandatory:
+                setattr(settings, name, value.example_value)
+            else:
+                m = ("Setting '{name}' is mandatory. "
+                     "Please provide a real value. "
+                     "Example value: '{example}'")
+                m = m.format(name=name, example=value.example_value)
+                failed.append(m)
         elif isinstance(value, Default):
             m = "unprocessed default setting in post processing"
             raise AssertionError(m)

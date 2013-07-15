@@ -3,6 +3,7 @@
 # API configuration
 #####################
 
+from synnefo.settings.setup import Example
 
 DEBUG = False
 
@@ -101,7 +102,9 @@ MAX_PERSONALITY_SIZE = 10240
 
 
 # Authentication URL of the astakos instance to be used for user management
-ASTAKOS_AUTH_URL = 'https://accounts.example.synnefo.org/identity/v2.0'
+ASTAKOS_AUTH_URL = \
+    Example('https://accounts.example.synnefo.org/identity/v2.0')
+CYCLADES_BASE_URL = Example('https://cyclades.example.synnefo.org/compute')
 
 # Tune the size of the Astakos http client connection pool
 # This limit the number of concurrent requests to Astakos.
