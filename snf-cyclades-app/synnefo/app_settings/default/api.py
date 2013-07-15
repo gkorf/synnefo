@@ -3,6 +3,7 @@
 # API configuration
 #####################
 
+from synnefo.settings.setup import Example
 
 DEBUG = False
 
@@ -18,7 +19,7 @@ POLL_LIMIT = 3600
 # network of this list. If the special network ID "SNF:ANY_PUBLIC" is used,
 # Cyclades will automatically choose a public network and connect the server to
 # it.
-DEFAULT_INSTANCE_NETWORKS=["SNF:ANY_PUBLIC"]
+DEFAULT_INSTANCE_NETWORKS = ["SNF:ANY_PUBLIC"]
 
 # Maximum allowed network size for private networks.
 MAX_CIDR_BLOCK = 22
@@ -80,8 +81,9 @@ MAX_PERSONALITY = 5
 MAX_PERSONALITY_SIZE = 10240
 
 
+CYCLADES_BASE_URL = Example('https://cyclades.example.synnefo.org/compute')
 # Top-level URL of the astakos instance to be used for user management
-ASTAKOS_BASE_URL = 'https://accounts.example.synnefo.org/'
+ASTAKOS_BASE_URL = Example('https://astakos.example.synnefo.org/accounts')
 
 # Tune the size of the Astakos http client connection pool
 # This limit the number of concurrent requests to Astakos.

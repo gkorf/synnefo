@@ -16,6 +16,10 @@ runtest () {
     fi
 }
 
+export SYNNEFO_RELAX_MANDATORY_SETTINGS=1
+export ASTAKOS_BASE_URL='https://astakos.example.synnefo.org/accounts'
+export CYCLADES_BASE_URL='https://cyclades.example.synnefo.org/compute'
+export PITHOS_BASE_URL='https://pithos.example.synnefo.org/object-store'
 export SYNNEFO_SETTINGS_DIR=/etc/synnefo-test-settings
 
 ASTAKOS_APPS="im quotaholder_app"
