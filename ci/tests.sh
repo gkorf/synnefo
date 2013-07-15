@@ -127,6 +127,10 @@ extract_tests () {
     usage $1
 }
 
+export SYNNEFO_RELAX_MANDATORY_SETTINGS=1
+export ASTAKOS_BASE_URL='https://astakos.example.synnefo.org/accounts'
+export CYCLADES_BASE_URL='https://cyclades.example.synnefo.org/compute'
+export PITHOS_BASE_URL='https://pithos.example.synnefo.org/object-store'
 export SYNNEFO_SETTINGS_DIR=/tmp/snf-test-settings
 
 astakos_all_tests="im quotaholder_app oa2"
