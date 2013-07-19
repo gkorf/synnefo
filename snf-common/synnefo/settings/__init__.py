@@ -32,9 +32,8 @@
 # or implied, of GRNET S.A.
 
 import os
-import sys
-
-from synnefo.util.entry_points import extend_settings
+from sys import modules, stderr
+_module = modules[__name__]
 
 # set synnefo package __file__ to fix django related bug
 import synnefo
@@ -42,19 +41,35 @@ synnefo.__file__ = os.path.join(synnefo.__path__[0], '__init__.py')
 
 # import default settings
 from synnefo.settings.default import *
+from .setup import Setting
+synnefo_settings = {}
+# insert global default synnefo settings
+from .default import *
+for name in dir(_module):
+    if not Setting.is_valid_setting_name(name):
+        continue
+    synnefo_settings[name] = getattr(_module, name)
 
 # autodetect default settings provided by synnefo applications
-extend_settings(__name__, 'synnefo')
+from synnefo.util.entry_points import get_entry_points
+for e in get_entry_points('synnefo', 'default_settings'):
+    m = e.load()
+    print "loading", m
+    for name in dir(m):
+        if name.startswith('__'):
+            continue
+        synnefo_settings[name] = getattr(m, name)
 
-SYNNEFO_SETTINGS_SETUP_MODULES = ['synnefo.settings.setup.services']
-
-from .setup import preproc_settings
-preproc_settings(sys.modules[__name__])
-del preproc_settings
+# set strict to True to require annotation of all settings
+Setting.initialize_settings(synnefo_settings, strict=False)
+_module.__dict__.update(Setting.Catalogs['defaults'])
 
 # extend default settings with settings provided within *.conf user files
 # located in directory specified in the SYNNEFO_SETTINGS_DIR
 # environment variable
+import re
+system_conf_re = re.compile('^([0-9]\+-)?system.conf$')
+
 SYNNEFO_SETTINGS_DIR = os.environ.get('SYNNEFO_SETTINGS_DIR', "/etc/synnefo/")
 if os.path.exists(SYNNEFO_SETTINGS_DIR):
     try:
@@ -63,18 +78,39 @@ if os.path.exists(SYNNEFO_SETTINGS_DIR):
         conffiles = [f for f in entries if os.path.isfile(f) and
                      f.endswith(".conf")]
     except Exception as e:
-        print >> sys.stderr, "Failed to list *.conf files under %s" % \
-                             SYNNEFO_SETTINGS_DIR
+        print >> stderr, "Failed to list *.conf files under %s" % \
+            SYNNEFO_SETTINGS_DIR
         raise SystemExit(1)
     conffiles.sort()
     for f in conffiles:
+        if system_conf_re.match(f):
+            allow_known = False
+            allow_unknown = True
+        else:
+            allow_known = True
+            allow_unknown = False
+
+        # FIXME: Hack until all settings have been annotated properly
+        allow_unknown = True
+        allow_override = True
+
         try:
-            execfile(os.path.abspath(f))
+            path = os.path.abspath(f)
+            old_settings = Setting.Catalogs['defaults']
+            new_settings = Setting.load_settings_from_file(path, old_settings)
+
+            Setting.load_configuration(new_settings,
+                                       source=path,
+                                       allow_known=allow_known,
+                                       allow_unknown=allow_unknown,
+                                       allow_override=allow_override)
         except Exception as e:
-            print >> sys.stderr, "Failed to read settings file: %s [%r]" % \
-                                 (os.path.abspath(f), e)
+            print >> stderr, "Failed to read settings file: %s [%r]" % \
+                (path, e)
             raise SystemExit(1)
 
+Setting.configure_settings()
+_module.__dict__.update(Setting.Catalogs['runtime'])
 
 from os import environ
 # The tracing code is enabled by an environmental variable and not a synnefo
@@ -84,15 +120,10 @@ if environ.get('SYNNEFO_TRACE'):
     from synnefo.lib import trace
     trace.set_signal_trap()
 
-
-from .setup import postproc_settings
-postproc_settings(sys.modules[__name__])
-del postproc_settings
-
-for _module_path in SYNNEFO_SETTINGS_SETUP_MODULES:
-    _temp = __import__(_module_path, globals(), locals(),
-                       ['setup_settings'], 0)
-    _temp.setup_settings(sys.modules[__name__])
-
-del _temp
-del _module_path
+# cleanup module namespace
+for _name in dir(_module):
+    if _name.startswith('_') or _name.isupper():
+        continue
+    delattr(_module, _name)
+del _name
+del _module
