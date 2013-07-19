@@ -3,8 +3,6 @@
 # API configuration
 #####################
 
-from synnefo.settings.setup import Example
-
 DEBUG = False
 
 # The API will return HTTP Bad Request if the ?changes-since
@@ -79,11 +77,6 @@ MAX_PERSONALITY = 5
 
 # The maximum size, in bytes, for each personality file
 MAX_PERSONALITY_SIZE = 10240
-
-
-CYCLADES_BASE_URL = Example('https://cyclades.example.synnefo.org/compute')
-# Top-level URL of the astakos instance to be used for user management
-ASTAKOS_BASE_URL = Example('https://astakos.example.synnefo.org/accounts')
 
 # Tune the size of the Astakos http client connection pool
 # This limit the number of concurrent requests to Astakos.

@@ -31,4 +31,5 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from synnefo.settings.default.admins import *
+from .services import *
+from .admins import *
