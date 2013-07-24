@@ -36,7 +36,6 @@ for name in dir(_module):
 from synnefo.util.entry_points import get_entry_points
 for e in get_entry_points('synnefo', 'default_settings'):
     m = e.load()
-    print "loading", m
     for name in dir(m):
         if name.startswith('__'):
             continue
