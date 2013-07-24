@@ -105,6 +105,12 @@ class Command(BaseCommand):
             default=False,
             help=("Display full setting details")),
         make_option(
+            "-r", "--runtime",
+            dest="printout_runtime",
+            action="store_true",
+            default=False,
+            help=("Append runtime values in printout.")),
+        make_option(
             "-p", "--printout",
             dest="printout",
             action="store_true",
@@ -309,12 +315,12 @@ class Command(BaseCommand):
             line = format_str.format(**format_args) + eol
             print line
 
-    def display_printout(self, display_settings_list):
+    def display_printout(self, display_settings_list, runtime=False):
         for name, setting in display_settings_list:
-            comment = setting.present_as_comment() + '\n'
+            comment = setting.present_as_comment(runtime=runtime) + '\n'
             print comment
 
-    def printout_files(self, display_settings_list, path):
+    def printout_files(self, display_settings_list, path, runtime=False):
         if not isdir(path):
             m = "Cannot find directory '{path}'".format(path=path)
             raise CommandError(m)
@@ -341,7 +347,7 @@ class Command(BaseCommand):
                     conffile.close()
                 conffile = open(filepath, "a")
                 old_filepath = filepath
-            conffile.write(setting.present_as_comment())
+            conffile.write(setting.present_as_comment(runtime=runtime))
             conffile.write('\n')
 
     def handle(self, *args, **options):
@@ -371,9 +377,11 @@ class Command(BaseCommand):
         display_settings_list = sort_method(display_settings)
 
         if options['printout']:
-            self.display_printout(display_settings_list)
+            self.display_printout(display_settings_list,
+                                  options['printout_runtime'])
         elif options['printout_files']:
             self.printout_files(display_settings_list,
-                                options['printout_files'])
+                                options['printout_files'],
+                                options['printout_runtime'])
         else:
             self.display_console(display_settings_list, options)

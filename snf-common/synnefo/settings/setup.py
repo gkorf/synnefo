@@ -260,7 +260,7 @@ class Setting(object):
 
     __str__ = __repr__
 
-    def present_as_comment(self):
+    def present_as_comment(self, runtime=False):
         header = "# {name}: type {type}, category '{categ}'"
         header = header.format(name=self.setting_name,
                                type=self.setting_type.upper(),
@@ -276,6 +276,7 @@ class Setting(object):
 
         example_value = self.example_value
         default_value = self.default_value
+        runtime_value = self.runtime_value
         if example_value != default_value:
             example = "Example value: {0}"
             example = example.format(pformat(example_value)).split('\n')
@@ -286,6 +287,13 @@ class Setting(object):
         assignment = assignment.format(name=self.setting_name,
                                        value=pformat(default_value))
         assignment = [("#" + s) for s in assignment.split('\n')]
+        if runtime and self.configured_value is not Setting.NoValue \
+                and runtime_value != self.default_value:
+            runtime_assignment = "{name} = {value}"
+            runtime_assignment = runtime_assignment.format(
+                name=self.setting_name,
+                value=pformat(self.runtime_value))
+            assignment += [runtime_assignment]
 
         return '\n'.join(chain(header, ['#'],
                                description, ['#'],
