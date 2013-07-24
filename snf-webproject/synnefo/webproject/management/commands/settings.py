@@ -30,7 +30,7 @@
 from synnefo.settings.setup import Setting
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
-from os.path import isdir
+from os.path import isdir, exists
 from pprint import pformat
 from textwrap import wrap
 
@@ -326,29 +326,36 @@ class Command(BaseCommand):
             raise CommandError(m)
 
         category_depths = {}
-        for name, setting in Setting.Catalogs['settings'].iteritems():
-            category = setting.category
-            if (category not in category_depths or
-                    setting.configured_depth > category_depths[category]):
-                category_depths[category] = setting.configured_depth
+        for name, setting in display_settings_list:
+            key = (setting.configured_depth, setting.category)
+            if key not in category_depths:
+                category_depths[key] = []
+            category_depths[key].append((name, setting))
 
         old_filepath = None
         conffile = None
         filepath = None
-        for name, setting in display_settings_list:
-            category = setting.category
-            category_depth = 10 * category_depths[category]
+        for (depth, category), setting_list in \
+                sorted(category_depths.iteritems()):
+            depth *= 10
             filepath = '{path}/{depth}-{category}.conf'
             filepath = filepath.format(path=path,
-                                       depth=category_depth,
+                                       depth=depth,
                                        category=category)
             if filepath != old_filepath:
                 if conffile:
                     conffile.close()
+                if exists(filepath):
+                    m = "File {f} already exists! aborting."
+                    m = m.format(f=filepath)
+                    raise CommandError(m)
+                self.stdout.write("Writing {f}\n".format(f=filepath))
                 conffile = open(filepath, "a")
                 old_filepath = filepath
-            conffile.write(setting.present_as_comment(runtime=runtime))
-            conffile.write('\n')
+            setting_list.sort()
+            for name, setting in setting_list:
+                conffile.write(setting.present_as_comment(runtime=runtime))
+                conffile.write('\n')
 
     def handle(self, *args, **options):
         if args:
