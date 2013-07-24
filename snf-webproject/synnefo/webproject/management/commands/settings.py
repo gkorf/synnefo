@@ -32,6 +32,7 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from os.path import isdir
 from pprint import pformat
+from textwrap import wrap
 
 NoValue = Setting.NoValue
 available_categories = sorted(Setting.Catalogs['categories'].keys())
@@ -263,6 +264,7 @@ class Command(BaseCommand):
             default_value = setting.default_value
             example_value = setting.example_value
             dependencies = setting.dependencies
+            description = setting.description
             sep = " # "
             eol = ""
 
@@ -272,13 +274,14 @@ class Command(BaseCommand):
                 example_value = pformat(example_value)
                 dependencies = pformat(dependencies)
                 sep = "\n  # "
+                description = (sep + '  ').join(wrap(description, 70))
                 eol = "\n"
 
             format_args = {'name': name,
                            'value': value,
                            'example': example_value,
                            'default': default_value,
-                           'description': setting.description,
+                           'description': description,
                            'dependencies': dependencies,
                            'serial': setting.serial,
                            'configured_depth': setting.configured_depth,
@@ -296,6 +299,7 @@ class Command(BaseCommand):
                 format_str += sep + "Flags: {flags}"
 
             if options['display_details']:
+                format_str += sep + "Description: {description}"
                 format_str += sep + "Dependencies: {dependencies}"
                 format_str += sep + "Depth: {configured_depth}"
                 format_str += sep + "Serial: {serial}"
