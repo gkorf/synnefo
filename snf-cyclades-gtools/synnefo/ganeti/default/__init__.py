@@ -1,4 +1,4 @@
-# Copyright 2011-2014 GRNET S.A. All rights reserved.
+# Copyright 2013 GRNET S.A. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or
 # without modification, are permitted provided that the following
@@ -30,45 +30,5 @@
 # documentation are those of the authors and should not be
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
-#
 
-import os
-
-from setuptools import setup
-
-HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
-
-from synnefo.versions.ganeti import __version__
-
-setup(
-    name="snf-cyclades-gtools",
-    version=__version__,
-    description="Synnefo tools for interaction with Ganeti",
-
-    url="http://www.synnefo.org/",
-    author='Synnefo development team',
-    author_email='synnefo-devel@googlegroups.com',
-    maintainer='Synnefo development team',
-    maintainer_email='synnefo-devel@googlegroups.com',
-
-    license="BSD",
-    namespace_packages=["synnefo", "synnefo.versions"],
-    packages=["synnefo", "synnefo.ganeti", "synnefo.versions"],
-    dependency_links=['http://www.synnefo.org/packages/pypi'],
-    install_requires=[
-        'snf-common',
-        'python-daemon>=1.5.5',
-        'pyinotify>=0.8.9',
-        'puka',
-        'setproctitle>=1.0.1'
-    ],
-    entry_points={
-        'console_scripts': [
-            'snf-ganeti-eventd = synnefo.ganeti.eventd:main',
-            'snf-progress-monitor = synnefo.ganeti.progress_monitor:main'
-        ],
-        'synnefo': [
-            'default_settings = synnefo.ganeti.default'
-        ]
-    },
-)
+from synnefo.ganeti.default.settings import *
