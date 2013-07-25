@@ -50,7 +50,7 @@ setup(
             'snf-progress-monitor = synnefo.ganeti.progress_monitor:main'
         ],
         'synnefo': [
-            'default_settings = synnefo.ganeti.settings'
+            'default_settings = synnefo.ganeti.default'
         ]
     },
 )
