@@ -40,12 +40,18 @@ available_types = sorted(Setting.Catalogs['types'].keys())
 
 
 class Command(BaseCommand):
-    help = """Display synnefo settings
+    help = """Display synnefo settings.
 
     Example:
-    settings --select type=mandatory,configured
-    settings --select hidden --select type=default,
-    """
+        settings --select type=mandatory,configured
+        settings --select hidden --select type=default,
+
+    Examples to export settings for config files:
+        settings --select \!hidden --printout-files /etc/synnefo.new
+        settings --select \\
+            ${EXPORT_SETTINGS_COMMA_LIST} --printout-files /etc/synnefo.new
+
+    To export runtime values in config files include --runtime."""
 
     option_list = BaseCommand.option_list + (
         make_option(
@@ -54,22 +60,17 @@ class Command(BaseCommand):
             dest="selection_strings",
             action="append",
             metavar='[!]selection,...',
-            help=("List settings that match any comma-separated criteria:"
-                  "  all\n"
-                  "  type=<setting type>\n"
-                  "  category=<setting category>\n"
-                  "  hidden\n"
-                  "  configured\n"
-                  "  <SETTING_NAME>\n"
-                  "\n"
-                  "Available types: {types}\n"
-                  "Available categories: {categories}\n"
-                  "\n"
+            help=("List settings that match any comma-separated criteria: "
+                  "all, type=<setting type>, "
+                  "category=<setting category>, "
+                  "hidden, configured, <SETTING_NAME>.  "
+                  "Available types: {types}.  "
+                  "Available categories: {categories}.  "
                   "Multiple --select options yield the intersection "
-                  "of their results\n"
-                  "Prepending '!' negates the selection criterion\n"
-                  ).format(types=available_types,
-                           categories=available_categories)),
+                  "of their results."
+                  "Prepending '!' negates the selection criterion."
+                  ).format(types=', '.join(available_types),
+                           categories=', '.join(available_categories))),
         make_option(
             "-o", "--sort-order",
             type='string',
