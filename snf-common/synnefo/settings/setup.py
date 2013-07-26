@@ -780,13 +780,17 @@ class SubMandatory(Setting):
 
 
     @staticmethod
-    def condition_callback(deps):
+    def condition_callback(setting, value, deps):
+        if not deps:
+            m = "Setting '{name}' requires at least one dependency."
+            m = m.format(name=setting.setting_name)
+            raise Setting.SettingsError(m)
         return any(bool(setting_value) for setting_value in deps.itervalues())
 
     @staticmethod
     def configure_callback(setting, value, deps):
         condition_callback = setting.condition_callback
-        if condition_callback(deps):
+        if condition_callback(setting, value, deps):
             # We are mandatory
             if value is Setting.NoValue:
                 if environ.get('SYNNEFO_RELAX_MANDATORY_SETTINGS'):
