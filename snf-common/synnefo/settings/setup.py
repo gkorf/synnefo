@@ -218,11 +218,11 @@ class Setting(object):
         'settings': {},
         'types': defaultdict(dict),
         'categories': defaultdict(dict),
-        'initialized': {},
-        'init_pending': {},
         'defaults': {},
         'configured': {},
         'runtime': {},
+        'init_dependents': {},
+        'init_pending': {},
     }
 
     default_value = None
@@ -396,11 +396,7 @@ class Setting(object):
         settings = Catalogs['settings']
         categories = Catalogs['categories']
         defaults = Catalogs['defaults']
-        if 'init_dependents' not in Catalogs:
-            Catalogs['init_dependents'] = {}
         init_dependents = Catalogs['init_dependents']
-        if 'init_pending' not in Catalogs:
-            Catalogs['init_pending'] = {}
         pending = Catalogs['init_pending']
         types = Catalogs['types']
 
@@ -516,6 +512,24 @@ class Setting(object):
         settings = Setting.Catalogs['settings']
         if not setting_names:
             setting_names = settings.keys()
+
+        pending = Setting.Catalogs['init_pending']
+        dependents= Setting.Catalogs['init_dependents']
+        m = ""
+        if pending:
+            m += ("There are settings that failed to initialize: "
+                  "[{failed}]\n")
+            failed = ', '.join(sorted(pending.iterkeys()))
+            m = m.format(failed=failed)
+        if dependents:
+            m += ("There are settings that are referenced but not found: "
+                  "{notfound}\n")
+            notfound = ', '.join(
+                ("%s referenced by %s" % (name, ', '.join(dependents)))
+                for name, dependents in dependents.iteritems())
+            m = m.format(notfound=notfound)
+        if m:
+            raise Setting.SettingsError(m)
 
         bottom = set(settings.keys())
         for name, setting in settings.iteritems():
