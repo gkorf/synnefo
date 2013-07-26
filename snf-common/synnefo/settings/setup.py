@@ -806,9 +806,9 @@ class SubMandatory(Setting):
 
         elif value is Setting.NoValue:
             return setting.default_value
-        else:
-            # acknowledge configured value
-            return Setting.NoValue
+
+        # acknowledge configured value
+        return Setting.NoValue
 
 
     @staticmethod
