@@ -98,7 +98,7 @@ class Setting(object):
 
     setting_name:
         This is the name this setting annotation was given to.
-        Initialized as None. Settings.initialize_settings will set it.
+        Initialized as None. Setting.initialize_settings will set it.
 
     configured_value:
         This is the value given by a configuration file.
@@ -106,7 +106,7 @@ class Setting(object):
         the administrator.
 
         Initialized as Setting.NoValue.
-        Settings.load_configuration will set it.
+        Setting.load_configuration will set it.
 
     configured_source:
         This is the source (e.g. configuration file path) where the
@@ -122,7 +122,7 @@ class Setting(object):
         for this setting has been completed.
 
         Initialized as Setting.NoValue.
-        Settings.configure_one_setting will set it upon completion.
+        Setting.configure_one_setting will set it upon completion.
 
     serial:
         The setting's serial index in the 'registry' catalog.
@@ -164,7 +164,7 @@ class Setting(object):
        'setting_type' will be used as the setting type name in the
        catalog.  Each entry in the catalog is a dictionary of setting
        names and setting annotation instances. For example:
-       
+
        setting_types = Setting.Catalogs['types']
        setting_types['mandatory']['SETTING_NAME'] == setting_instance
 
@@ -218,6 +218,8 @@ class Setting(object):
         'settings': {},
         'types': defaultdict(dict),
         'categories': defaultdict(dict),
+        'initialized': {},
+        'init_pending': {},
         'defaults': {},
         'configured': {},
         'runtime': {},
@@ -229,6 +231,8 @@ class Setting(object):
     category = 'misc'
     dependencies = ()
     dependents = ()
+    init_dependencies = ()
+    init_dependents = ()
     export = True
 
     serial = None
@@ -237,6 +241,9 @@ class Setting(object):
     configured_depth = 0
     runtime_value = NoValue
     fail_exception = None
+    required_args = ()
+    disallowed_args = ()
+    _checked_arguments = False
 
     def __repr__(self):
         flags = []
@@ -300,6 +307,10 @@ class Setting(object):
                                assignment))
 
     @staticmethod
+    def init_callback(setting):
+        return
+
+    @staticmethod
     def configure_callback(setting, value, dependencies):
         if value is Setting.NoValue:
             return setting.default_value
@@ -324,11 +335,36 @@ class Setting(object):
         if configured_value not in (NoValue, runtime_value):
             raise AssertionError()
 
+    def check_arguments(self, kwargs):
+        if self._checked_arguments:
+            return
+
+        arg_set = set(kwargs.keys())
+        required_set = set(self.required_args)
+        intersection = arg_set.intersection(required_set)
+        if intersection != required_set:
+            missing = ', '.join(required_set - intersection)
+            m = "{self}: Required arguments [{missing}] not found."
+            m = m.format(self=self, missing=missing)
+            raise Setting.SettingsError(m)
+
+        disallowed_set = set(self.disallowed_args)
+        intersection = arg_set.intersection(disallowed_set)
+        if intersection:
+            m = "{self}: Given arguments [{disallowed}] are disallowed."
+            m = m.format(self=self, disallowed=', '.join(intersection))
+            raise Setting.SettingsError(m)
+
+        self._checked_arguments = True
+
     def __init__(self, **kwargs):
 
         attr_names = ['default_value', 'example_value', 'description',
-                      'category', 'dependencies', 'configure_callback',
-                      'export']
+                      'category', 'export',
+                      'init_dependencies', 'init_callback',
+                      'dependencies', 'configure_callback']
+
+        self.check_arguments(kwargs)
 
         for name in attr_names:
             if name in kwargs:
@@ -360,29 +396,56 @@ class Setting(object):
         settings = Catalogs['settings']
         categories = Catalogs['categories']
         defaults = Catalogs['defaults']
+        if 'init_dependents' not in Catalogs:
+            Catalogs['init_dependents'] = {}
+        init_dependents = Catalogs['init_dependents']
+        if 'init_pending' not in Catalogs:
+            Catalogs['init_pending'] = {}
+        pending = Catalogs['init_pending']
         types = Catalogs['types']
 
-        for name, value in settings_dict.iteritems():
-            if not isinstance(value, Setting):
+        for name, setting in settings_dict.iteritems():
+            if not isinstance(setting, Setting):
                 if strict:
                     m = "Setting name '{name}' has non-annotated value '{value}'!"
-                    m = m.format(name=name, value=value)
+                    m = m.format(name=name, value=setting)
                     raise Setting.SettingsError(m)
                 else:
-                    value = Setting(default_value=value)
+                    setting = Setting(default_value=setting)
 
             # FIXME: duplicate annotations?
             #if name in settings:
             #    m = ("Duplicate annotation for setting '{name}': '{value}'. "
             #         "Original annotation: '{original}'")
-            #    m = m.format(name=name, value=value, original=settings[name])
+            #    m = m.format(name=name, value=setting, original=settings[name])
             #    raise Setting.SettingsError(m)
-            value.setting_name = name
-            settings[name] = value
-            categories[value.category][name] = value
-            types[value.setting_type][name] = value
-            default_value = value.default_value
+            for init_dep in setting.init_dependencies:
+                if init_dep in settings:
+                    if init_dep in init_dependents:
+                        m = ("Init dependency '{depname}' of setting '{name}' "
+                             "found both in settings and in forward "
+                             "dependencies!")
+                        m = m.format(depname=init_dep, name=name)
+                        raise AssertionError(m)
+                    dep_setting = settings[init_dep]
+                    if not dep_setting.init_dependents:
+                        dep_setting.init_dependents = []
+                    dep_setting.init_dependents.append(name)
+                else:
+                    if init_dep not in init_dependents:
+                        init_dependents[init_dep] = []
+                    init_dependents[init_dep].append(name)
+
+            setting.setting_name = name
+            if name in init_dependents:
+                setting.init_dependents = init_dependents.pop(name)
+            settings[name] = setting
+            pending[name] = setting
+            categories[setting.category][name] = setting
+            types[setting.setting_type][name] = setting
+            default_value = setting.default_value
             defaults[name] = default_value
+            setting.initialize()
 
         defaults['_SETTING_CATALOGS'] = Catalogs
 
@@ -419,9 +482,9 @@ class Setting(object):
                     raise Setting.SettingsError(m)
             else:
                 if allow_unknown:
-                    # pretend this was declared in a default settings module
-                    desc = "Unknown setting from {source}".format(source=source)
-
+                    # pretend it was declared in a default settings module
+                    desc = "Unknown setting from {source}"
+                    desc = desc.format(source=source)
                     setting = Setting(default_value=value,
                                       category='unknown',
                                       description=desc)
@@ -449,19 +512,105 @@ class Setting(object):
         return new_settings
 
     @staticmethod
-    def configure_one_setting(setting_name, dep_stack=()):
+    def configure_settings(setting_names=()):
+        settings = Setting.Catalogs['settings']
+        if not setting_names:
+            setting_names = settings.keys()
+
+        bottom = set(settings.keys())
+        for name, setting in settings.iteritems():
+            dependencies = setting.dependencies
+            if not dependencies:
+                continue
+            bottom.discard(name)
+            for dep_name in setting.dependencies:
+                dep_setting = settings[dep_name]
+                if not dep_setting.dependents:
+                    dep_setting.dependents = []
+                dep_setting.dependents.append(name)
+
+        depth = 1
+        while True:
+            dependents = []
+            for name in bottom:
+                setting = settings[name]
+                setting.configured_depth = depth
+                dependents.extend(setting.dependents)
+            if not dependents:
+                break
+            bottom = dependents
+            depth += 1
+
+        bottom = set(settings.keys())
+        for name, setting in settings.iteritems():
+            dependencies = setting.dependencies
+            if not dependencies:
+                continue
+            bottom.discard(name)
+            for dep_name in setting.dependencies:
+                dep_setting = settings[dep_name]
+                if not dep_setting.dependents:
+                    dep_setting.dependents = []
+                dep_setting.dependents.append(name)
+
+        failed = []
+        for name, setting in Setting.Catalogs['settings'].items():
+            try:
+                setting.configure()
+            except Setting.SettingsError as e:
+                failed.append(e)
+
+        if failed:
+            import sys
+            sys.stderr.write('\n')
+            sys.stderr.write('\n'.join(map(str, failed)))
+            sys.stderr.write('\n\n')
+            raise Setting.SettingsError("Failed to configure settings.")
+
+    def initialize(setting, dep_stack=()):
+        Catalogs = Setting.Catalogs
+        settings = Catalogs['settings']
+        pending = Catalogs['init_pending']
+        setting_name = setting.setting_name
         dep_stack += (setting_name,)
+
+        if setting_name not in pending:
+            m = "Attempt to initialize already initialized setting '{name}'!"
+            m = m.format(name=setting_name)
+            raise AssertionError(m)
+
+        for init_dep in setting.init_dependencies:
+            if init_dep in dep_stack:
+                m = "Settings init dependency cycle detected: {stack}"
+                m = m.format(stack=dep_stack + (init_dep,))
+                raise Setting.SettingsError(m)
+
+            if init_dep not in settings:
+                pending[setting_name] = setting
+                return False
+
+            dep_setting = settings[init_dep]
+            if init_dep in pending:
+                if not dep_setting.initialize(dep_stack):
+                    pending[setting_name] = setting
+                    return False
+
+        init_callback = setting.init_callback
+        init_callback(setting)
+        del pending[setting_name]
+        for dependent in setting.init_dependents:
+            if dependent in pending:
+                settings[dependent].initialize(dep_stack[:-1])
+        return True
+
+    def configure(setting, dep_stack=()):
         Catalogs = Setting.Catalogs
         settings = Catalogs['settings']
         runtime = Catalogs['runtime']
         NoValue = Setting.NoValue
+        setting_name = setting.setting_name
+        dep_stack += (setting_name,)
 
-        if setting_name not in settings:
-            m = "Unknown setting '{name}'"
-            m = m.format(name=setting_name)
-            raise Setting.SettingsError(m)
-
-        setting = settings[setting_name]
         if setting.runtime_value is not NoValue:
             # already configured, nothing to do.
             return
@@ -503,7 +652,7 @@ class Setting(object):
 
             if dep_name in dep_stack:
                 m = "Settings dependency cycle detected: {stack}"
-                m = m.format(stack=dep_stack)
+                m = m.format(stack=dep_stack + (dep_name,))
                 exc = Setting.SettingsError(m)
                 setting.fail_exception = exc
                 raise exc
@@ -518,7 +667,7 @@ class Setting(object):
                 raise exc
 
             if dep_setting.runtime_value is NoValue:
-                Setting.configure_one_setting(dep_name, dep_stack)
+                dep_setting.configure(dep_stack)
 
             dep_value = dep_setting.runtime_value
             deps[dep_name] = dep_value
@@ -547,51 +696,6 @@ class Setting(object):
         setting.runtime_value = setting_value
         runtime[setting_name] = setting_value
 
-    @staticmethod
-    def configure_settings(setting_names=()):
-        settings = Setting.Catalogs['settings']
-        if not setting_names:
-            setting_names = settings.keys()
-
-        bottom = set(settings.keys())
-        for name, setting in settings.iteritems():
-            dependencies = setting.dependencies
-            if not dependencies:
-                continue
-            bottom.discard(name)
-            for dep_name in setting.dependencies:
-                dep_setting = settings[dep_name]
-                if not dep_setting.dependents:
-                    dep_setting.dependents = []
-                dep_setting.dependents.append(name)
-
-        depth = 1
-        while True:
-            dependents = []
-            for name in bottom:
-                setting = settings[name]
-                setting.configured_depth = depth
-                dependents.extend(setting.dependents)
-            if not dependents:
-                break
-            bottom = dependents
-            depth += 1
-
-        failed = []
-        for name in Setting.Catalogs['settings']:
-            try:
-                Setting.configure_one_setting(name)
-            except Setting.SettingsError as e:
-                failed.append(e)
-
-        if failed:
-            import sys
-            sys.stderr.write('\n')
-            sys.stderr.write('\n'.join(map(str, failed)))
-            sys.stderr.write('\n\n')
-            raise Setting.SettingsError("Failed to configure settings.")
-
-    @staticmethod
     def enforce_not_configurable(setting, value, deps=None):
         if value is not Setting.NoValue:
             m = "Setting '{name}' is not configurable."
@@ -607,12 +711,12 @@ class Mandatory(Setting):
 
     """
     setting_type = 'mandatory'
+    disallowed_args = ('export', 'default_value')
+    required_args = ('example_value', 'description')
 
-    def __init__(self, example_value=Setting.NoValue, **kwargs):
-        if example_value is Setting.NoValue:
-            m = "Mandatory settings require an example_value"
-            raise Setting.SettingsError(m)
-        kwargs['example_value'] = example_value
+    def __init__(self, **kwargs):
+        kwargs.pop('export', None)
+        self.check_arguments(kwargs)
         kwargs['export'] = True
         Setting.__init__(self, **kwargs)
 
@@ -632,6 +736,117 @@ class Mandatory(Setting):
         return Setting.NoValue
 
 
+class SubMandatory(Setting):
+    """SubMandatory settings are made mandatory only if a condition
+    on their dependencies is true. The default condition is that the
+    settings it depends on have a true value via bool().
+
+    If the dependency list is not empty then 'export' and 'category' attributes
+    are inherited from the settings in that list, and they must all agree on
+    the same value.
+
+    Example:
+    ENABLE_FAST_BACKEND = Default(default_value=False, ...)
+    FAST_BACKEND_SPEED = ConditionalMandatory(
+        example_value=9001,
+        dependencies=['ENABLE_FAST_BACKEND'])
+
+    """
+    setting_type = 'submandatory'
+    disallowed_args = ('init_dependencies', 'init_callback',
+                       'configure_callback')
+    required_args = ('example_value', 'description')
+
+    def __init__(self, depends=None, condition_callback=None, **kwargs):
+
+        if depends:
+            if 'dependencies' in kwargs:
+                m = "Cannot specify both 'depends' and 'dependencies'"
+                raise TypeError(m)
+            kwargs['dependencies'] = (depends,)
+
+        dependencies = kwargs.get('dependencies', ())
+        if dependencies:
+            # if we depend on other settings,
+            # we inherit their export and category.
+            self.disallowed_args += ('export', 'category')
+
+        self.check_arguments(kwargs)
+
+        kwargs['init_dependencies'] = dependencies
+        Setting.__init__(self, **kwargs)
+        if condition_callback is not None:
+            self.condition_callback = condition_callback
+
+
+    @staticmethod
+    def condition_callback(deps):
+        return any(bool(setting_value) for setting_value in deps.itervalues())
+
+    @staticmethod
+    def configure_callback(setting, value, deps):
+        condition_callback = setting.condition_callback
+        if condition_callback(deps):
+            # We are mandatory
+            if value is Setting.NoValue:
+                if environ.get('SYNNEFO_RELAX_MANDATORY_SETTINGS'):
+                    return setting.example_value
+
+                m = ("Setting '{name}' is mandatory due to configuration of "
+                     "{due}. Please provide a real value. "
+                     "Example value: '{example}'")
+                if deps:
+                    due = "[" + ', '.join(sorted(deps.keys())) + "]"
+                else:
+                    due = "[runtime-determined parameters]"
+                m = m.format(name=setting.setting_name,
+                             example=setting.example_value,
+                             due=due)
+                raise Setting.SettingsError(m)
+
+        elif value is Setting.NoValue:
+            return setting.default_value
+        else:
+            # acknowledge configured value
+            return Setting.NoValue
+
+
+    @staticmethod
+    def init_callback(setting):
+        # if we depend on other settings,
+        # they must all agree on export and category
+
+        dependencies = setting.init_dependencies
+        if not dependencies:
+            return
+
+        settings = Setting.Catalogs['settings']
+        firstdep = dependencies[0]
+        firstdep_setting = settings[firstdep]
+        export = firstdep_setting.export
+        category = firstdep_setting.category
+        for dep in dependencies[1:]:
+            dep_setting = settings[dep]
+            if dep_setting.category != category:
+                m = ("SubMandatory settings require that all "
+                     "their dependencies have the same 'category' value. "
+                     "However '{firstdep}' has '{firstval}' while "
+                     "'{dep}' has '{val}'")
+                m = m.format(firstdep=firstdep, firstval=category,
+                             dep=dep, val=dep_setting.category)
+                raise Setting.SettingsError(m)
+            if dep_setting.export != export:
+                m = ("SubMandatory settings require that all "
+                     "their dependencies have the same 'export' value. "
+                     "However '{firstdep}' has '{firstval}' while "
+                     "'{dep}' has '{val}'")
+                m = m.format(firstdep=firstdep, firstval=export,
+                             dep=dep, val=dep_setting.export)
+                raise Setting.SettingsError(m)
+        setting.export = export
+        setting.category = category
+
+
 class Default(Setting):
     """Default settings are not mandatory.
     There are default values that are meant to work well, and also serve as an
@@ -639,17 +854,12 @@ class Default(Setting):
 
     """
     setting_type = 'default'
+    required_args = ('default_value', 'description')
 
-    def __init__(self, default_value=Setting.NoValue,
-                 description="No description", **kwargs):
-        if default_value is Setting.NoValue:
-            m = "Default settings require a default_value"
-            raise Setting.SettingsError(m)
-
-        kwargs['default_value'] = default_value
+    def __init__(self, **kwargs):
+        self.check_arguments(kwargs)
         if 'example_value' not in kwargs:
-            kwargs['example_value'] = default_value
-        kwargs['description'] = description
+            kwargs['example_value'] = kwargs['default_value']
         Setting.__init__(self, **kwargs)
 
 
@@ -659,18 +869,13 @@ class Constant(Setting):
 
     """
     setting_type = 'constant'
+    disallowed_args = ('export',)
+    required_args = ('default_value', 'description')
 
-    def __init__(self, default_value=Setting.NoValue,
-                 description="No description", **kwargs):
-        if default_value is Setting.NoValue:
-            m = "Constant settings require a default_value"
-            raise Setting.SettingsError(m)
-
-        kwargs['default_value'] = default_value
-        if 'example_value' not in kwargs:
-            kwargs['example_value'] = default_value
+    def __init__(self, **kwargs):
+        kwargs.pop('export', None)
+        self.check_arguments(kwargs)
         kwargs['export'] = False
-        kwargs['description'] = description
         Setting.__init__(self, **kwargs)
 
 
@@ -682,14 +887,7 @@ class Auto(Setting):
 
     """
     setting_type = 'auto'
-
-    def __init__(self, configure_callback=None, **kwargs):
-        if not configure_callback:
-            m = "Auto settings must provide a configure_callback"
-            raise Setting.SettingsError(m)
-
-        kwargs['configure_callback'] = configure_callback
-        Setting.__init__(self, **kwargs)
+    required_args = ('configure_callback', 'description')
 
     @staticmethod
     def configure_callback(setting, value, deps):
@@ -700,9 +898,12 @@ class Deprecated(object):
     """Deprecated settings must be removed, renamed, or otherwise fixed."""
 
     setting_type = 'deprecated'
+    disallowed_args = ('export', 'default_value', 'example_value')
+    required_args = ('description',)
 
     def __init__(self, rename_to=None, **kwargs):
         self.rename_to = rename_to
+        self.check_arguments(kwargs)
         kwargs['export'] = False
         Setting.__init__(self, **kwargs)
 
