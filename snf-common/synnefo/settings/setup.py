@@ -726,7 +726,7 @@ class Mandatory(Setting):
     """
     setting_type = 'mandatory'
     disallowed_args = ('export', 'default_value')
-    required_args = ('example_value', 'description')
+    required_args = ('example_value', 'description', 'category')
 
     def __init__(self, **kwargs):
         kwargs.pop('export', None)
