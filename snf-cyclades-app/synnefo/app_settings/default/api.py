@@ -1,100 +1,250 @@
-# -*- coding: utf-8 -*-
-#
+from synnefo.settings.setup import Setting, Mandatory, Default, SubMandatory
+
 # API configuration
-#####################
-
-DEBUG = False
-
-# The API will return HTTP Bad Request if the ?changes-since
-# parameter refers to a point in time more than POLL_LIMIT seconds ago.
-POLL_LIMIT = 3600
+###################
 
 #
 # Network Configuration
 #
 
-# List of network IDs. All created instances will get a NIC connected to each
-# network of this list. If the special network ID "SNF:ANY_PUBLIC" is used,
-# Cyclades will automatically choose a public network and connect the server to
-# it.
-DEFAULT_INSTANCE_NETWORKS = ["SNF:ANY_PUBLIC"]
+DEFAULT_INSTANCE_NETWORKS = Default(
+    default_value=["SNF:ANY_PUBLIC"],
+    example_value=["SNF:ANY_PUBLIC", "1", "2"],
+    description="List of network IDs as known by Cyclades. All newly created "
+        "instances will get a number of NICs each one connected to a network "
+        "of this list. If the special network ID 'SNF:ANY_PUBLIC' is used, "
+        "Cyclades will automatically choose a public network and connect the "
+        "instance to it.",
+    category="snf-cyclades-app-api",
+    export=True,
+)
 
-# Maximum allowed network size for private networks.
-MAX_CIDR_BLOCK = 22
+API_ENABLED_NETWORK_FLAVORS = Default(
+    default_value=["MAC_FILTERED"],
+    example_value=["MAC_FILTERED", "PHYSICAL_VLAN"],
+    decription="The supported types of Private Virtual Networks to be "
+        "exported to users via the API. End users will be able to create "
+        "Private Networks only of the types included in this list.",
+    category="snf-cyclades-app-api",
+    export=True,
+)
 
-# Default settings used by network flavors
-DEFAULT_MAC_PREFIX = 'aa:00:0'
-DEFAULT_BRIDGE = 'br0'
+DEFAULT_MAC_FILTERED_BRIDGE = Default(
+    default_value="prv0",
+    example_value="prv0",
+    description="The name of the bridge that all MAC_FILTERED type networks "
+        "will use.",
+    category="snf-cyclades-api-app",
+    export=True,
+)
 
-# Network flavors that users are allowed to create through API requests
-API_ENABLED_NETWORK_FLAVORS = ['MAC_FILTERED']
+DEFAULT_ROUTING_TABLE = Default(
+    default_value="snf_public",
+    example_value="snf_public",
+    description="The host's routing table that will be used by the "
+        "IP_LESS_ROUTED type network.",
+    category="snf-cyclades-api-app",
+    export=True,
+)
 
-# Settings for IP_LESS_ROUTED network:
-# -----------------------------------
-# In this case VMCs act as routers that forward the traffic to/from VMs, based
-# on the defined routing table($DEFAULT_ROUTING_TABLE) and ip rules, that
-# exist in every node, implenting an IP-less routed and proxy-arp setup.
-DEFAULT_ROUTING_TABLE = 'snf_public'
+MAX_CIDR_BLOCK = Default(
+    default_value=22,
+    example_value=22,
+    description="Maximum allowed network size for private networks.",
+    export=False,
+)
 
-# Settings for MAC_FILTERED network:
-# ------------------------------------------
-# All networks of this type are bridged to the same bridge. Isolation between
-# networks is achieved by assigning a unique MAC-prefix to each network and
-# filtering packets via ebtables.
-DEFAULT_MAC_FILTERED_BRIDGE = 'prv0'
+DEFAULT_MAC_PREFIX = Default(
+    default_value="aa:00:0",
+    example_value="aa:00:0",
+    description="All NICs connected to all types of networks, except the "
+        "MAC_FILTERED ones (that use MAC prefix pools), will have this MAC "
+        "prefix.",
+    export=False,
+)
 
+DEFAULT_BRIDGE = Default(
+    default_value="br0",
+    example_value="br0",
+    description="The default bridge to connect all CUSTOM networks.",
+    export=False,
+)
 
-# Firewalling
-GANETI_FIREWALL_ENABLED_TAG = 'synnefo:network:0:protected'
-GANETI_FIREWALL_DISABLED_TAG = 'synnefo:network:0:unprotected'
-GANETI_FIREWALL_PROTECTED_TAG = 'synnefo:network:0:limited'
+#
+# Firewall configuration
+#
 
-# The default firewall profile that will be in effect if no tags are defined
-DEFAULT_FIREWALL_PROFILE = 'DISABLED'
+GANETI_FIREWALL_ENABLED_TAG = Default(
+    default_value="synnefo:network:0:protected",
+    example_value="synnefo:network:0:protected",
+    description="Tag that finds its way down to kvm-vif-bridge to enable "
+        "the application of corresponding firewalling rules on the host.",
+    export=False,
+)
 
-# Fixed mapping of user VMs to a specific backend.
-# e.g. BACKEND_PER_USER = {'example@synnefo.org': 2}
-BACKEND_PER_USER = {}
+GANETI_FIREWALL_DISABLED_TAG = Default(
+    default_value="synnefo:network:0:unprotected",
+    example_value="synnefo:network:0:unprotected",
+    description="Tag that finds its way down to kvm-vif-bridge to enable "
+        "the application of corresponding firewalling rules on the host.",
+    export=False,
+)
 
-# List of backend IDs used *only* for archipelago.
-ARCHIPELAGO_BACKENDS = []
+GANETI_FIREWALL_PROTECTED_TAG = Default(
+    default_value="synnefo:network:0:limited",
+    example_value="synnefo:network:0:limited",
+    description="Tag that finds its way down to kvm-vif-bridge to enable "
+        "the application of corresponding firewalling rules on the host.",
+    export=False,
+)
 
+DEFAULT_FIREWALL_PROFILE = Default(
+    default_value="DISABLED",
+    example_value="DISABLED",
+    description="Default firewall profile to apply, if no tags are defined.",
+    export=False,
+)
 
-# URL templates for the stat graphs.
+#
+# Stat graphs configuration
+#
+
+STATS_ENABLED = Default(
+    default_value=False,
+    example_value=False,
+    description="Whether stat graphs are enabled, so the UI knows whether to "
+        "present them or not. Make sure the stats app is working successfully "
+        "before enabling this option.",
+    category="snf-cyclades-app-api",
+    export=True,
+)
+
 # The API implementation replaces '%s' with the encrypted backend id.
 # FIXME: For now we do not encrypt the backend id.
-CPU_BAR_GRAPH_URL = 'http://stats.synnefo.org/%s/cpu-bar.png'
-CPU_TIMESERIES_GRAPH_URL = 'http://stats.synnefo.org/%s/cpu-ts.png'
-NET_BAR_GRAPH_URL = 'http://stats.synnefo.org/%s/net-bar.png'
-NET_TIMESERIES_GRAPH_URL = 'http://stats.synnefo.org/%s/net-ts.png'
+CPU_BAR_GRAPH_URL = SubMandatory(
+    example_value="http://stats.synnefo.org/%s/cpu-bar.png",
+    description="URL to fetch the CPU Bar graph.",
+    depends="STATS_ENABLED",
+)
 
-# Recommended refresh period for server stats
-STATS_REFRESH_PERIOD = 60
+CPU_TIMESERIES_GRAPH_URL = SubMandatory(
+    example_value="http://stats.synnefo.org/%s/cpu-ts.png",
+    description="URL to fetch the CPU Timeseries graph.",
+    depends="STATS_ENABLED",
+)
 
-# The maximum number of file path/content pairs that can be supplied on server
-# build
-MAX_PERSONALITY = 5
+NET_BAR_GRAPH_URL = SubMandatory(
+    example_value="http://stats.synnefo.org/%s/net-bar.png",
+    description="URL to fetch the NET Bar graph.",
+    depends="STATS_ENABLED",
+)
 
-# The maximum size, in bytes, for each personality file
-MAX_PERSONALITY_SIZE = 10240
+NET_TIMESERIES_GRAPH_URL = SubMandatory(
+    example_value="http://stats.synnefo.org/%s/net-ts.png",
+    description="URL to fetch the NET Timeseries graph.",
+    depends="STATS_ENABLED",
+)
 
-# Tune the size of the Astakos http client connection pool
-# This limit the number of concurrent requests to Astakos.
-CYCLADES_ASTAKOSCLIENT_POOLSIZE = 50
+STATS_REFRESH_PERIOD = SubMandatory(
+    example_value=60,
+    description="Refresh period for server stats.",
+    depends="STATS_ENABLED",
+)
 
-# Key for password encryption-decryption. After changing this setting, synnefo
-# will be unable to decrypt all existing Backend passwords. You will need to
-# store again the new password by using 'snf-manage backend-modify'.
-# SECRET_ENCRYPTION_KEY may up to 32 bytes. Keys bigger than 32 bytes are not
-# supported.
-SECRET_ENCRYPTION_KEY = "Password Encryption Key"
+#
+# Personality/File injection configuration
+#
 
-# Astakos service token
-# The token used for astakos service api calls (e.g. api to retrieve user email
-# using a user uuid)
-CYCLADES_SERVICE_TOKEN = ''
+MAX_PERSONALITY = Default(
+    default_value=5,
+    example_value=5,
+    description="The maximum nubmer of files that the user can inject into a "
+        "newly created instance.",
+    export=False,
+)
 
-# Let cyclades proxy user specific api calls to astakos, via self served
-# endpoints. Set this to False if you deploy cyclades-app/astakos-app on the
-# same machine.
-CYCLADES_PROXY_USER_SERVICES = True
+MAX_PERSONALITY_SIZE = Default(
+    default_value=10240,
+    example_value=10240,
+    description="The maximum allowed size, in bytes, for each personality "
+        "file to be injected into a newly created instance.",
+    export=False,
+)
+
+#
+# Misc configuration
+#
+
+BACKEND_PER_USER = Default(
+    default_value={},
+    example_value={'user1@synnefo.org': 2,
+                   'user2@synnefo.org': 3,},
+    description="Associate a user with a specific Ganeti backend. All VMs of "
+        "the users in this dict will get allocated to the specified backends.",
+    category="snf-cyclades-app-api"
+    export=True,
+)
+
+ARCHIPELAGO_BACKENDS = Default(
+    default_value=[],
+    example_value=["1", "2", "3"],
+    description="Ganeti backends on this list are used to host only "
+        "Archipelago-backed VMs. Also, all Archipelago-backed VMs will get "
+        "allocated only to backends that are included in this list.",
+    category="snf-cyclades-app-api"
+    expose=True,
+)
+
+CYCLADES_ASTAKOSCLIENT_POOLSIZE = Default(
+    default_value=50,
+    example_value=50,
+    description="Number of the concurrent Astakos http client connections, "
+        "as provided by the connection pool.",
+    export=False,
+)
+
+SECRET_ENCRYPTION_KEY = Mandatory(
+    example_value="Password Encryption Key",
+    description="Key for password encryption-decryption. After changing this "
+        "setting, Synnefo will be unable to decrypt all existing Backend "
+        "passwords. You will need to store the new password again on all "
+        "Backends by using 'snf-manage backend-modify'. The key may be up to "
+        "32 bytes. Keys bigger than 32 bytes are not supported.",
+    category="snf-cyclades-app-api",
+)
+
+CYCLADES_SERVICE_TOKEN = Mandatory(
+    example_value="asdf+V7Cyclades_service_token_heredPG==",
+    description="The token used to access Astakos via its API, e.g. for "
+        "retrieving a user's email using a user UUID. This can be obtained "
+        "by running 'snf-manage component-list' on the Astakos host.",
+    category="snf-cyclades-app-api",
+)
+
+CYCLADES_PROXY_USER_SERVICES = Default(
+    default_value=True,
+    example_value=True,
+    description="If True, Cyclades will proxy user specific API calls to "
+        "Astakos via self-served endpoints. Set this to False if you deploy "
+        "'snf-cyclades-app' and 'snf-astakos-app' on the same machine.",
+    category="snf-cyclades-app-api",
+    export=True,
+)
+
+POLL_LIMIT = Default(
+    default_value=3600,
+    example_value=3600,
+    description="The API will return HTTP Bad Request if the ?changes-since "
+        "parameter refers to a point in time older than POLL_LIMIT seconds.",
+    export=False,
+)
+
+DEBUG = Default(
+    default_value=False,
+    export=False,
+)
+
+TEST = Default(
+    default_value=False,
+    export=False,
+)

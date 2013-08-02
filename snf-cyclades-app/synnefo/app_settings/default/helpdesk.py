@@ -1,9 +1,30 @@
-#Enable the helpdesk application
-#HELPDESK_ENABLED = True
+from synnefo.settings.setup import Setting, Mandatory, Default
 
-# Which is the cookie name that stores the token, leave it commented out
-# to use same value as UI_AUTH_COOKIE_NAME value.
-#HELPDESK_AUTH_COOKIE_NAME = UI_AUTH_COOKIE_NAME
+# Helpdesk app configuration
+############################
+
+#Enable the helpdesk application
+HELPDESK_ENABLED = Default(
+    default_value=True,
+    example_value=True,
+    description="If true, enable the helpdesk application.",
+    export=False,
+)
+
+HELPDESK_AUTH_COOKIE_NAME = Default(
+    default_value=UI_AUTH_COOKIE_NAME,
+    example_value="cookie_name_here",
+    description="The cookie name that stores the token. By default it has the "
+        "same value with UI_AUTH_COOKIE_NAME.",
+    dependencies=[AUTH_COOKIE_NAME],
+    export=False,
+)
 
 # Astakos groups which have access to helpdesk views
-#HELPDESK_PERMITTED_GROUPS = ['helpdesk']
+HELPDESK_PERMITTED_GROUPS = Default(
+    default_value=["helpdesk"],
+    example_value=["helpdesk", "group1", "group2"],
+    description="Astakos groups that have access to the Helpdesk application's "
+        "views.",
+    export=False,
+)

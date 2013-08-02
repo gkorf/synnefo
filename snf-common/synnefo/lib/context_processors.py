@@ -29,16 +29,13 @@ def cloudbar(request):
 
     """
 
-    CB_ACTIVE = getattr(settings, 'CLOUDBAR_ACTIVE', True)
-    CB_LOCATION = getattr(settings, 'CLOUDBAR_LOCATION')
-    CB_COOKIE_NAME = getattr(settings, 'CLOUDBAR_COOKIE_NAME',
-            'okeanos_account')
-    CB_SERVICES_URL = getattr(settings, 'CLOUDBAR_SERVICES_URL')
-    CB_MENU_URL = getattr(settings, 'CLOUDBAR_MENU_URL')
-    CB_HEIGHT = getattr(settings, 'CLOUDBAR_HEIGHT',
-            '35')
-    CB_BGCOLOR = getattr(settings, 'CLOUDBAR_BACKGROUND_COLOR',
-            '#000000')
+    CB_ACTIVE = settings.CLOUDBAR_ACTIVE
+    CB_LOCATION = settings.CLOUDBAR_LOCATION
+    CB_COOKIE_NAME = settings.CLOUDBAR_COOKIE_NAME
+    CB_SERVICES_URL = settings.CLOUDBAR_SERVICES_URL
+    CB_MENU_URL = settings.CLOUDBAR_MENU_URL
+    CB_HEIGHT = getattr(settings, 'CLOUDBAR_HEIGHT', '35')
+    CB_BGCOLOR = getattr(settings, 'CLOUDBAR_BACKGROUND_COLOR', '#000000')
 
     CB_CODE = """
     <script type="text/javascript">
