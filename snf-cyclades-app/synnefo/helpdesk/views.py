@@ -65,10 +65,8 @@ def get_token_from_cookie(request, cookiename):
     return None
 
 
-AUTH_COOKIE_NAME = getattr(settings, 'HELPDESK_AUTH_COOKIE_NAME',
-                           getattr(settings, 'UI_AUTH_COOKIE_NAME',
-                                   '_pithos2_a'))
-PERMITTED_GROUPS = getattr(settings, 'HELPDESK_PERMITTED_GROUPS', ['helpdesk'])
+AUTH_COOKIE_NAME = settings.HELPDESK_AUTH_COOKIE_NAME
+PERMITTED_GROUPS = settings.HELPDESK_PERMITTED_GROUPS
 SHOW_DELETED_VMS = getattr(settings, 'HELPDESK_SHOW_DELETED_VMS', False)
 
 
@@ -100,7 +98,7 @@ def helpdesk_user_required(func, permitted_groups=PERMITTED_GROUPS):
     permissions (exists in helpdesk group)
     """
     def wrapper(request, *args, **kwargs):
-        HELPDESK_ENABLED = getattr(settings, 'HELPDESK_ENABLED', True)
+        HELPDESK_ENABLED = settings.HELPDESK_ENABLED
         if not HELPDESK_ENABLED:
             raise Http404
 

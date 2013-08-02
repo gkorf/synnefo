@@ -1,16 +1,21 @@
-# -*- coding: utf-8 -*-
-#
-# Userdata settings
-###################
+from synnefo.settings.setup import Mandatory, Default
 
-# Genetared SSH key bits length
-USERDATA_SSH_KEY_LENGTH = 2048
+# Userdata configuration
+########################
 
-# Generated SSH key exponent
-USERDATA_SSH_KEY_EXPONENT = 65537
+USERDATA_SSH_KEY_LENGTH = Default(
+    default_value=2048,
+    example_value=2048,
+    description="Length in bits of the automatically generated SSH key.",
+    export=False,
+)
 
-# Maximum number of ssh keys a user is allowed to have
-USERDATA_MAX_SSH_KEYS_PER_USER = 10
+USERDATA_MAX_SSH_KEYS_PER_USER = Default(
+    default_value=10,
+    example_value=10,
+    description="Maximum number of SSH keys a user is allowed to have.",
+    export=False,
+)
 
 # Maximum allowed length of submitted ssh key content
 USERDATA_SSH_KEY_MAX_CONTENT_LENGTH = 30000
