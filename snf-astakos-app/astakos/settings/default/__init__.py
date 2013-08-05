@@ -6,6 +6,7 @@ ASTAKOS_COOKIE_DOMAIN = Mandatory(
         "The domain at which the astakos authentication cookie will be "
         "published. Warning: all websites under this domain can access the "
         "cookie and its secret authorization data."),
+    category="misc",
 )
 
 ASTAKOS_COOKIE_NAME = Constant(
