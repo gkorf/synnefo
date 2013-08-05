@@ -761,7 +761,7 @@ class SubMandatory(Setting):
 
     Example:
     ENABLE_FAST_BACKEND = Default(default_value=False, ...)
-    FAST_BACKEND_SPEED = ConditionalMandatory(
+    FAST_BACKEND_SPEED = SubMandatory(
         example_value=9001,
         dependencies=['ENABLE_FAST_BACKEND'])
 

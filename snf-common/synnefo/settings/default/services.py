@@ -76,6 +76,7 @@ for component_name in components:
     base_url_setting = Mandatory(
         example_value=base_url_example_value,
         description=base_url_description,
+        category="misc",
     )
     setattr(module, base_url_name, base_url_setting)
 
