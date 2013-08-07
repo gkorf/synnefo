@@ -1,34 +1,34 @@
-from synnefo.settings.setup import Setting, Mandatory, Default, Constant
+# Copyright 2013 GRNET S.A. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or
+# without modification, are permitted provided that the following
+# conditions are met:
+#
+#   1. Redistributions of source code must retain the above
+#      copyright notice, this list of conditions and the following
+#      disclaimer.
+#
+#   2. Redistributions in binary form must reproduce the above
+#      copyright notice, this list of conditions and the following
+#      disclaimer in the documentation and/or other materials
+#      provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY GRNET S.A. ``AS IS'' AND ANY EXPRESS
+# OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GRNET S.A OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+# USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+# AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+# The views and conclusions contained in the software and
+# documentation are those of the authors and should not be
+# interpreted as representing official policies, either expressed
+# or implied, of GRNET S.A.
 
-ASTAKOS_COOKIE_DOMAIN = Mandatory(
-    example_value=".example.synnefo.org",
-    description=(
-        "The domain at which the astakos authentication cookie will be "
-        "published. Warning: all websites under this domain can access the "
-        "cookie and its secret authorization data."),
-    category="misc",
-)
-
-ASTAKOS_COOKIE_NAME = Constant(
-    default_value='_pithos2_a',
-    description="The astakos cookie name.",
-)
-
-ASTAKOS_COOKIE_SECURE = Constant(
-    default_value=True,
-    description=("Whether to require an encrypted connection "
-                 "to transmit the cookie."),
-)
-
-# The following settings will replace the default django settings
-AUTHENTICATION_BACKENDS = (
-    'astakos.im.auth_backends.EmailBackend',
-    'astakos.im.auth_backends.TokenBackend')
-
-CUSTOM_USER_MODEL = 'astakos.im.AstakosUser'
-
-#SOUTH_TESTS_MIGRATE = False
-
-BROKER_URL = ''
-
-# INTERNAL_IPS = ('127.0.0.1',)
+from astakos.settings.default.settings import *
