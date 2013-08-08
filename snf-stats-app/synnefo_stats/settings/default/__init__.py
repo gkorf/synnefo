@@ -1,4 +1,4 @@
-# Copyright 2011, 2012, 2013 GRNET S.A. All rights reserved.
+# Copyright 2013 GRNET S.A. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or
 # without modification, are permitted provided that the following
@@ -30,63 +30,5 @@
 # documentation are those of the authors and should not be
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
-#
 
-import distribute_setup
-distribute_setup.use_setuptools()
-
-import os
-
-from setuptools import setup, find_packages
-
-HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
-
-from synnefo_stats.version import __version__
-
-# Package info
-VERSION = __version__
-SHORT_DESCRIPTION = 'Synnefo graphic statistics component'
-
-PACKAGES_ROOT = '.'
-PACKAGES = find_packages(PACKAGES_ROOT)
-
-# Package meta
-CLASSIFIERS = []
-
-# Package requirements
-INSTALL_REQUIRES = [
-    'gdmodule',
-    'py-rrdtool',
-    'Django>=1.2, <1.3',
-    'snf-django-lib',
-]
-
-setup(
-    name='snf-stats-app',
-    version=VERSION,
-    license='BSD',
-    url='http://www.synnefo.org/',
-    description=SHORT_DESCRIPTION,
-    classifiers=CLASSIFIERS,
-
-    author='Synnefo development team',
-    author_email='synnefo-devel@googlegroups.com',
-    maintainer='Synnefo development team',
-    maintainer_email='synnefo-devel@googlegroups.com',
-
-    packages=PACKAGES,
-    package_dir={'': PACKAGES_ROOT},
-    include_package_data=True,
-    zip_safe=False,
-
-    install_requires=INSTALL_REQUIRES,
-
-    dependency_links=['http://www.synnefo.org/packages/pypi'],
-    entry_points={
-        'synnefo': [
-             'default_settings = synnefo_stats.settings.default',
-             'web_apps = synnefo_stats.synnefo_settings:installed_apps',
-             'urls = synnefo_stats.urls:urlpatterns',
-        ]
-    }
-)
+from synnefo_stats.settings.default.settings import *
