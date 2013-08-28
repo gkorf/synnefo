@@ -1,12 +1,13 @@
 from synnefo.settings.setup import Default, Mandatory, Auto
-from synnefo.settings.setup.defaults import (mk_auto_configure_base_host,
-                                             mk_auto_configure_base_path)
+from synnefo.settings.default import (mk_auto_configure_base_host,
+                                      mk_auto_configure_base_path)
 
 STATS_BASE_URL = Mandatory(
     example_value="https://stats.example.synnefo.org/stats/",
     description=(
         "The complete URL which is forwarded by the front-end web server "
         "to the Astakos application server (gunicorn). "),
+    category="snf-stats-app-settings",
 )
 
 STATS_BASE_HOST = Auto(
