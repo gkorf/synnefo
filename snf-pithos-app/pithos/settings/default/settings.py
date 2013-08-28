@@ -1,7 +1,31 @@
-from synnefo.settings.setup import Setting, Mandatory, Default, SubMandatory
+from synnefo.settings.setup import Default, Auto, Mandatory, SubMandatory
+from synnefo.settings.default import (mk_auto_configure_base_host,
+                                      mk_auto_configure_base_path)
 
 # Pithos configuration
 ######################
+
+PITHOS_BASE_URL = Mandatory(
+    example_value="https://store.example.synnefo.org/pithos/",
+    description=(
+        "The complete URL which is forwarded by the front-end web server "
+        "to the Pithos application server (gunicorn). "),
+    category="snf-pithos-app-settings",
+)
+
+PITHOS_BASE_HOST = Auto(
+    configure_callback=mk_auto_configure_base_host("PITHOS_BASE_URL"),
+    export=False,
+    description="The host part of PITHOS_BASE_URL. Cannot be configured.",
+    dependencies=("PITHOS_BASE_URL",),
+)
+
+PITHOS_BASE_PATH = Auto(
+    configure_callback=mk_auto_configure_base_path("PITHOS_BASE_URL"),
+    export=False,
+    description="The path part of PITHOS_BASE_URL. Cannot be configured.",
+    dependencies=("PITHOS_BASE_URL",),
+)
 
 PITHOS_SERVICE_TOKEN = Mandatory(
     example_value="asdf+V7Pithos_service_token_heredPG==",

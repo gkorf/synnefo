@@ -1,4 +1,6 @@
-from synnefo.settings.setup import Mandatory, Default, SubMandatory
+from synnefo.settings.setup import Default, Auto, Mandatory, SubMandatory
+from synnefo.settings.default import (mk_auto_configure_base_host,
+                                      mk_auto_configure_base_path)
 
 # API configuration
 ###################
@@ -6,6 +8,28 @@ from synnefo.settings.setup import Mandatory, Default, SubMandatory
 #
 # Network Configuration
 #
+
+CYCLADES_BASE_URL = Mandatory(
+    example_value="https://compute.example.synnefo.org/cyclades/",
+    description=(
+        "The complete URL which is forwarded by the front-end web server "
+        "to the Cyclades application server (gunicorn). "),
+    category="snf-cyclades-app-api",
+)
+
+CYCLADES_BASE_HOST = Auto(
+    configure_callback=mk_auto_configure_base_host("CYCLADES_BASE_URL"),
+    export=False,
+    description="The host part of CYCLADES_BASE_URL. Cannot be configured.",
+    dependencies=("CYCLADES_BASE_URL",),
+)
+
+CYCLADES_BASE_PATH = Auto(
+    configure_callback=mk_auto_configure_base_path("CYCLADES_BASE_URL"),
+    export=False,
+    description="The path part of CYCLADES_BASE_URL. Cannot be configured.",
+    dependencies=("CYCLADES_BASE_URL",),
+)
 
 DEFAULT_INSTANCE_NETWORKS = Default(
     default_value=["SNF:ANY_PUBLIC"],

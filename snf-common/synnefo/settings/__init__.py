@@ -53,7 +53,7 @@ from synnefo.util.entry_points import get_entry_points
 for e in get_entry_points('synnefo', 'default_settings'):
     m = e.load()
     for name in dir(m):
-        if name.startswith('__'):
+        if not Setting.is_valid_setting_name(name):
             continue
         synnefo_settings[name] = getattr(m, name)
 
