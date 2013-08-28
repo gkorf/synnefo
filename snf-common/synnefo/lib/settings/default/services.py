@@ -36,7 +36,7 @@ from synnefo.util.keypath import customize_from_items
 from synnefo.lib.services import fill_endpoints
 from synnefo.lib import parse_base_url
 
-from synnefo.lib.settings.setup import Setting, Mandatory, Auto, Default
+from synnefo.lib.settings.setup import Setting, Auto, Default
 
 CUSTOMIZE_SERVICES = Default(
     default_value=(),
@@ -54,69 +54,31 @@ extend_dict_from_entry_point(services, 'synnefo', 'services')
 from sys import modules
 module = modules[__name__]
 
+
+def mk_auto_configure_base_host(base_url_name):
+    def auto_configure_base_host(setting, value, deps):
+        Setting.enforce_not_configurable(setting, value)
+        base_url = deps[base_url_name]
+        base_host, base_path = parse_base_url(base_url)
+        return base_host
+    return auto_configure_base_host
+
+
+def mk_auto_configure_base_path(base_url_name):
+    def auto_configure_base_path(setting, value, deps):
+        Setting.enforce_not_configurable(setting, value)
+        base_url = deps[base_url_name]
+        base_host, base_path = parse_base_url(base_url)
+        return base_path
+    return auto_configure_base_path
+
+
 components = {}
 for service_name, service in services.items():
     component_name = service['component']
     if component_name not in components:
         components[component_name] = {}
     components[component_name][service_name] = service
-
-base_url_names = []
-for component_name in components:
-    name_upper = component_name.upper()
-
-    base_url_name = name_upper + '_BASE_URL'
-    base_url_names.append(base_url_name)
-    base_url_example_value = "https://{comp}.example.synnefo.org/{comp}/"
-    base_url_example_value = base_url_example_value.format(comp=component_name)
-    base_url_description = (
-        "The HTTP URL prefix (scheme, host, and path) beneath which all "
-        "services for component {comp} reside.")
-    base_url_description = base_url_description.format(comp=component_name)
-    base_url_setting = Mandatory(
-        example_value=base_url_example_value,
-        description=base_url_description,
-        category="misc",
-    )
-    setattr(module, base_url_name, base_url_setting)
-
-    def mk_auto_configure_base_host(base_url_name):
-        def auto_configure_base_host(setting, value, deps):
-            Setting.enforce_not_configurable(setting, value)
-            base_url = deps[base_url_name]
-            base_host, base_path = parse_base_url(base_url)
-            return base_host
-        return auto_configure_base_host
-
-    base_host_name = name_upper + '_BASE_HOST'
-    base_host_description = "The host part of {base}. Cannot be configured."
-    base_host_description = base_host_description.format(base=base_url_name)
-    base_host_setting = Auto(
-        configure_callback=mk_auto_configure_base_host(base_url_name),
-        export=0,
-        dependencies=(base_url_name,),
-        description=base_host_description,
-    )
-    setattr(module, base_host_name, base_host_setting)
-
-    def mk_auto_configure_base_path(base_url_name):
-        def auto_configure_base_path(setting, value, deps):
-            Setting.enforce_not_configurable(setting, value)
-            base_url = deps[base_url_name]
-            base_host, base_path = parse_base_url(base_url)
-            return base_path
-        return auto_configure_base_path
-
-    base_path_name = name_upper + '_BASE_PATH'
-    base_path_description = "The path part of {base}. Cannot be configured."
-    base_path_description = base_path_description.format(base=base_url_name)
-    base_path_setting = Auto(
-        configure_callback=mk_auto_configure_base_path(base_url_name),
-        export=0,
-        dependencies=(base_url_name,),
-        description=base_path_description,
-    )
-    setattr(module, base_path_name, base_path_setting)
 
 
 SYNNEFO_COMPONENTS = Auto(
@@ -126,7 +88,7 @@ SYNNEFO_COMPONENTS = Auto(
     description=("A list with the names of all synnefo components currently "
                  "installed. Initialized from SYNNEFO_SERVICES. "
                  "It is dynamically generated and cannot be configured."),
-    dependencies=('SYNNEFO_SERVICES',),
+    dependencies=['SYNNEFO_SERVICES'],
 )
 
 
@@ -137,19 +99,25 @@ def auto_configure_services(setting, value, deps):
     if isinstance(customization, dict):
         customization = customization.items()
     customize_from_items(services, customization)
-    for service_name, service in services.iteritems():
-        component_name = service['component']
-        base_url_name = component_name.upper() + '_BASE_URL'
-        base_url = deps[base_url_name]
-        fill_endpoints(service, base_url)
     return services
+
+
+def mk_auto_configure_services(component_name, base_url_name):
+    def auto_configure_service(setting, value, deps):
+        components = deps['SYNNEFO_COMPONENTS']
+        component = components[component_name]
+        base_url = deps[base_url_name]
+        for service_name, service in component.iteritems():
+            fill_endpoints(service, base_url)
+        return component
+    return auto_configure_service
 
 
 SYNNEFO_SERVICES = Auto(
     configure_callback=auto_configure_services,
     export=0,
     default_value=services,
-    dependencies=('CUSTOMIZE_SERVICES',) + tuple(base_url_names),
+    dependencies=['CUSTOMIZE_SERVICES'],
     description=("An auto-generated registry of all services provided by all "
                  "currently installed Synnefo components. "
                  "It is dynamically generated and cannot be configured. "

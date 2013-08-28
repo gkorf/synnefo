@@ -1,8 +1,42 @@
-from synnefo.settings.setup import Setting, Mandatory, Default, SubMandatory
+from synnefo.settings.setup import (Setting, Default, Auto,
+                                    Mandatory, SubMandatory)
+from synnefo.settings.default import (mk_auto_configure_base_host,
+                                      mk_auto_configure_base_path,
+                                      mk_auto_configure_services)
 
 #
 # Astakos configuration
 #
+
+ASTAKOS_BASE_URL = Mandatory(
+    example_value="https://accounts.example.synnefo.org/astakos/",
+    description=(
+        "The complete URL which is forwarded by the front-end web server "
+        "to the Astakos application server (gunicorn). "),
+    category="snf-astakos-app-settings",
+)
+
+ASTAKOS_BASE_HOST = Auto(
+    configure_callback=mk_auto_configure_base_host("ASTAKOS_BASE_URL"),
+    export=False,
+    description="The host part of ASTAKOS_BASE_URL. Cannot be configured.",
+    dependencies=["ASTAKOS_BASE_URL"],
+)
+
+ASTAKOS_BASE_PATH = Auto(
+    configure_callback=mk_auto_configure_base_path("ASTAKOS_BASE_URL"),
+    export=False,
+    description="The path part of ASTAKOS_BASE_URL. Cannot be configured.",
+    dependencies=["ASTAKOS_BASE_URL"],
+)
+
+ASTAKOS_SERVICES = Auto(
+    configure_callback=mk_auto_configure_services("astakos",
+                                                  "ASTAKOS_BASE_URL"),
+    description="Definition of services provided by the Astakos component",
+    export=False,
+    dependencies=["ASTAKOS_BASE_URL", "SYNNEFO_COMPONENTS"],
+)
 
 ASTAKOS_AUTH_TOKEN_DURATION = Default(
     default_value=30*24,
