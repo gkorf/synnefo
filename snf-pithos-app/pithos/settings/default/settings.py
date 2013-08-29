@@ -5,9 +5,10 @@ from synnefo.settings.setup import Setting, Mandatory, Default, SubMandatory
 
 PITHOS_SERVICE_TOKEN = Mandatory(
     example_value="asdf+V7Pithos_service_token_heredPG==",
-    description="The token used to access Astakos via its API, e.g. for "
+    description=(
+        "The token used to access Astakos via its API, e.g. for "
         "retrieving a user's email using a user UUID. This can be obtained "
-        "by running 'snf-manage component-list' on the Astakos host.",
+        "by running 'snf-manage component-list' on the Astakos host."),
     category="snf-pithos-app-settings",
 )
 
@@ -38,9 +39,9 @@ PITHOS_BACKEND_POOL_ENABLED = Default(
 
 PITHOS_BACKEND_POOL_SIZE = Default(
     default_value=5,
-    description="Size of the pool used for pithos-backend instances."
+    description="Size of the pool used for pithos-backend instances.",
     category="snf-pithos-app-settings",
-    export=True
+    export=True,
     dependencies=[PITHOS_BACKEND_POOL_ENABLED],
 )
 
@@ -64,8 +65,9 @@ PITHOS_BACKEND_DB_CONNECTION = Mandatory(
 
 PITHOS_BACKEND_BLOCK_PATH = Mandatory(
     example_value="/usr/share/synnefo/pithos/data/",
-    description="Full path pointing to the directory holding the actual "
-        "Pithos data.",
+    description=(
+        "Full path pointing to the directory holding the actual "
+        "Pithos data."),
     category="snf-pithos-app-backend",
 )
 
@@ -94,16 +96,18 @@ PITHOS_UPDATE_MD5 = Default(
 PITHOS_BACKEND_VERSIONING = Default(
     default_value="auto",
     example_value="none",
-    description="Whether child containers will create versions for object "
+    description=(
+        "Whether child containers will create versions for object "
         "updates. Values can be either 'auto' to inherit the parent "
-        "container's value, or 'none' to not create versions.",
+        "container's value, or 'none' to not create versions."),
     export=False,
 )
 
-PITHOS_BACKEND_FREE_VERSIONING Default(
+PITHOS_BACKEND_FREE_VERSIONING = Default(
     default_value=True,
-    description="If True only the last version of the file counts in for the "
-        "user's quota usage. If False all versions will consume quotas.",
+    description=(
+        "If True only the last version of the file counts in for the "
+        "user's quota usage. If False all versions will consume quotas."),
     export=False,
 )
 
@@ -136,32 +140,35 @@ PITHOS_RADOS_POOL_MAPS = SubMandatory(
 
 PITHOS_PROXY_USER_SERVICES = Default(
     default_value=True,
-    description="If True, snf-pithos-app will handle all Astakos user-visible "
+    description=(
+        "If True, snf-pithos-app will handle all Astakos user-visible "
         "services (e.g.: feedback, login) by proxying them to Astakos. Set to "
         "if snf-astakos-app and snf-pithos-app run on the same machine, so "
-        "Astakos handles the requests on its own.",
+        "Astakos handles the requests on its own."),
     export=True,
 )
 
 PITHOS_PUBLIC_URL_SECURITY = Default(
     default_value=16,
-    description="How many random bytes to use for constructing the URL of "
-        "Pithos public files".,
+    description=(
+        "How many random bytes to use for constructing the URL of "
+        "Pithos public files."),
     export=False,
 )
 
 PITHOS_PUBLIC_URL_ALPHABET = Default(
-    default_value= \
-        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    description="Alphabet to use for constructing the URL of Pithos public "
-        "files.",
+    default_value=(
+        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+    description=(
+        "Alphabet to use for constructing the URL of Pithos public files."),
     export=False,
 )
 
 PITHOS_API_LIST_LIMIT = Default(
     default_value=10000,
-    description="The maximum nubmer of items returned by the listing methods "
-        "of the API.",
+    description=(
+        "The maximum nubmer of items returned by the listing methods "
+        "of the API."),
     export=False,
 )
 
@@ -208,8 +215,9 @@ PITHOS_BACKEND_ACCOUNT_QUOTA = Default(
 # FIXME: This should go away along with the relevant code.
 PITHOS_BACKEND_CONTAINER_QUOTA = Default(
     default_value=0,
-    description="Quota limit for every newly created container. '0' means "
-        "unlimited.",
+    description=(
+        "Quota limit for every newly created container. '0' means "
+        "unlimited."),
     export=False,
 )
 
