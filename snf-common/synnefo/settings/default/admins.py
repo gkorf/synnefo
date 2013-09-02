@@ -31,7 +31,7 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from synnefo.settings.setup import Mandatory, Default
+from synnefo.settings.setup import Default
 
 
 ADMINS = Default(
@@ -40,9 +40,10 @@ ADMINS = Default(
         ("John Smith", "john@example.synnefo.org"),
         ("Mary Smith", "mary@example.synnefo.org"),
     ],
-    description="List of people who receive application notifications, such as "
+    description=(
+        "List of people who receive application notifications, such as "
         "code error tracebacks. It is recommended to have at least one entry "
-        "in this list.",
+        "in this list."),
     category="snf-common-admins",
     export=True,
 )
@@ -64,8 +65,9 @@ MANAGERS = Default(
         ("John Smith", "john@example.synnefo.org"),
         ("Mary Smith", "mary@example.synnefo.org"),
     ],
-    description="List of people who receive email on some application events. "
-        "(e.g.: account creation/activation).",
+    description=(
+        "List of people who receive email on some application events. "
+        "(e.g.: account creation/activation)."),
     category="snf-common-admins",
     export=True,
 )
@@ -76,7 +78,8 @@ MANAGERS = Default(
 
 EMAIL_HOST = Default(
     default_value="127.0.0.1",
-    description="IP or domain of the smtp server that will be used by Synnefo.",
+    description=(
+        "IP or domain of the smtp server that will be used by Synnefo."),
     category="snf-common-admins",
     export=True,
 )
@@ -129,8 +132,9 @@ DEFAULT_FROM_EMAIL = Default(
 CONTACT_EMAIL = Default(
     default_value="support@example.synnefo.org",
     example_value="support@service_name.com",
-    description="Email where users can contact for support. Will appear in "
-        "emails and UI.",
+    description=(
+        "Email where users can contact for support. Will appear in "
+        "emails and UI."),
     category="snf-common-admins",
     export=True,
 )
