@@ -1,4 +1,27 @@
-from synnefo.settings.setup import Setting, Default, Mandatory
+from synnefo.settings.setup import Default, Mandatory, Auto
+from synnefo.settings.setup.defaults import (mk_auto_configure_base_host,
+                                             mk_auto_configure_base_path)
+
+STATS_BASE_URL = Mandatory(
+    example_value="https://stats.example.synnefo.org/stats/",
+    description=(
+        "The complete URL which is forwarded by the front-end web server "
+        "to the Astakos application server (gunicorn). "),
+)
+
+STATS_BASE_HOST = Auto(
+    configure_callback=mk_auto_configure_base_host("STATS_BASE_URL"),
+    export=False,
+    description="The host part of STATS_BASE_URL. Cannot be configured.",
+    dependencies=("STATS_BASE_URL",),
+)
+
+STATS_BASE_PATH = Auto(
+    configure_callback=mk_auto_configure_base_path("STATS_BASE_URL"),
+    export=False,
+    description="The path part of STATS_BASE_URL. Cannot be configured.",
+    dependencies=("STATS_BASE_URL",),
+)
 
 #
 # Image properties
@@ -11,7 +34,7 @@ STATS_IMAGE_WIDTH = Default(
 )
 
 STATS_WIDTH = Default(
-    default=68,
+    default_value=68,
     description="",
     export=False,
 )
