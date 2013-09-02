@@ -35,7 +35,8 @@ setup(
 
     license="GNU GPLv3",
     namespace_packages=["synnefo", "synnefo.versions"],
-    packages=["synnefo", "synnefo.ganeti", "synnefo.versions"],
+    packages=["synnefo", "synnefo.ganeti", "synnefo.ganeti.default",
+              "synnefo.versions"],
     dependency_links=['http://www.synnefo.org/packages/pypi'],
     install_requires=[
         'snf-common',
