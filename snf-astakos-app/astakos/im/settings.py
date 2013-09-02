@@ -32,7 +32,7 @@
 # or implied, of GRNET S.A.
 
 from django.conf import settings
-from synnefo_branding import settings as synnefo_settings
+from synnefo_branding import branding_settings
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_service_prefix
 
@@ -44,7 +44,8 @@ BASE_PATH = settings.ASTAKOS_BASE_PATH
 synnefo_services = settings.SYNNEFO_SERVICES
 
 # Set service name
-SITENAME = getattr(settings, 'ASTAKOS_SITENAME', synnefo_settings.SERVICE_NAME)
+SITENAME = getattr(settings, 'ASTAKOS_SITENAME',
+                   branding_settings.SERVICE_NAME)
 
 ACCOUNTS_PREFIX = get_service_prefix(synnefo_services, 'astakos_account')
 VIEWS_PREFIX = get_service_prefix(synnefo_services, 'astakos_ui')
