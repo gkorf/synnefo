@@ -1,15 +1,15 @@
-from synnefo_branding import settings
+from synnefo_branding import branding_settings
 from django.template.loader import render_to_string as django_render_to_string
 
 
 def get_branding_dict(prepend=None):
     dct = {}
-    for key in dir(settings):
+    for key in dir(branding_settings):
         if key == key.upper():
             newkey = key.lower()
             if prepend:
                 newkey = '%s_%s' % (prepend, newkey)
-            dct[newkey.upper()] = getattr(settings, key)
+            dct[newkey.upper()] = getattr(branding_settings, key)
     return dct
 
 

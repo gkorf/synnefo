@@ -52,7 +52,7 @@ from django.utils import simplejson as json
 from django.template import RequestContext
 
 from synnefo_branding import utils as branding
-from synnefo_branding import settings as branding_settings
+from synnefo_branding import branding_settings
 
 from synnefo.lib import join_urls
 
@@ -769,10 +769,10 @@ def change_email(request, activation_key=None,
             transaction.rollback()
             return HttpResponseRedirect(reverse('index'))
 
-        return render_response(confirm_template_name,
-                               modified_user=user if 'user' in locals()
-                               else None, context_instance=get_context(request,
-                               extra_context))
+        return render_response(
+            confirm_template_name,
+            modified_user=user if 'user' in locals() else None,
+            context_instance=get_context(request, extra_context))
 
     if not request.user.is_authenticated():
         path = quote(request.get_full_path())

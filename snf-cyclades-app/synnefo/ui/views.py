@@ -45,7 +45,6 @@ from django.utils import simplejson as json
 from synnefo_branding.utils import render_to_string
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from synnefo_branding import settings as snf_settings
 
 from synnefo.util.version import get_component_version
 from synnefo.lib import join_urls
