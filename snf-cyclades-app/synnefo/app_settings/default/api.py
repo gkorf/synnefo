@@ -363,13 +363,3 @@ POLL_LIMIT = Default(
         "parameter refers to a point in time older than POLL_LIMIT seconds."),
     export=False,
 )
-
-DEBUG = Default(
-    default_value=False,
-    export=False,
-)
-
-TEST = Default(
-    default_value=False,
-    export=False,
-)
