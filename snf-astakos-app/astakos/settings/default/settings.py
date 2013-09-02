@@ -455,10 +455,21 @@ ASTAKOS_LOGOUT_NEXT = Default(
     export=False,
 )
 
+
+def _auto_configure_im_static_url(setting, value, deps):
+    if value is not Setting.NoValue:
+        # acknowledge user-provided setting
+        return Setting.NoValue
+    # User did not provide setting, create one out of MEDIA_URL
+    value = deps['MEDIA_URL'].rstrip('/') + "/im/"
+    return value
+
+
 ASTAKOS_IM_STATIC_URL = Default(
-    default_value=MEDIA_URL + "im/",
+    default_value=None,
     description="Base URL for Astakos static files.",
-    dependencies=[MEDIA_URL],
+    configure_callback=_auto_configure_im_static_url,
+    dependencies=['MEDIA_URL'],
     export=False,
 )
 
