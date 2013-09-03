@@ -370,6 +370,18 @@ class Setting(object):
             if name in kwargs:
                 setattr(self, name, kwargs[name])
 
+        for d in self.dependencies:
+            if not isinstance(d, str):
+                m = ".dependencies must be a list of str, not {type}"
+                m = m.format(type=type(d))
+                raise ValueError(m)
+
+        for d in self.init_dependencies:
+            if not isinstance(d, str):
+                m = ".init_dependencies must be a list of str, not {type}"
+                m = m.format(type=type(d))
+                raise ValueError(m)
+
         serial = Setting._serial
         Setting._serial = serial + 1
         registry = Setting.Catalogs['registry']
