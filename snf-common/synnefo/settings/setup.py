@@ -210,6 +210,7 @@ class Setting(object):
 
     NoValue = type('NoValue', (), {})
 
+    setting_name = '__unnamed__'
     setting_type = 'setting'
     _serial = 0
 
@@ -259,8 +260,9 @@ class Setting(object):
 
         if self.fail_exception is not None:
             flags.append("failed({0})".format(self.fail_exception))
-        r = "<{setting_type}[{flags}]: {value}>" 
-        r = r.format(setting_type=self.setting_type,
+        r = "<{setting_name}(type:{setting_type})[flags:{flags}]: {value}>" 
+        r = r.format(setting_name=self.setting_name,
+                     setting_type=self.setting_type,
                      value=repr(value),
                      flags=','.join(flags))
         return r
@@ -372,14 +374,14 @@ class Setting(object):
 
         for d in self.dependencies:
             if not isinstance(d, str):
-                m = ".dependencies must be a list of str, not {type}"
-                m = m.format(type=type(d))
+                m = ".dependencies must be a list of str, not {this}"
+                m = m.format(this=repr(d))
                 raise ValueError(m)
 
         for d in self.init_dependencies:
             if not isinstance(d, str):
-                m = ".init_dependencies must be a list of str, not {type}"
-                m = m.format(type=type(d))
+                m = ".init_dependencies must be a list of str, not {this}"
+                m = m.format(this=repr(d))
                 raise ValueError(m)
 
         serial = Setting._serial
