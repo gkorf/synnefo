@@ -114,7 +114,8 @@ class Setting(object):
         been configured.
 
     configured_depth:
-        The depth of the setting in the dependency tree (forest).
+        The depth of the setting in the configure dependency tree (forest).
+        Settings with no dependencies have 0 depth, others greater than 0.
 
     runtime_value:
         This is the final setting value after all configuration
@@ -122,14 +123,14 @@ class Setting(object):
         for this setting has been completed.
 
         Initialized as Setting.NoValue.
-        Setting.configure_one_setting will set it upon completion.
+        Setting.configure will set it upon completion.
 
     serial:
         The setting's serial index in the 'registry' catalog.
         Represents the chronological order of execution of its annotation.
 
     dependents:
-        A list of the names of the settings that depend on this one.
+        The set of the names of the settings that depend on this one.
 
     fail_exception:
         If the configuration of a setting has failed, this holds
@@ -208,6 +209,10 @@ class Setting(object):
     class SettingsError(Exception):
         pass
 
+    class CycleError(SettingsError):
+        """Cyclic dependencies"""
+        pass
+
     NoValue = type('NoValue', (), {})
 
     setting_name = '__unnamed__'
@@ -231,7 +236,7 @@ class Setting(object):
     description = 'This setting is missing documentation'
     category = 'misc'
     dependencies = ()
-    dependents = ()
+    dependents = None
     init_dependencies = ()
     init_dependents = ()
     export = True
@@ -239,7 +244,7 @@ class Setting(object):
     serial = None
     configured_value = NoValue
     configured_source = None
-    configured_depth = 0
+    configured_depth = None
     runtime_value = NoValue
     fail_exception = None
     required_args = ()
@@ -372,18 +377,30 @@ class Setting(object):
             if name in kwargs:
                 setattr(self, name, kwargs[name])
 
+        dependencies = self.dependencies
+        if isinstance(dependencies, basestring):
+            m = ".dependencies must be an iterable of str, not {this}"
+            m = m.format(this=repr(dependencies))
+            raise ValueError(m)
+        self.dependencies = tuple(dependencies)
         for d in self.dependencies:
             if not isinstance(d, str):
-                m = ".dependencies must be a list of str, not {this}"
+                m = ".dependencies must be a tuple of str, not {this}"
                 m = m.format(this=repr(d))
                 raise ValueError(m)
 
+        init_dependencies = self.init_dependencies
+        if isinstance(dependencies, basestring):
+            m = ".init_dependencies must be an iterable of str, not an str"
+            raise ValueError(m)
+        self.init_dependencies = tuple(init_dependencies)
         for d in self.init_dependencies:
             if not isinstance(d, str):
-                m = ".init_dependencies must be a list of str, not {this}"
+                m = ".init_dependencies must be a tuple of str, not {this}"
                 m = m.format(this=repr(d))
                 raise ValueError(m)
 
+        self.dependents = set()
         serial = Setting._serial
         Setting._serial = serial + 1
         registry = Setting.Catalogs['registry']
@@ -403,6 +420,11 @@ class Setting(object):
                 continue
             var_list.append((name, getattr(settings_object, name)))
         return var_list
+
+    @staticmethod
+    def reset_all_catalogs():
+        for name, catalog in Setting.Catalogs.iteritems():
+            catalog.clear()
 
     @staticmethod
     def initialize_settings(settings_dict, strict=False):
@@ -522,6 +544,91 @@ class Setting(object):
         return new_settings
 
     @staticmethod
+    def check_setting_for_cycle(settings, name):
+        """Check if a setting is in a dependency cycle among given settings.
+
+        """
+        if name not in settings:
+            m = "No setting '{name}' found!"
+            m = m.format(name=name)
+            raise ValueError(m)
+
+        setting = settings[name]
+        stack = [(d, (name, d)) for d in (setting.dependencies)]
+        while stack:
+            current, path = stack.pop()
+            setting = settings[current]
+            for dep in setting.dependencies:
+                stack.append((dep, path + (dep,)))
+                if dep == name:
+                    path = list(path)
+                    path.append(name)
+                    m = "dependency cycle detected: {path}"
+                    m = m.format(path=' >> '.join(path))
+                    raise Setting.CycleError(m)
+        return True
+
+    @staticmethod
+    def assign_dependents(settings_dict):
+        for setting_name, setting in settings_dict.iteritems():
+            dependencies = setting.dependencies
+            if not dependencies:
+                continue
+
+            for dep_name in dependencies:
+                dep_setting = settings_dict[dep_name]
+                dep_setting.dependents.add(setting_name)
+
+    @staticmethod
+    def assign_configured_depths(settings_dict):
+        unresolved = set(settings_dict.keys())
+        next_surface = set(unresolved)
+        while True:
+            resolution_count = 0
+            resolution_surface = next_surface
+            next_surface = set()
+            for setting_name in list(resolution_surface):
+                setting = settings_dict[setting_name]
+
+                if not setting.dependencies:
+                    setting.configured_depth = 0
+                    resolution_count += 1
+                    resolution_surface.discard(setting_name)
+                    unresolved.discard(setting_name)
+                    next_surface.update(setting.dependents)
+                    continue
+
+                #if setting.configured_depth is not None:
+                #    raise AssertionError("Cycle")
+
+                max_depth = 0
+                for dep_name in setting.dependencies:
+                    dep_setting = settings_dict[dep_name]
+                    dep_depth = dep_setting.configured_depth
+                    if dep_depth is None:
+                        max_depth = None
+                        break
+
+                    if dep_depth > max_depth:
+                        max_depth = dep_depth
+
+                if max_depth is not None:
+                    setting.configured_depth = max_depth + 1
+                    resolution_count += 1
+                    unresolved.discard(setting_name)
+                    next_surface.update(setting.dependents)
+
+            if not unresolved:
+                break
+
+            if not resolution_count:
+                # cycle detected
+                for name in unresolved:
+                    break
+                Setting.check_setting_for_cycle(settings_dict, name)
+                raise AssertionError("This should have been unreachable")
+
+    @staticmethod
     def configure_settings(setting_names=()):
         settings = Setting.Catalogs['settings']
         if not setting_names:
@@ -545,41 +652,10 @@ class Setting(object):
         if m:
             raise Setting.SettingsError(m)
 
-        bottom = set(settings.keys())
-        for name, setting in settings.iteritems():
-            dependencies = setting.dependencies
-            if not dependencies:
-                continue
-            bottom.discard(name)
-            for dep_name in setting.dependencies:
-                dep_setting = settings[dep_name]
-                if not dep_setting.dependents:
-                    dep_setting.dependents = []
-                dep_setting.dependents.append(name)
+        # setting depth determination & cycle detection
 
-        depth = 1
-        while True:
-            dependents = []
-            for name in bottom:
-                setting = settings[name]
-                setting.configured_depth = depth
-                dependents.extend(setting.dependents)
-            if not dependents:
-                break
-            bottom = dependents
-            depth += 1
-
-        bottom = set(settings.keys())
-        for name, setting in settings.iteritems():
-            dependencies = setting.dependencies
-            if not dependencies:
-                continue
-            bottom.discard(name)
-            for dep_name in setting.dependencies:
-                dep_setting = settings[dep_name]
-                if not dep_setting.dependents:
-                    dep_setting.dependents = []
-                dep_setting.dependents.append(name)
+        Setting.assign_dependents(settings)
+        Setting.assign_configured_depths(settings)
 
         failed = []
         for name, setting in Setting.Catalogs['settings'].items():
@@ -678,6 +754,9 @@ class Setting(object):
                 m = m.format(dep_name=dep_name, name=setting_name)
                 raise Setting.SettingsError(m)
 
+            # The following dependency cycle check may be redundant
+            # since cycles are checked in configure_settings(),
+            # but better safe than sorry.
             if dep_name in dep_stack:
                 m = "Settings dependency cycle detected: {stack}"
                 m = m.format(stack=dep_stack + (dep_name,))
