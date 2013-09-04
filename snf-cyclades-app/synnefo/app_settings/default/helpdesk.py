@@ -1,4 +1,5 @@
-from synnefo.lib.settings.setup import Setting, Mandatory, Default
+from synnefo.lib.settings.setup import Default
+from synnefo.lib.settings.util import auto_configure_default_from_dep
 
 # Helpdesk app configuration
 ############################
@@ -12,11 +13,13 @@ HELPDESK_ENABLED = Default(
 )
 
 HELPDESK_AUTH_COOKIE_NAME = Default(
-    default_value=UI_AUTH_COOKIE_NAME,
+    default_value=None,
     example_value="cookie_name_here",
-    description="The cookie name that stores the token. By default it has the "
-        "same value with UI_AUTH_COOKIE_NAME.",
-    dependencies=[AUTH_COOKIE_NAME],
+    description=(
+        "The cookie name that stores the token. By default it has the "
+        "same value with UI_AUTH_COOKIE_NAME."),
+    dependencies=['UI_AUTH_COOKIE_NAME'],
+    configure_callback=auto_configure_default_from_dep,
     export=False,
 )
 
@@ -24,7 +27,8 @@ HELPDESK_AUTH_COOKIE_NAME = Default(
 HELPDESK_PERMITTED_GROUPS = Default(
     default_value=["helpdesk"],
     example_value=["helpdesk", "group1", "group2"],
-    description="Astakos groups that have access to the Helpdesk application's "
-        "views.",
+    description=(
+        "Astakos groups that have access to the Helpdesk application's "
+        "views."),
     export=False,
 )
