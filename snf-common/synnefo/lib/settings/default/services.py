@@ -36,7 +36,7 @@ from synnefo.util.keypath import customize_from_items
 from synnefo.lib.services import fill_endpoints
 from synnefo.lib import parse_base_url
 
-from synnefo.settings.setup import Setting, Mandatory, Auto, Default
+from synnefo.lib.settings.setup import Setting, Mandatory, Auto, Default
 
 CUSTOMIZE_SERVICES = Default(
     default_value=(),
