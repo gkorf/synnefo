@@ -1,26 +1,29 @@
-from synnefo.settings.setup import Setting, Mandatory, Default
+from synnefo.lib.settings.setup import Mandatory, Default
 
 # Plankton configuration
 ########################
 
 BACKEND_DB_CONNECTION = Mandatory(
-    example_value="sqlite:////usr/share/synnefo/pithos/backend.db or "
-        "postgresql://user:password@host:port/db_name",
+    example_value=(
+        "sqlite:////usr/share/synnefo/pithos/backend.db or "
+        "postgresql://user:password@host:port/db_name"),
     description="URI pointing to the Pithos database.",
     category="snf-cyclades-app-plankton",
 )
 
 BACKEND_BLOCK_PATH = Mandatory(
     example_value="/usr/share/synnefo/pithos/data/",
-    description="Full path pointing to the directory holding the actual "
-        "Pithos data.",
+    description=(
+        "Full path pointing to the directory holding the actual "
+        "Pithos data.",),
     category="snf-cyclades-app-plankton",
 )
 
 ALLOWED_DISK_FORMATS = Default(
     default_value=("diskdump", "extdump", "ntfsdump"),
-    description="The allowed image formats. These are the only formats "
-        "supported by Synnefo.",
+    description=(
+        "The allowed image formats. These are the only formats "
+        "supported by Synnefo."),
     export=False,
 )
 
