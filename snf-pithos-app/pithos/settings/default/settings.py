@@ -1,6 +1,7 @@
 from synnefo.lib.settings.setup import Default, Auto, Mandatory, SubMandatory
 from synnefo.lib.settings.default import (mk_auto_configure_base_host,
-                                          mk_auto_configure_base_path)
+                                          mk_auto_configure_base_path,
+                                          mk_auto_configure_services)
 
 # Pithos configuration
 ######################
@@ -17,14 +18,22 @@ PITHOS_BASE_HOST = Auto(
     configure_callback=mk_auto_configure_base_host("PITHOS_BASE_URL"),
     export=False,
     description="The host part of PITHOS_BASE_URL. Cannot be configured.",
-    dependencies=("PITHOS_BASE_URL",),
+    dependencies=["PITHOS_BASE_URL"],
 )
 
 PITHOS_BASE_PATH = Auto(
     configure_callback=mk_auto_configure_base_path("PITHOS_BASE_URL"),
     export=False,
     description="The path part of PITHOS_BASE_URL. Cannot be configured.",
-    dependencies=("PITHOS_BASE_URL",),
+    dependencies=["PITHOS_BASE_URL"],
+)
+
+PITHOS_SERVICES = Auto(
+    configure_callback=mk_auto_configure_services("pithos",
+                                                  "PITHOS_BASE_URL"),
+    description="Definition of services provided by the Pithos component",
+    export=False,
+    dependencies=["PITHOS_BASE_URL", "SYNNEFO_COMPONENTS"],
 )
 
 PITHOS_SERVICE_TOKEN = Mandatory(
@@ -66,7 +75,6 @@ PITHOS_BACKEND_POOL_SIZE = Default(
     description="Size of the pool used for pithos-backend instances.",
     category="snf-pithos-app-settings",
     export=True,
-    dependencies=[PITHOS_BACKEND_POOL_ENABLED],
 )
 
 PITHOS_BACKEND_DB_MODULE = Default(
@@ -149,13 +157,13 @@ PITHOS_RADOS_STORAGE = Default(
 PITHOS_RADOS_POOL_BLOCKS = SubMandatory(
     example_value="blocks",
     description="Name of the RADOS pool to store data blocks.",
-    depends=PITHOS_RADOS_STORAGE,
+    dependencies=['PITHOS_RADOS_STORAGE'],
 )
 
 PITHOS_RADOS_POOL_MAPS = SubMandatory(
     example_value="maps",
     description="Name of the RADOS pool to store maps.",
-    depends=PITHOS_RADOS_STORAGE,
+    dependencies=['PITHOS_RADOS_STORAGE'],
 )
 
 #
