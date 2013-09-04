@@ -1,6 +1,7 @@
 from synnefo.lib.settings.setup import Default, Auto, Mandatory, SubMandatory
 from synnefo.lib.settings.default import (mk_auto_configure_base_host,
-                                          mk_auto_configure_base_path)
+                                          mk_auto_configure_base_path,
+                                          mk_auto_configure_services)
 
 # API configuration
 ###################
@@ -57,6 +58,14 @@ CYCLADES_BASE_PATH = Auto(
     export=False,
     description="The path part of CYCLADES_BASE_URL. Cannot be configured.",
     dependencies=("CYCLADES_BASE_URL",),
+)
+
+CYCLADES_SERVICES = Auto(
+    configure_callback=mk_auto_configure_services("cyclades",
+                                                  "CYCLADES_BASE_URL"),
+    description="Definition of services provided by the Cyclades component",
+    export=False,
+    dependencies=["CYCLADES_BASE_URL", "SYNNEFO_COMPONENTS"],
 )
 
 DEFAULT_INSTANCE_NETWORKS = Default(
