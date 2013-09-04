@@ -1,8 +1,8 @@
-from synnefo.settings.setup import (Setting, Default, Auto,
-                                    Mandatory, SubMandatory)
-from synnefo.settings.default import (mk_auto_configure_base_host,
-                                      mk_auto_configure_base_path,
-                                      mk_auto_configure_services)
+from synnefo.lib.settings.setup import (Setting, Default, Auto,
+                                        Mandatory, SubMandatory)
+from synnefo.lib.settings.default import (mk_auto_configure_base_host,
+                                          mk_auto_configure_base_path,
+                                          mk_auto_configure_services)
 
 #
 # Astakos configuration

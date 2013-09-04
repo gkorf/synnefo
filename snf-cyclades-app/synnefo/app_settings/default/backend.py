@@ -1,4 +1,4 @@
-from synnefo.settings.setup import Setting, Mandatory, Default
+from synnefo.lib.settings.setup import Setting, Mandatory, Default
 
 # Ganeti backends configuration
 ###############################

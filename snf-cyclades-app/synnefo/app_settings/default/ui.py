@@ -1,4 +1,4 @@
-from synnefo.settings.setup import Settting, Mandatory, Default
+from synnefo.lib.settings.setup import Settting, Mandatory, Default
 
 # UI configuration
 ##################

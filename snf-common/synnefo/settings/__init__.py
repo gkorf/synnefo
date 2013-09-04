@@ -39,10 +39,10 @@ _module = modules[__name__]
 import synnefo
 synnefo.__file__ = os.path.join(synnefo.__path__[0], '__init__.py')
 
-from .setup import Setting
+from synnefo.lib.settings.setup import Setting
 synnefo_settings = {}
 # insert global default synnefo settings
-from .default import *
+from synnefo.lib.settings.default import *
 for name in dir(_module):
     if not Setting.is_valid_setting_name(name):
         continue
@@ -111,6 +111,8 @@ Setting.configure_settings()
 _module.__dict__.update(Setting.Catalogs['runtime'])
 
 # cleanup module namespace
+# WARNING: this may prevent synnefo.settings to have sub-modules,
+#          e.g. synnefo.settings.test
 for _name in dir(_module):
     if _name.startswith('_') or _name.isupper():
         continue

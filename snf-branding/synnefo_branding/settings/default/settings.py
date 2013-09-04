@@ -1,4 +1,4 @@
-from synnefo.settings.setup import Setting, Default, Auto
+from synnefo.lib.settings.setup import Setting, Default, Auto
 import datetime
 
 # Branding configuration

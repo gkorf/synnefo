@@ -31,7 +31,7 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from synnefo.settings.setup import Default
+from synnefo.lib.settings.setup import Default
 
 DEBUG = Default(
     default_value=False,
