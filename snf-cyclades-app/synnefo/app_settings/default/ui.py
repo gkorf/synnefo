@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from synnefo.settings.setup import Mandatory, Default
+from synnefo.lib.settings.setup import Mandatory, Default
 
 # UI configuration
 ##################
