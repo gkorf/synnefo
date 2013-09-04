@@ -1,6 +1,6 @@
-from synnefo.settings.setup import Default, Auto, Mandatory, SubMandatory
-from synnefo.settings.default import (mk_auto_configure_base_host,
-                                      mk_auto_configure_base_path)
+from synnefo.lib.settings.setup import Default, Auto, Mandatory, SubMandatory
+from synnefo.lib.settings.default import (mk_auto_configure_base_host,
+                                          mk_auto_configure_base_path)
 
 # API configuration
 ###################

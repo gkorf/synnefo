@@ -27,7 +27,7 @@
 # those of the authors and should not be interpreted as representing official
 # policies, either expressed or implied, of GRNET S.A.
 
-from synnefo.settings.setup import Setting
+from synnefo.lib.settings.setup import Setting
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from os.path import isdir, exists

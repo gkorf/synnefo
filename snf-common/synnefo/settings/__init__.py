@@ -41,10 +41,10 @@ synnefo.__file__ = os.path.join(synnefo.__path__[0], '__init__.py')
 
 # import default settings
 from synnefo.settings.default import *
-from .setup import Setting
+from synnefo.lib.settings.setup import Setting
 synnefo_settings = {}
 # insert global default synnefo settings
-from .default import *
+from synnefo.lib.settings.default import *
 for name in dir(_module):
     if not Setting.is_valid_setting_name(name):
         continue
@@ -120,6 +120,8 @@ if environ.get('SYNNEFO_TRACE'):
     trace.set_signal_trap()
 
 # cleanup module namespace
+# WARNING: this may prevent synnefo.settings to have sub-modules,
+#          e.g. synnefo.settings.test
 for _name in dir(_module):
     if _name.startswith('_') or _name.isupper():
         continue
