@@ -32,6 +32,7 @@
 # or implied, of GRNET S.A.
 
 import logging
+from itertools import chain
 
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail, get_connection
@@ -112,8 +113,9 @@ def _send_admin_notification(template_name,
 
     message = render_to_string(template_name, context)
     sender = settings.SERVER_EMAIL
-    recipient_list = [e[1] for e in settings.HELPDESK +
-                      settings.MANAGERS + settings.ADMINS]
+    recipient_list = [e[1] for e in chain(settings.HELPDESK,
+                                          settings.MANAGERS,
+                                          settings.ADMINS)]
     send_mail(subject, message, sender, recipient_list,
               connection=get_connection())
     if user:
@@ -150,8 +152,9 @@ def send_account_activated_notification(
         {'user': user}
     )
     sender = settings.SERVER_EMAIL
-    recipient_list = [e[1] for e in settings.HELPDESK +
-                      settings.MANAGERS + settings.ADMINS]
+    recipient_list = [e[1] for e in chain(settings.HELPDESK,
+                                          settings.MANAGERS,
+                                          settings.ADMINS)]
     send_mail(_(astakos_messages.HELPDESK_NOTIFICATION_EMAIL_SUBJECT) %
               {'user': user.email},
               message, sender, recipient_list, connection=get_connection())
