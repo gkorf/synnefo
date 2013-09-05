@@ -1,4 +1,4 @@
-from synnefo.settings.setup import Setting, Mandatory, Default
+from synnefo.lib.settings.setup import Mandatory, Default
 
 CLOUDBAR_LOCATION = Mandatory(
     example_value="https://accounts.example.synnefo.org/static/im/cloudbar/",
