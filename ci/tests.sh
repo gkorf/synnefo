@@ -1,11 +1,16 @@
 #!/bin/sh
 set -e
 
+if [ -z "${SYNNEFO_TEST_SETTINGS_DIR}" ]; then
+    SYNNEFO_TEST_SETTINGS_DIR="/etc/synnefo-test-settings"
+fi
+export SYNNEFO_SETTINGS_DIR="${SYNNEFO_TEST_SETTINGS_DIR}"
+
 SNF_MANAGE=$(which snf-manage) ||
 	{ echo "Cannot find snf-manage in $PATH" 1>&2; exit 1; }
 
-runTest () {
-    TEST="$SNF_MANAGE test $* --traceback --noinput --settings=synnefo.settings.test"
+runtest () {
+    TEST="$SNF_MANAGE test $* --traceback --noinput --settings=synnefo.settings"
 
     runCoverage "$TEST"
 }
@@ -20,11 +25,9 @@ runCoverage () {
     fi
 }
 
-export SYNNEFO_RELAX_MANDATORY_SETTINGS=1
 export ASTAKOS_BASE_URL='https://astakos.example.synnefo.org/accounts'
 export CYCLADES_BASE_URL='https://cyclades.example.synnefo.org/compute'
 export PITHOS_BASE_URL='https://pithos.example.synnefo.org/object-store'
-export SYNNEFO_SETTINGS_DIR=/tmp/snf-test-settings
 
 ASTAKOS_APPS="im quotaholder_app oa2"
 CYCLADES_APPS="api db logic plankton quotas vmapi helpdesk userdata"
