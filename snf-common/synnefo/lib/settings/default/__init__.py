@@ -33,3 +33,5 @@
 
 from .services import *
 from .admins import *
+from .cloudbar import *
+from .debug import *
