@@ -42,12 +42,12 @@ from synnefo.lib.services import get_public_endpoint as endpoint
 
 
 logger = logging.getLogger(__name__)
+synnefo_services = settings.SYNNEFO_SERVICES
 
 BASE_PATH = settings.CYCLADES_BASE_PATH
 if not BASE_PATH.startswith("/"):
     BASE_PATH = "/" + BASE_PATH
 
-synnefo_services = settings.SYNNEFO_SERVICES
 VOLUME_URL = endpoint(synnefo_services, 'volume', 'v2.0').rstrip('/')
 GLANCE_URL = endpoint(synnefo_services, 'image', 'v1.0').rstrip('/')
 COMPUTE_URL = endpoint(synnefo_services, 'compute', 'v2.0').rstrip('/')

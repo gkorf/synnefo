@@ -223,7 +223,7 @@ class PithosAPITest(TestCase):
 
         self.user = 'user'
         self.pithos_path = join_urls(get_service_path(
-            pithos_settings.pithos_services, 'object-store'))
+                settings.SYNNEFO_SERVICES, 'pithos_object-store'))
 
         # patch astakosclient.AstakosClient.validate_token
         mock_validate_token = self.create_patch(

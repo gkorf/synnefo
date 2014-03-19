@@ -36,6 +36,10 @@ from synnefo.lib import join_urls
 from urlparse import urlparse
 
 
+class ServiceNotFound(Exception):
+    pass
+
+
 def fill_endpoints(service, base_url):
     prefix = service['prefix']
     endpoints = service['endpoints']
@@ -90,7 +94,7 @@ def get_public_endpoint(services, service_type, version=None):
         m = "No endpoint found for service type '{0}'".format(service_type)
         if version is not None:
             m += " and version '{0}'".format(version)
-        raise ValueError(m)
+        raise ServiceNotFound(m)
 
     selected = sorted(found_endpoints.keys())[-1]
     return found_endpoints[selected]['publicURL']
@@ -114,5 +118,6 @@ def get_service_path(services, service_name, version=None):
         m = "No endpoint found for service '{0}'".format(service_name)
         if version is not None:
             m += " and version '{0}'".format(version)
+        raise ServiceNotFound(m)
     service_url = endpoints[0]['publicURL']
     return urlparse(service_url).path.rstrip('/')
