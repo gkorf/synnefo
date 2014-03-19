@@ -35,9 +35,10 @@ from synnefo.db.models import (Flavor, VirtualMachine, VirtualMachineMetadata,
                                IPPoolTable)
 from synnefo.plankton.backend import PlanktonBackend
 
-from synnefo.cyclades_settings import synnefo_services, BASE_HOST
+from synnefo.cyclades_settings import BASE_HOST
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
+synnefo_services = settings.SYNNEFO_SERVICES
 
 COMPUTE_URL = \
     join_urls(BASE_HOST,
