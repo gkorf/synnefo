@@ -40,7 +40,7 @@ import synnefo
 synnefo.__file__ = os.path.join(synnefo.__path__[0], '__init__.py')
 
 # import default settings
-from synnefo.settings.default import *
+from synnefo.lib.settings.default import *
 from synnefo.lib.settings.setup import Setting
 synnefo_settings = {}
 # insert global default synnefo settings
