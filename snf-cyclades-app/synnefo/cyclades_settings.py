@@ -15,7 +15,7 @@
 
 import logging
 
-from django.conf import settings
+from synnefo import settings
 from astakosclient import AstakosClient
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_service_prefix

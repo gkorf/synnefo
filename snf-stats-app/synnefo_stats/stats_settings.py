@@ -1,4 +1,4 @@
-from django.conf import settings
+from synnefo import settings
 
 BASE_URL = settings.STATS_BASE_URL
 BASE_HOST = settings.STATS_BASE_HOST

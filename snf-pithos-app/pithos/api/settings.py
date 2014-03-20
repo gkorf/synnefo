@@ -16,7 +16,7 @@
 #coding=utf8
 import logging
 
-from django.conf import settings
+from settings import settings
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_service_prefix
 from astakosclient import AstakosClient

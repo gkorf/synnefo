@@ -49,7 +49,7 @@ def _auto_configure_branding_image_media_url(setting, value, deps):
         # acknowledge user-provided setting
         return Setting.NoValue
     # User did not provide setting, create one out of MEDIA_URL
-    from django.conf import settings
+    from synnefo import settings
     return settings.MEDIA_URL + "branding/images/",
 
 
