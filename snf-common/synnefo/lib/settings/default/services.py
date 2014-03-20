@@ -32,7 +32,6 @@
 # or implied, of GRNET S.A.
 
 from synnefo.util.entry_points import extend_dict_from_entry_point
-from synnefo.util.keypath import customize_from_items
 from synnefo.lib.services import fill_endpoints
 from synnefo.lib import parse_base_url
 
@@ -40,8 +39,8 @@ from synnefo.lib.settings.setup import Setting, Auto, Default
 
 CUSTOMIZE_SERVICES = Default(
     default_value=(),
-    example_value={'cyclades_ui.prefix': 'view',
-                   'astakos_ui.prefix': 'view'},
+    example_value={('cyclades_ui', 'prefix'): 'view',
+                   ('astakos_ui', 'prefix'): 'view'},
     export=0,
     #dependencies=('SYNNEFO_SERVICES',)  #uncomment this to test cycle
     description=("A list of key-path and value pairs that would be applied to "
@@ -53,6 +52,14 @@ extend_dict_from_entry_point(services, 'synnefo', 'services')
 
 from sys import modules
 module = modules[__name__]
+
+
+def customize_from_items(document, items):
+    d = document
+    for path, value in items:
+        for step in path[:-1]:
+            d = d[step]
+        d[path[-1]] = value
 
 
 def mk_auto_configure_base_host(base_url_name):
