@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf import settings
+from synnefo import settings
 from synnefo.cyclades_settings import BASE_URL, BASE_HOST, BASE_PATH
 
 CACHE_BACKEND = getattr(settings, 'VMAPI_CACHE_BACKEND',

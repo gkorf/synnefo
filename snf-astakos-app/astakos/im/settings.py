@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf import settings
+from synnefo import settings
 from synnefo_branding import branding_settings
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_service_prefix

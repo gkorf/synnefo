@@ -1,4 +1,4 @@
-from django.conf import settings
+from synnefo import settings
 
 
 def get_setting(key, default):
