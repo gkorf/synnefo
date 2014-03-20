@@ -1,4 +1,4 @@
-from django.conf import settings
+from synnefo import settings
 from synnefo.util.version import get_component_version
 import datetime
 

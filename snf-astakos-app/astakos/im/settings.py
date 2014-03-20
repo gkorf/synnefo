@@ -31,7 +31,7 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from django.conf import settings
+from synnefo import settings
 from synnefo_branding import branding_settings
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_service_prefix

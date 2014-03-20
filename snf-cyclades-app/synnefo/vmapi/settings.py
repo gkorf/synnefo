@@ -31,7 +31,7 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from django.conf import settings
+from synnefo import settings
 from synnefo.cyclades_settings import BASE_URL, BASE_HOST, BASE_PATH
 
 CACHE_BACKEND = getattr(settings, 'VMAPI_CACHE_BACKEND',
