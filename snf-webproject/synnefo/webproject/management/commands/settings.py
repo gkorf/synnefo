@@ -271,7 +271,7 @@ class Command(BaseCommand):
             default_value = setting.default_value
             example_value = setting.example_value
             dependencies = setting.dependencies
-            description = setting.description
+            description = str(setting.description)
             sep = " # "
             eol = ""
 
