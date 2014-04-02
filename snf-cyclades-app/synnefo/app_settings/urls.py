@@ -81,29 +81,29 @@ urlpatterns += patterns(
 )
 
 
-# --------------------------------------
-# PROXY settings
-astakos_auth_proxy = \
-    partial(proxy, proxy_base=ASTAKOS_AUTH_PROXY_PATH,
-            target_base=ASTAKOS_AUTH_URL)
-astakos_account_proxy = \
-    partial(proxy, proxy_base=ASTAKOS_ACCOUNT_PROXY_PATH,
-            target_base=ASTAKOS_ACCOUNT_URL)
+# # --------------------------------------
+# # PROXY settings
+# astakos_auth_proxy = \
+#     partial(proxy, proxy_base=ASTAKOS_AUTH_PROXY_PATH,
+#             target_base=ASTAKOS_AUTH_URL)
+# astakos_account_proxy = \
+#     partial(proxy, proxy_base=ASTAKOS_ACCOUNT_PROXY_PATH,
+#             target_base=ASTAKOS_ACCOUNT_URL)
 
-# ui views serve html content, redirect instead of proxing
-astakos_ui_proxy = \
-    partial(proxy, proxy_base=ASTAKOS_UI_PROXY_PATH,
-            target_base=ASTAKOS_UI_URL, redirect=True)
+# # ui views serve html content, redirect instead of proxing
+# astakos_ui_proxy = \
+#     partial(proxy, proxy_base=ASTAKOS_UI_PROXY_PATH,
+#             target_base=ASTAKOS_UI_URL, redirect=True)
 
-urlpatterns += api_patterns(
-    '',
-    (prefix_pattern(ASTAKOS_AUTH_PROXY_PATH), astakos_auth_proxy),
-    (prefix_pattern(ASTAKOS_ACCOUNT_PROXY_PATH), astakos_account_proxy),
-)
-urlpatterns += patterns(
-    '',
-    (prefix_pattern(ASTAKOS_UI_PROXY_PATH), astakos_ui_proxy),
-)
+# urlpatterns += api_patterns(
+#     '',
+#     (prefix_pattern(ASTAKOS_AUTH_PROXY_PATH), astakos_auth_proxy),
+#     (prefix_pattern(ASTAKOS_ACCOUNT_PROXY_PATH), astakos_account_proxy),
+# )
+# urlpatterns += patterns(
+#     '',
+#     (prefix_pattern(ASTAKOS_UI_PROXY_PATH), astakos_ui_proxy),
+# )
 
 # --------------------------------------
 # set utility redirects
