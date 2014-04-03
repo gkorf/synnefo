@@ -15,7 +15,7 @@ BACKEND_BLOCK_PATH = Mandatory(
     example_value="/usr/share/synnefo/pithos/data/",
     description=(
         "Full path pointing to the directory holding the actual "
-        "Pithos data.",),
+        "Pithos data."),
     category="snf-cyclades-app-plankton",
 )
 
