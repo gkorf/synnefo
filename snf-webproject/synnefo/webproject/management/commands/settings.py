@@ -356,7 +356,7 @@ class Command(BaseCommand):
             setting_list.sort()
             for name, setting in setting_list:
                 conffile.write(setting.present_as_comment(runtime=runtime))
-                conffile.write('\n')
+                conffile.write('\n\n')
 
     def handle(self, *args, **options):
         if args:
