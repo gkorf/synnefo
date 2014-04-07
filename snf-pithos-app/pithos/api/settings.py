@@ -16,7 +16,7 @@
 #coding=utf8
 import logging
 
-from settings import settings
+from synnefo import settings
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_service_prefix
 from astakosclient import AstakosClient
@@ -38,11 +38,12 @@ ASTAKOS_BASE_HOST = settings.ASTAKOS_BASE_HOST,
 ASTAKOS_BASE_PATH = settings.ASTAKOS_BASE_PATH
 
 synnefo_services = settings.SYNNEFO_SERVICES
+pithos_services = settings.PITHOS_SERVICES
 
 PITHOS_PREFIX = get_service_prefix(synnefo_services, 'pithos_object-store')
 PUBLIC_PREFIX = get_service_prefix(synnefo_services, 'pithos_public')
 UI_PREFIX = get_service_prefix(synnefo_services, 'pithos_ui')
-VIEW_PREFIX = get_service_prefix(synnefo_services, 'pithos_view')
+VIEW_PREFIX = join_urls(UI_PREFIX, 'view')
 
 ASTAKOS_ACCOUNTS_PREFIX = get_service_prefix(synnefo_services,
                                              'astakos_account')

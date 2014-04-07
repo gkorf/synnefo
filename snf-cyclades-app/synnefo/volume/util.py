@@ -89,7 +89,8 @@ def get_server(user_id, server_id, for_update=False, non_deleted=False,
 
 VOLUME_URL = \
     join_urls(BASE_HOST,
-              get_service_path(cyclades_services, "volume", version="v2.0"))
+              get_service_path(cyclades_services, "cyclades_volume",
+                               version="v2.0"))
 
 VOLUMES_URL = join_urls(VOLUME_URL, "volumes/")
 SNAPSHOTS_URL = join_urls(VOLUME_URL, "snapshots/")
