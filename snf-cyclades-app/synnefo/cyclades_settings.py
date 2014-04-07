@@ -32,6 +32,7 @@ BASE_HOST = settings.CYCLADES_BASE_HOST
 BASE_PATH = settings.CYCLADES_BASE_PATH
 
 synnefo_services = settings.SYNNEFO_SERVICES
+cyclades_services = settings.CYCLADES_SERVICES
 COMPUTE_PREFIX = get_service_prefix(synnefo_services, 'cyclades_compute')
 NETWORK_PREFIX = get_service_prefix(synnefo_services, 'cyclades_network')
 VMAPI_PREFIX = get_service_prefix(synnefo_services, 'cyclades_vmapi')
@@ -48,50 +49,26 @@ COMPUTE_ROOT_URL = join_urls(BASE_URL, COMPUTE_PREFIX)
 # --------------------------------------------------------------------
 # Process Astakos settings
 
-ASTAKOS_AUTH_URL = getattr(
-    settings, 'ASTAKOS_AUTH_URL',
-    'https://accounts.example.synnefo.org/astakos/identity/v2.0')
-
-
-# --------------------------------------
-# Define a LazyAstakosUrl
-# This is used to define ASTAKOS_ACCOUNT_URL and
-# ASTAKOS_UI_URL and should never be used as is.
-class LazyAstakosUrl(object):
-    def __init__(self, endpoints_name):
-        self.endpoints_name = endpoints_name
-
-    def __str__(self):
-        if not hasattr(self, 'str'):
-            try:
-                astakos_client = \
-                    AstakosClient(SERVICE_TOKEN, ASTAKOS_AUTH_URL)
-                self.str = getattr(astakos_client, self.endpoints_name)
-            except Exception as excpt:
-                logger.exception(
-                    "Could not retrieve endpoints from Astakos url %s: %s",
-                    ASTAKOS_AUTH_URL, excpt)
-                return ""
-        return self.str
-
-# --------------------------------------
-# Define ASTAKOS_UI_URL and ASTAKOS_ACCOUNT_URL as LazyAstakosUrl
-# These are used to define the proxy paths.
-# These have to be resolved lazily (by the proxy function) so
-# they should not be used as is.
-ASTAKOS_ACCOUNT_URL = LazyAstakosUrl('account_url')
-ASTAKOS_UI_URL = LazyAstakosUrl('ui_url')
+ASTAKOS_AUTH_URL = settings.ASTAKOS_AUTH_URL
+ASTAKOS_ACCOUNT_URL = settings.ASTAKOS_ACCOUNT_URL
+ASTAKOS_UI_URL = settings.ASTAKOS_UI_URL
 
 ASTAKOS_BASE_URL = settings.ASTAKOS_BASE_URL
 ASTAKOS_BASE_HOST = settings.ASTAKOS_BASE_HOST
 ASTAKOS_BASE_PATH = settings.ASTAKOS_BASE_PATH
 
+ASTAKOS_PROXY_PREFIX = settings.CYCLADES_PROXY_PREFIX
+ASTAKOS_AUTH_PREFIX = join_urls('/', ASTAKOS_PROXY_PREFIX, 'identity')
+ASTAKOS_ACCOUNT_PREFIX = join_urls('/', ASTAKOS_PROXY_PREFIX, 'account')
+ASTAKOS_UI_PREFIX = join_urls('/', ASTAKOS_PROXY_PREFIX, 'ui')
+ASTAKOS_AUTH_PROXY_PATH = join_urls(BASE_PATH, ASTAKOS_AUTH_PREFIX)
+ASTAKOS_ACCOUNT_PROXY_PATH = join_urls(BASE_PATH, ASTAKOS_ACCOUNT_PREFIX)
+ASTAKOS_UI_PROXY_PATH = join_urls(BASE_PATH, ASTAKOS_UI_PREFIX)
+
+
 ASTAKOS_ACCOUNTS_PREFIX = get_service_prefix(synnefo_services,
                                              'astakos_account')
 ASTAKOS_VIEWS_PREFIX = get_service_prefix(synnefo_services, 'astakos_ui')
-ASTAKOS_KEYSTONE_PREFIX = get_service_prefix(synnefo_services,
-                                             'astakos_identity')
-
 
 # Proxy Astakos settings
 

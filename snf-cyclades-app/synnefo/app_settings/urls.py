@@ -27,24 +27,24 @@ from functools import partial
 
 urlpatterns = []
 
-cyclades_services = settings.SYNNEFO_SERVICES["cyclades"]
-
+cyclades_services = settings.CYCLADES_SERVICES
 # Redirects should be first, otherwise they may get overridden by wildcards
 extend_endpoint_with_slash(urlpatterns, cyclades_services, 'cyclades_ui')
 extend_endpoint_with_slash(urlpatterns, cyclades_services, 'cyclades_helpdesk')
-extend_endpoint_with_slash(urlpatterns, cyclades_services, 'admin')
+extend_endpoint_with_slash(urlpatterns, cyclades_services, 'cyclades_admin')
 extend_endpoint_with_slash(urlpatterns, cyclades_services, 'cyclades_userdata')
 
 cyclades_patterns = api_patterns(
     '',
     (prefix_pattern_of('cyclades_vmapi'), include('synnefo.vmapi.urls')),
     (prefix_pattern_of('cyclades_plankton'), include('synnefo.plankton.urls')),
-    (prefix_pattern_of('cyclades_compute'), include('synnefo.api.urls')),
+    (prefix_pattern_of('cyclades_compute'),
+     include('synnefo.api.compute_urls')),
     (prefix_pattern_of('cyclades_network'),
      include('synnefo.api.network_urls')),
     (prefix_pattern_of('cyclades_userdata'), include('synnefo.userdata.urls')),
     (prefix_pattern_of('cyclades_admin'), include('synnefo.admin.urls')),
-    (prefix_pattern_of('cyclades_volume'), include('cyclades.volume.urls')),
+    (prefix_pattern_of('cyclades_volume'), include('synnefo.volume.urls')),
 )
 
 cyclades_patterns += patterns(
@@ -63,29 +63,30 @@ urlpatterns += patterns(
 )
 
 
-# # --------------------------------------
-# # PROXY settings
-# astakos_auth_proxy = \
-#     partial(proxy, proxy_base=ASTAKOS_AUTH_PROXY_PATH,
-#             target_base=ASTAKOS_AUTH_URL)
-# astakos_account_proxy = \
-#     partial(proxy, proxy_base=ASTAKOS_ACCOUNT_PROXY_PATH,
-#             target_base=ASTAKOS_ACCOUNT_URL)
+# --------------------------------------
+# PROXY settings
+astakos_auth_proxy = \
+    partial(proxy, proxy_base=settings.ASTAKOS_AUTH_PROXY_PATH,
+            target_base=settings.ASTAKOS_AUTH_URL)
+astakos_account_proxy = \
+    partial(proxy, proxy_base=settings.ASTAKOS_ACCOUNT_PROXY_PATH,
+            target_base=settings.ASTAKOS_ACCOUNT_URL)
 
-# # ui views serve html content, redirect instead of proxing
-# astakos_ui_proxy = \
-#     partial(proxy, proxy_base=ASTAKOS_UI_PROXY_PATH,
-#             target_base=ASTAKOS_UI_URL, redirect=True)
+# ui views serve html content, redirect instead of proxing
+astakos_ui_proxy = \
+    partial(proxy, proxy_base=settings.ASTAKOS_UI_PROXY_PATH,
+            target_base=settings.ASTAKOS_UI_URL, redirect=True)
 
-# urlpatterns += api_patterns(
-#     '',
-#     (prefix_pattern(ASTAKOS_AUTH_PROXY_PATH), astakos_auth_proxy),
-#     (prefix_pattern(ASTAKOS_ACCOUNT_PROXY_PATH), astakos_account_proxy),
-# )
-# urlpatterns += patterns(
-#     '',
-#     (prefix_pattern(ASTAKOS_UI_PROXY_PATH), astakos_ui_proxy),
-# )
+urlpatterns += api_patterns(
+    '',
+    (prefix_pattern(settings.ASTAKOS_AUTH_PROXY_PATH), astakos_auth_proxy),
+    (prefix_pattern(settings.ASTAKOS_ACCOUNT_PROXY_PATH),
+     astakos_account_proxy),
+)
+urlpatterns += patterns(
+    '',
+    (prefix_pattern(settings.ASTAKOS_UI_PROXY_PATH), astakos_ui_proxy),
+)
 
 # --------------------------------------
 # set utility redirects

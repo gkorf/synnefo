@@ -9,7 +9,7 @@ from synnefo.lib.settings.setup import Setting, Mandatory, Default
 DEFAULT_KEYWORDS = ["OS", "Role", "Location", "Owner"]
 
 def _auto_configure_ui_media_url(setting, value, deps):
-    if value is Setting.NoValue:
+    if value is not Setting.NoValue:
         # acknowledge user-provided setting
         return Setting.NoValue
     # User did not provide setting, create one out of MEDIA_URL
@@ -147,7 +147,7 @@ IMAGE_ICONS = Default(
     export=False,
 )
 
-VM_IMAGE_COMMON_METADATA = Default(
+UI_VM_IMAGE_COMMON_METADATA = Default(
     default_value=["OS", "loginname", "logindomain", "users", "remote"],
     description=(
         "List of metadata keys to clone from the image to the virtual "
