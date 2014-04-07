@@ -1,4 +1,5 @@
-from synnefo.lib.settings.setup import Default, Auto, Mandatory, SubMandatory
+from synnefo.lib import join_urls
+from synnefo.lib.settings.setup import Setting, Default, Auto, Mandatory, SubMandatory
 from synnefo.lib.settings.default import (mk_auto_configure_base_host,
                                           mk_auto_configure_base_path,
                                           mk_auto_configure_services)
@@ -371,4 +372,127 @@ POLL_LIMIT = Default(
         "The API will return HTTP Bad Request if the ?changes-since "
         "parameter refers to a point in time older than POLL_LIMIT seconds."),
     export=False,
+)
+
+#####################################
+# Astakos and Proxy
+
+ASTAKOS_AUTH_URL = Mandatory(
+    example_value='https://accounts.example.synnefo.org/astakos/identity/v2.0',
+    description="Astakos auth URL",
+    category="",
+)
+
+CYCLADES_PROXY_PREFIX = Default(
+    default_value="_astakos",
+    description="Proxy Astakos services under the following path.",
+    export=True,
+)
+
+
+# --------------------------------------
+# Define a LazyAstakosUrl
+# This is used to define ASTAKOS_ACCOUNT_URL and
+# ASTAKOS_UI_URL and should never be used as is.
+class LazyAstakosUrl(object):
+    def __init__(self, service_token, astakos_auth_url, endpoints_name):
+        self.service_token = service_token
+        self.astakos_auth_url = astakos_auth_url
+        self.endpoints_name = endpoints_name
+
+    def __str__(self):
+        if not hasattr(self, 'str'):
+            try:
+                astakos_client = \
+                    AstakosClient(self.service_token, self.astakos_auth_url)
+                self.str = getattr(astakos_client, self.endpoints_name)
+            except Exception as excpt:
+                logger.exception(
+                    "Could not retrieve endpoints from Astakos url %s: %s",
+                    ASTAKOS_AUTH_URL, excpt)
+                return ""
+        return self.str
+
+def mk_auto_lazy_astakos_url(url):
+    def auto_lazy_astakos_url(setting, value, deps):
+        Setting.enforce_not_configurable(setting, value)
+        service_token = deps["CYCLADES_SERVICE_TOKEN"]
+        astakos_auth_url = deps["ASTAKOS_AUTH_URL"]
+        return LazyAstakosUrl(service_token, astakos_auth_url, url)
+    return auto_lazy_astakos_url
+
+
+ASTAKOS_ACCOUNT_URL = Auto(
+    configure_callback=mk_auto_lazy_astakos_url("account_url"),
+    export=False,
+    description="Astakos account URL",
+    dependencies=("CYCLADES_SERVICE_TOKEN", "ASTAKOS_AUTH_URL"),
+)
+
+ASTAKOS_UI_URL = Auto(
+    configure_callback=mk_auto_lazy_astakos_url("account_ui"),
+    export=False,
+    description="Astakos UI URL",
+    dependencies=("CYCLADES_SERVICE_TOKEN", "ASTAKOS_AUTH_URL"),
+)
+
+def mk_auto_prefix(one, two):
+    def auto_prefix(setting, value, deps):
+        Setting.enforce_not_configurable(setting, value)
+        part_one = deps[one]
+        return join_urls('/', part_one, two)
+    return auto_prefix
+
+def mk_auto_path(one, two):
+    def auto_path(setting, value, deps):
+        Setting.enforce_not_configurable(setting, value)
+        part_one = deps[one]
+        part_two = deps[two]
+        return join_urls(part_one, part_two)
+    return auto_path
+
+
+ASTAKOS_AUTH_PREFIX = Auto(
+    configure_callback=mk_auto_prefix("CYCLADES_PROXY_PREFIX", "identity"),
+    export=False,
+    description="Astakos auth proxy prefix",
+    dependencies=("CYCLADES_PROXY_PREFIX",),
+)
+
+ASTAKOS_ACCOUNT_PREFIX = Auto(
+    configure_callback=mk_auto_prefix("CYCLADES_PROXY_PREFIX", "account"),
+    export=False,
+    description="Astakos account proxy prefix",
+    dependencies=("CYCLADES_PROXY_PREFIX",),
+)
+
+ASTAKOS_UI_PREFIX = Auto(
+    configure_callback=mk_auto_prefix("CYCLADES_PROXY_PREFIX", "ui"),
+    export=False,
+    description="Astakos ui proxy prefix",
+    dependencies=("CYCLADES_PROXY_PREFIX",),
+)
+
+ASTAKOS_AUTH_PROXY_PATH = Auto(
+    configure_callback=mk_auto_path("CYCLADES_BASE_PATH",
+                                    "ASTAKOS_AUTH_PREFIX"),
+    export=False,
+    description="Astakos auth proxy path",
+    dependencies=("CYCLADES_BASE_PATH", "ASTAKOS_AUTH_PREFIX",),
+)
+
+ASTAKOS_ACCOUNT_PROXY_PATH = Auto(
+    configure_callback=mk_auto_path("CYCLADES_BASE_PATH",
+                                    "ASTAKOS_ACCOUNT_PREFIX"),
+    export=False,
+    description="Astakos account proxy path",
+    dependencies=("CYCLADES_BASE_PATH", "ASTAKOS_ACCOUNT_PREFIX",),
+)
+
+ASTAKOS_UI_PROXY_PATH = Auto(
+    configure_callback=mk_auto_path("CYCLADES_BASE_PATH",
+                                    "ASTAKOS_UI_PREFIX"),
+    export=False,
+    description="Astakos ui proxy path",
+    dependencies=("CYCLADES_BASE_PATH", "ASTAKOS_UI_PREFIX",),
 )

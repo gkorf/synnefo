@@ -42,6 +42,7 @@ BASE_HOST = settings.ASTAKOS_BASE_HOST
 BASE_PATH = settings.ASTAKOS_BASE_PATH
 
 synnefo_services = settings.SYNNEFO_SERVICES
+astakos_services = settings.SYNNEFO_COMPONENTS['astakos']
 
 # Set service name
 SITENAME = getattr(settings, 'ASTAKOS_SITENAME',
