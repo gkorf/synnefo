@@ -19,7 +19,12 @@ BACKEND_BLOCK_PATH = Mandatory(
     category="snf-cyclades-app-plankton",
 )
 
-PITHOS_BACKEND_POOL_SIZE = 8
+PLANKTON_PITHOS_BACKEND_POOL_SIZE = Default(
+    default_value=8,
+    example_value=8,
+    description="Number of concurrent connections to be provided by objpool.",
+    export=False,
+)
 
 ALLOWED_DISK_FORMATS = Default(
     default_value=("diskdump", "extdump", "ntfsdump"),
