@@ -250,6 +250,7 @@ class Setting(object):
     required_args = ()
     disallowed_args = ()
     _checked_arguments = False
+    annotation_source = None
 
     def __repr__(self):
         flags = []
@@ -427,7 +428,7 @@ class Setting(object):
             catalog.clear()
 
     @staticmethod
-    def initialize_settings(settings_dict, strict=False):
+    def initialize_settings(settings_dict, source="unknown", strict=False):
         Catalogs = Setting.Catalogs
         settings = Catalogs['settings']
         categories = Catalogs['categories']
@@ -445,12 +446,14 @@ class Setting(object):
                 else:
                     setting = Setting(default_value=setting)
 
-            # FIXME: duplicate annotations?
-            #if name in settings:
-            #    m = ("Duplicate annotation for setting '{name}': '{value}'. "
-            #         "Original annotation: '{original}'")
-            #    m = m.format(name=name, value=setting, original=settings[name])
-            #    raise Setting.SettingsError(m)
+            #FIXME: duplicate annotations?
+            if name in settings:
+               m = ("Duplicate setting '{name}': existing from "
+                    "'{orig}', new found in '{new}'.")
+               m = m.format(name=name, orig=settings[name].annotation_source,
+                            new=source)
+               # raise Setting.SettingsError(m)
+               print m
             for init_dep in setting.init_dependencies:
                 if init_dep in settings:
                     if init_dep in init_dependents:
@@ -469,6 +472,7 @@ class Setting(object):
                     init_dependents[init_dep].append(name)
 
             setting.setting_name = name
+            setting.annotation_source = source
             if name in init_dependents:
                 setting.init_dependents = init_dependents.pop(name)
             settings[name] = setting
@@ -491,7 +495,7 @@ class Setting(object):
 
     @staticmethod
     def load_configuration(new_settings,
-                           source='unknonwn',
+                           source='unknown',
                            allow_override=False,
                            allow_unknown=False,
                            allow_known=True):
