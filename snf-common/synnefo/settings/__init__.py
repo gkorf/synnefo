@@ -49,18 +49,24 @@ for name in dir(_module):
     if not Setting.is_valid_setting_name(name):
         continue
     synnefo_settings[name] = getattr(_module, name)
+Setting.initialize_settings(synnefo_settings,
+                            source=_module.__name__,
+                            strict=False)
 
 # autodetect default settings provided by synnefo applications
 from synnefo.util.entry_points import get_entry_points
 for e in get_entry_points('synnefo', 'default_settings'):
     m = e.load()
+    synnefo_settings = {}
     for name in dir(m):
         if not Setting.is_valid_setting_name(name):
             continue
         synnefo_settings[name] = getattr(m, name)
 
-# set strict to True to require annotation of all settings
-Setting.initialize_settings(synnefo_settings, strict=False)
+    # set strict to True to require annotation of all settings
+    Setting.initialize_settings(synnefo_settings, source=m.__name__,
+                                strict=False)
+
 _module.__dict__.update(Setting.Catalogs['defaults'])
 
 # extend default settings with settings provided within *.conf user files
