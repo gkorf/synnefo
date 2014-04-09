@@ -262,3 +262,10 @@ PITHOS_TRANSLATE_UUIDS = Default(
     description="Transitional setting to allow UUID translations.",
     export=False,
 )
+
+
+ASTAKOS_AUTH_URL = Mandatory(
+    example_value='https://accounts.example.synnefo.org/astakos/identity/v2.0',
+    description="Astakos auth URL",
+    category="",
+)
