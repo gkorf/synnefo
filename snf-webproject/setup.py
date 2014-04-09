@@ -190,7 +190,7 @@ setup(
          'snf-manage = synnefo.webproject.manage:main',
          ],
      'synnefo': [
-         'default_settings = synnefo.webproject.settings'
+         'default_settings = synnefo.webproject.settings.default'
          ]
       },
 )
