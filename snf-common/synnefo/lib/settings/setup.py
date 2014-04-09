@@ -444,6 +444,7 @@ class Setting(object):
                     m = m.format(name=name, value=setting)
                     raise Setting.SettingsError(m)
                 else:
+                    print "non-annotated %s, %s" % (source, name)
                     setting = Setting(default_value=setting)
 
             #FIXME: duplicate annotations?
