@@ -102,10 +102,13 @@ EMAIL_HOST_USER = Default(
 # Synnefo logging directory
 ############################
 
-# Directory where log files are saved
-# Currently only snf-manage uses this to save
-# the output of the commands being executed.
-LOG_DIR = "/var/log/synnefo/"
+LOG_DIR = Default(
+    default_value="/var/log/synnefo/",
+    description=("Directory where log files are saved. "
+                 "Currently only snf-manage uses this to "
+                 "save the output of the commands being executed."),
+    category="snf-common-admins",
+)
 
 EMAIL_HOST_PASSWORD = Default(
     default_value="",
