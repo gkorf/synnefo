@@ -2,9 +2,12 @@
 #
 # Logging configuration
 ##################################
+from synnefo.lib.settings.setup import Default
+from synnefo.util.entry_points import extend_list_from_entry_point, \
+        extend_dict_from_entry_point
 
 
-FORMATTERS = {
+_FORMATTERS = {
     'simple': {
         'format': '%(asctime)s [%(levelname)s] %(message)s'
     },
@@ -17,52 +20,59 @@ FORMATTERS = {
     },
 }
 
-
-LOGGING_SETUP = {
-    'version': 1,
-    'disable_existing_loggers': False,
-
-    'formatters':  FORMATTERS,
-    'handlers': {
-        'null': {
-            'class': 'logging.NullHandler',
-        },
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        },
-        'syslog': {
-            'class': 'logging.handlers.SysLogHandler',
-            'address': '/dev/log',
-            # 'address': ('localhost', 514),
-            'facility': 'daemon',
-            'formatter': 'verbose',
-            'level': 'INFO',
-        },
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': False,
-        }
+_LOGGERS = {
+    '': {
+        'handlers': ['console'],
+        'level': 'INFO'
     },
-
-    'loggers': {
-        '': {
-            'handlers': ['console'],
-            'level': 'INFO'
-        },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'synnefo': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': 0
-        },
-    }
+    'django.request': {
+        'handlers': ['mail_admins'],
+        'level': 'ERROR',
+        'propagate': True,
+    },
+    'synnefo': {
+        'handlers': ['console'],
+        'level': 'INFO',
+        'propagate': 0
+    },
 }
+
+LOGGING_SETUP = Default(
+    default_value={
+        'version': 1,
+        'disable_existing_loggers': False,
+
+        'formatters': _FORMATTERS,
+        'handlers': {
+            'null': {
+                'class': 'logging.NullHandler',
+            },
+            'console': {
+                'class': 'logging.StreamHandler',
+                'formatter': 'verbose'
+            },
+            'syslog': {
+                'class': 'logging.handlers.SysLogHandler',
+                'address': '/dev/log',
+                # 'address': ('localhost', 514),
+                'facility': 'daemon',
+                'formatter': 'verbose',
+                'level': 'INFO',
+            },
+            'mail_admins': {
+                'level': 'ERROR',
+                'class': 'django.utils.log.AdminEmailHandler',
+                'include_html': False,
+            }
+        },
+
+        'loggers': extend_dict_from_entry_point(
+            _LOGGERS, 'synnefo', 'loggers'),
+    },
+    description="Logging setup",
+    category="snf-webproject-logging",
+    export=False,
+)
 
 #LOGGING_SETUP['loggers']['synnefo.admin'] = {'level': 'INFO', 'propagate': 1}
 #LOGGING_SETUP['loggers']['synnefo.api'] = {'level': 'INFO', 'propagate': 1}
@@ -72,23 +82,28 @@ LOGGING_SETUP = {
 # To set logging level for plankton to DEBUG just uncomment the follow line:
 # LOGGING_SETUP['loggers']['synnefo.plankton'] = {'level': 'INFO', 'propagate': 1}
 
-SNF_MANAGE_LOGGING_SETUP = {
-    'version': 1,
-    'disable_existing_loggers': False,
+SNF_MANAGE_LOGGING_SETUP = Default(
+    default_value={
+        'version': 1,
+        'disable_existing_loggers': False,
 
-    'formatters': FORMATTERS,
+        'formatters': _FORMATTERS,
 
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+                'formatter': 'verbose'
+            },
         },
+
+        'loggers': {
+            '': {
+                'handlers': ['console'],
+                'level': 'WARNING'
+            },
+        }
     },
-
-    'loggers': {
-        '': {
-            'handlers': ['console'],
-            'level': 'WARNING'
-        },
-    }
-}
+    description="snf-manage logging setup",
+    category="snf-webproject-logging",
+    export=False,
+)

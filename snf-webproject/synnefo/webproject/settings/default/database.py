@@ -1,31 +1,37 @@
+from synnefo.lib.settings.setup import Mandatory
+
 # Database settings
 ####################
 
 
-DATABASES = {
-    'default': {
-        # Available values 'postgresql_psycopg2', 'postgresql','mysql',
-        # 'sqlite3' or 'oracle'
-        'ENGINE': 'django.db.backends.sqlite3',
+DATABASES = Mandatory(
+    example_value={
+        'default': {
+            # Available values 'postgresql_psycopg2', 'postgresql','mysql',
+            # 'sqlite3' or 'oracle'
+            'ENGINE': 'django.db.backends.sqlite3',
 
-        # ATTENTION: This *must* be the absolute path if using sqlite3.
-        # See: http://docs.djangoproject.com/en/dev/ref/settings/#name
-        'NAME': '/usr/share/synnefo/synnefo_database.sqlite',
+            # ATTENTION: This *must* be the absolute path if using sqlite3.
+            # See: http://docs.djangoproject.com/en/dev/ref/settings/#name
+            'NAME': '/usr/share/synnefo/synnefo_database.sqlite',
 
-        'USER': '',                      # Not used with sqlite3.
+            'USER': '',                      # Not used with sqlite3.
 
-        'PASSWORD': '',                  # Not used with sqlite3.
-        # Set to empty string for localhost. Not used with sqlite3.
+            'PASSWORD': '',                  # Not used with sqlite3.
+            # Set to empty string for localhost. Not used with sqlite3.
 
-        'HOST': '',
+            'HOST': '',
 
-        # Set to empty string for default. Not used with sqlite3.
-        'PORT': '',
+            # Set to empty string for default. Not used with sqlite3.
+            'PORT': '',
 
-        # Uncomment the following lines if you use mysql database
-        #'OPTIONS': {
-        #    'init_command': 'SET storage_engine=INNODB; ' +
-        #        'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
-        #}
-    }
-}
+            # Uncomment the following lines if you use mysql database
+            #'OPTIONS': {
+            #    'init_command': 'SET storage_engine=INNODB; ' +
+            #        'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
+            #}
+        }
+    },
+    description="Database settings",
+    category="snf-webproject-database",
+)
