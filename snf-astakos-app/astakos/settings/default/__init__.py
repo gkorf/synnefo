@@ -32,3 +32,4 @@
 # or implied, of GRNET S.A.
 
 from astakos.settings.default.settings import *
+from astakos.settings.default.oa2 import *
