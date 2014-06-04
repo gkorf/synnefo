@@ -457,9 +457,6 @@ class AstakosUser(User):
     policy = models.ManyToManyField(
         Resource, null=True, through='AstakosUserQuota')
 
-    disturbed_quota = models.BooleanField(_('Needs quotaholder syncing'),
-                                          default=False, db_index=True)
-
     # This could have been OneToOneField, but fails due to
     # https://code.djangoproject.com/ticket/13781 (fixed in v1.6)
     base_project = models.ForeignKey('Project', related_name="base_user",
