@@ -27,16 +27,16 @@
 # those of the authors and should not be interpreted as representing official
 # policies, either expressed or implied, of GRNET S.A.
 
-from synnefo.lib.settings.setup import Setting
+from synnefo.lib.settings import setup
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from os.path import isdir, exists
 from pprint import pformat
 from textwrap import wrap
 
-NoValue = Setting.NoValue
-available_categories = sorted(Setting.Catalogs['categories'].keys())
-available_types = sorted(Setting.Catalogs['types'].keys())
+NoValue = setup.NoValue
+available_categories = sorted(setup.Catalogs['categories'].keys())
+available_types = sorted(setup.Catalogs['types'].keys())
 
 
 class Command(BaseCommand):
@@ -136,7 +136,7 @@ class Command(BaseCommand):
         return filter_all
 
     def mk_filter_category(self, category):
-        if category not in Setting.Catalogs['categories']:
+        if category not in setup.Catalogs['categories']:
             m = "Unknown category '{0}'".format(category)
             raise CommandError(m)
 
@@ -145,7 +145,7 @@ class Command(BaseCommand):
         return filter_category
 
     def mk_filter_type(self, setting_type):
-        if setting_type not in Setting.Catalogs['types']:
+        if setting_type not in setup.Catalogs['types']:
             m = "Unknown type '{0}'".format(setting_type)
             raise CommandError(m)
 
@@ -172,7 +172,7 @@ class Command(BaseCommand):
         return filter_configured
 
     def mk_filter_setting(self, setting_name):
-        if not Setting.is_valid_setting_name(setting_name):
+        if not setup.is_valid_setting_name(setting_name):
             m = "Invalid setting name '{0}'".format(setting_name)
             raise AssertionError(m)
 
@@ -205,7 +205,7 @@ class Command(BaseCommand):
                 negate = False
 
             if key not in self._mk_filters:
-                if not Setting.is_valid_setting_name(key):
+                if not setup.is_valid_setting_name(key):
                     return None
                 value = key
                 key = 'setting'
@@ -225,7 +225,7 @@ class Command(BaseCommand):
         return sorted(display_settings.iteritems())
 
     def sort_source(display_settings):
-        registry = Setting.Catalogs['registry']
+        registry = setup.Catalogs['registry']
         sortable = []
         for name, setting in display_settings.iteritems():
             sortable.append((registry[name], name, setting))
@@ -240,7 +240,7 @@ class Command(BaseCommand):
         return [(t[1], t[2]) for t in sortable]
 
     def sort_category_source(display_settings):
-        registry = Setting.Catalogs['registry']
+        registry = setup.Catalogs['registry']
         sortable = []
         for name, setting in display_settings.iteritems():
             sortable.append((setting.category, registry[name], setting))
@@ -369,7 +369,7 @@ class Command(BaseCommand):
         and_filters = [self.parse_selection_filters(s)
                        for s in selection_strings]
 
-        settings_dict = Setting.Catalogs['settings']
+        settings_dict = setup.Catalogs['settings']
         display_settings = {}
         for name, setting in settings_dict.items():
             if all(any(or_filter(setting) for or_filter in and_filter)

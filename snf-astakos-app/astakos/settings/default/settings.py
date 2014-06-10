@@ -1,8 +1,8 @@
-from synnefo.settings.setup import (Setting, Default, Auto,
-                                    Mandatory, SubMandatory)
-from synnefo.settings.default import (mk_auto_configure_base_host,
-                                      mk_auto_configure_base_path,
-                                      mk_auto_configure_services)
+from synnefo.lib.settings.setup import (NoValue, Default, Auto,
+                                        Mandatory, SubMandatory)
+from synnefo.lib.settings.default import (mk_auto_configure_base_host,
+                                          mk_auto_configure_base_path,
+                                          mk_auto_configure_services)
 
 #
 # Astakos configuration
@@ -457,9 +457,9 @@ ASTAKOS_LOGOUT_NEXT = Default(
 
 
 def _auto_configure_im_static_url(setting, value, deps):
-    if value is not Setting.NoValue:
+    if value is not NoValue:
         # acknowledge user-provided setting
-        return Setting.NoValue
+        return NoValue
     # User did not provide setting, create one out of MEDIA_URL
     value = deps['MEDIA_URL'].rstrip('/') + "/im/"
     return value

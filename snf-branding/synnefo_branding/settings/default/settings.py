@@ -1,4 +1,4 @@
-from synnefo.settings.setup import Setting, Default, Auto
+from synnefo.lib.settings.setup import NoValue, Default, Auto
 import datetime
 
 # Branding configuration
@@ -45,18 +45,18 @@ BRANDING_COMPANY_URL = Default(
 
 
 def _auto_configure_branding_image_media_url(setting, value, deps):
-    if value is Setting.NoValue:
+    if value is NoValue:
         # acknowledge user-provided setting
-        return Setting.NoValue
+        return NoValue
     # User did not provide setting, create one out of MEDIA_URL
     from synnefo import settings
     return settings.MEDIA_URL + "branding/images/",
 
 
 def auto_configure_append_default_value(setting, value, deps):
-    if value is Setting.NoValue:
+    if value is NoValue:
         # acknowledge user-provided setting
-        return Setting.NoValue
+        return NoValue
     # User did not provide setting, create one by appending
     return deps[setting.setting_name] + setting.default_value
 
@@ -136,9 +136,9 @@ BRANDING_SHOW_COPYRIGHT = Default(
 
 
 def _auto_configure_copyright_message(setting, value, deps):
-    if value is not Setting.NoValue:
+    if value is not NoValue:
         # acknowledge user-provided setting
-        return Setting.NoValue
+        return NoValue
 
     # Auto-configure a default one
     copyright_period_default = "2011-%s" % (datetime.datetime.now().year)
