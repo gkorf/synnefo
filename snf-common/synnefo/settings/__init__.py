@@ -23,17 +23,16 @@ synnefo.__file__ = os.path.join(synnefo.__path__[0], '__init__.py')
 
 # import default settings
 from synnefo.lib.settings.default import *
-from synnefo.lib.settings.setup import Setting
+from synnefo.lib.settings import setup
 synnefo_settings = {}
 # insert global default synnefo settings
 from synnefo.lib.settings.default import *
 for name in dir(_module):
-    if not Setting.is_valid_setting_name(name):
+    if not setup.is_valid_setting_name(name):
         continue
     synnefo_settings[name] = getattr(_module, name)
-Setting.initialize_settings(synnefo_settings,
-                            source=_module.__name__,
-                            strict=False)
+setup.initialize_settings(synnefo_settings,
+                          source=_module.__name__, strict=False)
 
 # autodetect default settings provided by synnefo applications
 from synnefo.util.entry_points import get_entry_points
@@ -41,15 +40,15 @@ for e in get_entry_points('synnefo', 'default_settings'):
     m = e.load()
     synnefo_settings = {}
     for name in dir(m):
-        if not Setting.is_valid_setting_name(name):
+        if not setup.is_valid_setting_name(name):
             continue
         synnefo_settings[name] = getattr(m, name)
 
     # set strict to True to require annotation of all settings
-    Setting.initialize_settings(synnefo_settings, source=m.__name__,
-                                strict=False)
+    setup.initialize_settings(synnefo_settings,
+                              source=m.__name__, strict=False)
 
-_module.__dict__.update(Setting.Catalogs['defaults'])
+_module.__dict__.update(setup.Catalogs['defaults'])
 
 # extend default settings with settings provided within *.conf user files
 # located in directory specified in the SYNNEFO_SETTINGS_DIR
@@ -83,21 +82,21 @@ if os.path.exists(SYNNEFO_SETTINGS_DIR):
 
         try:
             path = os.path.abspath(f)
-            old_settings = Setting.Catalogs['defaults']
-            new_settings = Setting.load_settings_from_file(path, old_settings)
+            old_settings = setup.Catalogs['defaults']
+            new_settings = setup.load_settings_from_file(path, old_settings)
 
-            Setting.load_configuration(new_settings,
-                                       source=path,
-                                       allow_known=allow_known,
-                                       allow_unknown=allow_unknown,
-                                       allow_override=allow_override)
+            setup.load_configuration(new_settings,
+                                     source=path,
+                                     allow_known=allow_known,
+                                     allow_unknown=allow_unknown,
+                                     allow_override=allow_override)
         except Exception as e:
             print >> stderr, "Failed to read settings file: %s [%r]" % \
                 (path, e)
             raise SystemExit(1)
 
-Setting.configure_settings()
-_module.__dict__.update(Setting.Catalogs['runtime'])
+setup.configure_settings()
+_module.__dict__.update(setup.Catalogs['runtime'])
 
 from os import environ
 # The tracing code is enabled by an environmental variable and not a synnefo

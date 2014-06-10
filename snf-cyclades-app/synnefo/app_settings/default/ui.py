@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from synnefo.lib.settings.setup import Setting, Mandatory, Default
+from synnefo.lib.settings.setup import NoValue, Mandatory, Default
 
 # UI configuration
 ##################
@@ -9,9 +9,9 @@ from synnefo.lib.settings.setup import Setting, Mandatory, Default
 DEFAULT_KEYWORDS = ["OS", "Role", "Location", "Owner"]
 
 def _auto_configure_ui_media_url(setting, value, deps):
-    if value is not Setting.NoValue:
+    if value is not NoValue:
         # acknowledge user-provided setting
-        return Setting.NoValue
+        return NoValue
     # User did not provide setting, create one out of MEDIA_URL
     return deps['MEDIA_URL'] + "ui/static/snf/"
 
@@ -229,9 +229,9 @@ UI_UPDATE_INTERVAL = Default(
 
 
 def _auto_configure_ui_update_interval_increase(setting, value, deps):
-    if value is not Setting.NoValue:
+    if value is not NoValue:
         # acknowledge user-provided value
-        return Setting.NoValue
+        return NoValue
 
     # auto-create a default one
     return deps['UI_UPDATE_INTERVAL'] / 4
@@ -254,9 +254,9 @@ UI_UPDATE_INTERVAL_INCREASE_AFTER_CALLS_COUNT = Default(
 
 
 def _auto_configure_ui_update_interval_max(setting, value, deps):
-    if value is not Setting.NoValue:
+    if value is not NoValue:
         # acknowledge user-provided value
-        return Setting.NoValue
+        return NoValue
 
     # auto-create a default one
     return deps['UI_UPDATE_INTERVAL'] * 3
@@ -271,9 +271,9 @@ UI_UPDATE_INTERVAL_MAX = Default(
 
 
 def _auto_configure_ui_update_interval_fast(setting, value, deps):
-    if value is not Setting.NoValue:
+    if value is not NoValue:
         # acknowledge user-provided value
-        return Setting.NoValue
+        return NoValue
 
     # auto-create a default one
     return deps['UI_UPDATE_INTERVAL'] / 2

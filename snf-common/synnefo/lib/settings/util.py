@@ -31,7 +31,7 @@
 # interpreted as representing official policies, either expressed
 # or implied, of GRNET S.A.
 
-from synnefo.lib.settings.setup import Setting
+from synnefo.lib.settings.setup import NoValue, SettingsError
 
 
 def auto_configure_default_from_dep(setting, value, deps):
@@ -39,14 +39,14 @@ def auto_configure_default_from_dep(setting, value, deps):
        of the depenency (must be dependent to a single setting).
 
     """
-    if value is not Setting.NoValue:
+    if value is not NoValue:
         # acknowledge user-provided setting
-        return Setting.NoValue
+        return NoValue
 
     if len(deps) != 1:
         m = ("The callback of setting '{name}' requires the setting to "
              "have exactly one dependency, not {n}.")
         m = m.format(name=setting.setting_name, n=len(deps))
-        raise Setting.SettingsError(m)
+        raise SettingsError(m)
 
     return deps.values()[0]

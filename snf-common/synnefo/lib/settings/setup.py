@@ -38,6 +38,297 @@ from itertools import chain
 from os import environ
 
 
+class SettingsError(Exception):
+    pass
+
+
+class CycleError(SettingsError):
+    """Cyclic dependencies"""
+    pass
+
+
+NoValue = type('NoValue', (), {})
+
+_serial = 0
+
+Catalogs = {
+    'registry': {},
+    'settings': {},
+    'types': defaultdict(dict),
+    'categories': defaultdict(dict),
+    'defaults': {},
+    'configured': {},
+    'runtime': {},
+    'init_dependents': {},
+    'init_pending': {},
+}
+
+
+def initialize_settings(settings_dict, source="unknown", strict=False):
+    settings = Catalogs['settings']
+    categories = Catalogs['categories']
+    defaults = Catalogs['defaults']
+    init_dependents = Catalogs['init_dependents']
+    pending = Catalogs['init_pending']
+    types = Catalogs['types']
+
+    for name, setting in settings_dict.iteritems():
+        if not isinstance(setting, Setting):
+            if strict:
+                m = "Setting name '{name}' has non-annotated value '{value}'!"
+                m = m.format(name=name, value=setting)
+                raise SettingsError(m)
+            else:
+                print "non-annotated %s, %s" % (source, name)
+                setting = Setting(default_value=setting)
+
+        #FIXME: duplicate annotations?
+        if name in settings:
+           m = ("Duplicate setting '{name}': existing from "
+                "'{orig}', new found in '{new}'.")
+           m = m.format(name=name, orig=settings[name].annotation_source,
+                        new=source)
+           # raise SettingsError(m)
+           print m
+        for init_dep in setting.init_dependencies:
+            if init_dep in settings:
+                if init_dep in init_dependents:
+                    m = ("Init dependency '{depname}' of setting '{name}' "
+                         "found both in settings and in forward "
+                         "dependencies!")
+                    m = m.format(depname=init_dep, name=name)
+                    raise AssertionError(m)
+                dep_setting = settings[init_dep]
+                if not dep_setting.init_dependents:
+                    dep_setting.init_dependents = []
+                dep_setting.init_dependents.append(name)
+            else:
+                if init_dep not in init_dependents:
+                    init_dependents[init_dep] = []
+                init_dependents[init_dep].append(name)
+
+        setting.setting_name = name
+        setting.annotation_source = source
+        if name in init_dependents:
+            setting.init_dependents = init_dependents.pop(name)
+        settings[name] = setting
+        pending[name] = setting
+        categories[setting.category][name] = setting
+        types[setting.setting_type][name] = setting
+        default_value = setting.default_value
+        defaults[name] = default_value
+        setting.initialize()
+
+    defaults['_SETTING_CATALOGS'] = Catalogs
+
+
+def reset_all_catalogs():
+    for name, catalog in Catalogs.iteritems():
+        catalog.clear()
+
+
+def load_settings_from_file(path, settings_dict=None):
+    if settings_dict is None:
+        settings_dict = {}
+    new_settings = {}
+    execfile(path, settings_dict, new_settings)
+    return new_settings
+
+
+def is_valid_setting_name(name):
+    return name.isupper() and not name.startswith('_')
+
+
+def load_configuration(new_settings,
+                       source='unknown',
+                       allow_override=False,
+                       allow_unknown=False,
+                       allow_known=True):
+
+    settings = Catalogs['settings']
+    defaults = Catalogs['defaults']
+    configured = Catalogs['configured']
+
+    for name, value in new_settings.iteritems():
+        if not is_valid_setting_name(name):
+            # silently ignore it?
+            continue
+
+        if name in settings:
+            if not allow_known:
+                m = ("{source}: setting '{name} = {value}' not allowed to "
+                     "be set here")
+                m = m.format(source=source, name=name, value=value)
+                raise SettingsError(m)
+        else:
+            if allow_unknown:
+                # pretend it was declared in a default settings module
+                desc = "Unknown setting from {source}"
+                desc = desc.format(source=source)
+                setting = Setting(default_value=value,
+                                  category='unknown',
+                                  description=desc)
+                initialize_settings({name: setting}, strict=True)
+            else:
+                m = ("{source}: unknown setting '{name} = {value}' not "
+                     "allowed to be set here")
+                m = m.format(source=source, name=name, value=value)
+                raise SettingsError(m)
+
+        if not allow_override and name in configured:
+            m = ("{source}: new setting '{name} = {value}' "
+                 "overrides setting '{name} = {oldval}'")
+            m = m.format(source=source, name=name, value=value,
+                         oldval=defaults[name])
+            raise SettingsError(m)
+
+        # setting has been accepted for configuration
+        setting = settings[name]
+        setting.configured_value = value
+        setting.configured_source = source
+        configured[name] = value
+        defaults[name] = value
+
+    return new_settings
+
+
+def check_setting_for_cycle(settings, name):
+    """Check if a setting is in a dependency cycle among given settings.
+
+    """
+    if name not in settings:
+        m = "No setting '{name}' found!"
+        m = m.format(name=name)
+        raise ValueError(m)
+
+    setting = settings[name]
+    stack = [(d, (name, d)) for d in (setting.dependencies)]
+    while stack:
+        current, path = stack.pop()
+        setting = settings[current]
+        for dep in setting.dependencies:
+            stack.append((dep, path + (dep,)))
+            if dep == name:
+                path = list(path)
+                path.append(name)
+                m = "dependency cycle detected: {path}"
+                m = m.format(path=' >> '.join(path))
+                raise CycleError(m)
+    return True
+
+
+def assign_dependents(settings_dict):
+    for setting_name, setting in settings_dict.iteritems():
+        dependencies = setting.dependencies
+        if not dependencies:
+            continue
+
+        for dep_name in dependencies:
+            dep_setting = settings_dict[dep_name]
+            dep_setting.dependents.add(setting_name)
+
+
+def get_settings_from_object(settings_object):
+    var_list = []
+    for name in dir(settings_object):
+        if not is_valid_setting_name(name):
+            continue
+        var_list.append((name, getattr(settings_object, name)))
+    return var_list
+
+
+def assign_configured_depths(settings_dict):
+    unresolved = set(settings_dict.keys())
+    next_surface = set(unresolved)
+    while True:
+        resolution_count = 0
+        resolution_surface = next_surface
+        next_surface = set()
+        for setting_name in list(resolution_surface):
+            setting = settings_dict[setting_name]
+
+            if not setting.dependencies:
+                setting.configured_depth = 0
+                resolution_count += 1
+                resolution_surface.discard(setting_name)
+                unresolved.discard(setting_name)
+                next_surface.update(setting.dependents)
+                continue
+
+            #if setting.configured_depth is not None:
+            #    raise AssertionError("Cycle")
+
+            max_depth = 0
+            for dep_name in setting.dependencies:
+                dep_setting = settings_dict[dep_name]
+                dep_depth = dep_setting.configured_depth
+                if dep_depth is None:
+                    max_depth = None
+                    break
+
+                if dep_depth > max_depth:
+                    max_depth = dep_depth
+
+            if max_depth is not None:
+                setting.configured_depth = max_depth + 1
+                resolution_count += 1
+                unresolved.discard(setting_name)
+                next_surface.update(setting.dependents)
+
+        if not unresolved:
+            break
+
+        if not resolution_count:
+            # cycle detected
+            for name in unresolved:
+                break
+            check_setting_for_cycle(settings_dict, name)
+            raise AssertionError("This should have been unreachable")
+
+
+def configure_settings(setting_names=()):
+    settings = Catalogs['settings']
+    if not setting_names:
+        setting_names = settings.keys()
+
+    pending = Catalogs['init_pending']
+    dependents= Catalogs['init_dependents']
+    m = ""
+    if pending:
+        m += ("There are settings that failed to initialize: "
+              "[{failed}]\n")
+        failed = ', '.join(sorted(pending.iterkeys()))
+        m = m.format(failed=failed)
+    if dependents:
+        m += ("There are settings that are referenced but not found: "
+              "{notfound}\n")
+        notfound = ', '.join(
+            ("%s referenced by %s" % (name, ', '.join(dependents)))
+            for name, dependents in dependents.iteritems())
+        m = m.format(notfound=notfound)
+    if m:
+        raise SettingsError(m)
+
+    # setting depth determination & cycle detection
+
+    assign_dependents(settings)
+    assign_configured_depths(settings)
+
+    failed = []
+    for name, setting in Catalogs['settings'].items():
+        try:
+            setting.configure()
+        except SettingsError as e:
+            failed.append(e)
+
+    if failed:
+        import sys
+        sys.stderr.write('\n')
+        sys.stderr.write('\n'.join(map(str, failed)))
+        sys.stderr.write('\n\n')
+        raise SettingsError("Failed to configure settings.")
+
+
 class Setting(object):
     """Setting is the parent class of all setting annotations.
 
@@ -206,30 +497,8 @@ class Setting(object):
 
     """
 
-    class SettingsError(Exception):
-        pass
-
-    class CycleError(SettingsError):
-        """Cyclic dependencies"""
-        pass
-
-    NoValue = type('NoValue', (), {})
-
     setting_name = '__unnamed__'
     setting_type = 'setting'
-    _serial = 0
-
-    Catalogs = {
-        'registry': {},
-        'settings': {},
-        'types': defaultdict(dict),
-        'categories': defaultdict(dict),
-        'defaults': {},
-        'configured': {},
-        'runtime': {},
-        'init_dependents': {},
-        'init_pending': {},
-    }
 
     default_value = None
     example_value = None
@@ -254,14 +523,14 @@ class Setting(object):
 
     def __repr__(self):
         flags = []
-        if self.configured_value is not Setting.NoValue:
+        if self.configured_value is not NoValue:
             flags.append("configured")
             value = self.configured_value
         else:
             flags.append("default")
             value = self.default_value
 
-        if self.runtime_value is not Setting.NoValue:
+        if self.runtime_value is not NoValue:
             flags.append("finalized")
 
         if self.fail_exception is not None:
@@ -302,7 +571,7 @@ class Setting(object):
         assignment = assignment.format(name=self.setting_name,
                                        value=pformat(default_value))
         assignment = [("#" + s) for s in assignment.split('\n')]
-        if runtime and self.configured_value is not Setting.NoValue \
+        if runtime and self.configured_value is not NoValue \
                 and runtime_value != self.default_value:
             runtime_assignment = "{name} = {value}"
             runtime_assignment = runtime_assignment.format(
@@ -320,19 +589,18 @@ class Setting(object):
 
     @staticmethod
     def configure_callback(setting, value, dependencies):
-        if value is Setting.NoValue:
+        if value is NoValue:
             return setting.default_value
         else:
             # by default, acknowledge the configured value
             # and allow it to be used.
-            return Setting.NoValue
+            return NoValue
 
     def validate(self):
         """Example setting validate method"""
 
-        NoValue = Setting.NoValue
         setting_name = self.setting_name
-        if self is not Setting.Catalogs['settings'][setting_name]:
+        if self is not Catalogs['settings'][setting_name]:
             raise AssertionError()
 
         runtime_value = self.runtime_value
@@ -354,14 +622,14 @@ class Setting(object):
             missing = ', '.join(required_set - intersection)
             m = "{self}: Required arguments [{missing}] not found."
             m = m.format(self=self, missing=missing)
-            raise Setting.SettingsError(m)
+            raise SettingsError(m)
 
         disallowed_set = set(self.disallowed_args)
         intersection = arg_set.intersection(disallowed_set)
         if intersection:
             m = "{self}: Given arguments [{disallowed}] are disallowed."
             m = m.format(self=self, disallowed=', '.join(intersection))
-            raise Setting.SettingsError(m)
+            raise SettingsError(m)
 
         self._checked_arguments = True
 
@@ -402,282 +670,13 @@ class Setting(object):
                 raise ValueError(m)
 
         self.dependents = set()
-        serial = Setting._serial
-        Setting._serial = serial + 1
-        registry = Setting.Catalogs['registry']
-        self.serial = serial
-        registry[serial] = self
-
-    @staticmethod
-    def is_valid_setting_name(name):
-        return name.isupper() and not name.startswith('_')
-
-    @staticmethod
-    def get_settings_from_object(settings_object):
-        var_list = []
-        is_valid_setting_name = Setting.is_valid_setting_name
-        for name in dir(settings_object):
-            if not is_valid_setting_name(name):
-                continue
-            var_list.append((name, getattr(settings_object, name)))
-        return var_list
-
-    @staticmethod
-    def reset_all_catalogs():
-        for name, catalog in Setting.Catalogs.iteritems():
-            catalog.clear()
-
-    @staticmethod
-    def initialize_settings(settings_dict, source="unknown", strict=False):
-        Catalogs = Setting.Catalogs
-        settings = Catalogs['settings']
-        categories = Catalogs['categories']
-        defaults = Catalogs['defaults']
-        init_dependents = Catalogs['init_dependents']
-        pending = Catalogs['init_pending']
-        types = Catalogs['types']
-
-        for name, setting in settings_dict.iteritems():
-            if not isinstance(setting, Setting):
-                if strict:
-                    m = "Setting name '{name}' has non-annotated value '{value}'!"
-                    m = m.format(name=name, value=setting)
-                    raise Setting.SettingsError(m)
-                else:
-                    print "non-annotated %s, %s" % (source, name)
-                    setting = Setting(default_value=setting)
-
-            #FIXME: duplicate annotations?
-            if name in settings:
-               m = ("Duplicate setting '{name}': existing from "
-                    "'{orig}', new found in '{new}'.")
-               m = m.format(name=name, orig=settings[name].annotation_source,
-                            new=source)
-               # raise Setting.SettingsError(m)
-               print m
-            for init_dep in setting.init_dependencies:
-                if init_dep in settings:
-                    if init_dep in init_dependents:
-                        m = ("Init dependency '{depname}' of setting '{name}' "
-                             "found both in settings and in forward "
-                             "dependencies!")
-                        m = m.format(depname=init_dep, name=name)
-                        raise AssertionError(m)
-                    dep_setting = settings[init_dep]
-                    if not dep_setting.init_dependents:
-                        dep_setting.init_dependents = []
-                    dep_setting.init_dependents.append(name)
-                else:
-                    if init_dep not in init_dependents:
-                        init_dependents[init_dep] = []
-                    init_dependents[init_dep].append(name)
-
-            setting.setting_name = name
-            setting.annotation_source = source
-            if name in init_dependents:
-                setting.init_dependents = init_dependents.pop(name)
-            settings[name] = setting
-            pending[name] = setting
-            categories[setting.category][name] = setting
-            types[setting.setting_type][name] = setting
-            default_value = setting.default_value
-            defaults[name] = default_value
-            setting.initialize()
-
-        defaults['_SETTING_CATALOGS'] = Catalogs
-
-    @staticmethod
-    def load_settings_from_file(path, settings_dict=None):
-        if settings_dict is None:
-            settings_dict = {}
-        new_settings = {}
-        execfile(path, settings_dict, new_settings)
-        return new_settings
-
-    @staticmethod
-    def load_configuration(new_settings,
-                           source='unknown',
-                           allow_override=False,
-                           allow_unknown=False,
-                           allow_known=True):
-
-        settings = Setting.Catalogs['settings']
-        defaults = Setting.Catalogs['defaults']
-        configured = Setting.Catalogs['configured']
-        is_valid_setting_name = Setting.is_valid_setting_name
-
-        for name, value in new_settings.iteritems():
-            if not is_valid_setting_name(name):
-                # silently ignore it?
-                continue
-
-            if name in settings:
-                if not allow_known:
-                    m = ("{source}: setting '{name} = {value}' not allowed to "
-                         "be set here")
-                    m = m.format(source=source, name=name, value=value)
-                    raise Setting.SettingsError(m)
-            else:
-                if allow_unknown:
-                    # pretend it was declared in a default settings module
-                    desc = "Unknown setting from {source}"
-                    desc = desc.format(source=source)
-                    setting = Setting(default_value=value,
-                                      category='unknown',
-                                      description=desc)
-                    Setting.initialize_settings({name: setting}, strict=True)
-                else:
-                    m = ("{source}: unknown setting '{name} = {value}' not "
-                         "allowed to be set here")
-                    m = m.format(source=source, name=name, value=value)
-                    raise Setting.SettingsError(m)
-
-            if not allow_override and name in configured:
-                m = ("{source}: new setting '{name} = {value}' "
-                     "overrides setting '{name} = {oldval}'")
-                m = m.format(source=source, name=name, value=value,
-                             oldval=defaults[name])
-                raise Setting.SettingsError(m)
-
-            # setting has been accepted for configuration
-            setting = settings[name]
-            setting.configured_value = value
-            setting.configured_source = source
-            configured[name] = value
-            defaults[name] = value
-
-        return new_settings
-
-    @staticmethod
-    def check_setting_for_cycle(settings, name):
-        """Check if a setting is in a dependency cycle among given settings.
-
-        """
-        if name not in settings:
-            m = "No setting '{name}' found!"
-            m = m.format(name=name)
-            raise ValueError(m)
-
-        setting = settings[name]
-        stack = [(d, (name, d)) for d in (setting.dependencies)]
-        while stack:
-            current, path = stack.pop()
-            setting = settings[current]
-            for dep in setting.dependencies:
-                stack.append((dep, path + (dep,)))
-                if dep == name:
-                    path = list(path)
-                    path.append(name)
-                    m = "dependency cycle detected: {path}"
-                    m = m.format(path=' >> '.join(path))
-                    raise Setting.CycleError(m)
-        return True
-
-    @staticmethod
-    def assign_dependents(settings_dict):
-        for setting_name, setting in settings_dict.iteritems():
-            dependencies = setting.dependencies
-            if not dependencies:
-                continue
-
-            for dep_name in dependencies:
-                dep_setting = settings_dict[dep_name]
-                dep_setting.dependents.add(setting_name)
-
-    @staticmethod
-    def assign_configured_depths(settings_dict):
-        unresolved = set(settings_dict.keys())
-        next_surface = set(unresolved)
-        while True:
-            resolution_count = 0
-            resolution_surface = next_surface
-            next_surface = set()
-            for setting_name in list(resolution_surface):
-                setting = settings_dict[setting_name]
-
-                if not setting.dependencies:
-                    setting.configured_depth = 0
-                    resolution_count += 1
-                    resolution_surface.discard(setting_name)
-                    unresolved.discard(setting_name)
-                    next_surface.update(setting.dependents)
-                    continue
-
-                #if setting.configured_depth is not None:
-                #    raise AssertionError("Cycle")
-
-                max_depth = 0
-                for dep_name in setting.dependencies:
-                    dep_setting = settings_dict[dep_name]
-                    dep_depth = dep_setting.configured_depth
-                    if dep_depth is None:
-                        max_depth = None
-                        break
-
-                    if dep_depth > max_depth:
-                        max_depth = dep_depth
-
-                if max_depth is not None:
-                    setting.configured_depth = max_depth + 1
-                    resolution_count += 1
-                    unresolved.discard(setting_name)
-                    next_surface.update(setting.dependents)
-
-            if not unresolved:
-                break
-
-            if not resolution_count:
-                # cycle detected
-                for name in unresolved:
-                    break
-                Setting.check_setting_for_cycle(settings_dict, name)
-                raise AssertionError("This should have been unreachable")
-
-    @staticmethod
-    def configure_settings(setting_names=()):
-        settings = Setting.Catalogs['settings']
-        if not setting_names:
-            setting_names = settings.keys()
-
-        pending = Setting.Catalogs['init_pending']
-        dependents= Setting.Catalogs['init_dependents']
-        m = ""
-        if pending:
-            m += ("There are settings that failed to initialize: "
-                  "[{failed}]\n")
-            failed = ', '.join(sorted(pending.iterkeys()))
-            m = m.format(failed=failed)
-        if dependents:
-            m += ("There are settings that are referenced but not found: "
-                  "{notfound}\n")
-            notfound = ', '.join(
-                ("%s referenced by %s" % (name, ', '.join(dependents)))
-                for name, dependents in dependents.iteritems())
-            m = m.format(notfound=notfound)
-        if m:
-            raise Setting.SettingsError(m)
-
-        # setting depth determination & cycle detection
-
-        Setting.assign_dependents(settings)
-        Setting.assign_configured_depths(settings)
-
-        failed = []
-        for name, setting in Setting.Catalogs['settings'].items():
-            try:
-                setting.configure()
-            except Setting.SettingsError as e:
-                failed.append(e)
-
-        if failed:
-            import sys
-            sys.stderr.write('\n')
-            sys.stderr.write('\n'.join(map(str, failed)))
-            sys.stderr.write('\n\n')
-            raise Setting.SettingsError("Failed to configure settings.")
+        registry = Catalogs['registry']
+        global _serial
+        self.serial = _serial
+        _serial += 1
+        registry[self.serial] = self
 
     def initialize(setting, dep_stack=()):
-        Catalogs = Setting.Catalogs
         settings = Catalogs['settings']
         pending = Catalogs['init_pending']
         setting_name = setting.setting_name
@@ -692,7 +691,7 @@ class Setting(object):
             if init_dep in dep_stack:
                 m = "Settings init dependency cycle detected: {stack}"
                 m = m.format(stack=dep_stack + (init_dep,))
-                raise Setting.SettingsError(m)
+                raise SettingsError(m)
 
             if init_dep not in settings:
                 pending[setting_name] = setting
@@ -713,10 +712,8 @@ class Setting(object):
         return True
 
     def configure(setting, dep_stack=()):
-        Catalogs = Setting.Catalogs
         settings = Catalogs['settings']
         runtime = Catalogs['runtime']
-        NoValue = Setting.NoValue
         setting_name = setting.setting_name
         dep_stack += (setting_name,)
 
@@ -728,7 +725,7 @@ class Setting(object):
             # it has previously failed, re-raise the error
             exc = setting.fail_exception
             if not isinstance(exc, Exception):
-                exc = Setting.SettingsError(str(exc))
+                exc = SettingsError(str(exc))
             raise exc
 
         setting_value = setting.configured_value
@@ -747,7 +744,7 @@ class Setting(object):
             m = ("attribute 'configure_callback' of "
                  "'{setting}' is not callable!")
             m = m.format(setting=setting)
-            exc = Setting.SettingsError(m)
+            exc = SettingsError(m)
             setting.fail_exception = exc
             raise exc
 
@@ -757,7 +754,7 @@ class Setting(object):
                 m = ("Unknown dependecy setting '{dep_name}' "
                      "for setting '{name}'!")
                 m = m.format(dep_name=dep_name, name=setting_name)
-                raise Setting.SettingsError(m)
+                raise SettingsError(m)
 
             # The following dependency cycle check may be redundant
             # since cycles are checked in configure_settings(),
@@ -765,7 +762,7 @@ class Setting(object):
             if dep_name in dep_stack:
                 m = "Settings dependency cycle detected: {stack}"
                 m = m.format(stack=dep_stack + (dep_name,))
-                exc = Setting.SettingsError(m)
+                exc = SettingsError(m)
                 setting.fail_exception = exc
                 raise exc
 
@@ -774,7 +771,7 @@ class Setting(object):
                 m = ("Cannot configure setting {name} because it depends "
                      "on '{dep}' which has failed to configure.")
                 m = m.format(name=setting_name, dep=dep_name)
-                exc = Setting.SettingsError(m)
+                exc = SettingsError(m)
                 setting.fail_exception = exc
                 raise exc
 
@@ -786,7 +783,7 @@ class Setting(object):
 
         try:
             new_value = configure_callback(setting, setting_value, deps)
-        except Setting.SettingsError as e:
+        except SettingsError as e:
             setting.fail_exception = e
             raise
 
@@ -799,7 +796,7 @@ class Setting(object):
                 m = m.format(name=setting_name, value=setting_value,
                              source=setting.configured_source,
                              newval=new_value)
-                exc = Setting.SettingsError(m)
+                exc = SettingsError(m)
                 setting.fail_exception = exc
                 raise exc
             else:
@@ -809,10 +806,10 @@ class Setting(object):
         runtime[setting_name] = setting_value
 
     def enforce_not_configurable(setting, value, deps=None):
-        if value is not Setting.NoValue:
+        if value is not NoValue:
             m = "Setting '{name}' is not configurable."
             m = m.format(name=setting.setting_name)
-            raise Setting.SettingsError(m)
+            raise SettingsError(m)
         return setting.default_value
 
 
@@ -834,7 +831,7 @@ class Mandatory(Setting):
 
     @staticmethod
     def configure_callback(setting, value, deps):
-        if value is Setting.NoValue:
+        if value is NoValue:
             if environ.get('SYNNEFO_RELAX_MANDATORY_SETTINGS'):
                 return setting.example_value
 
@@ -843,9 +840,9 @@ class Mandatory(Setting):
                  "Example value: '{example}'")
             m = m.format(name=setting.setting_name,
                          example=setting.example_value)
-            raise Setting.SettingsError(m)
+            raise SettingsError(m)
 
-        return Setting.NoValue
+        return NoValue
 
 
 class SubMandatory(Setting):
@@ -896,7 +893,7 @@ class SubMandatory(Setting):
         if not deps:
             m = "Setting '{name}' requires at least one dependency."
             m = m.format(name=setting.setting_name)
-            raise Setting.SettingsError(m)
+            raise SettingsError(m)
         return any(bool(setting_value) for setting_value in deps.itervalues())
 
     @staticmethod
@@ -904,7 +901,7 @@ class SubMandatory(Setting):
         condition_callback = setting.condition_callback
         if condition_callback(setting, value, deps):
             # We are mandatory
-            if value is Setting.NoValue:
+            if value is NoValue:
                 if environ.get('SYNNEFO_RELAX_MANDATORY_SETTINGS'):
                     return setting.example_value
 
@@ -918,13 +915,13 @@ class SubMandatory(Setting):
                 m = m.format(name=setting.setting_name,
                              example=setting.example_value,
                              due=due)
-                raise Setting.SettingsError(m)
+                raise SettingsError(m)
 
-        elif value is Setting.NoValue:
+        elif value is NoValue:
             return setting.default_value
 
         # acknowledge configured value
-        return Setting.NoValue
+        return NoValue
 
 
     @staticmethod
@@ -936,7 +933,7 @@ class SubMandatory(Setting):
         if not dependencies:
             return
 
-        settings = Setting.Catalogs['settings']
+        settings = Catalogs['settings']
         firstdep = dependencies[0]
         firstdep_setting = settings[firstdep]
         export = firstdep_setting.export
@@ -950,7 +947,7 @@ class SubMandatory(Setting):
                      "'{dep}' has '{val}'")
                 m = m.format(firstdep=firstdep, firstval=category,
                              dep=dep, val=dep_setting.category)
-                raise Setting.SettingsError(m)
+                raise SettingsError(m)
             if dep_setting.export != export:
                 m = ("SubMandatory settings require that all "
                      "their dependencies have the same 'export' value. "
@@ -958,7 +955,7 @@ class SubMandatory(Setting):
                      "'{dep}' has '{val}'")
                 m = m.format(firstdep=firstdep, firstval=export,
                              dep=dep, val=dep_setting.export)
-                raise Setting.SettingsError(m)
+                raise SettingsError(m)
         setting.export = export
         setting.category = category
 
@@ -1034,5 +1031,5 @@ class Deprecated(object):
             m += "remove it."
 
         m = m.format(name=setting.setting_name, rename_to=setting.rename_to)
-        raise Setting.SettingsError(m)
+        raise SettingsError(m)
 

@@ -1,9 +1,9 @@
-from synnefo.lib.settings.setup import Setting, Default, Auto
+from synnefo.lib.settings.setup import NoValue, Default, Auto
 
 
 def configure_vmapi_cache_b(setting, value, deps):
-    if value is not Setting.NoValue:
-        return Setting.NoValue
+    if value is not NoValue:
+        return NoValue
     return deps["CACHE_BACKEND"]
 
 CACHE_BACKEND = Default(
