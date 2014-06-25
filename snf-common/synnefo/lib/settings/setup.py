@@ -56,6 +56,7 @@ Catalogs = {
     'settings': {},
     'types': defaultdict(dict),
     'categories': defaultdict(dict),
+    'modules': defaultdict(dict),
     'defaults': {},
     'configured': {},
     'runtime': {},
@@ -71,6 +72,7 @@ def initialize_settings(settings_dict, source="unknown", strict=False):
     init_dependents = Catalogs['init_dependents']
     pending = Catalogs['init_pending']
     types = Catalogs['types']
+    modules = Catalogs['modules']
 
     for name, setting in settings_dict.iteritems():
         if not isinstance(setting, Setting):
@@ -113,6 +115,7 @@ def initialize_settings(settings_dict, source="unknown", strict=False):
             setting.init_dependents = init_dependents.pop(name)
         settings[name] = setting
         pending[name] = setting
+        modules[setting.annotation_source][name] = setting
         categories[setting.category][name] = setting
         types[setting.setting_type][name] = setting
         default_value = setting.default_value
@@ -286,7 +289,7 @@ def assign_configured_depths(settings_dict):
             raise AssertionError("This should have been unreachable")
 
 
-def configure_settings(setting_names=()):
+def preconfigure_settings(setting_names=()):
     settings = Catalogs['settings']
     if not setting_names:
         setting_names = settings.keys()
@@ -314,6 +317,9 @@ def configure_settings(setting_names=()):
     assign_dependents(settings)
     assign_configured_depths(settings)
 
+
+def configure_settings(setting_names=()):
+    preconfigure_settings(setting_names)
     failed = []
     for name, setting in Catalogs['settings'].items():
         try:
@@ -1033,3 +1039,42 @@ class Deprecated(object):
         m = m.format(name=setting.setting_name, rename_to=setting.rename_to)
         raise SettingsError(m)
 
+
+from synnefo.util.entry_points import get_entry_points
+from synnefo.lib.settings import default
+
+
+def initialize_modules():
+    synnefo_settings = {}
+    for name in dir(default):
+        if not is_valid_setting_name(name):
+            continue
+        synnefo_settings[name] = getattr(default, name)
+    initialize_settings(synnefo_settings,
+                        source=default.__name__, strict=False)
+
+    for e in get_entry_points('synnefo', 'default_settings'):
+        m = e.load()
+        synnefo_settings = {}
+        for name in dir(m):
+            if not is_valid_setting_name(name):
+                continue
+            synnefo_settings[name] = getattr(m, name)
+
+        # set strict to True to require annotation of all settings
+        initialize_settings(synnefo_settings,
+                            source=m.__name__, strict=False)
+
+
+    # e = get_module_entry_point(module, 'synnefo', 'default_settings')
+    # m = e.load()
+    # synnefo_settings = {}
+    # for name in dir(m):
+    #     if not is_valid_setting_name(name):
+    #         continue
+    #     synnefo_settings[name] = getattr(m, name)
+
+    # # set strict to True to require annotation of all settings
+    # initialize_settings(synnefo_settings, source=m.__name__,
+    #                     strict=False)
+    preconfigure_settings()

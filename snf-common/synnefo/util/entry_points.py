@@ -25,6 +25,11 @@ from collections import defaultdict
 EXCLUDED_PACKAGES = os.environ.get('SYNNEFO_EXCLUDE_PACKAGES', '').split(":")
 
 
+def get_module_entry_point(module, ns, name):
+    for entry_point in pkg_resources.iter_entry_points(group=ns):
+        if entry_point.dist.project_name == module:
+            return entry_point
+
 def get_entry_points(ns, name):
     for entry_point in pkg_resources.iter_entry_points(group=ns):
         if entry_point.name == name and \
