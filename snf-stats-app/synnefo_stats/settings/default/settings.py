@@ -1,6 +1,6 @@
-from synnefo.settings.setup import Default, Mandatory, Auto
-from synnefo.settings.default import (mk_auto_configure_base_host,
-                                      mk_auto_configure_base_path)
+from synnefo.lib.settings.setup import Default, Mandatory, Auto
+from synnefo.common_settings.default import (mk_auto_configure_base_host,
+                                             mk_auto_configure_base_path)
 
 STATS_BASE_URL = Mandatory(
     example_value="https://stats.example.synnefo.org/stats/",
