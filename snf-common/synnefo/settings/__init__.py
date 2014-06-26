@@ -21,18 +21,7 @@ _module = modules[__name__]
 import synnefo
 synnefo.__file__ = os.path.join(synnefo.__path__[0], '__init__.py')
 
-# import default settings
-from synnefo.lib.settings.default import *
 from synnefo.lib.settings import setup
-synnefo_settings = {}
-# insert global default synnefo settings
-from synnefo.lib.settings.default import *
-for name in dir(_module):
-    if not setup.is_valid_setting_name(name):
-        continue
-    synnefo_settings[name] = getattr(_module, name)
-setup.initialize_settings(synnefo_settings,
-                          source=_module.__name__, strict=False)
 
 # autodetect default settings provided by synnefo applications
 from synnefo.util.entry_points import get_entry_points

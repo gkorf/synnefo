@@ -1041,18 +1041,9 @@ class Deprecated(object):
 
 
 from synnefo.util.entry_points import get_entry_points
-from synnefo.lib.settings import default
 
 
 def initialize_modules():
-    synnefo_settings = {}
-    for name in dir(default):
-        if not is_valid_setting_name(name):
-            continue
-        synnefo_settings[name] = getattr(default, name)
-    initialize_settings(synnefo_settings,
-                        source=default.__name__, strict=False)
-
     for e in get_entry_points('synnefo', 'default_settings'):
         m = e.load()
         synnefo_settings = {}

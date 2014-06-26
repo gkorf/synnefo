@@ -1,7 +1,7 @@
 from synnefo.lib.settings.setup import Default, Auto, Mandatory, SubMandatory
-from synnefo.lib.settings.default import (mk_auto_configure_base_host,
-                                          mk_auto_configure_base_path,
-                                          mk_auto_configure_services)
+from synnefo.common_settings.default import (mk_auto_configure_base_host,
+                                             mk_auto_configure_base_path,
+                                             mk_auto_configure_services)
 
 # Pithos configuration
 ######################
