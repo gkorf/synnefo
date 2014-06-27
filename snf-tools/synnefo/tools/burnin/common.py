@@ -40,7 +40,7 @@ from kamaki.clients.image import ImageClient
 from kamaki.clients.utils import https
 from kamaki.clients.blockstorage import BlockStorageClient
 
-from synnefo_tools.burnin.logger import Log
+from synnefo.tools.burnin.logger import Log
 
 
 # --------------------------------------------------------------------

@@ -21,8 +21,8 @@ import stat
 import base64
 import random
 
-from synnefo_tools.burnin.common import Proper, QPITHOS, QADD, QREMOVE, GB
-from synnefo_tools.burnin.cyclades_common import CycladesTests
+from synnefo.tools.burnin.common import Proper, QPITHOS, QADD, QREMOVE, GB
+from synnefo.tools.burnin.cyclades_common import CycladesTests
 
 from kamaki.clients import ClientError
 

@@ -18,8 +18,8 @@ This is the burnin class that handles stale resources (Servers/Networks)
 
 """
 
-from synnefo_tools.burnin.common import Proper, SNF_TEST_PREFIX
-from synnefo_tools.burnin.cyclades_common import CycladesTests
+from synnefo.tools.burnin.common import Proper, SNF_TEST_PREFIX
+from synnefo.tools.burnin.cyclades_common import CycladesTests
 
 
 # pylint: disable=too-many-public-methods

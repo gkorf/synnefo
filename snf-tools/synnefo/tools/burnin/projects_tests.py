@@ -20,8 +20,8 @@ This is the burnin class that tests the Projects functionality
 
 import random
 
-from synnefo_tools.burnin.common import Proper
-from synnefo_tools.burnin.cyclades_common import CycladesTests, \
+from synnefo.tools.burnin.common import Proper
+from synnefo.tools.burnin.cyclades_common import CycladesTests, \
     QADD, QREMOVE, MB, GB, QDISK, QVM, QRAM, QCPU
 
 

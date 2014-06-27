@@ -31,7 +31,7 @@ import subprocess
 
 from kamaki.clients import ClientError
 
-from synnefo_tools.burnin.common import BurninTests, MB, GB, QADD, QREMOVE, \
+from synnefo.tools.burnin.common import BurninTests, MB, GB, QADD, QREMOVE, \
     QDISK, QVM, QRAM, QIP, QCPU, QNET
 
 
