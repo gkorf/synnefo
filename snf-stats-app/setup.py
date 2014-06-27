@@ -23,7 +23,7 @@ from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from synnefo_stats.version import __version__
+from synnefo.stats.version import __version__
 
 # Package info
 VERSION = __version__
@@ -57,6 +57,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
+    namespace_packages=['synnefo'],
     packages=PACKAGES,
     package_dir={'': PACKAGES_ROOT},
     include_package_data=True,
@@ -67,9 +68,9 @@ setup(
     dependency_links=['http://www.synnefo.org/packages/pypi'],
     entry_points={
         'synnefo': [
-             'default_settings = synnefo_stats.synnefo_settings',
-             'web_apps = synnefo_stats.synnefo_settings:installed_apps',
-             'urls = synnefo_stats.urls:urlpatterns',
+             'default_settings = synnefo.stats.synnefo_settings',
+             'web_apps = synnefo.stats.synnefo_settings:installed_apps',
+             'urls = synnefo.stats.urls:urlpatterns',
         ]
     }
 )

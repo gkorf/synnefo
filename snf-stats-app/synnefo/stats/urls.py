@@ -18,8 +18,8 @@ from django.conf.urls import patterns, include
 from snf_django.lib.api.utils import prefix_pattern
 from snf_django.lib.api import api_endpoint_not_found
 
-from synnefo_stats.stats_settings import BASE_PATH
-from synnefo_stats.grapher import grapher
+from synnefo.stats.stats_settings import BASE_PATH
+from synnefo.stats.grapher import grapher
 
 graph_types_re = '((cpu|net)-(bar|(ts(-w)?)))'
 stats_v1_patterns = patterns(
