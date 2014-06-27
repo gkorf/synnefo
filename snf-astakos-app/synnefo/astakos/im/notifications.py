@@ -20,7 +20,7 @@ from smtplib import SMTPException
 
 from django.core.mail import send_mail, get_connection
 from django.utils.translation import ugettext as _
-from synnefo_branding.utils import render_to_string
+from synnefo.branding.utils import render_to_string
 
 import synnefo.astakos.im.messages as astakos_messages
 

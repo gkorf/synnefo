@@ -27,7 +27,7 @@ installed_apps = [
     'django.contrib.messages',
     'django_tables2',
     'synnefo.astakos.quotaholder_app',
-    'synnefo_branding',
+    'synnefo.branding',
     'synnefo.astakos.oa2',
 ]
 

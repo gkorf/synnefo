@@ -18,7 +18,7 @@ from django.test import TestCase
 from django.core import mail
 from django.utils.translation import ugettext as _
 
-from synnefo_branding.utils import render_to_string
+from synnefo.branding.utils import render_to_string
 from synnefo.astakos.im import settings as astakos_settings
 from synnefo.astakos.im.models import AstakosUser
 from synnefo.astakos.im.user_utils import send_plain
