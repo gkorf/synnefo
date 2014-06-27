@@ -179,7 +179,7 @@ serial = 0
 
 @contextmanager
 def mocked_quotaholder(success=True):
-    with patch("synnefo.quotas.Quotaholder.get") as astakos:
+    with patch("synnefo.cyclades.quotas.Quotaholder.get") as astakos:
         global serial
         serial += 10
 
