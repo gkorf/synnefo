@@ -68,6 +68,6 @@ CLOUDBAR_LOCATION = '/static/im/cloudbar/'
 CLOUDBAR_SERVICES_URL = '/ui/get_services'
 CLOUDBAR_MENU_URL = '/ui/get_menu'
 
-TEST_RUNNER = 'pithos.api.test.PithosTestSuiteRunner'
+TEST_RUNNER = 'synnefo.pithos.api.test.PithosTestSuiteRunner'
 
 CYCLADES_VOLUME_MAX_SIZE = 100000
