@@ -37,7 +37,7 @@ import os.path
 import logging
 import datetime
 
-from synnefo_tools.burnin import filelocker
+from synnefo.tools.burnin import filelocker
 
 
 # --------------------------------------------------------------------

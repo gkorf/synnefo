@@ -24,7 +24,7 @@ import shutil
 
 from kamaki.clients import ClientError
 
-from synnefo_tools.burnin.common import BurninTests, Proper, \
+from synnefo.tools.burnin.common import BurninTests, Proper, \
     QPITHOS, QADD, QREMOVE
 
 

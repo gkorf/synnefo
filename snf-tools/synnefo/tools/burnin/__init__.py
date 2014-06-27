@@ -21,16 +21,16 @@ Burnin: functional tests for Synnefo
 import sys
 import optparse
 
-from synnefo_tools import version
-from synnefo_tools.burnin import common
-from synnefo_tools.burnin.astakos_tests import AstakosTestSuite
-from synnefo_tools.burnin.images_tests import \
+from synnefo.tools import version
+from synnefo.tools.burnin import common
+from synnefo.tools.burnin.astakos_tests import AstakosTestSuite
+from synnefo.tools.burnin.images_tests import \
     FlavorsTestSuite, ImagesTestSuite
-from synnefo_tools.burnin.pithos_tests import PithosTestSuite
-from synnefo_tools.burnin.server_tests import ServerTestSuite
-from synnefo_tools.burnin.network_tests import NetworkTestSuite
-from synnefo_tools.burnin.projects_tests import QuotasTestSuite
-from synnefo_tools.burnin.stale_tests import \
+from synnefo.tools.burnin.pithos_tests import PithosTestSuite
+from synnefo.tools.burnin.server_tests import ServerTestSuite
+from synnefo.tools.burnin.network_tests import NetworkTestSuite
+from synnefo.tools.burnin.projects_tests import QuotasTestSuite
+from synnefo.tools.burnin.stale_tests import \
     StaleServersTestSuite, StaleFloatingIPsTestSuite, StaleNetworksTestSuite
 
 
