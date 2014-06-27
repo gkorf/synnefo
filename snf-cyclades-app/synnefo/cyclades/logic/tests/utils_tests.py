@@ -15,10 +15,10 @@
 
 from django.test import TestCase
 
-from synnefo.logic import utils
+from synnefo.cyclades.logic import utils
 from django.conf import settings
-from synnefo.db.models import VirtualMachine, Network
-from synnefo.db.models_factory import VirtualMachineFactory
+from synnefo.cyclades.db.models import VirtualMachine, Network
+from synnefo.cyclades.db.models_factory import VirtualMachineFactory
 
 
 class NameConversionTest(TestCase):

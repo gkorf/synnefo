@@ -17,9 +17,9 @@
 # Provides automated tests for logic module
 from django.test import TransactionTestCase
 #from snf_django.utils.testing import mocked_quotaholder
-from synnefo.logic import servers
-from synnefo import quotas
-from synnefo.db import models_factory as mfactory, models
+from synnefo.cyclades.logic import servers
+from synnefo.cyclades import quotas
+from synnefo.cyclades.db import models_factory as mfactory, models
 from mock import patch, Mock
 
 from snf_django.lib.api import faults
@@ -41,8 +41,8 @@ fixed_image.return_value = {'location': 'pithos://foo',
                             'disk_format': 'diskdump'}
 
 
-@patch('synnefo.api.util.get_image', fixed_image)
-@patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+@patch('synnefo.cyclades.api.util.get_image', fixed_image)
+@patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
 class ServerCreationTest(TransactionTestCase):
     def test_create(self, mrapi):
         flavor = mfactory.FlavorFactory()
@@ -112,7 +112,7 @@ class ServerCreationTest(TransactionTestCase):
                           "size": 1024})
 
 
-@patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+@patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
 class ServerTest(TransactionTestCase):
     def test_connect_network(self, mrapi):
         # Common connect
@@ -154,7 +154,7 @@ class ServerTest(TransactionTestCase):
         self.assertEqual(nics[2]["network"], net.backend_id)
 
 
-@patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+@patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
 class ServerCommandTest(TransactionTestCase):
     def test_pending_task(self, mrapi):
         vm = mfactory.VirtualMachineFactory(task="REBOOT", task_job_id=1)

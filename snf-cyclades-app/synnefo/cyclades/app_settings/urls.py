@@ -20,7 +20,7 @@ from snf_django.lib.api.utils import prefix_pattern
 from snf_django.utils.urls import \
     extend_with_root_redirects, extend_endpoint_with_slash
 from snf_django.lib.api.urls import api_patterns
-from synnefo.cyclades_settings import (
+from synnefo.cyclades.cyclades_settings import (
     BASE_PATH, COMPUTE_PREFIX, NETWORK_PREFIX, VMAPI_PREFIX,
     PLANKTON_PREFIX, HELPDESK_PREFIX, UI_PREFIX, VOLUME_PREFIX,
     USERDATA_PREFIX, ADMIN_PREFIX,
@@ -42,23 +42,31 @@ extend_endpoint_with_slash(urlpatterns, cyclades_services, 'cyclades_userdata')
 
 cyclades_patterns = api_patterns(
     '',
-    (prefix_pattern(VMAPI_PREFIX), include('synnefo.vmapi.urls')),
-    (prefix_pattern(PLANKTON_PREFIX), include('synnefo.plankton.urls')),
-    (prefix_pattern(COMPUTE_PREFIX), include('synnefo.api.compute_urls')),
-    (prefix_pattern(NETWORK_PREFIX), include('synnefo.api.network_urls')),
-    (prefix_pattern(USERDATA_PREFIX), include('synnefo.userdata.urls')),
-    (prefix_pattern(ADMIN_PREFIX), include('synnefo.admin.urls')),
-    (prefix_pattern(VOLUME_PREFIX), include('synnefo.volume.urls')),
+    (prefix_pattern(VMAPI_PREFIX),
+     include('synnefo.cyclades.vmapi.urls')),
+    (prefix_pattern(PLANKTON_PREFIX),
+     include('synnefo.cyclades.plankton.urls')),
+    (prefix_pattern(COMPUTE_PREFIX),
+     include('synnefo.cyclades.api.compute_urls')),
+    (prefix_pattern(NETWORK_PREFIX),
+     include('synnefo.cyclades.api.network_urls')),
+    (prefix_pattern(USERDATA_PREFIX),
+     include('synnefo.cyclades.userdata.urls')),
+    (prefix_pattern(ADMIN_PREFIX),
+     include('synnefo.cyclades.admin.urls')),
+    (prefix_pattern(VOLUME_PREFIX),
+     include('synnefo.cyclades.volume.urls')),
 )
 
 cyclades_patterns += patterns(
     '',
-    (prefix_pattern(UI_PREFIX), include('synnefo.ui.urls')),
+    (prefix_pattern(UI_PREFIX), include('synnefo.cyclades.ui.urls')),
 )
 
 cyclades_patterns += api_patterns(
     '',
-    (prefix_pattern(HELPDESK_PREFIX), include('synnefo.helpdesk.urls')),
+    (prefix_pattern(HELPDESK_PREFIX),
+     include('synnefo.cyclades.helpdesk.urls')),
 )
 
 urlpatterns += patterns(

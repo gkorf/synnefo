@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Backend.disk_templates'
         db.add_column('db_backend', 'disk_templates',
-                      self.gf('synnefo.db.fields.SeparatedValuesField')(null=True),
+                      self.gf('synnefo.cyclades.db.fields.SeparatedValuesField')(null=True),
                       keep_default=False)
 
 
@@ -25,7 +25,7 @@ class Migration(SchemaMigration):
             'clustername': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128'}),
             'ctotal': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'dfree': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'disk_templates': ('synnefo.db.fields.SeparatedValuesField', [], {'null': 'True'}),
+            'disk_templates': ('synnefo.cyclades.db.fields.SeparatedValuesField', [], {'null': 'True'}),
             'drained': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'dtotal': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'hash': ('django.db.models.fields.CharField', [], {'max_length': '40'}),

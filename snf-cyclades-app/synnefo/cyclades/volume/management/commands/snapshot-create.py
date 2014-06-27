@@ -16,9 +16,9 @@
 from optparse import make_option
 
 from snf_django.management.commands import SynnefoCommand, CommandError
-from synnefo.management import common
+from synnefo.cyclades.management import common
 #from snf_django.management.utils import parse_bool
-from synnefo.volume import snapshots
+from synnefo.cyclades.volume import snapshots
 
 
 class Command(SynnefoCommand):

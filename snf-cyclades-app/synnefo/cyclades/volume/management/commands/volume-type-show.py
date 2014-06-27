@@ -15,8 +15,8 @@
 
 from snf_django.management.commands import SynnefoCommand, CommandError
 
-from synnefo.management.common import convert_api_faults
-from synnefo.management import pprint, common
+from synnefo.cyclades.management.common import convert_api_faults
+from synnefo.cyclades.management import pprint, common
 
 
 class Command(SynnefoCommand):

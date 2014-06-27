@@ -14,34 +14,34 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls.defaults import patterns
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 from django.http import HttpResponse
 from django.utils import simplejson as json
 
 from snf_django.lib import api
 from snf_django.lib.api import faults, utils
-from synnefo.api import util
-from synnefo.logic import ips
-from synnefo.db.models import Network, IPAddress
+from synnefo.cyclades.api import util
+from synnefo.cyclades.logic import ips
+from synnefo.cyclades.db.models import Network, IPAddress
 
 from logging import getLogger
 log = getLogger(__name__)
 
 '''
 ips_urlpatterns = patterns(
-    'synnefo.api.floating_ips',
+    'synnefo.cyclades.api.floating_ips',
     (r'^(?:/|.json|.xml)?$', 'demux'),
     (r'^/(\w+)(?:.json|.xml)?$', 'floating_ip_demux'),
 )
 
 pools_urlpatterns = patterns(
-    "synnefo.api.floating_ips",
+    "synnefo.cyclades.api.floating_ips",
     (r'^(?:/|.json|.xml)?$', 'list_floating_ip_pools'),
 )
 '''
 
 ips_urlpatterns = patterns(
-    'synnefo.api.floating_ips',
+    'synnefo.cyclades.api.floating_ips',
     (r'^(?:/|.json|.xml)?$', 'demux'),
     (r'^/detail(?:.json|.xml)?$', 'list_floating_ips', {'detail': True}),
     (r'^/(\w+)(?:/|.json|.xml)?$', 'floating_ip_demux'),

@@ -24,8 +24,8 @@ from collections import defaultdict
 from snf_django.management.utils import pprint_table, parse_bool
 
 from snf_django.management.commands import SynnefoCommand, CommandError
-from synnefo.management.common import get_resource
-from synnefo.admin import stats as statistics
+from synnefo.cyclades.management.common import get_resource
+from synnefo.cyclades.admin import stats as statistics
 from synnefo.util import units
 
 

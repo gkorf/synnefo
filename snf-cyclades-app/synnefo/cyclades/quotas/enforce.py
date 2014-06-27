@@ -14,12 +14,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import time
-from synnefo.db.models import VirtualMachine, IPAddress, NetworkInterface,\
-    Volume
-from synnefo.logic import servers
-from synnefo.logic import ips as logic_ips
-from synnefo.logic import backend
-from synnefo.volume import volumes as volumes_logic
+from synnefo.cyclades.db.models import VirtualMachine, IPAddress, \
+    NetworkInterface, Volume
+from synnefo.cyclades.logic import servers
+from synnefo.cyclades.logic import ips as logic_ips
+from synnefo.cyclades.logic import backend
+from synnefo.cyclades.volume import volumes as volumes_logic
 from synnefo.lib.ordereddict import OrderedDict
 
 

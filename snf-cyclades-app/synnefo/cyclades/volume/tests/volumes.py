@@ -14,16 +14,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from snf_django.utils.testing import BaseAPITest, mocked_quotaholder
-#from synnefo.db.models import Volume
-from synnefo.db import models_factory as mf
-from synnefo.volume import volumes
+#from synnefo.cyclades.db.models import Volume
+from synnefo.cyclades.db import models_factory as mf
+from synnefo.cyclades.volume import volumes
 from snf_django.lib.api import faults
 from django.conf import settings
 from mock import patch
 from copy import deepcopy
 
 
-@patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+@patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
 class VolumesTest(BaseAPITest):
     def setUp(self):
         self.userid = "test_user"
@@ -135,7 +135,7 @@ class VolumesTest(BaseAPITest):
         # self.assertEqual(disk_info["name"], vol.backend_volume_uuid)
         # self.assertEqual(disk_info["origin"], svol.backend_volume_uuid)
 
-    @patch("synnefo.plankton.backend.PlanktonBackend")
+    @patch("synnefo.cyclades.plankton.backend.PlanktonBackend")
     def test_create_from_snapshot(self, mimage, mrapi):
         # Wrong source
         mimage().__enter__().get_snapshot.side_effect = faults.ItemNotFound

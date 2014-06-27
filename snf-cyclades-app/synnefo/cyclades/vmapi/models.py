@@ -20,10 +20,10 @@ from django.core.urlresolvers import reverse
 
 from synnefo.lib import join_urls
 
-from synnefo.logic.servers import server_created
-from synnefo.vmapi import backend, get_key, get_uuid, settings
+from synnefo.cyclades.logic.servers import server_created
+from synnefo.cyclades.vmapi import backend, get_key, get_uuid, settings
 
-log = getLogger('synnefo.vmapi')
+log = getLogger('synnefo.cyclades.vmapi')
 
 
 def create_server_params(sender, created_vm_params, **kwargs):

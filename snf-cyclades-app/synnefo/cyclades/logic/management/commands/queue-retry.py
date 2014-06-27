@@ -18,7 +18,7 @@ from optparse import make_option
 from synnefo.lib.amqp import AMQPClient
 from snf_django.management.commands import SynnefoCommand
 
-from synnefo.logic import queues
+from synnefo.cyclades.logic import queues
 
 import json
 import logging

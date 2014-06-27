@@ -13,22 +13,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from django.conf import settings
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 from django.utils import simplejson as json
 from datetime import datetime, timedelta
 
-from synnefo.db.models import (VirtualMachine, Network, Volume,
-                               BackendNetwork, BACKEND_STATUSES,
-                               pooled_rapi_client, VirtualMachineDiagnostic,
-                               Flavor, IPAddress, IPAddressLog)
-from synnefo.logic import utils, ips
-from synnefo import quotas
-from synnefo.api.util import release_resource
+from synnefo.cyclades.db.models import (
+    VirtualMachine, Network, Volume,
+    BackendNetwork, BACKEND_STATUSES,
+    pooled_rapi_client, VirtualMachineDiagnostic,
+    Flavor, IPAddress, IPAddressLog)
+from synnefo.cyclades.logic import utils, ips
+from synnefo.cyclades import quotas
+from synnefo.cyclades.api.util import release_resource
 from synnefo.util.mac2eui64 import mac2eui64
-from synnefo.logic import rapi
-from synnefo import volume
-from synnefo.plankton.backend import (OBJECT_AVAILABLE, OBJECT_UNAVAILABLE,
-                                      OBJECT_ERROR)
+from synnefo.cyclades.logic import rapi
+from synnefo.cyclades import volume
+from synnefo.cyclades.plankton.backend import (
+    OBJECT_AVAILABLE, OBJECT_UNAVAILABLE,
+    OBJECT_ERROR)
 
 from logging import getLogger
 log = getLogger(__name__)

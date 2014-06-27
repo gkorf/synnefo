@@ -28,11 +28,11 @@ from urllib import unquote
 import astakosclient
 from snf_django.lib import astakos
 
-from synnefo.db.models import VirtualMachine, Network, IPAddressLog
+from synnefo.cyclades.db.models import VirtualMachine, Network, IPAddressLog
 
 # server actions specific imports
-from synnefo.logic import servers as servers_backend
-from synnefo.ui.views import UI_MEDIA_URL
+from synnefo.cyclades.logic import servers as servers_backend
+from synnefo.cyclades.ui.views import UI_MEDIA_URL
 
 logger = logging.getLogger(__name__)
 

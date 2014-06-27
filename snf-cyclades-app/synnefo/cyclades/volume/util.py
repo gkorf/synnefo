@@ -13,11 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.db import models
+from synnefo.cyclades.db import models
 from snf_django.lib.api import faults
-from synnefo.api.util import get_image_dict, get_vm
-from synnefo.plankton import backend
-from synnefo.cyclades_settings import cyclades_services, BASE_HOST
+from synnefo.cyclades.api.util import get_image_dict, get_vm
+from synnefo.cyclades.plankton import backend
+from synnefo.cyclades.cyclades_settings import cyclades_services, BASE_HOST
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_service_path
 

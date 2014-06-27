@@ -18,8 +18,8 @@ from optparse import make_option
 from django.db import IntegrityError
 from snf_django.management.commands import SynnefoCommand, CommandError
 
-from synnefo.management import pprint, common
-from synnefo.db.models import VolumeType
+from synnefo.cyclades.management import pprint, common
+from synnefo.cyclades.db.models import VolumeType
 
 HELP_MSG = """Create a new Volume Type."""
 

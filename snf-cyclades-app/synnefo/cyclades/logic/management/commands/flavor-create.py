@@ -19,7 +19,7 @@ from optparse import make_option
 from django.core.management.base import CommandError
 
 from snf_django.management.commands import SynnefoCommand
-from synnefo.db.models import Flavor, VolumeType
+from synnefo.cyclades.db.models import Flavor, VolumeType
 
 
 HELP_MSG = """Create one or more flavors.
