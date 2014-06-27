@@ -24,7 +24,7 @@ import string
 from binascii import hexlify
 from StringIO import StringIO
 
-from pithos.api import settings as pithos_settings
+from synnefo.pithos.api import settings as pithos_settings
 
 
 def is_date(date):

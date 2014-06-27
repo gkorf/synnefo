@@ -16,10 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pithos.api import settings as pithos_settings
-from pithos.api.test import PithosAPITest, DATE_FORMATS
-from pithos.api.test.util import (md5_hash, get_random_data, get_random_name)
-from pithos.api.test.objects import merkle
+from synnefo.pithos.api import settings as pithos_settings
+from synnefo.pithos.api.test import PithosAPITest, DATE_FORMATS
+from synnefo.pithos.api.test.util import (
+    md5_hash, get_random_data, get_random_name)
+from synnefo.pithos.api.test.objects import merkle
 
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls

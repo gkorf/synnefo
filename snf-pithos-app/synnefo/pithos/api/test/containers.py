@@ -16,9 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pithos.api.test import (PithosAPITest, DATE_FORMATS, o_names,
-                             pithos_settings, pithos_test_settings)
-from pithos.api.test.util import strnextling, get_random_data, get_random_name
+from synnefo.pithos.api.test import (
+    PithosAPITest, DATE_FORMATS, o_names,
+    pithos_settings, pithos_test_settings)
+from synnefo.pithos.api.test.util import strnextling, get_random_data, \
+    get_random_name
 
 from synnefo.lib import join_urls
 

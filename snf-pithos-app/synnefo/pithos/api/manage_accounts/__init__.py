@@ -20,8 +20,9 @@ from functools import wraps
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'synnefo.settings'
 
-from pithos.api.util import (get_backend, split_container_object_string,
-                             Checksum, NoChecksum)
+from synnefo.pithos.api.util import (
+    get_backend, split_container_object_string,
+    Checksum, NoChecksum)
 
 
 def data_read_iterator(str, size=1024):
