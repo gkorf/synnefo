@@ -44,12 +44,12 @@ from synnefo.pithos.api.settings import (UPDATE_MD5, TRANSLATE_UUIDS,
 
 from synnefo.pithos.api import settings
 
-from pithos.backends.base import (
+from synnefo.pithos.backends.base import (
     NotAllowedError, QuotaError, ContainerNotEmpty, ItemNotExists,
     VersionNotExists, ContainerExists, InvalidHash, IllegalOperationError,
     InconsistentContentSize)
 
-from pithos.backends.filter import parse_filters
+from synnefo.pithos.backends.filter import parse_filters
 
 import logging
 logger = logging.getLogger(__name__)

@@ -48,7 +48,7 @@ if SNF_TEST_USE_POSTGRES:
         DATABASES['default']['PASSWORD'] = password
 elif SNF_TEST_PITHOS_SQLITE_MODULE:
     PITHOS_BACKEND_POOL_ENABLED = False
-    PITHOS_BACKEND_DB_MODULE = 'pithos.backends.lib.sqlite'
+    PITHOS_BACKEND_DB_MODULE = 'synnefo.pithos.backends.lib.sqlite'
 
 if SNF_TEST_PITHOS_UPDATE_MD5:
     PITHOS_UPDATE_MD5 = True

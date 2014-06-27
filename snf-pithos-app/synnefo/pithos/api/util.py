@@ -57,8 +57,8 @@ from synnefo.pithos.api.settings import (
             OAUTH2_CLIENT_CREDENTIALS, UNSAFE_DOMAIN)
 
 from synnefo.pithos.api.resources import resources
-from pithos.backends import connect_backend
-from pithos.backends.base import (NotAllowedError, QuotaError, ItemNotExists,
+from synnefo.pithos.backends import connect_backend
+from synnefo.pithos.backends.base import (NotAllowedError, QuotaError, ItemNotExists,
                                   VersionNotExists, IllegalOperationError)
 
 from synnefo.lib import join_urls
@@ -1010,7 +1010,7 @@ def simple_list_response(request, l):
         return json.dumps(l)
 
 
-from pithos.backends.util import PithosBackendPool
+from synnefo.pithos.backends.util import PithosBackendPool
 
 if RADOS_STORAGE:
     BLOCK_PARAMS = {'mappool': RADOS_POOL_MAPS,
