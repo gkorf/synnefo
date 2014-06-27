@@ -21,15 +21,15 @@ from django.template.loader import render_to_string
 from django.utils import simplejson as json
 
 from snf_django.lib import api
-from synnefo.api import util
-from synnefo.db.models import Flavor
+from synnefo.cyclades.api import util
+from synnefo.cyclades.db.models import Flavor
 
 
-log = getLogger('synnefo.api')
+log = getLogger('synnefo.cyclades.api')
 
 
 urlpatterns = patterns(
-    'synnefo.api.flavors',
+    'synnefo.cyclades.api.flavors',
     (r'^(?:/|.json|.xml)?$', 'list_flavors'),
     (r'^/detail(?:.json|.xml)?$', 'list_flavors', {'detail': True}),
     (r'^/(\d+)(?:.json|.xml)?$', 'get_flavor_details'),

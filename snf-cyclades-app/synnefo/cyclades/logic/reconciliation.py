@@ -45,13 +45,14 @@ import itertools
 import bitarray
 from datetime import datetime, timedelta
 
-from synnefo.db import transaction
-from synnefo.db.models import (Backend, VirtualMachine, Flavor,
-                               pooled_rapi_client, Network,
-                               BackendNetwork, BridgePoolTable,
-                               MacPrefixPoolTable)
-from synnefo.db import pools
-from synnefo.logic import utils, rapi, backend as backend_mod
+from synnefo.cyclades.db import transaction
+from synnefo.cyclades.db.models import (
+    Backend, VirtualMachine, Flavor,
+    pooled_rapi_client, Network,
+    BackendNetwork, BridgePoolTable,
+    MacPrefixPoolTable)
+from synnefo.cyclades.db import pools
+from synnefo.cyclades.logic import utils, rapi, backend as backend_mod
 from synnefo.lib.utils import merge_time
 
 logger = logging.getLogger()

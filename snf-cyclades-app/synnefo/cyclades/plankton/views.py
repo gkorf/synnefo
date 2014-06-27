@@ -26,8 +26,8 @@ from django.utils.encoding import (smart_unicode, smart_str,
 
 from snf_django.lib import api
 from snf_django.lib.api import faults
-from synnefo.plankton.backend import PlanktonBackend
-from synnefo.plankton.backend import split_url
+from synnefo.cyclades.plankton.backend import PlanktonBackend
+from synnefo.cyclades.plankton.backend import split_url
 
 
 FILTERS = ('name', 'container_format', 'disk_format', 'status', 'size_min',
@@ -69,7 +69,7 @@ META_PROPERTY_PREFIX = 'HTTP_X_IMAGE_META_PROPERTY_'
 META_PROPERTY_PREFIX_LEN = len(META_PROPERTY_PREFIX)
 
 
-log = getLogger('synnefo.plankton')
+log = getLogger('synnefo.cyclades.plankton')
 
 
 API_STATUS_FROM_IMAGE_STATUS = {

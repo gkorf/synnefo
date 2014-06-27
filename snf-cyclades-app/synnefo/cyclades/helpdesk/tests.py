@@ -31,7 +31,7 @@ USERS_UUIDS[USER2] = {'displayname': 'testuser2@test.com'}
 USERS_DISPLAYNAMES = dict(map(lambda k: (k[1]['displayname'], {'uuid': k[0]}),
                           USERS_UUIDS.iteritems()))
 
-from synnefo.db import models_factory as mfactory
+from synnefo.cyclades.db import models_factory as mfactory
 
 
 class AstakosClientMock():
@@ -329,7 +329,8 @@ class HelpdeskTests(TestCase):
 
         self.vm1.operstate = 'STARTED'
         self.vm1.save()
-        with patch("synnefo.logic.backend.shutdown_instance") as shutdown:
+        with patch("synnefo.cyclades.logic.backend.shutdown_instance") \
+                as shutdown:
             shutdown.return_value = 1
             with mocked_quotaholder():
                 r = self.client.post(
@@ -341,7 +342,8 @@ class HelpdeskTests(TestCase):
 
         self.vm1.operstate = 'STOPPED'
         self.vm1.save()
-        with patch("synnefo.logic.backend.startup_instance") as startup:
+        with patch("synnefo.cyclades.logic.backend.startup_instance") \
+                as startup:
             startup.return_value = 2
             with mocked_quotaholder():
                 r = self.client.post(reverse('helpdesk-vm-start', args=(pk,)),

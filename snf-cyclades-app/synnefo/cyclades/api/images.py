@@ -25,14 +25,14 @@ from django.utils import simplejson as json
 
 from snf_django.lib import api
 from snf_django.lib.api import faults, utils
-from synnefo.api import util
-from synnefo.plankton import backend
+from synnefo.cyclades.api import util
+from synnefo.cyclades.plankton import backend
 
 
 log = getLogger(__name__)
 
 urlpatterns = patterns(
-    'synnefo.api.images',
+    'synnefo.cyclades.api.images',
     (r'^(?:/|.json|.xml)?$', 'demux'),
     (r'^/detail(?:.json|.xml)?$', 'list_images', {'detail': True}),
     (r'^/([\w-]+)(?:.json|.xml)?$', 'image_demux'),

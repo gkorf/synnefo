@@ -14,11 +14,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.utils import simplejson as json
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 
 from snf_django.lib.api import faults
-from synnefo.db.models import (QuotaHolderSerial, VirtualMachine, Network,
-                               IPAddress, Volume)
+from synnefo.cyclades.db.models import (
+    QuotaHolderSerial, VirtualMachine, Network,
+    IPAddress, Volume)
 
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
                               ASTAKOS_AUTH_URL)

@@ -17,11 +17,11 @@
 from django.core.management.base import CommandError
 
 from snf_django.management.commands import SynnefoCommand
-from synnefo.management import common
-from synnefo.logic import backend as backend_mod
-from synnefo.db.models import Backend
+from synnefo.cyclades.management import common
+from synnefo.cyclades.logic import backend as backend_mod
+from synnefo.cyclades.db.models import Backend
 from django.db import models
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 
 
 HELP_MSG = """\

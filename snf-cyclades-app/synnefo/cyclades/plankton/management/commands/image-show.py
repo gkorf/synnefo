@@ -18,8 +18,8 @@ from optparse import make_option
 from django.core.management.base import CommandError
 
 from snf_django.management.commands import SynnefoCommand
-from synnefo.plankton.backend import PlanktonBackend
-from synnefo.management import common
+from synnefo.cyclades.plankton.backend import PlanktonBackend
+from synnefo.cyclades.management import common
 from snf_django.management import utils
 
 

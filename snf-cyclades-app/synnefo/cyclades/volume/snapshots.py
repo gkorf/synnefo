@@ -14,11 +14,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 from snf_django.lib.api import faults
-from synnefo.plankton.backend import PlanktonBackend
-from synnefo.logic import backend
-from synnefo.volume import util
+from synnefo.cyclades.plankton.backend import PlanktonBackend
+from synnefo.cyclades.logic import backend
+from synnefo.cyclades.volume import util
 from synnefo.util import units
 
 log = logging.getLogger(__name__)

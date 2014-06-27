@@ -15,7 +15,7 @@
 
 
 from snf_django.management.commands import ListCommand
-from synnefo.db.models import IPAddressLog
+from synnefo.cyclades.db.models import IPAddressLog
 from optparse import make_option
 
 from logging import getLogger

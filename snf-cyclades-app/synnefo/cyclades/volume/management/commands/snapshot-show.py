@@ -17,8 +17,8 @@
 from snf_django.management.commands import SynnefoCommand, CommandError
 from optparse import make_option
 
-from synnefo.management import common
-from synnefo.plankton.backend import PlanktonBackend
+from synnefo.cyclades.management import common
+from synnefo.cyclades.plankton.backend import PlanktonBackend
 from snf_django.management import utils
 
 

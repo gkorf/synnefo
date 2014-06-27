@@ -16,18 +16,18 @@
 import logging
 from django.test import TestCase
 
-from synnefo.db.models import VirtualMachine, Network, BackendNetwork
-from synnefo.db import models_factory as mfactory
-from synnefo.logic import reconciliation
+from synnefo.cyclades.db.models import VirtualMachine, Network, BackendNetwork
+from synnefo.cyclades.db import models_factory as mfactory
+from synnefo.cyclades.logic import reconciliation
 from mock import patch
 from snf_django.utils.testing import mocked_quotaholder
 from time import time
 from synnefo import settings
 
 
-@patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+@patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
 class ServerReconciliationTest(TestCase):
-    @patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+    @patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
     def setUp(self, mrapi):
         self.backend = mfactory.BackendFactory()
         log = logging.getLogger()
@@ -213,7 +213,7 @@ class ServerReconciliationTest(TestCase):
         self.assertEqual(nic.mac, "aa:00:bb:cc:dd:ee")
 
 
-@patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+@patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
 class NetworkReconciliationTest(TestCase):
     def setUp(self):
         self.backend = mfactory.BackendFactory()

@@ -19,9 +19,9 @@ from django.utils import simplejson as json
 from django.conf import settings
 from snf_django.lib import api
 from snf_django.lib.api import faults
-from synnefo.db.models import Backend
+from synnefo.cyclades.db.models import Backend
 
-from synnefo.admin import stats
+from synnefo.cyclades.admin import stats
 
 logger = logging.getLogger(__name__)
 

@@ -17,10 +17,11 @@ import json
 
 from mock import patch, Mock
 from snf_django.utils.testing import BaseAPITest, mocked_quotaholder
-from synnefo.db.models_factory import (VolumeFactory, VolumeTypeFactory,
-                                       VirtualMachineFactory)
+from synnefo.cyclades.db.models_factory import (
+    VolumeFactory, VolumeTypeFactory,
+    VirtualMachineFactory)
 from synnefo.lib.services import get_service_path
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib import join_urls
 from copy import deepcopy
 
@@ -29,7 +30,7 @@ VOLUME_URL = get_service_path(cyclades_services, 'volume',
 VOLUMES_URL = join_urls(VOLUME_URL, "volumes")
 
 
-@patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+@patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
 class VolumeAPITest(BaseAPITest):
     def test_create_volume(self, mrapi):
         vm = VirtualMachineFactory(
@@ -149,7 +150,7 @@ class VolumeAPITest(BaseAPITest):
                                  'status': 'AVAILABLE',
                                  'disk_format': 'diskdump'}
         data["snapshot_id"] = 1
-        with patch("synnefo.volume.util.get_snapshot", snapshot):
+        with patch("synnefo.cyclades.volume.util.get_snapshot", snapshot):
             with mocked_quotaholder():
                 r = self.post(VOLUMES_URL, user,
                               json.dumps({"volume": data}), "json")
@@ -184,7 +185,7 @@ class VolumeAPITest(BaseAPITest):
                               'status': 'AVAILABLE',
                               'disk_format': 'diskdump'}
         data["imageRef"] = 2
-        with patch("synnefo.api.util.get_image", image):
+        with patch("synnefo.cyclades.api.util.get_image", image):
             with mocked_quotaholder():
                 r = self.post(VOLUMES_URL, user,
                               json.dumps({"volume": data}), "json")
@@ -322,7 +323,7 @@ class VolumeTypeAPITest(BaseAPITest):
 SNAPSHOTS_URL = join_urls(VOLUME_URL, "snapshots")
 
 
-@patch("synnefo.plankton.backend.PlanktonBackend")
+@patch("synnefo.cyclades.plankton.backend.PlanktonBackend")
 class SnapshotMetadataAPITest(BaseAPITest):
     def test_snapshot_metadata(self, mimage):
         snap_id = u"1234-4321-1234"

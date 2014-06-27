@@ -15,7 +15,7 @@
 
 from django.conf.urls import url, patterns
 
-from synnefo.admin import views
+from synnefo.cyclades.admin import views
 from django.http import Http404
 
 

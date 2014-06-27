@@ -20,17 +20,19 @@ from random import randint
 
 from django.test import TestCase
 
-from synnefo.db.models import (VirtualMachine, IPAddress, BackendNetwork,
-                               Network, BridgePoolTable, MacPrefixPoolTable)
-from synnefo.db import models_factory as mfactory
+from synnefo.cyclades.db.models import (
+    VirtualMachine, IPAddress, BackendNetwork,
+    Network, BridgePoolTable, MacPrefixPoolTable)
+from synnefo.cyclades.db import models_factory as mfactory
 from synnefo.lib.utils import split_time
 from datetime import datetime
 from mock import patch
-from synnefo.api.util import allocate_resource
-from synnefo.logic.callbacks import (update_db, update_network,
-                                     update_build_progress)
+from synnefo.cyclades.api.util import allocate_resource
+from synnefo.cyclades.logic.callbacks import (
+    update_db, update_network,
+    update_build_progress)
 from snf_django.utils.testing import mocked_quotaholder
-from synnefo.logic.rapi import GanetiApiError
+from synnefo.cyclades.logic.rapi import GanetiApiError
 
 now = datetime.now
 from time import time
@@ -171,7 +173,7 @@ class UpdateDBTest(TestCase):
         # Test that floating ips are not released
         self.assertFalse(pool.is_available(fp1.address))
 
-    @patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+    @patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
     def test_remove_error(self, rapi, client):
         vm = mfactory.VirtualMachineFactory()
         # Also create a NIC
@@ -522,7 +524,7 @@ class UpdateNetworkTest(TestCase):
                     pool = MacPrefixPoolTable.get_pool()
                     self.assertTrue(pool.is_available(net.mac_prefix))
 
-    @patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+    @patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
     def test_remove_error(self, rapi, client):
         mfactory.MacPrefixPoolTableFactory()
         mfactory.BridgePoolTableFactory()
@@ -561,7 +563,7 @@ class UpdateNetworkTest(TestCase):
         self.assertEqual(new_net.state, 'ACTIVE')
         self.assertFalse(new_net.deleted)
 
-    @patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+    @patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
     def test_error_opcode(self, rapi, client):
         # Mock getting network, because code will lookup if network exists
         # in backend

@@ -18,23 +18,24 @@ import logging
 from datetime import datetime
 from socket import getfqdn
 from django import dispatch
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 from django.utils import simplejson as json
 
 from snf_django.lib.api import faults
 from django.conf import settings
-from synnefo.api import util
-from synnefo.logic import backend, ips, utils
-from synnefo.logic.backend_allocator import BackendAllocator
-from synnefo.db.models import (NetworkInterface, VirtualMachine,
-                               VirtualMachineMetadata, IPAddressLog, Network,
-                               Image, pooled_rapi_client)
+from synnefo.cyclades.api import util
+from synnefo.cyclades.logic import backend, ips, utils
+from synnefo.cyclades.logic.backend_allocator import BackendAllocator
+from synnefo.cyclades.db.models import (
+    NetworkInterface, VirtualMachine,
+    VirtualMachineMetadata, IPAddressLog, Network,
+    Image, pooled_rapi_client)
 from vncauthproxy.client import request_forwarding as request_vnc_forwarding
-from synnefo.logic import rapi
-from synnefo.volume.volumes import _create_volume
-from synnefo.volume.util import get_volume
-from synnefo.logic import commands
-from synnefo import quotas
+from synnefo.cyclades.logic import rapi
+from synnefo.cyclades.volume.volumes import _create_volume
+from synnefo.cyclades.volume.util import get_volume
+from synnefo.cyclades.logic import commands
+from synnefo.cyclades import quotas
 
 log = logging.getLogger(__name__)
 

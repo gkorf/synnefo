@@ -19,9 +19,9 @@ from django.test import TestCase
 from django.core.exceptions import ObjectDoesNotExist
 from snf_django.lib.api import faults
 from snf_django.utils.testing import mocked_quotaholder
-from synnefo.logic import ips
-from synnefo.db import models_factory as mfactory
-from synnefo.db.models import IPAddress
+from synnefo.cyclades.logic import ips
+from synnefo.cyclades.db import models_factory as mfactory
+from synnefo.cyclades.db.models import IPAddress
 
 
 class IPTest(TestCase):

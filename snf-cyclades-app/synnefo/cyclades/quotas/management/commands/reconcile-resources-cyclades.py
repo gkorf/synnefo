@@ -16,9 +16,9 @@
 from datetime import datetime
 from optparse import make_option
 
-from synnefo import quotas
-from synnefo.quotas import util
-from synnefo.quotas import errors
+from synnefo.cyclades import quotas
+from synnefo.cyclades.quotas import util
+from synnefo.cyclades.quotas import errors
 from snf_django.management.utils import pprint_table
 from snf_django.management.commands import SynnefoCommand, CommandError
 from snf_django.utils import reconcile

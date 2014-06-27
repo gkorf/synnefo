@@ -18,8 +18,8 @@ import datetime
 from django.utils import importlib
 
 from django.conf import settings
-from synnefo.db.models import Backend
-from synnefo.logic import backend as backend_mod
+from synnefo.cyclades.db.models import Backend
+from synnefo.cyclades.logic import backend as backend_mod
 
 log = logging.getLogger(__name__)
 

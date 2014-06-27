@@ -13,12 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.app_settings.default.backend import *
-from synnefo.app_settings.default.queues import *
-from synnefo.app_settings.default.api import *
-from synnefo.app_settings.default.plankton import *
-from synnefo.app_settings.default.ui import *
-from synnefo.app_settings.default.userdata import *
-from synnefo.app_settings.default.reconciliation import *
-from synnefo.app_settings.default.tests import *
-from synnefo.app_settings.default.cloudbar import *
+from synnefo.cyclades.app_settings.default.backend import *
+from synnefo.cyclades.app_settings.default.queues import *
+from synnefo.cyclades.app_settings.default.api import *
+from synnefo.cyclades.app_settings.default.plankton import *
+from synnefo.cyclades.app_settings.default.ui import *
+from synnefo.cyclades.app_settings.default.userdata import *
+from synnefo.cyclades.app_settings.default.reconciliation import *
+from synnefo.cyclades.app_settings.default.tests import *
+from synnefo.cyclades.app_settings.default.cloudbar import *
