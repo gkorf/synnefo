@@ -16,11 +16,11 @@
 from optparse import make_option
 from django.core.management.base import CommandError
 
-from synnefo.db.models import Backend, Network
+from synnefo.cyclades.db.models import Backend, Network
 from django.db.utils import IntegrityError
-from synnefo.logic import backend as backend_mod
+from synnefo.cyclades.logic import backend as backend_mod
 from snf_django.management.commands import SynnefoCommand
-from synnefo.management.common import check_backend_credentials
+from synnefo.cyclades.management.common import check_backend_credentials
 from snf_django.management.utils import pprint_table
 
 

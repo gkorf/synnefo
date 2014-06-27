@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from objpool import ObjectPool
-from synnefo.logic.rapi import GanetiRapiClient
+from synnefo.cyclades.logic.rapi import GanetiRapiClient
 
 from logging import getLogger
 log = getLogger(__name__)

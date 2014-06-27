@@ -15,7 +15,7 @@
 
 # Utility functions
 
-from synnefo.db.models import VirtualMachine, Network
+from synnefo.cyclades.db.models import VirtualMachine, Network
 from snf_django.lib.api import faults
 from django.conf import settings
 from copy import deepcopy

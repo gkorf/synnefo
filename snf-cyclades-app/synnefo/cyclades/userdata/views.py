@@ -18,9 +18,9 @@ from django import http
 from django.utils import simplejson as json
 from django.conf import settings
 
-from synnefo.userdata import rest
-from synnefo.userdata.models import PublicKeyPair
-from synnefo.userdata.util import exportKey
+from synnefo.cyclades.userdata import rest
+from synnefo.cyclades.userdata.models import PublicKeyPair
+from synnefo.cyclades.userdata.util import exportKey
 from snf_django.lib.astakos import get_user
 
 SUPPORT_GENERATE_KEYS = True

@@ -18,9 +18,9 @@ from optparse import make_option
 from django.core.management.base import CommandError
 
 from snf_django.management.commands import SynnefoCommand
-from synnefo.management import common
+from synnefo.cyclades.management import common
 
-from synnefo.logic import subnets
+from synnefo.cyclades.logic import subnets
 
 HELP_MSG = """
 

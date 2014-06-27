@@ -16,9 +16,10 @@
 from optparse import make_option
 
 from django.core.management.base import CommandError
-from synnefo.management.common import (get_resource, convert_api_faults,
-                                       wait_server_task)
-from synnefo.logic import servers
+from synnefo.cyclades.management.common import (
+    get_resource, convert_api_faults,
+    wait_server_task)
+from synnefo.cyclades.logic import servers
 from snf_django.management.commands import RemoveCommand
 from snf_django.management.utils import parse_bool
 from snf_django.lib.api import faults

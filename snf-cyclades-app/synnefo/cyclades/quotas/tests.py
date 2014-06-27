@@ -20,10 +20,10 @@
 #
 from mock import patch
 from django.test import TestCase
-from synnefo.db import models_factory as mfactory
+from synnefo.cyclades.db import models_factory as mfactory
 
-from synnefo import quotas
-from synnefo.quotas import util
+from synnefo.cyclades import quotas
+from synnefo.cyclades.quotas import util
 
 
 class GetDBHoldingsTestCase(TestCase):
@@ -91,7 +91,7 @@ class GetDBHoldingsTestCase(TestCase):
         self.assertEqual(holdings["user3"]["user3"]["cyclades.floating_ip"], 1)
 
 
-@patch("synnefo.quotas.get_quotaholder_pending")
+@patch("synnefo.cyclades.quotas.get_quotaholder_pending")
 class ResolvePendingTestCase(TestCase):
     def setUp(self):
         self.p1 = mfactory.QuotaHolderSerialFactory(serial=20, pending=True)

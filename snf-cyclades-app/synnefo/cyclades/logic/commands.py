@@ -16,12 +16,12 @@
 import logging
 
 from functools import wraps
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 
 from django.conf import settings
 from snf_django.lib.api import faults
-from synnefo import quotas
-from synnefo.db.models import VirtualMachine
+from synnefo.cyclades import quotas
+from synnefo.cyclades.db.models import VirtualMachine
 
 
 log = logging.getLogger(__name__)

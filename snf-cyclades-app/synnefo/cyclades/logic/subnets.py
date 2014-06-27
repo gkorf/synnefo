@@ -18,15 +18,15 @@ from logging import getLogger
 from functools import wraps
 
 from django.conf import settings
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 from django.db.models import Q
 
 from snf_django.lib import api
 from snf_django.lib.api import faults
-from synnefo.logic import utils
-from synnefo.api import util
+from synnefo.cyclades.logic import utils
+from synnefo.cyclades.api import util
 
-from synnefo.db.models import Subnet, Network, IPPoolTable
+from synnefo.cyclades.db.models import Subnet, Network, IPPoolTable
 
 log = getLogger(__name__)
 

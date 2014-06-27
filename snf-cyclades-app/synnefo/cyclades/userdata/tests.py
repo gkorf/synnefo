@@ -26,7 +26,8 @@ from snf_django.utils.testing import with_settings
 
 from mock import patch
 
-from synnefo.userdata.models import PublicKeyPair, SSH_KEY_MAX_CONTENT_LENGTH
+from synnefo.cyclades.userdata.models import PublicKeyPair, \
+    SSH_KEY_MAX_CONTENT_LENGTH
 
 
 def get_user_mock(request, *args, **kwargs):
@@ -54,9 +55,9 @@ class AaiClient(Client):
 
     def request(self, **request):
         # mock the astakos authentication function
-        with patch("synnefo.userdata.rest.get_user",
+        with patch("synnefo.cyclades.userdata.rest.get_user",
                    new=get_user_mock):
-            with patch("synnefo.userdata.views.get_user",
+            with patch("synnefo.cyclades.userdata.views.get_user",
                        new=get_user_mock):
                 request['HTTP_X_AUTH_TOKEN'] = '0000'
                 return super(AaiClient, self).request(**request)

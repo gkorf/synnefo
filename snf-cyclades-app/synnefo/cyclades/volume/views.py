@@ -15,7 +15,7 @@
 
 from itertools import ifilter
 from logging import getLogger
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.utils.encoding import smart_unicode
@@ -26,14 +26,15 @@ from dateutil.parser import parse as date_parse
 from snf_django.lib import api
 from snf_django.lib.api import faults, utils
 
-from synnefo.volume import volumes, snapshots, util
-from synnefo.db.models import Volume, VolumeType, VolumeMetadata
-from synnefo.plankton import backend
-from synnefo.plankton.backend import (OBJECT_AVAILABLE, OBJECT_UNAVAILABLE,
-                                      OBJECT_ERROR)
-from synnefo.logic.utils import check_name_length
+from synnefo.cyclades.volume import volumes, snapshots, util
+from synnefo.cyclades.db.models import Volume, VolumeType, VolumeMetadata
+from synnefo.cyclades.plankton import backend
+from synnefo.cyclades.plankton.backend import (
+    OBJECT_AVAILABLE, OBJECT_UNAVAILABLE,
+    OBJECT_ERROR)
+from synnefo.cyclades.logic.utils import check_name_length
 
-log = getLogger('synnefo.volume')
+log = getLogger('synnefo.cyclades.volume')
 
 
 def display_null_field(field):

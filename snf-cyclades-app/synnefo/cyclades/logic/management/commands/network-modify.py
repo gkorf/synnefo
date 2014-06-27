@@ -17,12 +17,12 @@ from optparse import make_option
 
 from django.core.management.base import CommandError
 
-from synnefo.db.models import Backend
-from synnefo.management.common import get_resource
+from synnefo.cyclades.db.models import Backend
+from synnefo.cyclades.management.common import get_resource
 from snf_django.management.commands import SynnefoCommand
 from snf_django.management.utils import parse_bool
-from synnefo.logic import networks, backend as backend_mod
-from synnefo.db import transaction
+from synnefo.cyclades.logic import networks, backend as backend_mod
+from synnefo.cyclades.db import transaction
 
 
 class Command(SynnefoCommand):

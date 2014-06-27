@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from optparse import make_option
 from snf_django.management.commands import SynnefoCommand
-from synnefo.management.common import pool_table_from_type
+from synnefo.cyclades.management.common import pool_table_from_type
 
 POOL_CHOICES = ['bridge', 'mac-prefix']
 

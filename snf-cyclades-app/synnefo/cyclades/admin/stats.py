@@ -23,9 +23,10 @@ from django.db import connection
 from django.db.models import Count, Sum
 
 from snf_django.lib.astakos import UserCache
-from synnefo.plankton.backend import PlanktonBackend
-from synnefo.db.models import (VirtualMachine, Network, Backend, VolumeType,
-                               pooled_rapi_client, Flavor)
+from synnefo.cyclades.plankton.backend import PlanktonBackend
+from synnefo.cyclades.db.models import (
+    VirtualMachine, Network, Backend, VolumeType,
+    pooled_rapi_client, Flavor)
 
 
 def get_cyclades_stats(backend=None, clusters=True, servers=True,

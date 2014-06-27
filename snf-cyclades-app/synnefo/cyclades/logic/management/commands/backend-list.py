@@ -13,9 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.db.models import Backend
+from synnefo.cyclades.db.models import Backend
 from snf_django.management.commands import ListCommand
-from synnefo.api import util
+from synnefo.cyclades.api import util
 
 
 class Command(ListCommand):

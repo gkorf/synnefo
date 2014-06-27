@@ -18,12 +18,12 @@ from optparse import make_option
 from django.core.management.base import CommandError
 
 from snf_django.management.commands import SynnefoCommand
-from synnefo.management.common import convert_api_faults
+from synnefo.cyclades.management.common import convert_api_faults
 from snf_django.management.utils import parse_bool
 
-from synnefo.db.models import Network
-from synnefo.logic import networks, subnets
-from synnefo.management import pprint
+from synnefo.cyclades.db.models import Network
+from synnefo.cyclades.logic import networks, subnets
+from synnefo.cyclades.management import pprint
 
 
 NETWORK_FLAVORS = Network.FLAVORS.keys()

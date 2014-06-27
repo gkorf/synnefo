@@ -16,8 +16,8 @@
 from django.conf.urls import include, patterns
 
 from snf_django.lib.api import api_endpoint_not_found
-from synnefo.api import (servers, flavors, images, extensions)
-from synnefo.api.versions import versions_list, version_details
+from synnefo.cyclades.api import (servers, flavors, images, extensions)
+from synnefo.cyclades.api.versions import versions_list, version_details
 
 
 #

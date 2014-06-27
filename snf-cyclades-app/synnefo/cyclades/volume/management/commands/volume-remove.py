@@ -16,8 +16,8 @@
 
 from optparse import make_option
 from django.core.management.base import CommandError
-from synnefo.volume import volumes
-from synnefo.management import common
+from synnefo.cyclades.volume import volumes
+from synnefo.cyclades.management import common
 from snf_django.management.utils import parse_bool
 from snf_django.management.commands import RemoveCommand
 
