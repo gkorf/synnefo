@@ -19,7 +19,7 @@ import logging
 from django.core.cache import cache
 from django.db.models import Q
 
-from synnefo.db.models import Volume
+from synnefo.cyclades.db.models import Volume
 
 import django_filters
 

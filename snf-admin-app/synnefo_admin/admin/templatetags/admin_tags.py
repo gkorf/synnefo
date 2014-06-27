@@ -24,9 +24,9 @@ import logging
 import django_filters
 
 from snf_django.lib.api import faults
-from synnefo.api.util import get_image
+from synnefo.cyclades.api.util import get_image
 from synnefo.lib.dict import SnfOrderedDict
-from synnefo.db.models import Image
+from synnefo.cyclades.db.models import Image
 
 import synnefo_admin.admin.resources.projects.utils as project_utils
 import synnefo_admin.admin.resources.users.utils as user_utils
