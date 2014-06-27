@@ -276,17 +276,17 @@ in ``setup.py``::
      ...
      'synnefo': [
          ...
-         'web_static = synnefo.app_settings:synnefo_static_files',
+         'web_static = synnefo.cyclades.app_settings:synnefo_static_files',
          ...
          ]
       },
     ...
 
-and inside ``synnefo/app_settings/__init__.py``::
+and inside ``synnefo/cyclades/app_settings/__init__.py``::
 
     synnefo_static_files = {
-        'synnefo.ui': 'ui',
-        'synnefo.admin': 'admin',
+        'synnefo.cyclades.ui': 'ui',
+        'synnefo.cyclades.admin': 'admin',
     }
 
 

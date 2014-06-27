@@ -17,7 +17,7 @@
 import logging
 from collections import OrderedDict
 
-from synnefo.db.models import IPAddressLog
+from synnefo.cyclades.db.models import IPAddressLog
 
 from synnefo_admin.admin.exceptions import AdminHttp404
 from synnefo_admin.admin.utils import _filter_public_ip_log

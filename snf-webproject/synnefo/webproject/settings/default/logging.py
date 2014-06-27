@@ -64,13 +64,13 @@ LOGGING_SETUP = {
     }
 }
 
-#LOGGING_SETUP['loggers']['synnefo.admin'] = {'level': 'INFO', 'propagate': 1}
-#LOGGING_SETUP['loggers']['synnefo.api'] = {'level': 'INFO', 'propagate': 1}
-#LOGGING_SETUP['loggers']['synnefo.db'] = {'level': 'INFO', 'propagate': 1}
-#LOGGING_SETUP['loggers']['synnefo.logic'] = {'level': 'INFO', 'propagate': 1}
+#LOGGING_SETUP['loggers']['synnefo.cyclades.admin'] = {'level': 'INFO', 'propagate': 1}
+#LOGGING_SETUP['loggers']['synnefo.cyclades.api'] = {'level': 'INFO', 'propagate': 1}
+#LOGGING_SETUP['loggers']['synnefo.cyclades.db'] = {'level': 'INFO', 'propagate': 1}
+#LOGGING_SETUP['loggers']['synnefo.cyclades.logic'] = {'level': 'INFO', 'propagate': 1}
 
 # To set logging level for plankton to DEBUG just uncomment the follow line:
-# LOGGING_SETUP['loggers']['synnefo.plankton'] = {'level': 'INFO', 'propagate': 1}
+# LOGGING_SETUP['loggers']['synnefo.cyclades.plankton'] = {'level': 'INFO', 'propagate': 1}
 
 SNF_MANAGE_LOGGING_SETUP = {
     'version': 1,
