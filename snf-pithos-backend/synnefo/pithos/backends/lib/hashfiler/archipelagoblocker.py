@@ -24,7 +24,7 @@ from archipelago.common import (
     string_at,
     )
 
-from pithos.workers import (
+from synnefo.pithos.workers import (
     glue,
     monkey,
     )

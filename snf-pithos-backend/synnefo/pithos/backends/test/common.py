@@ -15,10 +15,10 @@
 
 from mock import MagicMock
 
-from pithos.backends.test.util import get_random_data
+from synnefo.pithos.backends.test.util import get_random_data
 
-from pithos.backends.exceptions import ItemNotExists
-from pithos.backends.util import connect_backend
+from synnefo.pithos.backends.exceptions import ItemNotExists
+from synnefo.pithos.backends.util import connect_backend
 
 import random
 import unittest
