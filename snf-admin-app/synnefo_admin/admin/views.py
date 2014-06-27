@@ -28,9 +28,8 @@ from urllib import unquote
 
 import astakosclient
 from snf_django.lib import astakos
-from synnefo_branding.utils import render_to_string
+from synnefo.branding.utils import render_to_string
 from snf_django.lib.api import faults
-
 
 from synnefo.astakos.im.messages import PLAIN_EMAIL_SUBJECT as sample_subject
 from synnefo.astakos.im import settings as astakos_settings
