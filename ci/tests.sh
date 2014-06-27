@@ -32,7 +32,7 @@ runPithosTests () {
     if [ -z "$pithos_tests" ]; then return; fi
 
     export SYNNEFO_EXCLUDE_PACKAGES="snf-cyclades-app snf-astakos-app"
-    CURRENT_COMPONENT=pithos
+    CURRENT_COMPONENT=synnefo.pithos
     createSnfManageTest $pithos_tests
     runTest
 }
