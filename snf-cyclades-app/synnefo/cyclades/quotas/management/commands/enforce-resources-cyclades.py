@@ -18,9 +18,9 @@ from optparse import make_option
 from django.db import transaction
 
 from synnefo.lib.ordereddict import OrderedDict
-from synnefo.quotas import util
-from synnefo.quotas import enforce
-from synnefo.quotas import errors
+from synnefo.cyclades.quotas import util
+from synnefo.cyclades.quotas import enforce
+from synnefo.cyclades.quotas import errors
 from snf_django.management.commands import SynnefoCommand, CommandError
 from snf_django.management.utils import pprint_table
 from collections import defaultdict

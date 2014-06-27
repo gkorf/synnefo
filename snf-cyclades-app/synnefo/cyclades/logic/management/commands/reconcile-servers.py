@@ -26,8 +26,8 @@ import subprocess
 from optparse import make_option
 
 from snf_django.management.commands import SynnefoCommand
-from synnefo.management.common import get_resource
-from synnefo.logic import reconciliation
+from synnefo.cyclades.management.common import get_resource
+from synnefo.cyclades.logic import reconciliation
 from snf_django.management.utils import parse_bool
 
 

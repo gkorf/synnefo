@@ -23,10 +23,10 @@ from django.core.management.base import NoArgsCommand, CommandError, BaseCommand
 from django.db import transaction
 from django.conf import settings
 
-from synnefo.api.util import get_existing_users
+from synnefo.cyclades.api.util import get_existing_users
 from synnefo.lib.utils import case_unique
-from synnefo.db.models import Network, VirtualMachine
-from synnefo.userdata.models import PublicKeyPair
+from synnefo.cyclades.db.models import Network, VirtualMachine
+from synnefo.cyclades.userdata.models import PublicKeyPair
 
 from snf_django.lib import astakos
 

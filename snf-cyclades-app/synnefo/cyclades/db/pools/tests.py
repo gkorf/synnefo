@@ -15,7 +15,7 @@
 
 
 from django.test import TestCase
-from synnefo.db.pools import (PoolManager, EmptyPool, BridgePool,
+from synnefo.cyclades.db.pools import (PoolManager, EmptyPool, BridgePool,
                               MacPrefixPool, IPPool, find_padding,
                               bitarray_to_map, ValueNotAvailable,
                               InvalidValue)

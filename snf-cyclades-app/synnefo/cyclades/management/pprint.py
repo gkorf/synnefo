@@ -19,12 +19,12 @@ from synnefo.lib.ordereddict import OrderedDict
 from snf_django.lib.astakos import UserCache
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
                               ASTAKOS_AUTH_URL)
-from synnefo.db.models import Backend, pooled_rapi_client
+from synnefo.cyclades.db.models import Backend, pooled_rapi_client
 
-from synnefo.logic.rapi import GanetiApiError
-from synnefo.logic.reconciliation import (nics_from_instance,
+from synnefo.cyclades.logic.rapi import GanetiApiError
+from synnefo.cyclades.logic.reconciliation import (nics_from_instance,
                                           disks_from_instance)
-from synnefo.management.common import get_image
+from synnefo.cyclades.management.common import get_image
 
 
 def pprint_network(network, display_mails=False, stdout=None, title=None):

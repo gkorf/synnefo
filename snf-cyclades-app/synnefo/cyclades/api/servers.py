@@ -25,16 +25,16 @@ from django.core.urlresolvers import reverse
 from snf_django.lib import api
 from snf_django.lib.api import faults, utils
 
-from synnefo.api import util
-from synnefo.db.models import (VirtualMachine, VirtualMachineMetadata)
-from synnefo.logic import servers, utils as logic_utils, server_attachments
-from synnefo.volume.util import get_volume
+from synnefo.cyclades.api import util
+from synnefo.cyclades.db.models import (VirtualMachine, VirtualMachineMetadata)
+from synnefo.cyclades.logic import servers, utils as logic_utils, server_attachments
+from synnefo.cyclades.volume.util import get_volume
 
 from logging import getLogger
 log = getLogger(__name__)
 
 urlpatterns = patterns(
-    'synnefo.api.servers',
+    'synnefo.cyclades.api.servers',
     (r'^(?:/|.json|.xml)?$', 'demux'),
     (r'^/detail(?:.json|.xml)?$', 'list_servers', {'detail': True}),
     (r'^/(\d+)(?:.json|.xml)?$', 'server_demux'),

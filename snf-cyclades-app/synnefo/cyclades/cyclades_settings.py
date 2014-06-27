@@ -17,7 +17,7 @@ import logging
 
 from django.conf import settings
 from synnefo.lib import join_urls, parse_base_url
-from synnefo.api.services import cyclades_services as vanilla_cyclades_services
+from synnefo.cyclades.api.services import cyclades_services as vanilla_cyclades_services
 from synnefo.lib.services import fill_endpoints
 from astakosclient import AstakosClient
 

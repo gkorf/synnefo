@@ -19,13 +19,13 @@ from django.conf import settings
 
 urlpatterns = patterns(
     '',
-    url(r'^$', 'synnefo.ui.views.home', name='ui_index'),
-    url(r'^machines/console$', 'synnefo.ui.views.machines_console',
+    url(r'^$', 'synnefo.cyclades.ui.views.home', name='ui_index'),
+    url(r'^machines/console$', 'synnefo.cyclades.ui.views.machines_console',
         name='ui_machines_console'),
-    url(r'^machines/connect$', 'synnefo.ui.views.machines_connect',
+    url(r'^machines/connect$', 'synnefo.cyclades.ui.views.machines_connect',
         name='ui_machines_connect'),
 )
 
 if settings.DEBUG or settings.TEST:
     urlpatterns += patterns(
-        '', url(r'^jstests$', 'synnefo.ui.views.js_tests', name='js_tests'),)
+        '', url(r'^jstests$', 'synnefo.cyclades.ui.views.js_tests', name='js_tests'),)

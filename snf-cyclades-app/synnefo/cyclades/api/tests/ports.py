@@ -16,11 +16,11 @@
 from django.conf import settings
 from snf_django.utils.testing import BaseAPITest, override_settings
 from django.utils import simplejson as json
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 from mock import patch
-import synnefo.db.models_factory as dbmf
+import synnefo.cyclades.db.models_factory as dbmf
 
 NETWORK_URL = get_service_path(cyclades_services, 'network',
                                version='v2.0')
@@ -46,7 +46,7 @@ class PortTest(BaseAPITest):
         response = self.get(url, user=nic.userid)
         self.assertEqual(response.status_code, 200)
 
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_delete_port(self, mrapi):
         nic = dbmf.NetworkInterfaceFactory(device_owner='vm')
         url = join_urls(PORTS_URL, str(nic.id))
@@ -96,7 +96,7 @@ class PortTest(BaseAPITest):
         response = self.post(PORTS_URL, params=json.dumps(request))
         self.assertEqual(response.status_code, 400, response.content)
 
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_create_port_private_net(self, mrapi):
         net = dbmf.NetworkFactory(public=False)
         dbmf.IPv4SubnetFactory(network=net)
@@ -183,7 +183,7 @@ class PortTest(BaseAPITest):
                              user=net.userid)
         self.assertEqual(response.status_code, 409)
 
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_create_port_with_floating_ip(self, mrapi):
         vm = dbmf.VirtualMachineFactory()
         fip = dbmf.FloatingIPFactory(network__public=True, nic=None,
@@ -202,7 +202,7 @@ class PortTest(BaseAPITest):
                                  user=vm.userid)
         self.assertEqual(response.status_code, 201)
 
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_create_port_with_address(self, mrapi):
         """Test creation if IP address is specified."""
         mrapi().ModifyInstance.return_value = 42

@@ -24,16 +24,16 @@ from django.template.loader import render_to_string
 from snf_django.lib import api
 from snf_django.lib.api import utils
 
-from synnefo.api import util
-from synnefo.db.models import Network
-from synnefo.logic import networks
+from synnefo.cyclades.api import util
+from synnefo.cyclades.db.models import Network
+from synnefo.cyclades.logic import networks
 
 from logging import getLogger
 
 log = getLogger(__name__)
 
 urlpatterns = patterns(
-    'synnefo.api.networks',
+    'synnefo.cyclades.api.networks',
     (r'^(?:/|.json|.xml)?$', 'demux'),
     (r'^/detail(?:.json|.xml)?$', 'list_networks', {'detail': True}),
     (r'^/(\w+)(?:/|.json|.xml)?$', 'network_demux'),

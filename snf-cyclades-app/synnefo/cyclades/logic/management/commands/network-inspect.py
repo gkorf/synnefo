@@ -18,7 +18,7 @@ from optparse import make_option
 from django.core.management.base import CommandError
 
 from snf_django.management.commands import SynnefoCommand
-from synnefo.management import pprint, common
+from synnefo.cyclades.management import pprint, common
 from snf_django.management.utils import parse_bool
 
 

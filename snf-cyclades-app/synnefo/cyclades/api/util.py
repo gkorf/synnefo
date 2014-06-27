@@ -29,13 +29,13 @@ from django.utils import simplejson as json
 from django.db.models import Q
 
 from snf_django.lib.api import faults
-from synnefo.db.models import (Flavor, VirtualMachine, VirtualMachineMetadata,
+from synnefo.cyclades.db.models import (Flavor, VirtualMachine, VirtualMachineMetadata,
                                Network, NetworkInterface, SecurityGroup,
                                BridgePoolTable, MacPrefixPoolTable, IPAddress,
                                IPPoolTable)
-from synnefo.plankton.backend import PlanktonBackend
+from synnefo.cyclades.plankton.backend import PlanktonBackend
 
-from synnefo.cyclades_settings import cyclades_services, BASE_HOST
+from synnefo.cyclades.cyclades_settings import cyclades_services, BASE_HOST
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 
@@ -60,7 +60,7 @@ FLOATING_IPS_URL = join_urls(NETWORK_URL, "floatingips/")
 
 PITHOSMAP_PREFIX = "pithosmap://"
 
-log = getLogger('synnefo.api')
+log = getLogger('synnefo.cyclades.api')
 
 
 def random_password():
@@ -401,8 +401,8 @@ def get_existing_users():
     Retrieve user ids stored in cyclades user agnostic models.
     """
     # also check PublicKeys a user with no servers/networks exist
-    from synnefo.userdata.models import PublicKeyPair
-    from synnefo.db.models import VirtualMachine, Network
+    from synnefo.cyclades.userdata.models import PublicKeyPair
+    from synnefo.cyclades.db.models import VirtualMachine, Network
 
     keypairusernames = PublicKeyPair.objects.filter().values_list('user',
                                                                   flat=True)

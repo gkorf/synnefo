@@ -17,10 +17,10 @@ from logging import getLogger
 
 from django.http import Http404, HttpResponse
 
-from synnefo.vmapi import backend, get_key
-from synnefo.vmapi import settings
+from synnefo.cyclades.vmapi import backend, get_key
+from synnefo.cyclades.vmapi import settings
 
-log = getLogger('synnefo.vmapi')
+log = getLogger('synnefo.cyclades.vmapi')
 
 
 def server_params(request, uuid):

@@ -16,7 +16,7 @@
 from django.utils import simplejson as json
 
 from snf_django.management.commands import SynnefoCommand
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import filter_public
 
 

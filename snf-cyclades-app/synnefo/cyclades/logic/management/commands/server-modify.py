@@ -18,11 +18,11 @@ from optparse import make_option
 from django.db import transaction
 from django.core.management.base import CommandError
 
-from synnefo.management.common import (get_resource, convert_api_faults,
+from synnefo.cyclades.management.common import (get_resource, convert_api_faults,
                                        wait_server_task)
 from snf_django.management.commands import SynnefoCommand
 from snf_django.management.utils import parse_bool
-from synnefo.logic import servers
+from synnefo.cyclades.logic import servers
 
 
 ACTIONS = ["start", "stop", "reboot_hard", "reboot_soft"]

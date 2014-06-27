@@ -18,14 +18,14 @@
 from django.test import TestCase
 from snf_django.lib.api import faults
 from snf_django.utils.testing import mocked_quotaholder
-from synnefo.logic import networks
-from synnefo.db import models_factory as mfactory
-from synnefo.db.models import BridgePoolTable, MacPrefixPoolTable
+from synnefo.cyclades.logic import networks
+from synnefo.cyclades.db import models_factory as mfactory
+from synnefo.cyclades.db.models import BridgePoolTable, MacPrefixPoolTable
 from synnefo import settings
 from copy import copy
 
 
-#@patch("synnefo.logic.rapi_pool.GanetiRapiClient")
+#@patch("synnefo.cyclades.logic.rapi_pool.GanetiRapiClient")
 class NetworkTest(TestCase):
     def test_create(self):
         kwargs = {

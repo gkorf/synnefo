@@ -14,8 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from snf_django.management.commands import SynnefoCommand
-from synnefo.db.models import Backend
-from synnefo.logic import backend as backend_mod
+from synnefo.cyclades.db.models import Backend
+from synnefo.cyclades.logic import backend as backend_mod
 
 
 HELP_MSG = """Query Ganeti backends and update the status of backend in DB.

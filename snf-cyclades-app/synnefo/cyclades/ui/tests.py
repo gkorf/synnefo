@@ -20,7 +20,7 @@ from time import sleep
 
 class FunctionalCase(TestCase):
     """
-    Functional tests for synnefo.ui using Selenium
+    Functional tests for synnefo.cyclades.ui using Selenium
     """
 
     def setUp(self):

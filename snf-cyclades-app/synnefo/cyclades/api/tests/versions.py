@@ -16,7 +16,7 @@
 from django.utils import simplejson as json
 from django.test import TestCase
 from snf_django.utils.testing import astakos_user
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 

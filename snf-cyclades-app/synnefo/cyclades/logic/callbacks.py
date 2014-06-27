@@ -21,9 +21,9 @@ import json
 from functools import wraps
 
 from django.db import transaction
-from synnefo.db.models import (Backend, VirtualMachine, Network,
+from synnefo.cyclades.db.models import (Backend, VirtualMachine, Network,
                                BackendNetwork, pooled_rapi_client)
-from synnefo.logic import utils, backend as backend_mod, rapi
+from synnefo.cyclades.logic import utils, backend as backend_mod, rapi
 
 from synnefo.lib.utils import merge_time
 

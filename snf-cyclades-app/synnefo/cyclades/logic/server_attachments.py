@@ -17,7 +17,7 @@ import logging
 
 from snf_django.lib.api import faults
 from django.conf import settings
-from synnefo.logic import backend, commands
+from synnefo.cyclades.logic import backend, commands
 
 log = logging.getLogger(__name__)
 

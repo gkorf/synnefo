@@ -20,11 +20,11 @@
 from django.test import TestCase
 
 # Import pool tests
-from synnefo.db.pools.tests import *
-from synnefo.db.models import *
+from synnefo.cyclades.db.pools.tests import *
+from synnefo.cyclades.db.models import *
 
-from synnefo.db import models_factory as mfact
-from synnefo.db.pools import IPPool, EmptyPool
+from synnefo.cyclades.db import models_factory as mfact
+from synnefo.cyclades.db.pools import IPPool, EmptyPool
 
 from django.db import IntegrityError
 from django.core.exceptions import MultipleObjectsReturned
@@ -47,7 +47,7 @@ class BackendTest(TestCase):
     def setUp(self):
         self.backend = mfact.BackendFactory()
 
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_get_client(self, client):
         id_ = self.backend.id
         hash_ = self.backend.hash
@@ -99,7 +99,7 @@ class BackendTest(TestCase):
         self.assertEqual(self.backend.password, '123')
 
     def test_hypervisor(self):
-        from synnefo.db.models import snf_settings
+        from synnefo.cyclades.db.models import snf_settings
         kvm_backend = mfact.BackendFactory(hypervisor="kvm")
         xen_pvm_backend = mfact.BackendFactory(hypervisor="xen-pvm")
         xen_hvm_backend = mfact.BackendFactory(hypervisor="xen-hvm")
@@ -134,7 +134,7 @@ class VirtualMachineTest(TestCase):
     def setUp(self):
         self.vm = mfact.VirtualMachineFactory()
 
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_get_client(self, client):
         backend = self.vm.backend
         id_ = backend.id
@@ -225,13 +225,13 @@ class BridgePoolTest(TestCase):
 
 class AESTest(TestCase):
     def test_encrypt_decrtypt(self):
-        from synnefo.db import aes_encrypt as aes
+        from synnefo.cyclades.db import aes_encrypt as aes
         old = 'bar'
         new = aes.decrypt_db_charfield(aes.encrypt_db_charfield(old))
         self.assertEqual(old, new)
 
     def test_password_change(self):
-        from synnefo.db import aes_encrypt as aes
+        from synnefo.cyclades.db import aes_encrypt as aes
         old_pass = aes.SECRET_ENCRYPTION_KEY
         old = 'bar'
         encrypted = aes.encrypt_db_charfield(old)
@@ -243,7 +243,7 @@ class AESTest(TestCase):
         self.assertEqual(old, new)
 
     def test_big_secret(self):
-        from synnefo.db import aes_encrypt as aes
+        from synnefo.cyclades.db import aes_encrypt as aes
         old = aes.SECRET_ENCRYPTION_KEY
         aes.SECRET_ENCRYPTION_KEY = \
             '91490231234814234812348913289481294812398421893489'

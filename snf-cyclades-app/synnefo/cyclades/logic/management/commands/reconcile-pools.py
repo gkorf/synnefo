@@ -16,7 +16,7 @@
 import logging
 from optparse import make_option
 
-from synnefo.logic import reconciliation
+from synnefo.cyclades.logic import reconciliation
 from snf_django.management.commands import SynnefoCommand
 
 

@@ -17,15 +17,15 @@ from django.db import transaction
 from django.utils import simplejson as json
 from datetime import datetime, timedelta
 
-from synnefo.db.models import (VirtualMachine, Network, Volume,
+from synnefo.cyclades.db.models import (VirtualMachine, Network, Volume,
                                BackendNetwork, BACKEND_STATUSES,
                                pooled_rapi_client, VirtualMachineDiagnostic,
                                Flavor, IPAddress, IPAddressLog)
-from synnefo.logic import utils, ips
-from synnefo import quotas
-from synnefo.api.util import release_resource
+from synnefo.cyclades.logic import utils, ips
+from synnefo.cyclades import quotas
+from synnefo.cyclades.api.util import release_resource
 from synnefo.util.mac2eui64 import mac2eui64
-from synnefo.logic import rapi
+from synnefo.cyclades.logic import rapi
 
 from logging import getLogger
 log = getLogger(__name__)

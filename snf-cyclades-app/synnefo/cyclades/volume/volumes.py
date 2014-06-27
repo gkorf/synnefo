@@ -18,10 +18,10 @@ import logging
 from django.db import transaction
 from django.conf import settings
 from snf_django.lib.api import faults
-from synnefo.db.models import Volume, VolumeMetadata
-from synnefo.volume import util
-from synnefo.logic import server_attachments, utils, commands
-from synnefo import quotas
+from synnefo.cyclades.db.models import Volume, VolumeMetadata
+from synnefo.cyclades.volume import util
+from synnefo.cyclades.logic import server_attachments, utils, commands
+from synnefo.cyclades import quotas
 
 log = logging.getLogger(__name__)
 

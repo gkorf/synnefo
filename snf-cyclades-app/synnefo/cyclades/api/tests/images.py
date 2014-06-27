@@ -18,7 +18,7 @@ import json
 from snf_django.lib.api import faults
 from snf_django.utils.testing import BaseAPITest
 from synnefo.lib.services import get_service_path
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib import join_urls
 
 from mock import patch
@@ -40,7 +40,7 @@ def assert_backend_closed(func):
     return wrapper
 
 
-@patch('synnefo.plankton.backend.PlanktonBackend')
+@patch('synnefo.cyclades.plankton.backend.PlanktonBackend')
 class ImageAPITest(BaseAPITest):
     @assert_backend_closed
     def test_create_image(self, mimage):
@@ -252,7 +252,7 @@ class ImageAPITest(BaseAPITest):
         self.assertMethodNotAllowed(response)
 
 
-@patch('synnefo.plankton.backend.PlanktonBackend')
+@patch('synnefo.cyclades.plankton.backend.PlanktonBackend')
 class ImageMetadataAPITest(BaseAPITest):
     def setUp(self):
         self.image = {'id': 42,

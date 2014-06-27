@@ -24,16 +24,16 @@ from django.template.loader import render_to_string
 from snf_django.lib import api
 from snf_django.lib.api import faults
 
-from synnefo.api import util
-from synnefo.db.models import NetworkInterface
-from synnefo.logic import servers, ips
+from synnefo.cyclades.api import util
+from synnefo.cyclades.db.models import NetworkInterface
+from synnefo.cyclades.logic import servers, ips
 
 from logging import getLogger
 
 log = getLogger(__name__)
 
 urlpatterns = patterns(
-    'synnefo.api.ports',
+    'synnefo.cyclades.api.ports',
     (r'^(?:/|.json|.xml)?$', 'demux'),
     (r'^/detail(?:.json|.xml)?$', 'list_ports', {'detail': True}),
     (r'^/([-\w]+)(?:/|.json|.xml)?$', 'port_demux'))

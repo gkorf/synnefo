@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.management import CommandError
-from synnefo.db.models import (Backend, VirtualMachine, Network,
+from synnefo.cyclades.db.models import (Backend, VirtualMachine, Network,
                                Flavor, IPAddress, Subnet,
                                BridgePoolTable, MacPrefixPoolTable,
                                NetworkInterface, Volume, VolumeType)
@@ -22,10 +22,10 @@ from functools import wraps
 
 from django.conf import settings
 from snf_django.lib.api import faults
-from synnefo.api import util
-from synnefo.logic import backend as backend_mod
-from synnefo.logic.rapi import GanetiApiError, GanetiRapiClient
-from synnefo.logic.utils import (id_from_instance_name,
+from synnefo.cyclades.api import util
+from synnefo.cyclades.logic import backend as backend_mod
+from synnefo.cyclades.logic.rapi import GanetiApiError, GanetiRapiClient
+from synnefo.cyclades.logic.utils import (id_from_instance_name,
                                  id_from_network_name,
                                  id_from_nic_name,
                                  id_from_disk_name)

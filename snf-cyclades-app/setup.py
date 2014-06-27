@@ -26,7 +26,7 @@ from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from synnefo.versions.app import __version__
+from synnefo.cyclades.versions.app import __version__
 
 # Package info
 VERSION = __version__
@@ -178,7 +178,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
-    namespace_packages = ['synnefo', 'synnefo.versions'],
+    namespace_packages = ['synnefo'],
     packages = PACKAGES,
     package_dir= {'': PACKAGES_ROOT},
     include_package_data = True,
@@ -193,15 +193,15 @@ setup(
 
     entry_points = {
      'console_scripts': [
-         'snf-dispatcher = synnefo.logic.dispatcher:main',
+         'snf-dispatcher = synnefo.cyclades.logic.dispatcher:main',
          ],
      'synnefo': [
-         'default_settings = synnefo.app_settings.default',
-         'web_apps = synnefo.app_settings:synnefo_web_apps',
-         'web_middleware = synnefo.app_settings:synnefo_web_middleware',
-         'web_context_processors = synnefo.app_settings:synnefo_web_context_processors',
-         'urls = synnefo.app_settings.urls:urlpatterns',
-         'web_static = synnefo.app_settings:synnefo_static_files',
+         'default_settings = synnefo.cyclades.app_settings.default',
+         'web_apps = synnefo.cyclades.app_settings:synnefo_web_apps',
+         'web_middleware = synnefo.cyclades.app_settings:synnefo_web_middleware',
+         'web_context_processors = synnefo.cyclades.app_settings:synnefo_web_context_processors',
+         'urls = synnefo.cyclades.app_settings.urls:urlpatterns',
+         'web_static = synnefo.cyclades.app_settings:synnefo_static_files',
          ]
       },
 )

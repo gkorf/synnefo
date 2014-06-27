@@ -15,8 +15,8 @@
 
 from django.db.models import Sum, Count, Q
 
-from synnefo.db.models import VirtualMachine, Network, IPAddress, Volume
-from synnefo.quotas import Quotaholder
+from synnefo.cyclades.db.models import VirtualMachine, Network, IPAddress, Volume
+from synnefo.cyclades.quotas import Quotaholder
 from collections import defaultdict
 
 QuotaDict = lambda: defaultdict(lambda: defaultdict(dict))

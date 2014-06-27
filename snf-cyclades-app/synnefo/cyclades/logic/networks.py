@@ -18,13 +18,13 @@ from django.db import transaction
 from django.conf import settings
 
 from snf_django.lib.api import faults
-from synnefo.api import util
-from synnefo import quotas
-from synnefo.db.models import Network, Backend
-from synnefo.db.utils import validate_mac
-from synnefo.db.pools import EmptyPool
-from synnefo.logic import backend as backend_mod
-from synnefo.logic import utils
+from synnefo.cyclades.api import util
+from synnefo.cyclades import quotas
+from synnefo.cyclades.db.models import Network, Backend
+from synnefo.cyclades.db.utils import validate_mac
+from synnefo.cyclades.db.pools import EmptyPool
+from synnefo.cyclades.logic import backend as backend_mod
+from synnefo.cyclades.logic import utils
 
 from logging import getLogger
 log = getLogger(__name__)

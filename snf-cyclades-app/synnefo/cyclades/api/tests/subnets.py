@@ -15,12 +15,12 @@
 
 from snf_django.utils.testing import BaseAPITest
 from django.utils import simplejson as json
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 from ipaddr import IPv4Network
 import json
-import synnefo.db.models_factory as mf
+import synnefo.cyclades.db.models_factory as mf
 
 
 NETWORK_URL = get_service_path(cyclades_services, 'network', version='v2.0')

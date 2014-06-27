@@ -19,15 +19,15 @@ from copy import deepcopy
 
 from snf_django.utils.testing import (BaseAPITest, mocked_quotaholder,
                                       override_settings)
-from synnefo.db.models import (VirtualMachine, VirtualMachineMetadata,
+from synnefo.cyclades.db.models import (VirtualMachine, VirtualMachineMetadata,
                                IPAddress, NetworkInterface, Volume)
-from synnefo.db import models_factory as mfactory
-from synnefo.logic.utils import get_rsapi_state
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.db import models_factory as mfactory
+from synnefo.cyclades.logic.utils import get_rsapi_state
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 from django.conf import settings
-from synnefo.logic.rapi import GanetiApiError
+from synnefo.cyclades.logic.rapi import GanetiApiError
 
 from mock import patch, Mock
 
@@ -320,9 +320,9 @@ fixed_image.return_value = {'location': 'pithos://foo',
                             'disk_format': 'diskdump'}
 
 
-@patch('synnefo.api.util.get_image', fixed_image)
-@patch('synnefo.volume.util.get_snapshot', fixed_image)
-@patch('synnefo.logic.rapi_pool.GanetiRapiClient')
+@patch('synnefo.cyclades.api.util.get_image', fixed_image)
+@patch('synnefo.cyclades.volume.util.get_snapshot', fixed_image)
+@patch('synnefo.cyclades.logic.rapi_pool.GanetiRapiClient')
 class ServerCreateAPITest(ComputeAPITest):
     def setUp(self):
         self.flavor = mfactory.FlavorFactory()
@@ -666,7 +666,7 @@ class ServerCreateAPITest(ComputeAPITest):
         self.assertBadRequest(response)
 
 
-@patch('synnefo.logic.rapi_pool.GanetiRapiClient')
+@patch('synnefo.cyclades.logic.rapi_pool.GanetiRapiClient')
 class ServerDestroyAPITest(ComputeAPITest):
     def test_delete_server(self, mrapi):
         vm = mfactory.VirtualMachineFactory()
@@ -751,8 +751,8 @@ class ServerMetadataAPITest(ComputeAPITest):
         self.assertItemNotFound(response)
 
 
-@patch('synnefo.api.util.get_image')
-@patch('synnefo.logic.rapi_pool.GanetiRapiClient')
+@patch('synnefo.cyclades.api.util.get_image')
+@patch('synnefo.cyclades.logic.rapi_pool.GanetiRapiClient')
 class ServerActionAPITest(ComputeAPITest):
     def test_actions(self, mrapi, mimage):
         actions = ['start', 'shutdown', 'reboot']
@@ -923,14 +923,14 @@ class ServerVNCConsole(ComputeAPITest):
         vm.save()
 
         data = json.dumps({'console': {'type': 'vnc'}})
-        with patch('synnefo.logic.rapi_pool.GanetiRapiClient') as rapi:
+        with patch('synnefo.cyclades.logic.rapi_pool.GanetiRapiClient') as rapi:
             rapi().GetInstance.return_value = {"pnode": "node1",
                                                "network_port": 5055,
                                                "oper_state": True,
                                                "hvparams": {
                                                    "serial_console": False
                                                }}
-            with patch("synnefo.logic.servers.request_vnc_forwarding") as vnc:
+            with patch("synnefo.cyclades.logic.servers.request_vnc_forwarding") as vnc:
                 vnc.return_value = {"status": "OK",
                                     "source_port": 42}
                 response = self.mypost('servers/%d/action' % vm.id,
@@ -956,7 +956,7 @@ class ServerVNCConsole(ComputeAPITest):
         self.assertBadRequest(response)
 
 
-@patch('synnefo.logic.rapi_pool.GanetiRapiClient')
+@patch('synnefo.cyclades.logic.rapi_pool.GanetiRapiClient')
 class ServerAttachments(ComputeAPITest):
     def test_list_attachments(self, mrapi):
         # Test default volume

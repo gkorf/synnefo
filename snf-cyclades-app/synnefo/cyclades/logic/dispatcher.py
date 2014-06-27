@@ -50,9 +50,9 @@ except:
 import setproctitle
 
 from synnefo.lib.amqp import AMQPClient
-from synnefo.logic import callbacks
-from synnefo.logic import queues
-from synnefo.db.models import Backend, pooled_rapi_client
+from synnefo.cyclades.logic import callbacks
+from synnefo.cyclades.logic import queues
+from synnefo.cyclades.db.models import Backend, pooled_rapi_client
 
 import logging
 import select
@@ -60,7 +60,7 @@ import errno
 
 log = logging.getLogger("dispatcher")
 log_amqp = logging.getLogger("amqp")
-log_logic = logging.getLogger("synnefo.logic")
+log_logic = logging.getLogger("synnefo.cyclades.logic")
 
 LOGGERS = [log, log_amqp, log_logic]
 

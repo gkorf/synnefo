@@ -18,7 +18,7 @@ from uuid import uuid4
 from django.core.cache import get_cache
 from django.core import signals
 
-from synnefo.vmapi.settings import CACHE_KEY_PREFIX, CACHE_BACKEND
+from synnefo.cyclades.vmapi.settings import CACHE_KEY_PREFIX, CACHE_BACKEND
 
 
 def get_uuid():

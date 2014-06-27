@@ -15,12 +15,12 @@
 #
 
 import logging
-import synnefo.cyclades_settings as cyclades
+import synnefo.cyclades.cyclades_settings as cyclades
 
 from django.conf import settings
 from astakosclient import AstakosClient
 
-from synnefo import cyclades_settings
+from synnefo.cyclades import cyclades_settings
 
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_public_endpoint as endpoint

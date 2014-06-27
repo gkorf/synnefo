@@ -16,8 +16,8 @@
 from django.core.management.base import CommandError
 from optparse import make_option
 
-from synnefo.db.pools import bitarray_to_map
-from synnefo.management import pprint, common
+from synnefo.cyclades.db.pools import bitarray_to_map
+from synnefo.cyclades.management import pprint, common
 from snf_django.management.commands import SynnefoCommand
 
 POOL_CHOICES = ['bridge', 'mac-prefix']

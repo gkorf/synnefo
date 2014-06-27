@@ -17,9 +17,9 @@ import logging
 
 from snf_django.lib.api import faults
 from django.db import transaction
-from synnefo import quotas
-from synnefo.db import pools
-from synnefo.db.models import (IPPoolTable, IPAddress, Network)
+from synnefo.cyclades import quotas
+from synnefo.cyclades.db import pools
+from synnefo.cyclades.db.models import (IPPoolTable, IPAddress, Network)
 log = logging.getLogger(__name__)
 
 

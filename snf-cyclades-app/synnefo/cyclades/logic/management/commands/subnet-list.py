@@ -18,7 +18,7 @@ from optparse import make_option
 from snf_django.management.commands import ListCommand, CommandError
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
                               ASTAKOS_AUTH_URL)
-from synnefo.db.models import Subnet
+from synnefo.cyclades.db.models import Subnet
 
 from logging import getLogger
 log = getLogger(__name__)

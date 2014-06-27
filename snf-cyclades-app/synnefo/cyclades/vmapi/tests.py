@@ -18,9 +18,9 @@ from django.test import TestCase
 from django.utils import simplejson as json
 
 from synnefo.lib import join_urls
-from synnefo.vmapi import settings
+from synnefo.cyclades.vmapi import settings
 
-from synnefo.cyclades_settings import cyclades_services, BASE_HOST
+from synnefo.cyclades.cyclades_settings import cyclades_services, BASE_HOST
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 
@@ -50,22 +50,22 @@ class VMAPITest(TestCase):
 class TestServerParams(VMAPITest):
 
     def test_cache_backend(self):
-        from synnefo.vmapi import backend
+        from synnefo.cyclades.vmapi import backend
         backend.set("test", 1)
         self.assertEqual(backend.get("test"), 1)
         backend.set("test", None)
         self.assertEqual(backend.get("test"), None)
 
     def test_get_key(self):
-        from synnefo.vmapi import get_key
+        from synnefo.cyclades.vmapi import get_key
         self.assertEqual(get_key("snf-1", "12345"), "vmapi_snf-1_12345")
         self.assertEqual(get_key("snf-1", None, "12345"), "vmapi_snf-1_12345")
 
     def test_params_create(self):
-        from synnefo.vmapi.models import create_server_params
-        from synnefo.vmapi import backend
+        from synnefo.cyclades.vmapi.models import create_server_params
+        from synnefo.cyclades.vmapi import backend
         try:
-            from synnefo.db.models import VirtualMachine
+            from synnefo.cyclades.db.models import VirtualMachine
         except ImportError:
             print "Skipping test_params_create"
             return

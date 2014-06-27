@@ -26,12 +26,12 @@ from dateutil.parser import parse as date_parse
 from snf_django.lib import api
 from snf_django.lib.api import faults, utils
 
-from synnefo.volume import volumes, snapshots, util
-from synnefo.db.models import Volume, VolumeType, VolumeMetadata
-from synnefo.plankton import backend
-from synnefo.logic.utils import check_name_length
+from synnefo.cyclades.volume import volumes, snapshots, util
+from synnefo.cyclades.db.models import Volume, VolumeType, VolumeMetadata
+from synnefo.cyclades.plankton import backend
+from synnefo.cyclades.logic.utils import check_name_length
 
-log = getLogger('synnefo.volume')
+log = getLogger('synnefo.cyclades.volume')
 
 
 def display_null_field(field):
