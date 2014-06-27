@@ -16,7 +16,7 @@
 from django.conf.urls import include, patterns
 
 from snf_django.lib.api import api_endpoint_not_found
-from synnefo.api import (networks, ports, floating_ips, subnets)
+from synnefo.cyclades.api import (networks, ports, floating_ips, subnets)
 
 
 network_api20_patterns = patterns(

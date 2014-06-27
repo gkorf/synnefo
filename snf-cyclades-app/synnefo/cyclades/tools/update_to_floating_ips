@@ -13,9 +13,9 @@ from synnefo import settings
 from django.core.management import setup_environ
 setup_environ(settings)
 
-from synnefo.management.common import get_network
-from synnefo.db.models import IPAddress
-from synnefo.db import transaction
+from synnefo.cyclades.management.common import get_network
+from synnefo.cyclades.db.models import IPAddress
+from synnefo.cyclades.db import transaction
 
 logger = logging.getLogger("update_floating_ips")
 handler = logging.StreamHandler()

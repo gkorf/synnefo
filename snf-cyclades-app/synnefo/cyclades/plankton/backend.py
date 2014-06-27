@@ -592,7 +592,7 @@ class JSONFileBackend(object):
     formatted content.
 
     usage:
-        PLANKTON_BACKEND_MODULE = 'synnefo.plankton.backend.JSONFileBackend'
+        PLANKTON_BACKEND_MODULE = 'synnefo.cyclades.plankton.backend.JSONFileBackend'
         PLANKTON_IMAGES_JSON_BACKEND_FILE = '/tmp/images.json'
 
         # loading images from an existing plankton service

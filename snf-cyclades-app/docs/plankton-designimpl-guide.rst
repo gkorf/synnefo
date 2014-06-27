@@ -3,7 +3,7 @@
 Design and Implementation Guide
 ===============================
 
-.. automodule:: synnefo.plankton.views
+.. automodule:: synnefo.cyclades.plankton.views
     :members:
     :show-inheritance:
     :undoc-members:

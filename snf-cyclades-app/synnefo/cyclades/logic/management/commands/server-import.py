@@ -16,15 +16,17 @@
 from optparse import make_option
 
 from django.core.management.base import CommandError
-from synnefo.management import common
+from synnefo.cyclades.management import common
 
-from synnefo.db.models import VirtualMachine, Network, Flavor, VolumeType
-from synnefo.logic.utils import id_from_network_name, id_from_instance_name
-from synnefo.logic.backend import wait_for_job, connect_to_network
+from synnefo.cyclades.db.models import VirtualMachine, Network, Flavor, \
+    VolumeType
+from synnefo.cyclades.logic.utils import id_from_network_name, \
+    id_from_instance_name
+from synnefo.cyclades.logic.backend import wait_for_job, connect_to_network
 from snf_django.management.commands import SynnefoCommand
-from synnefo.logic.rapi import GanetiApiError
-from synnefo.logic import servers
-from synnefo import quotas
+from synnefo.cyclades.logic.rapi import GanetiApiError
+from synnefo.cyclades.logic import servers
+from synnefo.cyclades import quotas
 
 
 HELP_MSG = """

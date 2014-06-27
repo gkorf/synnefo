@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings
-from synnefo.cyclades_settings import BASE_URL, BASE_HOST, BASE_PATH
+from synnefo.cyclades.cyclades_settings import BASE_URL, BASE_HOST, BASE_PATH
 
 CACHE_BACKEND = getattr(settings, 'VMAPI_CACHE_BACKEND',
                         settings.CACHE_BACKEND)

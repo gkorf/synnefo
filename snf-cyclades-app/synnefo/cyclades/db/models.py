@@ -26,10 +26,10 @@ from snf_django.lib.api import faults
 from django.conf import settings as snf_settings
 from aes_encrypt import encrypt_db_charfield, decrypt_db_charfield
 
-from synnefo.db import pools, fields
+from synnefo.cyclades.db import pools, fields
 
-from synnefo.logic.rapi_pool import (get_rapi_client,
-                                     put_rapi_client)
+from synnefo.cyclades.logic.rapi_pool import (
+    get_rapi_client, put_rapi_client)
 
 import logging
 log = logging.getLogger(__name__)

@@ -21,8 +21,8 @@ from django.core.management import setup_environ
 setup_environ(settings)
 
 from django.db import close_connection
-from synnefo.db.models import Backend, pooled_rapi_client
-from synnefo.management.common import get_resource
+from synnefo.cyclades.db.models import Backend, pooled_rapi_client
+from synnefo.cyclades.management.common import get_resource
 
 import logging
 logger = logging.getLogger("migrate_disks")

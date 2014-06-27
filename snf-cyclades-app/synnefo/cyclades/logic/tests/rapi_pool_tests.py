@@ -15,12 +15,12 @@
 
 from django.test import TestCase
 
-from synnefo.logic import rapi_pool
+from synnefo.cyclades.logic import rapi_pool
 
 from mock import patch
 
 
-@patch('synnefo.logic.rapi_pool.GanetiRapiClient', spec=True)
+@patch('synnefo.cyclades.logic.rapi_pool.GanetiRapiClient', spec=True)
 class GanetiRapiPoolTest(TestCase):
     def test_new_client(self, rclient):
         cl = rapi_pool.get_rapi_client(1, 'amxixa', 'cluster0', '5080', 'user',

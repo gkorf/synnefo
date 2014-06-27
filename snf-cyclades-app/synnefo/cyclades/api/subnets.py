@@ -22,9 +22,9 @@ from django.utils import simplejson as json
 from django.db.models import Q
 
 from snf_django.lib.api import utils
-from synnefo.db.models import Subnet
-from synnefo.logic import subnets
-from synnefo.api import util
+from synnefo.cyclades.db.models import Subnet
+from synnefo.cyclades.logic import subnets
+from synnefo.cyclades.api import util
 
 import ipaddr
 
@@ -32,7 +32,7 @@ log = getLogger(__name__)
 
 
 urlpatterns = patterns(
-    'synnefo.api.subnets',
+    'synnefo.cyclades.api.subnets',
     (r'^(?:/|.json|.xml)?$', 'demux'),
     (r'^/detail(?:.json|.xml)?$', 'list_subnets', {'detail': True}),
     (r'^/([-\w]+)(?:/|.json|.xml)?$', 'subnet_demux'))

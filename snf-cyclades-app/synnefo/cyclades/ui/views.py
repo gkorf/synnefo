@@ -28,7 +28,7 @@ from django.template import RequestContext
 
 from synnefo.util.version import get_component_version
 
-from synnefo.ui import settings as uisettings
+from synnefo.cyclades.ui import settings as uisettings
 
 SYNNEFO_JS_LIB_VERSION = get_component_version('app')
 

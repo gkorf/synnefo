@@ -42,7 +42,7 @@ GANETI_USE_OPPORTUNISTIC_LOCKING = True
 GANETI_DISKS_WAIT_FOR_SYNC = False
 
 # This module implements the strategy for allocating a vm to a backend
-BACKEND_ALLOCATOR_MODULE = "synnefo.logic.allocators.default_allocator"
+BACKEND_ALLOCATOR_MODULE = "synnefo.cyclades.logic.allocators.default_allocator"
 # Refresh backend statistics timeout, in minutes, used in backend allocation
 BACKEND_REFRESH_MIN = 15
 

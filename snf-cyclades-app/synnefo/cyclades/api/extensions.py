@@ -24,7 +24,7 @@ from logging import getLogger
 log = getLogger(__name__)
 
 urlpatterns = patterns(
-    'synnefo.api.extensions',
+    'synnefo.cyclades.api.extensions',
     (r'^(?:/|.json|.xml)?$', 'demux'),
     (r'^/([\w-]+)(?:/|.json|.xml)?$', 'demux_extension'),
 )
