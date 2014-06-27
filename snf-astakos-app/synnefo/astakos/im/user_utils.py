@@ -19,7 +19,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.utils.translation import ugettext as _
 
-from synnefo_branding.utils import render_to_string
+from synnefo.branding.utils import render_to_string
 from synnefo.lib import join_urls
 
 from synnefo.astakos.im import settings

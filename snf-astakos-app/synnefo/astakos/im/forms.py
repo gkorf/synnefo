@@ -31,7 +31,7 @@ from django.db import transaction
 from django.core import validators
 
 from synnefo.util import units
-from synnefo_branding.utils import render_to_string
+from synnefo.branding.utils import render_to_string
 from synnefo.lib import join_urls
 from synnefo.astakos.im.fields import EmailField, InfiniteChoiceField
 from synnefo.astakos.im.models import AstakosUser, EmailChange, Invitation, Resource, \

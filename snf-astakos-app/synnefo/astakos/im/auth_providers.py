@@ -30,7 +30,7 @@ from django.conf import settings
 from synnefo.astakos.im import settings as astakos_settings
 from synnefo.astakos.im import messages as astakos_messages
 
-from synnefo_branding import utils as branding_utils
+from synnefo.branding import utils as branding_utils
 
 import logging
 

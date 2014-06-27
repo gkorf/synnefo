@@ -31,8 +31,8 @@ from django.views.decorators.http import require_http_methods
 from django.utils import simplejson as json
 from django.template import RequestContext
 
-from synnefo_branding import utils as branding
-from synnefo_branding import settings as branding_settings
+from synnefo.branding import utils as branding
+from synnefo.branding import settings as branding_settings
 
 import synnefo.astakos.im.messages as astakos_messages
 
