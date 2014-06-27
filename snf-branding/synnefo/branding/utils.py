@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings as django_settings
-from synnefo_branding import settings
+from synnefo.branding import settings
 from django.template.loader import render_to_string as django_render_to_string
 
 
