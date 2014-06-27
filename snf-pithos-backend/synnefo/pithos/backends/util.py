@@ -17,7 +17,7 @@ from objpool import ObjectPool
 from new import instancemethod
 from select import select
 from traceback import print_exc
-from pithos.backends import connect_backend
+from synnefo.pithos.backends import connect_backend
 
 USAGE_LIMIT = 500
 

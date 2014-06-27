@@ -13,9 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pithos.backends.test.util import get_random_name
+from synnefo.pithos.backends.test.util import get_random_name
 
-from pithos.backends.exceptions import NotAllowedError
+from synnefo.pithos.backends.exceptions import NotAllowedError
 
 import uuid as uuidlib
 
