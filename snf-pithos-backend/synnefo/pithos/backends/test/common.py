@@ -15,8 +15,8 @@
 
 from mock import MagicMock
 
-from pithos.backends.base import ItemNotExists
-from pithos.backends.util import connect_backend
+from synnefo.pithos.backends.base import ItemNotExists
+from synnefo.pithos.backends.util import connect_backend
 
 from .util import get_random_data
 

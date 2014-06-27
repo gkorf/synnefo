@@ -13,7 +13,7 @@ down_revision = '2a309a9a3438'
 from alembic import op
 import sqlalchemy as sa
 
-from pithos.backends.modular import ULTIMATE_ANSWER
+from synnefo.pithos.backends.modular import ULTIMATE_ANSWER
 
 
 def upgrade():
