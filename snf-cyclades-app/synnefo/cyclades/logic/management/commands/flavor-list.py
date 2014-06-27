@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from snf_django.management.commands import ListCommand
-from synnefo.db.models import Flavor, VirtualMachine
+from synnefo.cyclades.db.models import Flavor, VirtualMachine
 
 
 class Command(ListCommand):

@@ -15,11 +15,11 @@
 
 import logging
 import simplejson as json
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 from snf_django.lib.api import faults
-from synnefo.plankton.backend import PlanktonBackend, OBJECT_ERROR
-from synnefo.logic import backend
-from synnefo.volume import util
+from synnefo.cyclades.plankton.backend import PlanktonBackend, OBJECT_ERROR
+from synnefo.cyclades.logic import backend
+from synnefo.cyclades.volume import util
 from synnefo.util import units
 
 log = logging.getLogger(__name__)

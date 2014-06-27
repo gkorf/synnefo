@@ -16,10 +16,10 @@
 from optparse import make_option
 
 from django.core.management.base import CommandError
-from synnefo.db import transaction
+from synnefo.cyclades.db import transaction
 
 from snf_django.management.commands import SynnefoCommand
-from synnefo.management.common import get_resource
+from synnefo.cyclades.management.common import get_resource
 from snf_django.management.utils import parse_bool
 
 

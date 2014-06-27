@@ -16,7 +16,7 @@
 #from optparse import make_option
 
 from snf_django.management.commands import ListCommand
-from synnefo.db.models import VolumeType
+from synnefo.cyclades.db.models import VolumeType
 from logging import getLogger
 log = getLogger(__name__)
 

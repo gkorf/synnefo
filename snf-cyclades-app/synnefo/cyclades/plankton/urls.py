@@ -18,7 +18,7 @@ from django.conf.urls import patterns, include
 from django.http import HttpResponseNotAllowed
 from snf_django.lib.api import api_endpoint_not_found
 
-from synnefo.plankton import views
+from synnefo.cyclades.plankton import views
 
 
 def demux(request):

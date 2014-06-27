@@ -16,7 +16,7 @@
 from optparse import make_option
 
 from snf_django.management.commands import ListCommand
-from synnefo.db.models import Network
+from synnefo.cyclades.db.models import Network
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
                               ASTAKOS_AUTH_URL)
 

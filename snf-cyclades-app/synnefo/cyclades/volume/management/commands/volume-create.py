@@ -18,8 +18,8 @@ from optparse import make_option
 from snf_django.management.commands import SynnefoCommand, CommandError
 
 from snf_django.management.utils import parse_bool
-from synnefo.management import common, pprint
-from synnefo.volume import volumes
+from synnefo.cyclades.management import common, pprint
+from synnefo.cyclades.volume import volumes
 
 HELP_MSG = """Create a new volume."""
 

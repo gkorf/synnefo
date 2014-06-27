@@ -18,7 +18,7 @@ from snf_django.management.commands import SynnefoCommand
 from optparse import make_option
 
 from snf_django.management.utils import pprint_table
-from synnefo.plankton.backend import PlanktonBackend
+from synnefo.cyclades.plankton.backend import PlanktonBackend
 
 
 class Command(SynnefoCommand):

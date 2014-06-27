@@ -15,12 +15,12 @@
 
 from django.utils import simplejson as json
 from snf_django.utils.testing import BaseAPITest, mocked_quotaholder
-from synnefo.db.models import IPAddress, Network, Subnet, IPPoolTable
-from synnefo.db import models_factory as mf
+from synnefo.cyclades.db.models import IPAddress, Network, Subnet, IPPoolTable
+from synnefo.cyclades.db import models_factory as mf
 
 from mock import patch, Mock
 
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 
@@ -217,7 +217,7 @@ class FloatingIPAPITest(BaseAPITest):
         self.assertBadRequest(response)
 
     '''
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_reserve_and_connect(self, mrapi):
         vm = mf.VirtualMachineFactory(userid="test_user")
         request = {"floatingip": {
@@ -236,7 +236,7 @@ class FloatingIPAPITest(BaseAPITest):
                           "port_id": str(vm.nics.all()[0].id),
                           "floating_network_id": str(self.pool.id)})
 
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_update_attach(self, mrapi):
         ip = mf.IPv4AddressFactory(userid="user1", floating_ip=True, nic=None)
         vm = mf.VirtualMachineFactory(userid="user1")
@@ -259,7 +259,7 @@ class FloatingIPAPITest(BaseAPITest):
                                 json.dumps(request), "json")
         self.assertEqual(response.status_code, 409)
 
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_update_dettach(self, mrapi):
         ip = mf.IPv4AddressFactory(userid="user1", floating_ip=True)
         request = {"floatingip": {
@@ -290,7 +290,7 @@ class FloatingIPAPITest(BaseAPITest):
                                 json.dumps(request), "json")
         self.assertEqual(response.status_code, 409)
 
-    @patch("synnefo.db.models.get_rapi_client")
+    @patch("synnefo.cyclades.db.models.get_rapi_client")
     def test_update_dettach(self, mrapi):
         ip = mf.IPv4AddressFactory(userid="user1", floating_ip=True)
         request = {"floatingip": {
@@ -332,7 +332,7 @@ class FloatingIPAPITest(BaseAPITest):
         ips_after = floating_ips.filter(id=ip.id)
         self.assertEqual(len(ips_after), 0)
 
-    @patch("synnefo.logic.backend", Mock())
+    @patch("synnefo.cyclades.logic.backend", Mock())
     def test_delete_network_with_floating_ips(self):
         ip = mf.IPv4AddressFactory(userid="user1", floating_ip=True,
                                    network=self.pool, nic=None)
@@ -394,7 +394,7 @@ class FloatingIPActionsTest(BaseAPITest):
                              "json")
         self.assertBadRequest(response)
 
-    @patch('synnefo.logic.rapi_pool.GanetiRapiClient')
+    @patch('synnefo.cyclades.logic.rapi_pool.GanetiRapiClient')
     def test_add_floating_ip(self, mock):
         # Not exists
         url = SERVERS_URL + "/%s/action" % self.vm.id
@@ -424,7 +424,7 @@ class FloatingIPActionsTest(BaseAPITest):
         nic = json.loads(response.content)["server"]["attachments"][0]
         self.assertEqual(nic["OS-EXT-IPS:type"], "floating")
 
-    @patch('synnefo.logic.rapi_pool.GanetiRapiClient')
+    @patch('synnefo.cyclades.logic.rapi_pool.GanetiRapiClient')
     def test_remove_floating_ip(self, mock):
         # Not exists
         url = SERVERS_URL + "/%s/action" % self.vm.id

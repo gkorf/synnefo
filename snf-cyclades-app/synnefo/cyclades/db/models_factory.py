@@ -15,7 +15,7 @@
 
 import factory
 from factory.fuzzy import FuzzyChoice
-from synnefo.db import models
+from synnefo.cyclades.db import models
 from random import choice
 from string import letters, digits
 

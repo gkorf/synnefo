@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.api.services import cyclades_services
+from synnefo.cyclades.api.services import cyclades_services
 
 resources = \
     cyclades_services['cyclades_compute']['resources'].values() +\

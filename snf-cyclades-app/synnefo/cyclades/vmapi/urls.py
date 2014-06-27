@@ -17,7 +17,7 @@ from django.conf.urls import patterns, url
 
 from snf_django.lib.api import api_endpoint_not_found
 
-urlpatterns = patterns('synnefo.vmapi.views',
+urlpatterns = patterns('synnefo.cyclades.vmapi.views',
                        url(r'^v1.0/server-params/(?P<uuid>.*)$',
                            'server_params',
                            name="vmapi_server_params"),

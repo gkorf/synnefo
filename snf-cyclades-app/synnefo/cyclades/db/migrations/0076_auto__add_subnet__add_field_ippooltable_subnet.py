@@ -18,8 +18,8 @@ class Migration(SchemaMigration):
             ('gateway', self.gf('django.db.models.fields.CharField')(max_length=64, null=True)),
             ('dhcp', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('deleted', self.gf('django.db.models.fields.BooleanField')(default=False, db_index=True)),
-            ('host_routes', self.gf('synnefo.db.fields.SeparatedValuesField')(null=True)),
-            ('dns_nameservers', self.gf('synnefo.db.fields.SeparatedValuesField')(null=True)),
+            ('host_routes', self.gf('synnefo.cyclades.db.fields.SeparatedValuesField')(null=True)),
+            ('dns_nameservers', self.gf('synnefo.cyclades.db.fields.SeparatedValuesField')(null=True)),
         ))
         db.send_create_signal('db', ['Subnet'])
 
@@ -43,7 +43,7 @@ class Migration(SchemaMigration):
             'clustername': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128'}),
             'ctotal': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'dfree': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'disk_templates': ('synnefo.db.fields.SeparatedValuesField', [], {'null': 'True'}),
+            'disk_templates': ('synnefo.cyclades.db.fields.SeparatedValuesField', [], {'null': 'True'}),
             'drained': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'dtotal': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'hash': ('django.db.models.fields.CharField', [], {'max_length': '40'}),
@@ -177,9 +177,9 @@ class Migration(SchemaMigration):
             'cidr': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True'}),
             'deleted': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'db_index': 'True'}),
             'dhcp': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'dns_nameservers': ('synnefo.db.fields.SeparatedValuesField', [], {'null': 'True'}),
+            'dns_nameservers': ('synnefo.cyclades.db.fields.SeparatedValuesField', [], {'null': 'True'}),
             'gateway': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True'}),
-            'host_routes': ('synnefo.db.fields.SeparatedValuesField', [], {'null': 'True'}),
+            'host_routes': ('synnefo.cyclades.db.fields.SeparatedValuesField', [], {'null': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'ipversion': ('django.db.models.fields.IntegerField', [], {'default': '4'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True'}),

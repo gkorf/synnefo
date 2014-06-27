@@ -16,10 +16,10 @@
 import json
 
 from snf_django.utils.testing import BaseAPITest
-from synnefo.db.models import Flavor
-from synnefo.db.models_factory import FlavorFactory
+from synnefo.cyclades.db.models import Flavor
+from synnefo.cyclades.db.models_factory import FlavorFactory
 from synnefo.lib.services import get_service_path
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib import join_urls
 
 

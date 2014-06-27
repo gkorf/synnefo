@@ -21,7 +21,7 @@ from functools import wraps
 from copy import deepcopy
 from decimal import Decimal
 from snf_django.utils.testing import BaseAPITest
-from synnefo.cyclades_settings import cyclades_services
+from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 
@@ -40,7 +40,7 @@ def assert_backend_closed(func):
     return wrapper
 
 
-@patch("synnefo.plankton.backend.get_pithos_backend")
+@patch("synnefo.cyclades.plankton.backend.get_pithos_backend")
 class PlanktonTest(BaseAPITest):
     def test_register_image(self, backend):
         required = {

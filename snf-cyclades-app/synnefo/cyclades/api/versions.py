@@ -18,12 +18,12 @@ from logging import getLogger
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils import simplejson as json
-from synnefo.cyclades_settings import COMPUTE_ROOT_URL
+from synnefo.cyclades.cyclades_settings import COMPUTE_ROOT_URL
 
 from snf_django.lib import api
 
 
-log = getLogger('synnefo.api')
+log = getLogger('synnefo.cyclades.api')
 
 
 VERSION_2_0 = {

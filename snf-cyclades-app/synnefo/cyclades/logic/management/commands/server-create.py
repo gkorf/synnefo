@@ -17,11 +17,11 @@ from optparse import make_option
 
 from django.core.management.base import CommandError
 
-from synnefo.management import common, pprint
+from synnefo.cyclades.management import common, pprint
 from snf_django.management.utils import parse_bool
 from snf_django.management.commands import SynnefoCommand
 
-from synnefo.logic import servers
+from synnefo.cyclades.logic import servers
 
 HELP_MSG = """
 
