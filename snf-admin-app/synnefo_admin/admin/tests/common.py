@@ -22,7 +22,7 @@ import mock
 
 from synnefo.astakos.im.tests.projects import ProjectAPITest
 from synnefo.astakos.im.functions import approve_application
-from synnefo.db import models_factory as mf
+from synnefo.cyclades.db import models_factory as mf
 
 from synnefo_admin import admin_settings
 

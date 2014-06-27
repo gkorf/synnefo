@@ -20,7 +20,7 @@ from collections import OrderedDict
 from django.core.urlresolvers import reverse
 from django.utils.html import escape
 
-from synnefo.db.models import IPAddress, IPAddressLog
+from synnefo.cyclades.db.models import IPAddress, IPAddressLog
 from synnefo.astakos.im.models import AstakosUser, Project
 
 from synnefo_admin.admin.actions import (has_permission_or_403,

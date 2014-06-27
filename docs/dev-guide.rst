@@ -258,4 +258,4 @@ Developer Guidelines
 
   .. code-block:: python
 
-     from synnefo.db import transaction
+     from synnefo.cyclades.db import transaction
