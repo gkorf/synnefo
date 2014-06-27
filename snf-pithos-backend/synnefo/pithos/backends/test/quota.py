@@ -18,7 +18,7 @@ from functools import wraps, partial
 
 import uuid as uuidlib
 
-from pithos.backends.random_word import get_random_word
+from synnefo.pithos.backends.random_word import get_random_word
 
 
 serial = 0

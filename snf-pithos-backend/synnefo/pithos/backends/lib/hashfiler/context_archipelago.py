@@ -18,7 +18,7 @@ from archipelago.common import (
     Request,
     string_at,
     )
-from pithos.workers import monkey
+from synnefo.pithos.workers import monkey
 monkey.patch_Request()
 
 _zeros = ''
