@@ -25,7 +25,7 @@ from snf_django.utils.testing import with_settings, astakos_user
 from synnefo.pithos.api import settings as pithos_settings
 from synnefo.pithos.api.test.util import is_date, get_random_data, \
     get_random_name
-from pithos.backends.migrate import initialize_db
+from synnefo.pithos.backends.migrate import initialize_db
 
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
@@ -96,7 +96,8 @@ def prepare_db_connection():
     db = settings.DATABASES['default']
     name = db.get('TEST_NAME', TEST_DATABASE_PREFIX + db['NAME'])
 
-    if (pithos_settings.BACKEND_DB_MODULE == 'pithos.backends.lib.sqlalchemy'):
+    if (pithos_settings.BACKEND_DB_MODULE == \
+            'synnefo.pithos.backends.lib.sqlalchemy'):
         if db['ENGINE'] == 'django.db.backends.sqlite3':
             db_connection = 'sqlite:///%s' % name
         else:

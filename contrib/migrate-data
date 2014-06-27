@@ -21,7 +21,7 @@ from sqlalchemy import Table
 from sqlalchemy.sql import select
 
 from pithos import settings
-from pithos.backends.modular import ModularBackend
+from synnefo.pithos.backends.modular import ModularBackend
 
 from pithos.tools.lib.hashmap import HashMap
 

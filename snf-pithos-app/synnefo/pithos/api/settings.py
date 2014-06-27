@@ -109,20 +109,22 @@ LOGIN_URL = join_urls(ASTAKOS_UI_PROXY_PATH, 'login')
 
 # SQLAlchemy (choose SQLite/MySQL/PostgreSQL).
 BACKEND_DB_MODULE = getattr(
-    settings, 'PITHOS_BACKEND_DB_MODULE', 'pithos.backends.lib.sqlalchemy')
+    settings, 'PITHOS_BACKEND_DB_MODULE',
+    'synnefo.pithos.backends.lib.sqlalchemy')
 BACKEND_DB_CONNECTION = getattr(settings, 'PITHOS_BACKEND_DB_CONNECTION',
                                 'sqlite:////tmp/pithos-backend.db')
 
 # Block storage.
 BACKEND_BLOCK_MODULE = getattr(
-    settings, 'PITHOS_BACKEND_BLOCK_MODULE', 'pithos.backends.lib.hashfiler')
+    settings, 'PITHOS_BACKEND_BLOCK_MODULE',
+    'synnefo.pithos.backends.lib.hashfiler')
 BACKEND_BLOCK_PATH = getattr(
     settings, 'PITHOS_BACKEND_BLOCK_PATH', '/tmp/pithos-data/')
 BACKEND_BLOCK_UMASK = getattr(settings, 'PITHOS_BACKEND_BLOCK_UMASK', 0o022)
 
 # Queue for billing.
 BACKEND_QUEUE_MODULE = getattr(settings, 'PITHOS_BACKEND_QUEUE_MODULE', None)
-# Example: 'pithos.backends.lib.rabbitmq'
+# Example: 'synnefo.pithos.backends.lib.rabbitmq'
 
 BACKEND_QUEUE_HOSTS = getattr(settings, 'PITHOS_BACKEND_QUEUE_HOSTS', None)
 # Example: "['amqp://guest:guest@localhost:5672']"
