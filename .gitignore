@@ -40,7 +40,7 @@ snf-tools/synnefo_tools/version.py
 snf-quotaholder-app/quotaholder_django/version.py
 *.iml
 *.graffle
-snf-stats-app/synnefo_stats/version.py
+snf-stats-app/synnefo/stats/version.py
 astakosclient/astakosclient/version.py
 snf-django-lib/snf_django/version.py
 snf-branding/synnefo/branding/version.py
