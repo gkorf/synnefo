@@ -22,7 +22,7 @@ from django.template import loader
 from django.http import HttpResponse
 from django.utils.translation import get_language
 from django.utils import simplejson as json
-from synnefo_branding.utils import render_to_string
+from synnefo.branding.utils import render_to_string
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 
