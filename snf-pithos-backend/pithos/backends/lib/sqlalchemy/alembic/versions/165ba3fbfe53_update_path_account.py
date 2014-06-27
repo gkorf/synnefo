@@ -215,7 +215,7 @@ def migrate(callback):
 
 def upgrade():
     try:
-        from pithos.api import settings
+        from synnefo.pithos.api import settings
     except ImportError:
         return
     else:
@@ -230,7 +230,7 @@ def upgrade():
 
 def downgrade():
     try:
-        from pithos.api import settings
+        from synnefo.pithos.api import settings
     except ImportError:
         return
     else:
