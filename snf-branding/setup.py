@@ -26,7 +26,7 @@ from distutils.util import convert_path
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from synnefo_branding.version import __version__
+from synnefo.branding.version import __version__
 
 # Package info
 VERSION = __version__
@@ -144,6 +144,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
+    namespace_packages=['synnefo'],
     packages=PACKAGES,
     package_dir={'': PACKAGES_ROOT},
     package_data=find_package_data('.'),
@@ -155,9 +156,9 @@ setup(
     dependency_links=['http://docs.dev.grnet.gr/pypi'],
     entry_points={
         'synnefo': [
-             'web_apps = synnefo_branding.synnefo_settings:installed_apps',
-             'web_context_processors = synnefo_branding.synnefo_settings:context_processors',
-             'web_static = synnefo_branding.synnefo_settings:static_files',
+             'web_apps = synnefo.branding.synnefo_settings:installed_apps',
+             'web_context_processors = synnefo.branding.synnefo_settings:context_processors',
+             'web_static = synnefo.branding.synnefo_settings:static_files',
         ]
     }
 )
