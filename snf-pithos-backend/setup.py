@@ -26,7 +26,7 @@ from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from pithos.backends.version import __version__
+from synnefo.pithos.backends.version import __version__
 
 # Package info
 VERSION = __version__
@@ -160,7 +160,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
-    namespace_packages=['pithos'],
+    namespace_packages=['synnefo', 'synnefo.pithos'],
     packages=PACKAGES,
     package_dir={'': PACKAGES_ROOT},
     package_data=find_package_data("."),
@@ -176,7 +176,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'pithos-migrate = pithos.backends.migrate:main'
+            'pithos-migrate = synnefo.pithos.backends.migrate:main'
         ],
     },
 )

@@ -15,7 +15,7 @@
 
 from dbworker import DBWorker
 
-from pithos.backends.random_word import get_random_word
+from synnefo.pithos.backends.random_word import get_random_word
 
 import logging
 

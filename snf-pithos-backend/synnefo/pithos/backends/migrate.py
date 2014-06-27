@@ -31,8 +31,8 @@ import os
 from alembic.config import main as alembic_main, Config
 from alembic import context, command
 
-from pithos.backends.lib import sqlalchemy as sqlalchemy_backend
-from pithos.backends.lib.sqlalchemy import (node, groups, public, xfeatures,
+from synnefo.pithos.backends.lib import sqlalchemy as sqlalchemy_backend
+from synnefo.pithos.backends.lib.sqlalchemy import (node, groups, public, xfeatures,
                                             quotaholder_serials)
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'synnefo.settings'

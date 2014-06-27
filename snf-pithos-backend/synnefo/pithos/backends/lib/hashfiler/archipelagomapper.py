@@ -27,7 +27,7 @@ from archipelago.common import (
     XF_MAPFLAG_READONLY,
     )
 
-from pithos.workers import (
+from synnefo.pithos.workers import (
     glue,
     monkey,
     )

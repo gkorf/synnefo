@@ -19,7 +19,7 @@ from itertools import groupby
 
 from dbworker import DBWorker
 
-from pithos.backends.filter import parse_filters
+from synnefo.pithos.backends.filter import parse_filters
 
 
 ROOTNODE = 0

@@ -25,7 +25,7 @@ import time
 
 class TestSQLAlchemyBackend(CommonMixin, TestDeleteByUUIDMixin,
                             TestQuotaMixin, TestSnapshotsMixin):
-    db_module = 'pithos.backends.lib.sqlalchemy'
+    db_module = 'synnefo.pithos.backends.lib.sqlalchemy'
     db_connection_str = '%(scheme)s://%(user)s:%(pwd)s@%(host)s:%(port)s/%(name)s'
     scheme = os.environ.get('DB_SCHEME', 'postgres')
     user = os.environ.get('DB_USER', 'synnefo')
@@ -60,7 +60,7 @@ class TestSQLAlchemyBackend(CommonMixin, TestDeleteByUUIDMixin,
 
 class TestSQLiteBackend(CommonMixin, TestDeleteByUUIDMixin, TestQuotaMixin,
                         TestSnapshotsMixin):
-    db_module = 'pithos.backends.lib.sqlite'
+    db_module = 'synnefo.pithos.backends.lib.sqlite'
     db_connection = location = '/tmp/test_pithos_backend.db'
     mapfile_prefix ='snf_test_pithos_backend_sqlite_%s_' % time.time()
 

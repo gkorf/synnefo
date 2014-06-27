@@ -24,7 +24,7 @@ from functools import wraps, partial
 from traceback import format_exc
 from time import time
 
-from pithos.workers import glue
+from synnefo.pithos.workers import glue
 from archipelago.common import Segment, Xseg_ctx
 from objpool import ObjectPool
 
@@ -34,7 +34,7 @@ try:
 except ImportError:
     AstakosClient = None
 
-from pithos.backends.base import (
+from synnefo.pithos.backends.base import (
     DEFAULT_ACCOUNT_QUOTA, DEFAULT_CONTAINER_QUOTA,
     DEFAULT_CONTAINER_VERSIONING, NotAllowedError, QuotaError,
     BaseBackend, AccountExists, ContainerExists, AccountNotEmpty,
@@ -84,12 +84,12 @@ class HashMap(list):
         return h[0]
 
 # Default modules and settings.
-DEFAULT_DB_MODULE = 'pithos.backends.lib.sqlalchemy'
+DEFAULT_DB_MODULE = 'synnefo.pithos.backends.lib.sqlalchemy'
 DEFAULT_DB_CONNECTION = 'sqlite:///backend.db'
-DEFAULT_BLOCK_MODULE = 'pithos.backends.lib.hashfiler'
+DEFAULT_BLOCK_MODULE = 'synnefo.pithos.backends.lib.hashfiler'
 DEFAULT_BLOCK_SIZE = 4 * 1024 * 1024  # 4MB
 DEFAULT_HASH_ALGORITHM = 'sha256'
-# DEFAULT_QUEUE_MODULE = 'pithos.backends.lib.rabbitmq'
+# DEFAULT_QUEUE_MODULE = 'synnefo.pithos.backends.lib.rabbitmq'
 DEFAULT_BLOCK_PARAMS = {'mappool': None, 'blockpool': None}
 # DEFAULT_QUEUE_HOSTS = '[amqp://guest:guest@localhost:5672]'
 # DEFAULT_QUEUE_EXCHANGE = 'pithos'
