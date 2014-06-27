@@ -28,7 +28,7 @@ def upgrade():
     )
 
     try:
-        from pithos.api.short_url import encode_url
+        from synnefo.pithos.api.short_url import encode_url
     except ImportError:
         return
     else:
