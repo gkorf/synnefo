@@ -24,8 +24,9 @@ from django.core.urlresolvers import reverse
 from django.utils.html import escape
 
 from synnefo.astakos.im.models import Resource
-from synnefo.db.models import (VirtualMachine, Volume, Network, IPAddress,
-                               IPAddressLog)
+from synnefo.cyclades.db.models import (
+    VirtualMachine, Volume, Network, IPAddress,
+    IPAddressLog)
 from synnefo.astakos.im.models import AstakosUser, Project, ProjectApplication
 
 from synnefo.util import units

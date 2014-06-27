@@ -16,7 +16,7 @@
 
 import logging
 
-from synnefo.db.models import IPAddressLog, VirtualMachine
+from synnefo.cyclades.db.models import IPAddressLog, VirtualMachine
 import django_filters
 
 from synnefo_admin.admin.queries_common import (query, model_filter,

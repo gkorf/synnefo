@@ -14,7 +14,7 @@ runCycladesTests () {
     if [ -z "$cyclades_tests" ]; then return; fi
 
     export SYNNEFO_EXCLUDE_PACKAGES="snf-pithos-app snf-astakos-app snf-admin-app"
-    CURRENT_COMPONENT=synnefo
+    CURRENT_COMPONENT=synnefo.cyclades
     createSnfManageTest $cyclades_tests
     runTest
 }
