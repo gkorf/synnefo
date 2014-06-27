@@ -59,13 +59,14 @@ from synnefo.pithos.api.settings import (
     RESOURCE_MAX_METADATA, ACC_MAX_GROUPS,
     ACC_MAX_GROUP_MEMBERS)
 
-from pithos.backends import connect_backend
-from pithos.backends.exceptions import (NotAllowedError, QuotaError,
-                                        ItemNotExists, VersionNotExists,
-                                        IllegalOperationError, LimitExceeded,
-                                        BrokenSnapshot,
-                                        InconsistentContentSize, InvalidPolicy,
-                                        InvalidHash, ContainerNotEmpty)
+from synnefo.pithos.backends import connect_backend
+from synnefo.pithos.backends.exceptions import (
+    NotAllowedError, QuotaError,
+    ItemNotExists, VersionNotExists,
+    IllegalOperationError, LimitExceeded,
+    BrokenSnapshot,
+    InconsistentContentSize, InvalidPolicy,
+    InvalidHash, ContainerNotEmpty)
 
 from synnefo.lib import join_urls
 
@@ -998,7 +999,7 @@ def simple_list_response(request, l):
         return json.dumps(l)
 
 
-from pithos.backends.util import PithosBackendPool
+from synnefo.pithos.backends.util import PithosBackendPool
 
 if RADOS_STORAGE:
     BLOCK_PARAMS = {'mappool': RADOS_POOL_MAPS,
