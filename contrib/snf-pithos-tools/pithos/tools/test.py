@@ -41,7 +41,7 @@ DATE_FORMATS = ["%a %b %d %H:%M:%S %Y",
                 "%A, %d-%b-%y %H:%M:%S GMT",
                 "%a, %d %b %Y %H:%M:%S GMT"]
 
-from pithos.api.settings import AUTHENTICATION_USERS
+from synnefo.pithos.api.settings import AUTHENTICATION_USERS
 AUTHENTICATION_USERS = AUTHENTICATION_USERS or {}
 OTHER_ACCOUNTS = AUTHENTICATION_USERS.copy()
 try:
@@ -2431,7 +2431,7 @@ class TestUsageFreeVersioningAutoContainerPolicy(BaseTestCase):
         # TODO Only works if tests are running in the same host with the server. Add support for remote server
         self.stop_execution = False
         try:
-            from pithos.api.settings import BACKEND_FREE_VERSIONING
+            from synnefo.pithos.api.settings import BACKEND_FREE_VERSIONING
         except ImportError:
             print 'Unable to execute the test: unknown version accounting policy'
             self.stop_execution = True
@@ -2770,7 +2770,7 @@ class TestUsageDebitVersioningAutoContainerPolicy(BaseTestCase):
 
         self.stop_execution = False
         try:
-            from pithos.api.settings import BACKEND_FREE_VERSIONING
+            from synnefo.pithos.api.settings import BACKEND_FREE_VERSIONING
         except ImportError:
             print 'Unable to execute the test: unknown version accounting policy'
             self.stop_execution = True
@@ -3108,7 +3108,7 @@ class TestUsageDebitVersioningNoneContainerPolicy(BaseTestCase):
 
         self.stop_execution = False
         try:
-            from pithos.api.settings import BACKEND_FREE_VERSIONING
+            from synnefo.pithos.api.settings import BACKEND_FREE_VERSIONING
         except ImportError:
             print 'Unable to execute the test: unknown version accounting policy'
             self.stop_execution = True
