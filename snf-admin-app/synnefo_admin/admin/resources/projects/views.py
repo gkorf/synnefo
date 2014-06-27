@@ -19,8 +19,9 @@ from collections import OrderedDict
 from django.core.urlresolvers import reverse
 from django.utils.html import escape
 
-from synnefo.db.models import (VirtualMachine, Network, Volume,
-                               IPAddress)
+from synnefo.cyclades.db.models import (
+    VirtualMachine, Network, Volume,
+    IPAddress)
 from synnefo.astakos.im.models import AstakosUser, Project
 from synnefo.astakos.im import transaction
 

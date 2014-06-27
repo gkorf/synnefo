@@ -35,7 +35,7 @@ from snf_django.lib.api import faults
 from synnefo.astakos.im.messages import PLAIN_EMAIL_SUBJECT as sample_subject
 from synnefo.astakos.im import settings as astakos_settings
 from synnefo.astakos.admin import stats as astakos_stats
-from synnefo.admin import stats as cyclades_stats
+from synnefo.cyclades.admin import stats as cyclades_stats
 
 from synnefo_admin.admin.exceptions import AdminHttp404, AdminHttp405
 from synnefo_admin import admin_settings
@@ -44,7 +44,7 @@ from synnefo_admin.admin import exceptions
 from synnefo_admin.admin.utils import (conditionally_gzip_page,
                                        customize_details_context, admin_log)
 
-from synnefo.ui.views import UI_MEDIA_URL
+from synnefo.cyclades.ui.views import UI_MEDIA_URL
 
 JSON_MIMETYPE = "application/json"
 

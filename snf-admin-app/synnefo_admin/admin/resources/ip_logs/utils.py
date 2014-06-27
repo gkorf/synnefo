@@ -19,7 +19,7 @@ import logging
 from django.core.exceptions import ObjectDoesNotExist
 
 from synnefo.astakos.im.models import AstakosUser
-from synnefo.db.models import IPAddress, VirtualMachine, Network
+from synnefo.cyclades.db.models import IPAddress, VirtualMachine, Network
 
 from synnefo_admin.admin.utils import create_details_href
 

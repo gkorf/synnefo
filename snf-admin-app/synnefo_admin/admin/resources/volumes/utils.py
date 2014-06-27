@@ -18,7 +18,7 @@ import logging
 
 from django.core.exceptions import ObjectDoesNotExist
 
-from synnefo.db.models import Volume
+from synnefo.cyclades.db.models import Volume
 from synnefo.astakos.im.models import AstakosUser, Project
 
 from synnefo_admin.admin.exceptions import AdminHttp404

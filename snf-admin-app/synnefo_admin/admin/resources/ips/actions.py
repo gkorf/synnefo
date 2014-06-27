@@ -17,7 +17,7 @@
 import logging
 from collections import OrderedDict
 
-from synnefo.logic import ips
+from synnefo.cyclades.logic import ips
 
 from synnefo_admin.admin.actions import AdminAction, noop
 from synnefo_admin.admin.utils import update_actions_rbac, send_admin_email

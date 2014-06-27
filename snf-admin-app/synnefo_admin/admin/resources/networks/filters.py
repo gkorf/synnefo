@@ -16,7 +16,7 @@
 
 import logging
 
-from synnefo.db.models import Network
+from synnefo.cyclades.db.models import Network
 import django_filters
 
 from synnefo_admin.admin.queries_common import (query, model_filter,
