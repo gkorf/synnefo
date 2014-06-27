@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from synnefo_tools.version import __version__
+from synnefo.tools.version import __version__
 
 # Package info
 VERSION = __version__
@@ -58,6 +58,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
+    namespace_packages=['synnefo'],
     packages=PACKAGES,
     package_dir={'': PACKAGES_ROOT},
     include_package_data=True,
@@ -68,5 +69,5 @@ setup(
     dependency_links=['http://www.synnefo.org/packages/pypi'],
 
     entry_points={
-        'console_scripts': ['snf-burnin = synnefo_tools.burnin:main']}
+        'console_scripts': ['snf-burnin = synnefo.tools.burnin:main']}
 )
