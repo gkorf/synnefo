@@ -17,8 +17,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from snf_django.lib import api
 
-from pithos.api.functions import _object_read
-from pithos.api.util import api_method, view_method
+from synnefo.pithos.api.functions import _object_read
+from synnefo.pithos.api.util import api_method, view_method
 
 import logging
 logger = logging.getLogger(__name__)

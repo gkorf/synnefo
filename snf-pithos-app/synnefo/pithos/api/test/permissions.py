@@ -16,8 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pithos.api.test import PithosAPITest
-from pithos.api.test.util import get_random_data, get_random_name
+from synnefo.pithos.api.test import PithosAPITest
+from synnefo.pithos.api.test.util import get_random_data, get_random_name
 
 from synnefo.lib import join_urls
 

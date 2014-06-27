@@ -18,7 +18,7 @@ from django.core.management.base import CommandError
 
 from optparse import make_option
 
-from pithos.api.util import get_backend
+from synnefo.pithos.api.util import get_backend
 
 from snf_django.management import utils
 

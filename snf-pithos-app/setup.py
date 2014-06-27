@@ -26,7 +26,7 @@ from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from pithos.api.version import __version__
+from synnefo.pithos.api.version import __version__
 
 # Package info
 VERSION = __version__
@@ -163,7 +163,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
-    namespace_packages=['pithos'],
+    namespace_packages=['synnefo', 'synnefo.pithos'],
     packages=PACKAGES,
     package_dir={'': PACKAGES_ROOT},
     include_package_data=True,
@@ -178,13 +178,13 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'pithos-manage-accounts = pithos.api.manage_accounts.cli:main'
+            'pithos-manage-accounts = synnefo.pithos.api.manage_accounts.cli:main'
         ],
         'synnefo': [
-            'default_settings = pithos.api.synnefo_settings',
-            'web_apps = pithos.api.synnefo_settings:synnefo_installed_apps',
-            'web_middleware = pithos.api.synnefo_settings:synnefo_middlewares',
-            'urls = pithos.api.urls:urlpatterns'
+            'default_settings = synnefo.pithos.api.synnefo_settings',
+            'web_apps = synnefo.pithos.api.synnefo_settings:synnefo_installed_apps',
+            'web_middleware = synnefo.pithos.api.synnefo_settings:synnefo_middlewares',
+            'urls = synnefo.pithos.api.urls:urlpatterns'
         ]
     },
 )
