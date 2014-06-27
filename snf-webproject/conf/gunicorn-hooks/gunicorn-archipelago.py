@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from pithos.workers import glue
+from synnefo.pithos.workers import glue
 from multiprocessing import Lock
 import mmap
 import pickle

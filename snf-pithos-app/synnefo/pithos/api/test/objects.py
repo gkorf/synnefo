@@ -2192,7 +2192,7 @@ class ObjectPost(PithosAPITest):
         self.assertEqual(content, d2 + d3[-1])
 
     @skipIf(pithos_settings.BACKEND_DB_MODULE ==
-            'pithos.backends.lib.sqlite',
+            'synnefo.pithos.backends.lib.sqlite',
             "This test is only meaningful for SQLAlchemy backend")
     def test_update_invalid_permissions(self):
         url = join_urls(self.pithos_path, self.user, self.container,

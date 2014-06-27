@@ -44,9 +44,9 @@ from synnefo.pithos.api.settings import (
 
 from synnefo.pithos.api import settings
 
-from pithos.backends.exceptions import ItemNotExists, ContainerExists
+from synnefo.pithos.backends.exceptions import ItemNotExists, ContainerExists
 
-from pithos.backends.filter import parse_filters
+from synnefo.pithos.backends.filter import parse_filters
 
 import logging
 logger = logging.getLogger(__name__)

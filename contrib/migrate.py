@@ -21,7 +21,7 @@ from sqlalchemy.sql import select
 
 from django.conf import settings
 
-from pithos.backends.modular import ModularBackend
+from synnefo.pithos.backends.modular import ModularBackend
 
 
 class Migration(object):

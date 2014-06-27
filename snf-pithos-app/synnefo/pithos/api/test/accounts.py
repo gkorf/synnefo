@@ -447,7 +447,7 @@ class AccountPost(PithosAPITest):
             (self.assertTrue(k not in account_meta) for k in meta.keys())
 
     @skipIf(pithos_settings.BACKEND_DB_MODULE ==
-            'pithos.backends.lib.sqlite',
+            'synnefo.pithos.backends.lib.sqlite',
             "This test is only meaningful for SQLAlchemy backend")
     def test_set_account_groups_limit_exceed(self):
         url = join_urls(self.pithos_path, self.user)
