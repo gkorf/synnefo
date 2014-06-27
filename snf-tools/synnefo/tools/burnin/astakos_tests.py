@@ -21,7 +21,7 @@ This is the burnin class that tests the Astakos functionality
 from kamaki.clients.compute import ComputeClient
 from kamaki.clients import ClientError
 
-from synnefo_tools.burnin.common import BurninTests, Proper
+from synnefo.tools.burnin.common import BurninTests, Proper
 
 
 # pylint: disable=too-many-public-methods
