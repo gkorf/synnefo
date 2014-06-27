@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo_branding import utils
+from synnefo.branding import utils
 
 def branding(request):
 	return utils.get_branding_dict("BRANDING")
