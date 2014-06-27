@@ -21,7 +21,7 @@ import os
 
 from collections import defaultdict
 
-from pithos.api.manage_accounts import ManageAccounts
+from synnefo.pithos.api.manage_accounts import ManageAccounts
 
 
 def get_random_data(length=500):

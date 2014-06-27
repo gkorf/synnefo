@@ -19,7 +19,8 @@ import logging
 from django.conf import settings
 from synnefo.lib import parse_base_url, join_urls
 from synnefo.lib.services import fill_endpoints
-from pithos.api.services import pithos_services as vanilla_pithos_services
+from synnefo.pithos.api.services import pithos_services \
+    as vanilla_pithos_services
 from astakosclient import AstakosClient
 
 from copy import deepcopy

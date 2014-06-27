@@ -36,27 +36,28 @@ from snf_django.lib.api.parsedate import parse_http_date_safe, parse_http_date
 from snf_django.lib import api
 from snf_django.lib.api import faults, utils
 
-from pithos.api.settings import (BACKEND_DB_MODULE, BACKEND_DB_CONNECTION,
-                                 BACKEND_BLOCK_MODULE,
-                                 ASTAKOSCLIENT_POOLSIZE,
-                                 SERVICE_TOKEN,
-                                 ASTAKOS_AUTH_URL,
-                                 BACKEND_ACCOUNT_QUOTA,
-                                 BACKEND_CONTAINER_QUOTA,
-                                 BACKEND_VERSIONING, BACKEND_FREE_VERSIONING,
-                                 BACKEND_POOL_ENABLED, BACKEND_POOL_SIZE,
-                                 BACKEND_BLOCK_SIZE, BACKEND_HASH_ALGORITHM,
-                                 BACKEND_ARCHIPELAGO_CONF,
-                                 BACKEND_XSEG_POOL_SIZE,
-                                 BACKEND_MAP_CHECK_INTERVAL,
-                                 BACKEND_MAPFILE_PREFIX,
-                                 RADOS_STORAGE, RADOS_POOL_BLOCKS,
-                                 RADOS_POOL_MAPS, TRANSLATE_UUIDS,
-                                 PUBLIC_URL_SECURITY, PUBLIC_URL_ALPHABET,
-                                 BASE_HOST, UPDATE_MD5, VIEW_PREFIX,
-                                 OAUTH2_CLIENT_CREDENTIALS, UNSAFE_DOMAIN,
-                                 RESOURCE_MAX_METADATA, ACC_MAX_GROUPS,
-                                 ACC_MAX_GROUP_MEMBERS)
+from synnefo.pithos.api.settings import (
+    BACKEND_DB_MODULE, BACKEND_DB_CONNECTION,
+    BACKEND_BLOCK_MODULE,
+    ASTAKOSCLIENT_POOLSIZE,
+    SERVICE_TOKEN,
+    ASTAKOS_AUTH_URL,
+    BACKEND_ACCOUNT_QUOTA,
+    BACKEND_CONTAINER_QUOTA,
+    BACKEND_VERSIONING, BACKEND_FREE_VERSIONING,
+    BACKEND_POOL_ENABLED, BACKEND_POOL_SIZE,
+    BACKEND_BLOCK_SIZE, BACKEND_HASH_ALGORITHM,
+    BACKEND_ARCHIPELAGO_CONF,
+    BACKEND_XSEG_POOL_SIZE,
+    BACKEND_MAP_CHECK_INTERVAL,
+    BACKEND_MAPFILE_PREFIX,
+    RADOS_STORAGE, RADOS_POOL_BLOCKS,
+    RADOS_POOL_MAPS, TRANSLATE_UUIDS,
+    PUBLIC_URL_SECURITY, PUBLIC_URL_ALPHABET,
+    BASE_HOST, UPDATE_MD5, VIEW_PREFIX,
+    OAUTH2_CLIENT_CREDENTIALS, UNSAFE_DOMAIN,
+    RESOURCE_MAX_METADATA, ACC_MAX_GROUPS,
+    ACC_MAX_GROUP_MEMBERS)
 
 from pithos.backends import connect_backend
 from pithos.backends.exceptions import (NotAllowedError, QuotaError,
@@ -418,7 +419,7 @@ def update_public_meta(public, meta):
     if not public:
         return
     meta['X-Object-Public'] = join_urls(
-        BASE_HOST, reverse('pithos.api.public.public_demux', args=(public,)))
+        BASE_HOST, reverse('synnefo.pithos.api.public.public_demux', args=(public,)))
 
 
 def validate_modification_preconditions(request, meta):

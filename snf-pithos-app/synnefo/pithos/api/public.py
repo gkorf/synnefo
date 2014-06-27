@@ -19,12 +19,13 @@ from django.views.decorators.csrf import csrf_exempt
 from snf_django.lib import api
 from snf_django.lib.api import faults
 
-from pithos.api.settings import UNSAFE_DOMAIN, UPDATE_MD5
-from pithos.api.util import (put_object_headers, update_manifest_meta,
-                             validate_modification_preconditions,
-                             validate_matching_preconditions,
-                             object_data_response, api_method,
-                             split_container_object_string, restrict_to_host)
+from synnefo.pithos.api.settings import UNSAFE_DOMAIN, UPDATE_MD5
+from synnefo.pithos.api.util import (
+    put_object_headers, update_manifest_meta,
+    validate_modification_preconditions,
+    validate_matching_preconditions,
+    object_data_response, api_method,
+    split_container_object_string, restrict_to_host)
 
 import logging
 logger = logging.getLogger(__name__)
