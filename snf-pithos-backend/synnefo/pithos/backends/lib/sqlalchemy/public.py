@@ -19,7 +19,7 @@ from sqlalchemy.sql import and_, select
 from sqlalchemy.schema import Index
 from sqlalchemy.exc import NoSuchTableError
 
-from pithos.backends.random_word import get_random_word
+from synnefo.pithos.backends.random_word import get_random_word
 
 from dbworker import ESCAPE_CHAR
 

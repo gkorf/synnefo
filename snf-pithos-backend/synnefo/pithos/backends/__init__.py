@@ -17,7 +17,7 @@ import warnings
 
 
 def connect_backend(**kwargs):
-    from pithos.backends.modular import ModularBackend
+    from synnefo.pithos.backends.modular import ModularBackend
 
     # Suppress mysql warnings.
     original_filters = warnings.filters[:]

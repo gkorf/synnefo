@@ -15,8 +15,8 @@
 
 from functools import partial
 
-from pithos.backends.base import NotAllowedError
-from pithos.backends.random_word import get_random_word
+from synnefo.pithos.backends.base import NotAllowedError
+from synnefo.pithos.backends.random_word import get_random_word
 
 import uuid as uuidlib
 

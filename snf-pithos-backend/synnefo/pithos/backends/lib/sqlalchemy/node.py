@@ -28,8 +28,8 @@ from sqlalchemy.exc import NoSuchTableError, IntegrityError
 
 from dbworker import DBWorker, ESCAPE_CHAR
 
-from pithos.backends.base import MAP_AVAILABLE
-from pithos.backends.filter import parse_filters
+from synnefo.pithos.backends.base import MAP_AVAILABLE
+from synnefo.pithos.backends.filter import parse_filters
 
 DEFAULT_DISKSPACE_RESOURCE = 'pithos.diskspace'
 ROOTNODE = 0
