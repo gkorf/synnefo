@@ -22,11 +22,11 @@ from urllib import quote, unquote
 from functools import partial
 from unittest import skipIf
 
-from pithos.api.test import (PithosAPITest, pithos_settings,
+from synnefo.pithos.api.test import (PithosAPITest, pithos_settings,
                              AssertMappingInvariant, AssertUUidInvariant,
                              TEST_BLOCK_SIZE, TEST_HASH_ALGORITHM,
                              DATE_FORMATS, pithos_test_settings)
-from pithos.api.test.util import (md5_hash, merkle, strnextling,
+from synnefo.pithos.api.test.util import (md5_hash, merkle, strnextling,
                                   get_random_data, get_random_name, HashMap)
 
 from synnefo.lib import join_urls

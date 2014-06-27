@@ -27,12 +27,12 @@ from synnefo.lib import join_urls
 
 import django.utils.simplejson as json
 
-from pithos.api.test import (PithosAPITest, DATE_FORMATS, TEST_BLOCK_SIZE,
+from synnefo.pithos.api.test import (PithosAPITest, DATE_FORMATS, TEST_BLOCK_SIZE,
                              TEST_HASH_ALGORITHM)
 
-from pithos.api.test.util import (get_random_name, get_random_data, md5_hash,
+from synnefo.pithos.api.test.util import (get_random_name, get_random_data, md5_hash,
                                   merkle)
-from pithos.api import settings as pithos_settings
+from synnefo.pithos.api import settings as pithos_settings
 
 merkle = partial(merkle,
                  blocksize=TEST_BLOCK_SIZE,

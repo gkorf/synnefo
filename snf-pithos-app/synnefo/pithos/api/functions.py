@@ -25,7 +25,7 @@ from astakosclient import AstakosClient
 from snf_django.lib import api
 from snf_django.lib.api import faults
 
-from pithos.api.util import (
+from synnefo.pithos.api.util import (
     json_encode_decimal, rename_meta_key, format_header_key,
     printable_header_dict, get_account_headers, put_account_headers,
     get_container_headers, put_container_headers, get_object_headers,
@@ -39,10 +39,10 @@ from pithos.api.util import (
     retrieve_displaynames, Checksum, NoChecksum
 )
 
-from pithos.api.settings import (UPDATE_MD5, TRANSLATE_UUIDS,
+from synnefo.pithos.api.settings import (UPDATE_MD5, TRANSLATE_UUIDS,
                                  SERVICE_TOKEN, ASTAKOS_AUTH_URL)
 
-from pithos.api import settings
+from synnefo.pithos.api import settings
 
 from pithos.backends.base import (
     NotAllowedError, QuotaError, ContainerNotEmpty, ItemNotExists,
