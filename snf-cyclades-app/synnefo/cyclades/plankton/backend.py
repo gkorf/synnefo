@@ -45,10 +45,11 @@ from urllib import quote, unquote
 from django.conf import settings
 from django.utils import importlib
 from django.utils.encoding import smart_unicode, smart_str
-from pithos.backends.base import (NotAllowedError, VersionNotExists,
-                                  QuotaError, LimitExceeded,
-                                  MAP_AVAILABLE, MAP_UNAVAILABLE, MAP_ERROR)
-from pithos.backends.util import PithosBackendPool
+from synnefo.pithos.backends.base import (
+    NotAllowedError, VersionNotExists,
+    QuotaError, LimitExceeded,
+    MAP_AVAILABLE, MAP_UNAVAILABLE, MAP_ERROR)
+from synnefo.pithos.backends.util import PithosBackendPool
 from snf_django.lib.api import faults
 
 Location = namedtuple("ObjectLocation", ["account", "container", "path"])
