@@ -26,8 +26,8 @@ import socket
 
 from vncauthproxy.d3des import generate_response as d3des_generate_response
 
-from synnefo_tools.burnin.common import Proper
-from synnefo_tools.burnin.cyclades_common import CycladesTests
+from synnefo.tools.burnin.common import Proper
+from synnefo.tools.burnin.cyclades_common import CycladesTests
 
 
 # pylint: disable=too-many-public-methods,too-many-instance-attributes

@@ -27,7 +27,7 @@ import tempfile
 from datetime import datetime
 from tempfile import NamedTemporaryFile
 
-from synnefo_tools.burnin.common import BurninTests, Proper, \
+from synnefo.tools.burnin.common import BurninTests, Proper, \
     QPITHOS, QADD, QREMOVE
 from kamaki.clients import ClientError
 
