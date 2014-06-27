@@ -9,7 +9,7 @@ CONFIG = {
  'args': (
    '--bind=127.0.0.1:8080',
    '--workers=6',
-   '--worker-class=pithos.workers.gevent_archipelago.GeventArchipelagoWorker',
+   '--worker-class=synnefo.pithos.workers.gevent_archipelago.GeventArchipelagoWorker',
    '--config=/etc/archipelago/pithos.conf.py',
    # '--worker-class=sync',
    '--log-level=debug',
