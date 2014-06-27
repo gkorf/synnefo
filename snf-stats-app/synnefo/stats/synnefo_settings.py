@@ -18,4 +18,4 @@
 Django settings metadata. To be used in setup.py snf-webproject entry points.
 """
 
-installed_apps = ['synnefo_stats']
+installed_apps = ['synnefo.stats']
