@@ -18,8 +18,8 @@
 
 from unittest import skipIf
 
-from pithos.api.test import (PithosAPITest, AssertMappingInvariant,
-                             DATE_FORMATS, pithos_settings)
+from synnefo.pithos.api.test import (PithosAPITest, AssertMappingInvariant,
+                                     DATE_FORMATS)
 
 from synnefo.lib import join_urls
 

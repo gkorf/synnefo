@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #from pithos.backends import connect_backend
-from pithos.api.util import hashmap_md5, get_backend
+from synnefo.pithos.api.util import hashmap_md5, get_backend
 
 from django.core.mail import send_mail
 
