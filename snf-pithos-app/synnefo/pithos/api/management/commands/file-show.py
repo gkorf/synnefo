@@ -20,7 +20,7 @@ from optparse import make_option
 from snf_django.management.commands import SynnefoCommand
 from snf_django.management import utils
 
-from pithos.api.util import get_backend, update_public_meta, is_uuid
+from synnefo.pithos.api.util import get_backend, update_public_meta, is_uuid
 
 
 class Command(SynnefoCommand):

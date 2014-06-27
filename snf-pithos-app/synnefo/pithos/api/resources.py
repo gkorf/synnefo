@@ -13,6 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pithos.api.settings import pithos_services
+from synnefo.pithos.api.settings import pithos_services
 
 resources = pithos_services['pithos_object-store']['resources'].values()

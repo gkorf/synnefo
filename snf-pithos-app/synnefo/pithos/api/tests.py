@@ -14,12 +14,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Import TestCases
-from pithos.api.test.accounts import *
-from pithos.api.test.containers import *
-from pithos.api.test.objects import *
-from pithos.api.test.permissions import *
-from pithos.api.test.public import *
-from pithos.api.test.views import *
-from pithos.api.test.unicode import *
-from pithos.api.test.listing import *
-from pithos.api.test.top_level import *
+from synnefo.pithos.api.test.accounts import *
+from synnefo.pithos.api.test.containers import *
+from synnefo.pithos.api.test.objects import *
+from synnefo.pithos.api.test.permissions import *
+from synnefo.pithos.api.test.public import *
+from synnefo.pithos.api.test.views import *
+from synnefo.pithos.api.test.unicode import *
+from synnefo.pithos.api.test.listing import *
+from synnefo.pithos.api.test.top_level import *

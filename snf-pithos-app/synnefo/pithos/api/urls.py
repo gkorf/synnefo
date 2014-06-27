@@ -21,7 +21,7 @@ from snf_django.lib.api.utils import prefix_pattern
 from snf_django.lib.api.urls import api_patterns
 from snf_django.lib.api import api_endpoint_not_found
 from snf_django.utils.urls import extend_endpoint_with_slash
-from pithos.api.settings import (
+from synnefo.pithos.api.settings import (
     BASE_PATH, PITHOS_PREFIX, PUBLIC_PREFIX, VIEW_PREFIX,
     ASTAKOS_AUTH_PROXY_PATH, ASTAKOS_AUTH_URL,
     ASTAKOS_ACCOUNT_PROXY_PATH, ASTAKOS_ACCOUNT_URL,
@@ -36,7 +36,7 @@ extend_endpoint_with_slash(urlpatterns, pithos_services, "pithos_public")
 
 # TODO: This only works when in this order.
 pithos_api_patterns = api_patterns(
-    'pithos.api.functions',
+    'synnefo.pithos.api.functions',
     (r'^$', 'top_demux'),
     (r'^(?P<v_account>.+?)/(?P<v_container>.+?)/(?P<v_object>.+?)$',
      'object_demux'),
@@ -45,7 +45,7 @@ pithos_api_patterns = api_patterns(
     (r'^(?P<v_account>.+?)/?$', 'account_demux'))
 
 pithos_view_patterns = patterns(
-    'pithos.api.views',
+    'synnefo.pithos.api.views',
     (r'^(?P<v_account>.+?)/(?P<v_container>.+?)/(?P<v_object>.+?)$',
      'object_read'))
 
@@ -57,7 +57,7 @@ pithos_patterns += patterns(
     (r'{0}.*'.format(prefix_pattern(PITHOS_PREFIX)),
         api_endpoint_not_found),
     (r'{0}(?P<v_public>.+?)/?$'.format(prefix_pattern(PUBLIC_PREFIX)),
-        'pithos.api.public.public_demux'),
+        'synnefo.pithos.api.public.public_demux'),
 )
 
 pithos_patterns += patterns(

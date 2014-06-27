@@ -22,8 +22,9 @@ from mock import patch, PropertyMock
 
 from snf_django.utils.testing import with_settings, astakos_user
 
-from pithos.api import settings as pithos_settings
-from pithos.api.test.util import is_date, get_random_data, get_random_name
+from synnefo.pithos.api import settings as pithos_settings
+from synnefo.pithos.api.test.util import is_date, get_random_data, \
+    get_random_name
 from pithos.backends.migrate import initialize_db
 
 from synnefo.lib.services import get_service_path
@@ -137,7 +138,7 @@ class PithosTestSuiteRunner(DjangoTestSuiteRunner):
         return old_names, mirrors
 
     def teardown_databases(self, old_config, **kwargs):
-        from pithos.api.util import _pithos_backend_pool
+        from synnefo.pithos.api.util import _pithos_backend_pool
         _pithos_backend_pool.shutdown()
         try:
             super(PithosTestSuiteRunner, self).teardown_databases(old_config,
