@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 
 from synnefo.util import version
-from synnefo_branding import settings as branding_settings
+from synnefo.branding import settings as branding_settings
 
 
 def cloudbar(request):
