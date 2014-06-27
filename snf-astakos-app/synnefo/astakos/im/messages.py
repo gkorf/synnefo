@@ -15,7 +15,7 @@
 
 from django.conf import settings
 import synnefo.astakos.im.settings as astakos_settings
-import synnefo_branding.settings as branding_settings
+import synnefo.branding.settings as branding_settings
 
 
 LOGGED_IN_WARNING = 'It seems that you are already logged in.'
