@@ -31,7 +31,7 @@ from synnefo.astakos.im.models import AstakosUser, Project, ProjectApplication
 
 from synnefo.util import units
 from synnefo.astakos.im.user_utils import send_plain as send_email
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 
 from synnefo_admin import admin_settings
 from synnefo.astakos.im import settings as astakos_settings

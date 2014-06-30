@@ -56,7 +56,7 @@ class TestAdminViewsUnit(unittest.TestCase):
 
 
 @mock.patch("astakosclient.AstakosClient", new=AstakosClientMock)
-@mock.patch("snf_django.lib.astakos.get_user", new=get_user_mock)
+@mock.patch("synnefo.django.lib.astakos.get_user", new=get_user_mock)
 class TestAdminViewsIntegration(django.test.TestCase):
 
     """Integration tests for admin views."""

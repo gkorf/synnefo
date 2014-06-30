@@ -17,8 +17,8 @@
 # Provides automated tests for logic module
 from django.test import TestCase
 from django.core.exceptions import ObjectDoesNotExist
-from snf_django.lib.api import faults
-from snf_django.utils.testing import mocked_quotaholder
+from synnefo.django.lib.api import faults
+from synnefo.django.utils.testing import mocked_quotaholder
 from synnefo.cyclades.logic import ips
 from synnefo.cyclades.db import models_factory as mfactory
 from synnefo.cyclades.db.models import IPAddress

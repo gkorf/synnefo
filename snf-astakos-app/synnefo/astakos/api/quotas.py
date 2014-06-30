@@ -17,9 +17,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from synnefo.astakos.im import transaction
 
-from snf_django.lib import api
-from snf_django.lib.api.faults import BadRequest, ItemNotFound
-from snf_django.lib.api import utils
+from synnefo.django.lib import api
+from synnefo.django.lib.api.faults import BadRequest, ItemNotFound
+from synnefo.django.lib.api import utils
 from django.core.cache import cache
 
 from synnefo.astakos.im import settings

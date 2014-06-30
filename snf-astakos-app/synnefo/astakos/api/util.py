@@ -22,8 +22,8 @@ from django.utils import simplejson as json
 from django.template.loader import render_to_string
 
 from synnefo.astakos.im.models import AstakosUser, Component
-from snf_django.lib.api import faults
-from snf_django.lib.api.utils import isoformat
+from synnefo.django.lib.api import faults
+from synnefo.django.lib.api.utils import isoformat
 
 from synnefo.astakos.im.forms import FeedbackForm
 from synnefo.astakos.im.user_utils import send_feedback as send_feedback_func

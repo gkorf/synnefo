@@ -21,7 +21,7 @@ from django.core import mail
 
 from synnefo.cyclades.db import models_factory as mf
 from synnefo.astakos.im import settings as astakos_settings
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 
 from synnefo_admin import admin_settings
 from synnefo_admin.admin import views

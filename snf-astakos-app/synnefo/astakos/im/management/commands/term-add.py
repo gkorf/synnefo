@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from os.path import abspath
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 from synnefo.astakos.im import transaction
 from synnefo.astakos.im.models import ApprovalTerms, AstakosUser
 

@@ -16,7 +16,7 @@
 from django.utils import simplejson as json
 from synnefo.cyclades.db import transaction
 
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.db.models import (
     QuotaHolderSerial, VirtualMachine, Network,
     IPAddress, Volume)

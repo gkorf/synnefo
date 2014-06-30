@@ -22,7 +22,7 @@ from synnefo.cyclades.db.models import (
 from functools import wraps
 
 from django.conf import settings
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.api import util
 from synnefo.cyclades.logic import backend as backend_mod
 from synnefo.cyclades.logic.rapi import GanetiApiError, GanetiRapiClient

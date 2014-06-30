@@ -15,7 +15,7 @@
 
 from django.test import TestCase
 
-from snf_django.utils.testing import assertGreater, assertIn, assertRaises
+from synnefo.django.utils.testing import assertGreater, assertIn, assertRaises
 from synnefo.astakos.quotaholder_app import models
 import synnefo.astakos.quotaholder_app.callpoint as qh
 from synnefo.astakos.quotaholder_app.exception import (

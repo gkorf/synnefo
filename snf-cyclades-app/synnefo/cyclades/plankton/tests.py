@@ -20,7 +20,7 @@ from mock import patch
 from functools import wraps
 from copy import deepcopy
 from decimal import Decimal
-from snf_django.utils.testing import BaseAPITest
+from synnefo.django.utils.testing import BaseAPITest
 from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls

@@ -78,7 +78,7 @@ class Command(object):
 
         if email_re.match(self.user):
             try:
-                from snf_django.lib.astakos import get_user_uuid
+                from synnefo.django.lib.astakos import get_user_uuid
                 from synnefo.pithos.api.settings import SERVICE_TOKEN
                 self.user = get_user_uuid(SERVICE_TOKEN, self.user)
             except ImportError:

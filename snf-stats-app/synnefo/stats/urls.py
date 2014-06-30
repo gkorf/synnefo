@@ -15,8 +15,8 @@
 
 from django.conf.urls import patterns, include
 
-from snf_django.lib.api.utils import prefix_pattern
-from snf_django.lib.api import api_endpoint_not_found
+from synnefo.django.lib.api.utils import prefix_pattern
+from synnefo.django.lib.api import api_endpoint_not_found
 
 from synnefo.stats.stats_settings import BASE_PATH
 from synnefo.stats.grapher import grapher

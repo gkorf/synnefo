@@ -16,7 +16,7 @@
 from django.conf.urls import patterns, include
 
 from django.http import HttpResponseNotAllowed
-from snf_django.lib.api import api_endpoint_not_found
+from synnefo.django.lib.api import api_endpoint_not_found
 
 from synnefo.cyclades.plankton import views
 

@@ -17,7 +17,7 @@ from optparse import make_option
 
 from synnefo.astakos.im import transaction
 
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 
 from synnefo.astakos.oa2.models import Client, RedirectUrl
 from synnefo.astakos.oa2 import settings

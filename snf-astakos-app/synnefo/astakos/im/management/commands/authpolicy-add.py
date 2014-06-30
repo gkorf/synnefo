@@ -17,7 +17,7 @@ import string
 
 from optparse import make_option
 
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 
 from synnefo.astakos.im.models import AuthProviderPolicyProfile as Profile
 

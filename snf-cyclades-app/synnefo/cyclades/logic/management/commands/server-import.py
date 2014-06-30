@@ -23,7 +23,7 @@ from synnefo.cyclades.db.models import VirtualMachine, Network, Flavor, \
 from synnefo.cyclades.logic.utils import id_from_network_name, \
     id_from_instance_name
 from synnefo.cyclades.logic.backend import wait_for_job, connect_to_network
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 from synnefo.cyclades.logic.rapi import GanetiApiError
 from synnefo.cyclades.logic import servers
 from synnefo.cyclades import quotas

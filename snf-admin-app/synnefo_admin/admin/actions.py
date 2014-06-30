@@ -16,7 +16,7 @@
 
 import functools
 
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 
 
 class AdminAction(object):

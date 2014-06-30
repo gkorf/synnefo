@@ -49,7 +49,7 @@ from synnefo.pithos.backends.base import (
     NotAllowedError, VersionNotExists,
     QuotaError, LimitExceeded)
 from synnefo.pithos.backends.util import PithosBackendPool
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 
 Location = namedtuple("ObjectLocation", ["account", "container", "path"])
 
