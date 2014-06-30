@@ -26,7 +26,7 @@ from django.core.urlresolvers import reverse
 from urllib import unquote
 
 import astakosclient
-from snf_django.lib import astakos
+from synnefo.django.lib import astakos
 
 from synnefo.cyclades.db.models import VirtualMachine, Network, IPAddressLog
 

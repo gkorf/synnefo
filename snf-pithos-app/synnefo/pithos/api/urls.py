@@ -16,11 +16,11 @@
 from functools import partial
 from django.conf.urls import include, patterns
 
-from snf_django.lib.api.proxy import proxy
-from snf_django.lib.api.utils import prefix_pattern
-from snf_django.lib.api.urls import api_patterns
-from snf_django.lib.api import api_endpoint_not_found
-from snf_django.utils.urls import extend_endpoint_with_slash
+from synnefo.django.lib.api.proxy import proxy
+from synnefo.django.lib.api.utils import prefix_pattern
+from synnefo.django.lib.api.urls import api_patterns
+from synnefo.django.lib.api import api_endpoint_not_found
+from synnefo.django.utils.urls import extend_endpoint_with_slash
 from synnefo.pithos.api.settings import (
     BASE_PATH, PITHOS_PREFIX, PUBLIC_PREFIX, VIEW_PREFIX,
     ASTAKOS_AUTH_PROXY_PATH, ASTAKOS_AUTH_URL,

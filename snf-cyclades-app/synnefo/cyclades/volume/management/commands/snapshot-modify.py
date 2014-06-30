@@ -17,7 +17,7 @@ from optparse import make_option
 from django.core.management.base import CommandError
 from synnefo.cyclades.volume import snapshots, util
 from synnefo.cyclades.management import common
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 
 
 class Command(SynnefoCommand):

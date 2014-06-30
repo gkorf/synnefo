@@ -16,14 +16,14 @@
 from optparse import make_option
 
 from django.db.models import Q
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 from synnefo.astakos.im import transaction
 from synnefo.util import units
 from synnefo.astakos.im import functions
 from synnefo.astakos.im import models
 import synnefo.astakos.api.projects as api
 import synnefo.util.date as date_util
-from snf_django.management import utils
+from synnefo.django.management import utils
 from synnefo.astakos.im.management.commands import _common
 
 

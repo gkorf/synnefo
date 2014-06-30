@@ -14,9 +14,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from optparse import make_option
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 
-from snf_django.management import utils
+from synnefo.django.management import utils
 from synnefo.astakos.im.models import Resource
 from synnefo.astakos.im import register
 from ._common import style_options, check_style, units

@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.management.base import CommandError
-from snf_django.management.commands import RemoveCommand
+from synnefo.django.management.commands import RemoveCommand
 from optparse import make_option
 
 from synnefo.cyclades.management.common import pool_table_from_type

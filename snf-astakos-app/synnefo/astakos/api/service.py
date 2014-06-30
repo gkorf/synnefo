@@ -15,7 +15,7 @@
 
 from django.views.decorators.csrf import csrf_exempt
 
-from snf_django.lib import api
+from synnefo.django.lib import api
 
 from .util import (
     get_uuid_displayname_catalogs as get_uuid_displayname_catalogs_util,

@@ -25,8 +25,8 @@ functions:
 
 from django.db import transaction as django_transaction
 
-from snf_django.utils import transaction as snf_transaction
-from snf_django.utils.db import select_db
+from synnefo.django.utils import transaction as snf_transaction
+from synnefo.django.utils.db import select_db
 
 
 def commit(using=None):

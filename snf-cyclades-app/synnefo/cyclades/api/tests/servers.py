@@ -17,8 +17,9 @@
 import json
 from copy import deepcopy
 
-from snf_django.utils.testing import (BaseAPITest, mocked_quotaholder,
-                                      override_settings)
+from synnefo.django.utils.testing import (
+    BaseAPITest, mocked_quotaholder,
+    override_settings)
 from synnefo.cyclades.db.models import (
     VirtualMachine, VirtualMachineMetadata,
     IPAddress, NetworkInterface, Volume)

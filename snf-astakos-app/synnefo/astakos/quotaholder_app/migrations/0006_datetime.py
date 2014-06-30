@@ -32,36 +32,36 @@ class Migration(DataMigration):
             'Meta': {'unique_together': "(('holder', 'source', 'resource'),)", 'object_name': 'Holding'},
             'holder': ('django.db.models.fields.CharField', [], {'max_length': '4096', 'db_index': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'limit': ('snf_django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
+            'limit': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
             'resource': ('django.db.models.fields.CharField', [], {'max_length': '4096'}),
             'source': ('django.db.models.fields.CharField', [], {'max_length': '4096', 'null': 'True'}),
-            'usage_max': ('snf_django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'}),
-            'usage_min': ('snf_django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'})
+            'usage_max': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'}),
+            'usage_min': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'})
         },
         'quotaholder_app.provision': {
             'Meta': {'object_name': 'Provision'},
             'holder': ('django.db.models.fields.CharField', [], {'max_length': '4096', 'db_index': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'quantity': ('snf_django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
+            'quantity': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
             'resource': ('django.db.models.fields.CharField', [], {'max_length': '4096'}),
             'serial': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'provisions'", 'to': "orm['quotaholder_app.Commission']"}),
             'source': ('django.db.models.fields.CharField', [], {'max_length': '4096', 'null': 'True'})
         },
         'quotaholder_app.provisionlog': {
             'Meta': {'object_name': 'ProvisionLog'},
-            'delta_quantity': ('snf_django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
+            'delta_quantity': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
             'holder': ('django.db.models.fields.CharField', [], {'max_length': '4096'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'issue_time': ('django.db.models.fields.CharField', [], {'max_length': '4096'}),
-            'limit': ('snf_django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
+            'limit': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
             'log_time': ('django.db.models.fields.CharField', [], {'max_length': '4096'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '4096'}),
             'reason': ('django.db.models.fields.CharField', [], {'max_length': '4096'}),
             'resource': ('django.db.models.fields.CharField', [], {'max_length': '4096'}),
             'serial': ('django.db.models.fields.BigIntegerField', [], {}),
             'source': ('django.db.models.fields.CharField', [], {'max_length': '4096', 'null': 'True'}),
-            'usage_max': ('snf_django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
-            'usage_min': ('snf_django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'})
+            'usage_max': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
+            'usage_min': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'})
         }
     }
 

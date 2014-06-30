@@ -21,8 +21,8 @@ from synnefo.cyclades.db import transaction
 from django.db.models import Q
 from django.template.loader import render_to_string
 
-from snf_django.lib import api
-from snf_django.lib.api import utils
+from synnefo.django.lib import api
+from synnefo.django.lib.api import utils
 
 from synnefo.cyclades.api import util
 from synnefo.cyclades.db.models import Network

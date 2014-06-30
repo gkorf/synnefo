@@ -24,8 +24,8 @@ from django.http import HttpResponse
 from django.utils.encoding import (smart_unicode, smart_str,
                                    DjangoUnicodeDecodeError)
 
-from snf_django.lib import api
-from snf_django.lib.api import faults
+from synnefo.django.lib import api
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.plankton.backend import (
     PlanktonBackend, OBJECT_AVAILABLE,
     OBJECT_UNAVAILABLE, OBJECT_ERROR)

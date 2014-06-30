@@ -14,14 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from logging import getLogger
-from snf_django.lib import api
+from synnefo.django.lib import api
 
 from django.conf.urls import patterns
 from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.db.models import Q
 
-from snf_django.lib.api import utils
+from synnefo.django.lib.api import utils
 from synnefo.cyclades.db.models import Subnet
 from synnefo.cyclades.logic import subnets
 from synnefo.cyclades.api import util

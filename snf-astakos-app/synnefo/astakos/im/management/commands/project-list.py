@@ -15,7 +15,7 @@
 
 from optparse import make_option
 
-from snf_django.management.commands import ListCommand
+from synnefo.django.management.commands import ListCommand
 
 from synnefo.astakos.im.models import Project, ProjectApplication
 from ._common import is_uuid

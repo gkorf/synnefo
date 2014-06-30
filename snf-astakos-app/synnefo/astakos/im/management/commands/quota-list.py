@@ -18,8 +18,8 @@ from synnefo.astakos.im import transaction
 
 from synnefo.astakos.im.models import AstakosUser
 from synnefo.astakos.im.quotas import list_user_quotas
-from snf_django.management.commands import SynnefoCommand, CommandError
-from snf_django.management import utils
+from synnefo.django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management import utils
 from synnefo.astakos.im.management.commands import _common as common
 from synnefo.astakos.im.management.commands import _filtering as filtering
 from django.db.models import Q, F

@@ -21,7 +21,7 @@ from django.conf import settings
 from synnefo.cyclades.userdata import rest
 from synnefo.cyclades.userdata.models import PublicKeyPair
 from synnefo.cyclades.userdata.util import exportKey
-from snf_django.lib.astakos import get_user
+from synnefo.django.lib.astakos import get_user
 
 SUPPORT_GENERATE_KEYS = True
 try:

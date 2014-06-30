@@ -149,7 +149,7 @@ class Migration(SchemaMigration):
         },
         'im.astakosuserquota': {
             'Meta': {'unique_together': "(('resource', 'user'),)", 'object_name': 'AstakosUserQuota'},
-            'capacity': ('snf_django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
+            'capacity': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'resource': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['im.Resource']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['im.AstakosUser']"})
@@ -163,7 +163,7 @@ class Migration(SchemaMigration):
             'service_origin': ('django.db.models.fields.CharField', [], {'max_length': '255', 'db_index': 'True'}),
             'service_type': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'unit': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'}),
-            'uplimit': ('snf_django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'})
+            'uplimit': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'})
         },
         'oa2.authorizationcode': {
             'Meta': {'object_name': 'AuthorizationCode'},

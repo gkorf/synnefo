@@ -21,8 +21,8 @@ from django.core.management.base import CommandError
 from synnefo.cyclades.management.common import (
     get_resource, convert_api_faults,
     wait_server_task)
-from snf_django.management.commands import SynnefoCommand
-from snf_django.management.utils import parse_bool
+from synnefo.django.management.commands import SynnefoCommand
+from synnefo.django.management.utils import parse_bool
 from synnefo.cyclades.logic import servers
 
 

@@ -16,7 +16,7 @@
 from optparse import make_option
 from functools import partial
 
-from snf_django.management.commands import ListCommand
+from synnefo.django.management.commands import ListCommand
 from synnefo.cyclades.db.models import VirtualMachine
 from synnefo.cyclades.management.common import get_resource
 from synnefo.cyclades.api.util import get_image

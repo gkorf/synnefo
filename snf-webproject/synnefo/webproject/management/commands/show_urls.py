@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.management import color
 from django.utils import termcolors
 
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 
 
 def color_style():
