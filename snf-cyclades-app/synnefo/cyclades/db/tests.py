@@ -28,7 +28,7 @@ from synnefo.cyclades.db.pools import IPPool, EmptyPool
 
 from django.db import IntegrityError
 from django.core.exceptions import MultipleObjectsReturned
-from snf_django.utils.testing import override_settings
+from synnefo.django.utils.testing import override_settings
 from mock import patch
 
 

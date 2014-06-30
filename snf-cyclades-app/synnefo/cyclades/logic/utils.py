@@ -16,7 +16,7 @@
 # Utility functions
 
 from synnefo.cyclades.db.models import VirtualMachine, Network
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from django.conf import settings
 from copy import deepcopy
 from django.utils.encoding import smart_unicode

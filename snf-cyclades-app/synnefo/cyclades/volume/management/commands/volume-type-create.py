@@ -16,7 +16,7 @@
 from optparse import make_option
 
 from django.db import IntegrityError
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 
 from synnefo.cyclades.management import pprint, common
 from synnefo.cyclades.db.models import VolumeType

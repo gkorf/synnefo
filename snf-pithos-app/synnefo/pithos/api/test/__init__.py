@@ -20,7 +20,7 @@ from xml.dom import minidom
 from urllib import quote, unquote
 from mock import patch, PropertyMock
 
-from snf_django.utils.testing import with_settings, astakos_user
+from synnefo.django.utils.testing import with_settings, astakos_user
 
 from synnefo.pithos.api import settings as pithos_settings
 from synnefo.pithos.api.test.util import is_date, get_random_data, get_random_name

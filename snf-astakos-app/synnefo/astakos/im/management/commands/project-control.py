@@ -16,8 +16,8 @@
 from optparse import make_option
 
 from django.db import transaction
-from snf_django.management import utils
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management import utils
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 from synnefo.astakos.im.functions import (terminate, suspend, unsuspend,
                                   reinstate, check_expiration,
                                   approve_application, deny_application)

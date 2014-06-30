@@ -16,7 +16,7 @@
 from optparse import make_option
 
 from django.db import transaction
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 

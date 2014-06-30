@@ -16,7 +16,7 @@
 from optparse import make_option
 
 from django.db import transaction
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 from django.utils import simplejson as json
 
 from synnefo.astakos.im.register import add_service, add_resource, RegisterException

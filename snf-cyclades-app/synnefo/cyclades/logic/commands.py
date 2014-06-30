@@ -19,7 +19,7 @@ from functools import wraps
 from django.db import transaction
 
 from django.conf import settings
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades import quotas
 from synnefo.cyclades.db.models import VirtualMachine
 

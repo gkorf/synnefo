@@ -17,7 +17,7 @@
 
 from django.db import transaction
 from django.core.management.base import CommandError
-from snf_django.management.commands import RemoveCommand
+from synnefo.django.management.commands import RemoveCommand
 from synnefo.cyclades.management import common
 from synnefo.cyclades.logic import ips
 

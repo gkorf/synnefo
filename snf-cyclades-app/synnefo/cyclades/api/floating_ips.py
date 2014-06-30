@@ -18,8 +18,8 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.utils import simplejson as json
 
-from snf_django.lib import api
-from snf_django.lib.api import faults, utils
+from synnefo.django.lib import api
+from synnefo.django.lib.api import faults, utils
 from synnefo.cyclades.api import util
 from synnefo.cyclades.logic import ips
 from synnefo.cyclades.db.models import Network, IPAddress

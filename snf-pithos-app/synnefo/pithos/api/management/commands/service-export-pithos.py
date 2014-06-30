@@ -17,7 +17,7 @@ from django.utils import simplejson as json
 
 from synnefo.pithos.api.settings import pithos_services
 from synnefo.lib.services import filter_public
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 
 
 class Command(SynnefoCommand):

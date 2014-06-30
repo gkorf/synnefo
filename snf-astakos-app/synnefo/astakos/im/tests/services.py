@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from synnefo.astakos.im.tests.common import *
-from snf_django.utils.testing import assertRaises
+from synnefo.django.utils.testing import assertRaises
 
 
 class RegisterTest(TestCase):

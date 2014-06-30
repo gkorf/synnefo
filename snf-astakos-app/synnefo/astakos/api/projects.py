@@ -23,9 +23,9 @@ from django.db import transaction
 
 from synnefo.astakos.api.util import json_response
 
-from snf_django.lib import api
-from snf_django.lib.api import faults
-from snf_django.lib.api import utils
+from synnefo.django.lib import api
+from synnefo.django.lib.api import faults
+from synnefo.django.lib.api import utils
 from .util import user_from_token, invert_dict, check_is_dict
 
 from synnefo.astakos.im import functions

@@ -18,8 +18,8 @@ from django.db import transaction
 
 from synnefo.astakos.im.models import Project
 from synnefo.astakos.im import quotas
-from snf_django.management.utils import pprint_table
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.utils import pprint_table
+from synnefo.django.management.commands import SynnefoCommand
 
 import logging
 logger = logging.getLogger(__name__)

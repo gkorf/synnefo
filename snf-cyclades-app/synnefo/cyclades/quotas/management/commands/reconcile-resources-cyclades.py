@@ -19,9 +19,9 @@ from optparse import make_option
 from synnefo.cyclades import quotas
 from synnefo.cyclades.quotas import util
 from synnefo.cyclades.quotas import errors
-from snf_django.management.utils import pprint_table
-from snf_django.management.commands import SynnefoCommand, CommandError
-from snf_django.utils import reconcile
+from synnefo.django.management.utils import pprint_table
+from synnefo.django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.utils import reconcile
 
 
 class Command(SynnefoCommand):

@@ -15,11 +15,11 @@
 
 from django.conf.urls import patterns, include
 
-from snf_django.lib.api.proxy import proxy
-from snf_django.lib.api.utils import prefix_pattern
-from snf_django.utils.urls import \
+from synnefo.django.lib.api.proxy import proxy
+from synnefo.django.lib.api.utils import prefix_pattern
+from synnefo.django.utils.urls import \
     extend_with_root_redirects, extend_endpoint_with_slash
-from snf_django.lib.api.urls import api_patterns
+from synnefo.django.lib.api.urls import api_patterns
 from synnefo.cyclades.cyclades_settings import (
     BASE_PATH, COMPUTE_PREFIX, NETWORK_PREFIX, VMAPI_PREFIX,
     PLANKTON_PREFIX, HELPDESK_PREFIX, UI_PREFIX, VOLUME_PREFIX,

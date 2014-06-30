@@ -19,8 +19,8 @@ from django.core.management.base import CommandError
 
 from synnefo.cyclades.api import util
 from synnefo.cyclades.management import common, pprint
-from snf_django.management.utils import parse_bool
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.utils import parse_bool
+from synnefo.django.management.commands import SynnefoCommand
 from synnefo.cyclades.logic import servers
 
 HELP_MSG = """Create a new port.

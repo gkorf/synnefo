@@ -18,7 +18,7 @@ from optparse import make_option
 
 from synnefo.cyclades.db.pools import bitarray_to_map
 from synnefo.cyclades.management import pprint, common
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 
 POOL_CHOICES = ['bridge', 'mac-prefix']
 

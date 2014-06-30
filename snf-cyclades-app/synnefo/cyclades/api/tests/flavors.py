@@ -15,7 +15,7 @@
 
 import json
 
-from snf_django.utils.testing import BaseAPITest
+from synnefo.django.utils.testing import BaseAPITest
 from synnefo.cyclades.db.models import Flavor
 from synnefo.cyclades.db.models_factory import FlavorFactory
 from synnefo.lib.services import get_service_path

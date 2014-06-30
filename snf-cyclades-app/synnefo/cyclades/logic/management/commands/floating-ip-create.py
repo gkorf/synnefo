@@ -17,7 +17,7 @@ from optparse import make_option
 
 from django.core.management.base import CommandError
 
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 from synnefo.cyclades.management.common import convert_api_faults
 from synnefo.cyclades.logic import ips
 from synnefo.cyclades.api import util

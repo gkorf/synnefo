@@ -15,7 +15,7 @@
 
 from optparse import make_option
 
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 from synnefo.cyclades import quotas
 
 

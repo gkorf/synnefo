@@ -29,7 +29,7 @@ from mock import patch
 from synnefo.cyclades.api.util import allocate_resource
 from synnefo.cyclades.logic.callbacks import (update_db, update_network,
                                      update_build_progress)
-from snf_django.utils.testing import mocked_quotaholder
+from synnefo.django.utils.testing import mocked_quotaholder
 from synnefo.cyclades.logic.rapi import GanetiApiError
 
 now = datetime.now

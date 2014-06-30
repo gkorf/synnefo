@@ -17,8 +17,8 @@ from django.conf.urls import include, patterns
 
 from synnefo.astakos.im.settings import BASE_PATH, ACCOUNTS_PREFIX, \
     VIEWS_PREFIX, KEYSTONE_PREFIX, WEBLOGIN_PREFIX, ADMIN_PREFIX
-from snf_django.lib.api.utils import prefix_pattern
-from snf_django.utils.urls import \
+from synnefo.django.lib.api.utils import prefix_pattern
+from synnefo.django.utils.urls import \
     extend_with_root_redirects, extend_endpoint_with_slash
 from synnefo.astakos.im.settings import astakos_services
 

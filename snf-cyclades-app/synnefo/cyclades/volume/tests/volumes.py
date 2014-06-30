@@ -13,11 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from snf_django.utils.testing import BaseAPITest, mocked_quotaholder
+from synnefo.django.utils.testing import BaseAPITest, mocked_quotaholder
 #from synnefo.cyclades.db.models import Volume
 from synnefo.cyclades.db import models_factory as mf
 from synnefo.cyclades.volume import volumes
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from django.conf import settings
 from mock import patch
 from copy import deepcopy

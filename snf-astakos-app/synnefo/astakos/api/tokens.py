@@ -17,7 +17,7 @@ from collections import defaultdict
 
 from django.views.decorators.csrf import csrf_exempt
 
-from snf_django.lib.api import faults, utils, api_method
+from synnefo.django.lib.api import faults, utils, api_method
 from django.core.cache import cache
 
 from synnefo.astakos.im import settings

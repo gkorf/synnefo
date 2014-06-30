@@ -14,13 +14,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.core.management.base import CommandError
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 from synnefo.cyclades.management.common import (format_vm_state, get_resource,
                                        get_image)
-from snf_django.lib.astakos import UserCache
+from synnefo.django.lib.astakos import UserCache
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
                               ASTAKOS_AUTH_URL)
-from snf_django.management import utils
+from synnefo.django.management import utils
 
 
 class Command(SynnefoCommand):

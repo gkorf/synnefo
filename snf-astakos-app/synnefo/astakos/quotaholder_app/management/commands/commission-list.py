@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from snf_django.management.commands import ListCommand, CommandError
+from synnefo.django.management.commands import ListCommand, CommandError
 
 from optparse import make_option
 from synnefo.astakos.quotaholder_app.models import Commission

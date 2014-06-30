@@ -16,7 +16,7 @@
 from django.core.management.base import CommandError
 from optparse import make_option
 
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 from synnefo.cyclades.db.utils import validate_mac
 from synnefo.cyclades.management.common import pool_table_from_type
 

@@ -14,8 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import patterns, url
-from snf_django.lib.api import api_endpoint_not_found
-from snf_django.lib.api.urls import api_patterns
+from synnefo.django.lib.api import api_endpoint_not_found
+from synnefo.django.lib.api.urls import api_patterns
 from synnefo.astakos.im import settings
 
 urlpatterns = patterns('')

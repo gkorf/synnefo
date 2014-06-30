@@ -17,7 +17,7 @@ from django.utils.importlib import import_module
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext as _
 
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 
 from synnefo.astakos.im import models
 from synnefo.astakos.im import functions

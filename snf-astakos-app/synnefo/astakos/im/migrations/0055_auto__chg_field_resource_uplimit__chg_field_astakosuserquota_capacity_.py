@@ -24,16 +24,16 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
 
         # Changing field 'Resource.uplimit'
-        db.alter_column('im_resource', 'uplimit', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('im_resource', 'uplimit', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
         # Changing field 'AstakosUserQuota.capacity'
-        db.alter_column('im_astakosuserquota', 'capacity', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('im_astakosuserquota', 'capacity', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
         # Changing field 'ProjectResourceGrant.project_capacity'
-        db.alter_column('im_projectresourcegrant', 'project_capacity', self.gf('snf_django.lib.db.fields.IntDecimalField')(null=True, max_digits=38, decimal_places=0))
+        db.alter_column('im_projectresourcegrant', 'project_capacity', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(null=True, max_digits=38, decimal_places=0))
 
         # Changing field 'ProjectResourceGrant.member_capacity'
-        db.alter_column('im_projectresourcegrant', 'member_capacity', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('im_projectresourcegrant', 'member_capacity', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
     models = {
         'auth.group': {

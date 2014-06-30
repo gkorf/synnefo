@@ -15,7 +15,7 @@
 
 import logging
 from django.db import transaction
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.plankton.backend import PlanktonBackend
 from synnefo.cyclades.logic import backend
 from synnefo.cyclades.volume import util

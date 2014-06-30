@@ -16,10 +16,10 @@
 from optparse import make_option
 from datetime import datetime
 
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 from django.db import transaction
-from snf_django.utils import reconcile
-from snf_django.management.utils import pprint_table
+from synnefo.django.utils import reconcile
+from synnefo.django.management.utils import pprint_table
 from synnefo.astakos.im.models import Component, AstakosUser
 from synnefo.astakos.im import quotas
 from synnefo.astakos.im.functions import count_pending_app
