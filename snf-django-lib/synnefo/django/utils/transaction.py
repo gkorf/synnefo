@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from snf_django.utils.db import select_db
+from synnefo.django.utils.db import select_db
 
 
 def _transaction_func(app, method, using):
