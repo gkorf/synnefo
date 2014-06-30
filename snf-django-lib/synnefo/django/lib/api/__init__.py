@@ -28,7 +28,7 @@ from django.views.decorators import csrf
 from astakosclient import AstakosClient
 from astakosclient.errors import AstakosClientException
 from django.conf import settings
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 
 import itertools
 

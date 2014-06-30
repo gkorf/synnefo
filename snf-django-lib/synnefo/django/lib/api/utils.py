@@ -18,7 +18,7 @@ from dateutil.parser import parse as date_parse
 from django.utils import simplejson as json
 
 from django.conf import settings
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 
 
 class UTC(datetime.tzinfo):
