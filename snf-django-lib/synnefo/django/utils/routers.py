@@ -18,7 +18,7 @@ Router for the Astakos/Cyclades app. It is used to specify which database will
 be used for each model.
 """
 
-from snf_django.utils.db import select_db
+from synnefo.django.utils.db import select_db
 
 
 class SynnefoRouter(object):

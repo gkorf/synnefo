@@ -15,7 +15,7 @@
 
 from django.conf.urls import url, patterns
 
-from snf_django.lib.api.utils import prefix_pattern
+from synnefo.django.lib.api.utils import prefix_pattern
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 
