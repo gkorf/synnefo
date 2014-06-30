@@ -23,7 +23,7 @@ from django.utils.translation import ugettext as _
 from django.db.models import Q
 from django.db.utils import IntegrityError
 
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 
 import synnefo.util.date as date_util
 from synnefo.astakos.im.models import AstakosUser, ProjectMembership, \

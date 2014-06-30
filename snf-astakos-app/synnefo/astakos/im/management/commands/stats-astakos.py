@@ -17,8 +17,8 @@ import json
 import string
 from optparse import make_option
 
-from snf_django.management.commands import SynnefoCommand, CommandError
-from snf_django.management.utils import pprint_table
+from synnefo.django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.utils import pprint_table
 from synnefo.astakos.admin import stats as statistics
 from synnefo.astakos.im.models import Resource
 from synnefo.util import units

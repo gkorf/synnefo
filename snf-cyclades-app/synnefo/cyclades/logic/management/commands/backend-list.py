@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from synnefo.cyclades.db.models import Backend
-from snf_django.management.commands import ListCommand
+from synnefo.django.management.commands import ListCommand
 from synnefo.cyclades.api import util
 
 

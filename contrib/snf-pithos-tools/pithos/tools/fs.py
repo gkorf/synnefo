@@ -24,7 +24,7 @@ from sys import argv
 from time import time
 
 
-from snf_django.lib.api.parsedate import parse_http_date
+from synnefo.django.lib.api.parsedate import parse_http_date
 
 from pithos.tools.lib.client import OOS_Client, Fault
 from pithos.tools.lib.fuse import FUSE, FuseOSError, Operations

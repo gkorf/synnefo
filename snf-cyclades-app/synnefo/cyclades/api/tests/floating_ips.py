@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.utils import simplejson as json
-from snf_django.utils.testing import BaseAPITest, mocked_quotaholder
+from synnefo.django.utils.testing import BaseAPITest, mocked_quotaholder
 from synnefo.cyclades.db.models import IPAddress, Network, Subnet, IPPoolTable
 from synnefo.cyclades.db import models_factory as mf
 

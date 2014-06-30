@@ -18,7 +18,7 @@ from mock import patch
 from django.test import TestCase, Client
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from snf_django.utils.testing import mocked_quotaholder
+from synnefo.django.utils.testing import mocked_quotaholder
 
 
 USER1 = "5edcb5aa-1111-4146-a8ed-2b6287824353"
@@ -104,7 +104,7 @@ def get_user_mock(request, *args, **kwargs):
 
 
 @patch("astakosclient.AstakosClient", new=AstakosClientMock)
-@patch("snf_django.lib.astakos.get_user", new=get_user_mock)
+@patch("synnefo.django.lib.astakos.get_user", new=get_user_mock)
 class HelpdeskTests(TestCase):
     """
     Helpdesk tests. Test correctness of permissions and returned data.

@@ -17,7 +17,7 @@ from django.core.management.base import CommandError
 from optparse import make_option
 
 from synnefo.pithos.api.util import get_backend
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 
 import logging
 

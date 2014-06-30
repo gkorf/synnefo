@@ -17,7 +17,7 @@ import logging
 from optparse import make_option
 
 from synnefo.cyclades.logic import reconciliation
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 
 
 HELP_MSG = """\

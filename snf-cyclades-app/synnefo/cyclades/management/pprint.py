@@ -14,9 +14,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
-from snf_django.management.utils import pprint_table
+from synnefo.django.management.utils import pprint_table
 from synnefo.lib.ordereddict import OrderedDict
-from snf_django.lib.astakos import UserCache
+from synnefo.django.lib.astakos import UserCache
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
                               ASTAKOS_AUTH_URL)
 from synnefo.cyclades.db.models import Backend, pooled_rapi_client

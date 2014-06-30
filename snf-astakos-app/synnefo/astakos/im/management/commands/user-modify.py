@@ -20,7 +20,7 @@ from optparse import make_option
 
 from django.core import management
 from synnefo.astakos.im import transaction
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email

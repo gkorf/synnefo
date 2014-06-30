@@ -20,7 +20,7 @@ from synnefo.cyclades.db.models import VirtualMachine, Network, BackendNetwork
 from synnefo.cyclades.db import models_factory as mfactory
 from synnefo.cyclades.logic import reconciliation
 from mock import patch
-from snf_django.utils.testing import mocked_quotaholder
+from synnefo.django.utils.testing import mocked_quotaholder
 from time import time
 from synnefo import settings
 

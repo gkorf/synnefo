@@ -16,7 +16,7 @@
 import json
 
 from mock import patch, Mock
-from snf_django.utils.testing import BaseAPITest, mocked_quotaholder
+from synnefo.django.utils.testing import BaseAPITest, mocked_quotaholder
 from synnefo.cyclades.db.models_factory import (
     VolumeFactory, VolumeTypeFactory,
     VirtualMachineFactory)

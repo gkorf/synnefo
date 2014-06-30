@@ -15,7 +15,7 @@
 
 from django.conf.urls import patterns, url, include
 
-from snf_django.lib.api import api_endpoint_not_found
+from synnefo.django.lib.api import api_endpoint_not_found
 
 
 astakos_account_v1_0 = patterns(

@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings
-from snf_django.utils.testing import BaseAPITest, override_settings
+from synnefo.django.utils.testing import BaseAPITest, override_settings
 from django.utils import simplejson as json
 from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path

@@ -28,7 +28,7 @@ from synnefo.lib.utils import case_unique
 from synnefo.cyclades.db.models import Network, VirtualMachine
 from synnefo.cyclades.userdata.models import PublicKeyPair
 
-from snf_django.lib import astakos
+from synnefo.django.lib import astakos
 
 def warn(*msgs):
     print "WARNING: %s" % ' '.join(msgs)

@@ -15,7 +15,7 @@
 
 import json
 
-from snf_django.utils.testing import BaseAPITest
+from synnefo.django.utils.testing import BaseAPITest
 from synnefo.lib.services import get_service_path
 from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib import join_urls

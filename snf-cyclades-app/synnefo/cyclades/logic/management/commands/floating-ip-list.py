@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from synnefo.cyclades.db.models import IPAddress
-from snf_django.management.commands import ListCommand
+from synnefo.django.management.commands import ListCommand
 from synnefo.settings import CYCLADES_SERVICE_TOKEN, ASTAKOS_AUTH_URL
 from logging import getLogger
 log = getLogger(__name__)
