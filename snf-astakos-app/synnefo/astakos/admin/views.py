@@ -22,8 +22,8 @@ from django.utils import simplejson as json
 from django.forms.models import model_to_dict
 from django.core.validators import validate_email, ValidationError
 
-from snf_django.lib import api
-from snf_django.lib.api import faults
+from synnefo.django.lib import api
+from synnefo.django.lib.api import faults
 
 from synnefo.astakos.im import settings
 from synnefo.astakos.admin import stats

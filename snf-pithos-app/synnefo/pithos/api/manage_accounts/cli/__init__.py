@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from synnefo.pithos.api.manage_accounts import ManageAccounts
-from snf_django.management.utils import pprint_table
+from synnefo.django.management.utils import pprint_table
 
 import argparse
 

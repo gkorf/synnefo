@@ -20,11 +20,11 @@ from optparse import make_option
 
 from synnefo.pithos.api.util import get_backend
 
-from snf_django.management import utils
+from synnefo.django.management import utils
 
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 from astakosclient.errors import QuotaLimit, NotFound
-from snf_django.utils import reconcile
+from synnefo.django.utils import reconcile
 
 backend = get_backend()
 RESOURCES = ['pithos.diskspace']

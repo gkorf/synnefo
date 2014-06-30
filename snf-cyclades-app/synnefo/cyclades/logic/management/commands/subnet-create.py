@@ -18,8 +18,8 @@ from optparse import make_option
 from django.core.management.base import CommandError
 
 from synnefo.cyclades.management import common
-from snf_django.management.commands import SynnefoCommand
-from snf_django.management.utils import parse_bool
+from synnefo.django.management.commands import SynnefoCommand
+from synnefo.django.management.utils import parse_bool
 from synnefo.cyclades.management import pprint
 from synnefo.cyclades.logic import subnets
 

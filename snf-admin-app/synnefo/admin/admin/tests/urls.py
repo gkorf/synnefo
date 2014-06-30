@@ -19,7 +19,7 @@ import django.test
 from django.conf import settings
 from django.core.urlresolvers import resolve, set_urlconf, Resolver404
 
-from snf_django.utils.testing import override_settings
+from synnefo.django.utils.testing import override_settings
 
 URL1 = "https://example.synnefo.org/rand0m"
 URL2 = "https://admin.example.synnefo.org"

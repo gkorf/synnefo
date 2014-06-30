@@ -1888,7 +1888,7 @@ example setup is the following:
         }
     }
 
-    DATABASE_ROUTERS = ['snf_django.utils.routers.SynnefoRouter']
+    DATABASE_ROUTERS = ['synnefo.django.utils.routers.SynnefoRouter']
 
 You may notice that there are three databases instead of two. That's because
 Django requires that every ``DATABASES`` setting has a *default* database. In

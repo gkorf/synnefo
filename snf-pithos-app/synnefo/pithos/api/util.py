@@ -32,9 +32,10 @@ from django.core.files.uploadedfile import UploadedFile
 from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 
-from snf_django.lib.api.parsedate import parse_http_date_safe, parse_http_date
-from snf_django.lib import api
-from snf_django.lib.api import faults, utils
+from synnefo.django.lib.api.parsedate import parse_http_date_safe, \
+    parse_http_date
+from synnefo.django.lib import api
+from synnefo.django.lib.api import faults, utils
 
 from synnefo.pithos.api.settings import (
     BACKEND_DB_MODULE, BACKEND_DB_CONNECTION,

@@ -22,7 +22,7 @@ from django.utils import simplejson as json
 from django.core.urlresolvers import reverse
 from django.core.validators import MaxLengthValidator
 
-from snf_django.utils.testing import with_settings
+from synnefo.django.utils.testing import with_settings
 
 from mock import patch
 

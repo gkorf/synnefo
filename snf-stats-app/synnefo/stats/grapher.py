@@ -30,7 +30,7 @@ from hashlib import sha256
 
 from synnefo.stats import settings
 
-from snf_django.lib.api import faults, api_method
+from synnefo.django.lib.api import faults, api_method
 
 from logging import getLogger
 log = getLogger(__name__)

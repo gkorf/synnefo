@@ -15,8 +15,8 @@
 
 from synnefo.astakos.im.models import AuthProviderPolicyProfile as Profile
 from synnefo.lib.ordereddict import OrderedDict
-from snf_django.management.commands import SynnefoCommand, CommandError
-from snf_django.management import utils
+from synnefo.django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management import utils
 
 
 class Command(SynnefoCommand):

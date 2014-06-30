@@ -16,15 +16,15 @@
 
 # Provides automated tests for logic module
 from django.test import TransactionTestCase
-#from snf_django.utils.testing import mocked_quotaholder
+#from synnefo.django.utils.testing import mocked_quotaholder
 from synnefo.cyclades.logic import servers
 from synnefo.cyclades.logic import backend
 from synnefo.cyclades import quotas
 from synnefo.cyclades.db import models_factory as mfactory, models
 from mock import patch, Mock
 
-from snf_django.lib.api import faults
-from snf_django.utils.testing import mocked_quotaholder, override_settings
+from synnefo.django.lib.api import faults
+from synnefo.django.utils.testing import mocked_quotaholder, override_settings
 from django.conf import settings
 from copy import deepcopy
 

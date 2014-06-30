@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from snf_django.utils.testing import BaseAPITest
+from synnefo.django.utils.testing import BaseAPITest
 from django.utils import simplejson as json
 from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path

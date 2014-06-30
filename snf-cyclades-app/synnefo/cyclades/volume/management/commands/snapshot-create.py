@@ -15,9 +15,9 @@
 
 from optparse import make_option
 
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 from synnefo.cyclades.management import common
-#from snf_django.management.utils import parse_bool
+#from synnefo.django.management.utils import parse_bool
 from synnefo.cyclades.volume import snapshots
 
 

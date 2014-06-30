@@ -24,8 +24,8 @@ from django.utils import simplejson as json
 from django.forms.models import model_to_dict
 from django.core.validators import validate_email, ValidationError
 
-from snf_django.lib import api
-from snf_django.lib.api import faults
+from synnefo.django.lib import api
+from synnefo.django.lib.api import faults
 
 from .util import (
     get_uuid_displayname_catalogs as get_uuid_displayname_catalogs_util,

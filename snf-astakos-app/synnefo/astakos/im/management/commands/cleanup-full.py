@@ -19,7 +19,7 @@ from django.utils.importlib import import_module
 from django.conf import settings
 
 from synnefo.astakos.im.models import SessionCatalog
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 
 
 class Command(SynnefoCommand):

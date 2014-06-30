@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from optparse import make_option
-from snf_django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.commands import SynnefoCommand, CommandError
 
 from synnefo.cyclades.management.common import convert_api_faults
 from synnefo.cyclades.management import pprint, common

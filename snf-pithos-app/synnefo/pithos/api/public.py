@@ -16,8 +16,8 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from snf_django.lib import api
-from snf_django.lib.api import faults
+from synnefo.django.lib import api
+from synnefo.django.lib.api import faults
 
 from synnefo.pithos.api.settings import UNSAFE_DOMAIN, UPDATE_MD5
 from synnefo.pithos.api.util import (

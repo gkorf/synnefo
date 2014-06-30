@@ -15,8 +15,8 @@
 #
 from optparse import make_option
 
-from snf_django.management.commands import SynnefoCommand
-from snf_django.management.utils import pprint_table
+from synnefo.django.management.commands import SynnefoCommand
+from synnefo.django.management.utils import pprint_table
 from synnefo.cyclades.plankton.backend import PlanktonBackend
 
 

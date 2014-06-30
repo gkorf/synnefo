@@ -17,7 +17,7 @@
 import astakosclient
 from django.conf import settings
 from optparse import make_option, OptionValueError
-from snf_django.management.utils import parse_bool
+from synnefo.django.management.utils import parse_bool
 
 
 class WrappedOptions(object):

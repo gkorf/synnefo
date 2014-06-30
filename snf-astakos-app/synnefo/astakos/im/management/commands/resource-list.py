@@ -15,7 +15,7 @@
 
 from optparse import make_option
 from synnefo.astakos.im.models import Resource
-from snf_django.management.commands import ListCommand
+from synnefo.django.management.commands import ListCommand
 from ._common import show_resource_value, style_options, check_style
 
 

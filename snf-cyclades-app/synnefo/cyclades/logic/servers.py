@@ -22,7 +22,7 @@ from django import dispatch
 from synnefo.cyclades.db import transaction
 from django.utils import simplejson as json
 
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from django.conf import settings
 from synnefo.cyclades.api import util
 from synnefo.cyclades.logic import backend, ips, utils
