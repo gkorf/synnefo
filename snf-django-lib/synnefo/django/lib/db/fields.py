@@ -58,7 +58,7 @@ class IntDecimalField(DecimalField):
         return super(IntDecimalField, self).formfield(**defaults)
 
 add_introspection_rules(
-    [], ["^snf_django\.lib\.db\.fields\.IntDecimalField"])
+    [], ["^synnefo\.django\.lib\.db\.fields\.IntDecimalField"])
 
 
 def intDecimalField(verbose_name=None, name=None, **kwargs):

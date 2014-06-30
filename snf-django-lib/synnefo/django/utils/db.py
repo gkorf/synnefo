@@ -17,7 +17,7 @@ from django.conf import settings
 
 ASTAKOS_DATABASE = "astakos"
 CYCLADES_DATABASE = "cyclades"
-SYNNEFO_ROUTER = "snf_django.utils.routers.SynnefoRouter"
+SYNNEFO_ROUTER = "synnefo.django.utils.routers.SynnefoRouter"
 
 
 def select_db(app):
