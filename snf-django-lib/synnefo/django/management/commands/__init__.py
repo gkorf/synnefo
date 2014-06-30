@@ -24,9 +24,9 @@ from synnefo import settings
 from django.core.management.base import (BaseCommand,
                                          CommandError as DjangoCommandError)
 from django.core.exceptions import FieldError
-from snf_django.management import utils
-from snf_django.lib.astakos import UserCache
-from snf_django.utils.line_logging import NewlineStreamHandler
+from synnefo.django.management import utils
+from synnefo.django.lib.astakos import UserCache
+from synnefo.django.utils.line_logging import NewlineStreamHandler
 
 import distutils
 

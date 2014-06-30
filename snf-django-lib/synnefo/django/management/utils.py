@@ -22,7 +22,7 @@ from datetime import datetime
 from django.utils.timesince import timesince, timeuntil
 from django.db.models.query import QuerySet
 from django.utils.encoding import smart_unicode, smart_str
-from snf_django.management.unicodecsv import UnicodeWriter
+from synnefo.django.management.unicodecsv import UnicodeWriter
 
 
 def smart_locale_unicode(s, **kwargs):

@@ -112,7 +112,7 @@ def astakos_user(user):
         .... make api calls ....
 
     """
-    with patch("snf_django.lib.api.get_token") as get_token:
+    with patch("synnefo.django.lib.api.get_token") as get_token:
         get_token.return_value = "DummyToken"
         with patch('astakosclient.AstakosClient.authenticate') as m2:
             m2.return_value = {"access": {
