@@ -15,8 +15,8 @@
 #
 
 from django.core.management.base import CommandError
-from snf_django.management.commands import RemoveCommand
-from snf_django.lib.api import faults
+from synnefo.django.management.commands import RemoveCommand
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.logic import networks
 from synnefo.cyclades.management import common
 

@@ -21,8 +21,8 @@ from synnefo.lib.ordereddict import OrderedDict
 from synnefo.cyclades.quotas import util
 from synnefo.cyclades.quotas import enforce
 from synnefo.cyclades.quotas import errors
-from snf_django.management.commands import SynnefoCommand, CommandError
-from snf_django.management.utils import pprint_table
+from synnefo.django.management.commands import SynnefoCommand, CommandError
+from synnefo.django.management.utils import pprint_table
 from collections import defaultdict
 
 

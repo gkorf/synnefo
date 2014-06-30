@@ -30,8 +30,8 @@ functions:
 
 from django.db import transaction
 
-from snf_django.utils.transaction import _transaction_func
-from snf_django.utils.db import select_db
+from synnefo.django.utils.transaction import _transaction_func
+from synnefo.django.utils.db import select_db
 
 
 def commit(using=None):

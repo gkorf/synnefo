@@ -16,7 +16,7 @@
 import logging
 import simplejson as json
 from synnefo.cyclades.db import transaction
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.plankton.backend import PlanktonBackend, OBJECT_ERROR
 from synnefo.cyclades.logic import backend
 from synnefo.cyclades.volume import util

@@ -19,8 +19,8 @@ path (BASE_PATH) is constructed from the ADMIN_BASE_URL setting.
 """
 
 from django.conf.urls import patterns, include
-from snf_django.utils.urls import extend_path_with_slash
-from snf_django.lib.api.utils import prefix_pattern
+from synnefo.django.utils.urls import extend_path_with_slash
+from synnefo.django.lib.api.utils import prefix_pattern
 from synnefo_admin.admin_settings import BASE_PATH
 
 urlpatterns = patterns(

@@ -16,7 +16,7 @@
 import logging
 import functools
 
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.db import transaction
 from synnefo.cyclades import quotas
 from synnefo.cyclades.db import pools

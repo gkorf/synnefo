@@ -184,7 +184,7 @@ class Migration(SchemaMigration):
         },
         'im.astakosuserquota': {
             'Meta': {'unique_together': "(('resource', 'user'),)", 'object_name': 'AstakosUserQuota'},
-            'capacity': ('snf_django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
+            'capacity': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'max_digits': '38', 'decimal_places': '0'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'resource': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['im.Resource']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['im.AstakosUser']"})
@@ -301,9 +301,9 @@ class Migration(SchemaMigration):
         'im.projectresourcegrant': {
             'Meta': {'unique_together': "(('resource', 'project_application'),)", 'object_name': 'ProjectResourceGrant'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'member_capacity': ('snf_django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'}),
+            'member_capacity': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'}),
             'project_application': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['im.ProjectApplication']", 'null': 'True'}),
-            'project_capacity': ('snf_django.lib.db.fields.IntDecimalField', [], {'null': 'True', 'max_digits': '38', 'decimal_places': '0'}),
+            'project_capacity': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'null': 'True', 'max_digits': '38', 'decimal_places': '0'}),
             'resource': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['im.Resource']"})
         },
         'im.resource': {
@@ -314,7 +314,7 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
             'service': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['im.Service']"}),
             'unit': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'}),
-            'uplimit': ('snf_django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'})
+            'uplimit': ('synnefo.django.lib.db.fields.IntDecimalField', [], {'default': '0', 'max_digits': '38', 'decimal_places': '0'})
         },
         'im.serial': {
             'Meta': {'object_name': 'Serial'},

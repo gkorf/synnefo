@@ -17,8 +17,8 @@ from django.core.management.base import CommandError
 
 from optparse import make_option
 
-from snf_django.management.commands import SynnefoCommand
-from snf_django.management import utils
+from synnefo.django.management.commands import SynnefoCommand
+from synnefo.django.management import utils
 
 from synnefo.pithos.api.util import get_backend, update_public_meta, is_uuid
 

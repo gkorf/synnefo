@@ -23,7 +23,7 @@ import logging
 
 import django_filters
 
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.api.util import get_image
 from synnefo.lib.dict import SnfOrderedDict
 from synnefo.cyclades.db.models import Image

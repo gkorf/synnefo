@@ -20,7 +20,7 @@ from synnefo.astakos.im.user_logic import (
     send_verification_mail)
 from synnefo.astakos.im.auth import make_local_user
 from synnefo.astakos.im.models import AstakosUser
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from django.core import mail
 
 

@@ -15,7 +15,7 @@
 
 import logging
 
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from django.conf import settings
 from synnefo.cyclades.logic import backend, commands
 

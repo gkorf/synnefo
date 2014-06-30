@@ -28,7 +28,7 @@ from django.template.loader import render_to_string
 from django.utils import simplejson as json
 from django.db.models import Q
 
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.db.models import (
     Flavor, VirtualMachine, VirtualMachineMetadata,
     Network, NetworkInterface, SecurityGroup,

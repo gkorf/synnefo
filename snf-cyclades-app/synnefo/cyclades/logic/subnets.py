@@ -21,8 +21,8 @@ from django.conf import settings
 from synnefo.cyclades.db import transaction
 from django.db.models import Q
 
-from snf_django.lib import api
-from snf_django.lib.api import faults
+from synnefo.django.lib import api
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.logic import utils
 from synnefo.cyclades.api import util
 

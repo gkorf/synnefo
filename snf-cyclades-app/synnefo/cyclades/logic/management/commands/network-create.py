@@ -17,9 +17,9 @@ from optparse import make_option
 
 from django.core.management.base import CommandError
 
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 from synnefo.cyclades.management.common import convert_api_faults
-from snf_django.management.utils import parse_bool
+from synnefo.django.management.utils import parse_bool
 
 from synnefo.cyclades.db.models import Network
 from synnefo.cyclades.logic import networks, subnets

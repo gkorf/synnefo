@@ -23,7 +23,7 @@ from django.http import HttpResponse
 
 from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 
-from snf_django.lib.astakos import get_user
+from synnefo.django.lib.astakos import get_user
 from django.conf import settings
 
 

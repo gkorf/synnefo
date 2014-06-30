@@ -51,7 +51,7 @@ from synnefo.pithos.backends.exceptions import (
 from synnefo.pithos.backends.modular import \
     MAP_AVAILABLE, MAP_UNAVAILABLE, MAP_ERROR
 from synnefo.pithos.backends.util import PithosBackendPool
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 
 Location = namedtuple("ObjectLocation", ["account", "container", "path"])
 

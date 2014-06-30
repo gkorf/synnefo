@@ -19,7 +19,7 @@ import copy
 import datetime
 import functools
 
-from snf_django.utils.testing import with_settings, override_settings, \
+from synnefo.django.utils.testing import with_settings, override_settings, \
     assertIn, assertGreater, assertRaises
 
 from django.test import Client

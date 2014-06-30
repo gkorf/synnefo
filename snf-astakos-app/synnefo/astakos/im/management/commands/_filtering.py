@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from synnefo.util import units
-from snf_django.management.commands import CommandError
+from synnefo.django.management.commands import CommandError
 from django.db.models import Q
 
 

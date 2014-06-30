@@ -22,8 +22,8 @@ from django.conf import settings
 
 from synnefo.cyclades.db import models_factory as mf
 from synnefo.astakos.im import settings as astakos_settings
-from snf_django.lib.api import faults
-from snf_django.utils.testing import override_settings
+from synnefo.django.lib.api import faults
+from synnefo.django.utils.testing import override_settings
 
 from synnefo_admin import admin_settings
 from synnefo_admin.admin import views

@@ -36,28 +36,28 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
 
         # Changing field 'Provision.quantity'
-        db.alter_column('quotaholder_app_provision', 'quantity', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('quotaholder_app_provision', 'quantity', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
         # Changing field 'Holding.usage_min'
-        db.alter_column('quotaholder_app_holding', 'usage_min', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('quotaholder_app_holding', 'usage_min', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
         # Changing field 'Holding.usage_max'
-        db.alter_column('quotaholder_app_holding', 'usage_max', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('quotaholder_app_holding', 'usage_max', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
         # Changing field 'Holding.limit'
-        db.alter_column('quotaholder_app_holding', 'limit', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('quotaholder_app_holding', 'limit', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
         # Changing field 'ProvisionLog.usage_max'
-        db.alter_column('quotaholder_app_provisionlog', 'usage_max', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('quotaholder_app_provisionlog', 'usage_max', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
         # Changing field 'ProvisionLog.delta_quantity'
-        db.alter_column('quotaholder_app_provisionlog', 'delta_quantity', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('quotaholder_app_provisionlog', 'delta_quantity', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
         # Changing field 'ProvisionLog.limit'
-        db.alter_column('quotaholder_app_provisionlog', 'limit', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('quotaholder_app_provisionlog', 'limit', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
         # Changing field 'ProvisionLog.usage_min'
-        db.alter_column('quotaholder_app_provisionlog', 'usage_min', self.gf('snf_django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
+        db.alter_column('quotaholder_app_provisionlog', 'usage_min', self.gf('synnefo.django.lib.db.fields.IntDecimalField')(max_digits=38, decimal_places=0))
 
     models = {
         'quotaholder_app.commission': {

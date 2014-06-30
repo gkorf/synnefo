@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from synnefo.cyclades.db import models
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.api.util import get_image_dict, get_vm
 from synnefo.cyclades.plankton import backend
 from synnefo.cyclades.cyclades_settings import cyclades_services, BASE_HOST

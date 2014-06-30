@@ -18,7 +18,7 @@ import uuid
 from django.core.validators import validate_email
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from snf_django.management.commands import CommandError
+from synnefo.django.management.commands import CommandError
 
 from synnefo.util import units
 from synnefo.astakos.im.models import AstakosUser

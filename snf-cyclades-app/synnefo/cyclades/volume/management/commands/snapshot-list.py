@@ -14,10 +14,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 from optparse import make_option
 
-from snf_django.management.utils import pprint_table
+from synnefo.django.management.utils import pprint_table
 from synnefo.cyclades.plankton.backend import PlanktonBackend
 
 

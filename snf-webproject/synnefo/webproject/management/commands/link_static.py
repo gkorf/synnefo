@@ -21,7 +21,7 @@ from django.utils.importlib import import_module
 from optparse import make_option
 from django.conf import settings
 
-from snf_django.management.commands import SynnefoCommand
+from synnefo.django.management.commands import SynnefoCommand
 
 STATIC_FILES = getattr(settings, "STATIC_FILES", {})
 

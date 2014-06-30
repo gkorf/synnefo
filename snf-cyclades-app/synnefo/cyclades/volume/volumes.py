@@ -17,7 +17,7 @@ import logging
 
 from synnefo.cyclades.db import transaction
 from django.conf import settings
-from snf_django.lib.api import faults
+from synnefo.django.lib.api import faults
 from synnefo.cyclades.db.models import Volume, VolumeMetadata
 from synnefo.cyclades.volume import util
 from synnefo.cyclades.logic import server_attachments, utils, commands
