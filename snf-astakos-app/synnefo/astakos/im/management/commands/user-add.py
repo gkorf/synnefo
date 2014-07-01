@@ -15,13 +15,13 @@
 
 from optparse import make_option
 
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 from snf_django.management.commands import SynnefoCommand, CommandError
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
-from astakos.im.models import AstakosUser, get_latest_terms
-from astakos.im.auth import make_local_user
+from synnefo.astakos.im.models import AstakosUser, get_latest_terms
+from synnefo.astakos.im.auth import make_local_user
 
 
 class Command(SynnefoCommand):

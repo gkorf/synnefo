@@ -69,7 +69,7 @@
 $(document).ready(function(){
   var usageView = new UsageView({
     'url': '{% url astakos-api-quotas %}',
-    'projects_url': '{% url astakos.api.projects.projects %}',
+    'projects_url': '{% url synnefo.astakos.api.projects.projects %}',
     'cookie_name': '{{ token_cookie_name|safe }}',
     'dataType': 'json',
     'container': '#quota-container',

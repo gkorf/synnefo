@@ -14,9 +14,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from astakos.im.tests.common import *
-from astakos.im.settings import astakos_services, BASE_HOST
-from astakos.oa2.backends import DjangoBackend
+from synnefo.astakos.im.tests.common import *
+from synnefo.astakos.im.settings import astakos_services, BASE_HOST
+from synnefo.astakos.oa2.backends import DjangoBackend
 
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
@@ -465,7 +465,7 @@ class TokensApiTest(TestCase):
 
     def test_authenticate(self):
         client = Client()
-        url = reverse('astakos.api.tokens.authenticate')
+        url = reverse('synnefo.astakos.api.tokens.authenticate')
 
         # Check not allowed method
         r = client.get(url, post_data={})
@@ -665,7 +665,7 @@ class UserCatalogsTest(TestCase):
             is_rejected=False, is_active=False)
 
         client = Client()
-        url = reverse('astakos.api.user.get_uuid_displayname_catalogs')
+        url = reverse('synnefo.astakos.api.user.get_uuid_displayname_catalogs')
         d = dict(uuids=[self.user.uuid], displaynames=[self.user.username])
 
         # assert Unauthorized: missing authentication token
@@ -771,13 +771,13 @@ class ValidateAccessToken(TestCase):
 
     def test_validate_token(self):
         # invalid token
-        url = reverse('astakos.api.tokens.validate_token',
+        url = reverse('synnefo.astakos.api.tokens.validate_token',
                       kwargs={'token_id': 'invalid'})
         r = self.client.get(url)
         self.assertEqual(r.status_code, 404)
 
         # valid token
-        url = reverse('astakos.api.tokens.validate_token',
+        url = reverse('synnefo.astakos.api.tokens.validate_token',
                       kwargs={'token_id': self.token.code})
 
         r = self.client.head(url)
@@ -821,6 +821,6 @@ class ValidateAccessToken(TestCase):
         self.assertEqual(self.oa2_backend.token_model.count(), 0)
 
         # user authentication token
-        url = reverse('astakos.api.tokens.validate_token',
+        url = reverse('synnefo.astakos.api.tokens.validate_token',
                       kwargs={'token_id': self.user.auth_token})
         self.assertEqual(r.status_code, 404)

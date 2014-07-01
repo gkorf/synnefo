@@ -18,7 +18,7 @@ from django.core.management import call_command
 from django.utils.importlib import import_module
 from django.conf import settings
 
-from astakos.im.models import SessionCatalog
+from synnefo.astakos.im.models import SessionCatalog
 from snf_django.management.commands import SynnefoCommand
 
 

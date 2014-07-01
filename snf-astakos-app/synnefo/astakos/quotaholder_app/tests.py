@@ -16,9 +16,9 @@
 from django.test import TestCase
 
 from snf_django.utils.testing import assertGreater, assertIn, assertRaises
-from astakos.quotaholder_app import models
-import astakos.quotaholder_app.callpoint as qh
-from astakos.quotaholder_app.exception import (
+from synnefo.astakos.quotaholder_app import models
+import synnefo.astakos.quotaholder_app.callpoint as qh
+from synnefo.astakos.quotaholder_app.exception import (
     NoCommissionError,
     NoQuantityError,
     NoCapacityError,

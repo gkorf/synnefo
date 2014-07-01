@@ -15,10 +15,10 @@
 
 from optparse import make_option
 
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 from snf_django.management.commands import SynnefoCommand, CommandError
-from astakos.im.models import AuthProviderPolicyProfile as Profile
-from astakos.im.models import AstakosUser, Group
+from synnefo.astakos.im.models import AuthProviderPolicyProfile as Profile
+from synnefo.astakos.im.models import AstakosUser, Group
 
 option_list = SynnefoCommand.option_list + (
     make_option('--group',

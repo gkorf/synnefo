@@ -21,9 +21,10 @@ from django.template.loader import render_to_string
 from django_tables2 import A
 import django_tables2 as tables
 
-from astakos.im.models import *
-from astakos.im.util import truncatename
-from astakos.im.functions import can_join_request, membership_allowed_actions
+from synnefo.astakos.im.models import *
+from synnefo.astakos.im.util import truncatename
+from synnefo.astakos.im.functions import can_join_request, \
+    membership_allowed_actions
 
 
 DEFAULT_DATE_FORMAT = "d/m/Y"
@@ -187,7 +188,7 @@ def action_extra_context(project, table, self):
     if membership is not None:
         allowed = membership_allowed_actions(membership, user)
         if 'leave' in allowed:
-            url = reverse('astakos.im.views.project_leave',
+            url = reverse('synnefo.astakos.im.views.project_leave',
                           args=(membership.project.uuid,))
             action = _('Leave')
             confirm = True

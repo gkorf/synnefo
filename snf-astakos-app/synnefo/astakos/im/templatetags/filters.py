@@ -28,14 +28,14 @@ from django.template import defaultfilters
 from synnefo.lib.ordereddict import OrderedDict
 from synnefo.util import units
 
-from astakos.im import settings
-from astakos.im.models import ProjectResourceGrant, Project
-from astakos.im.views import util as views_util
-from astakos.im import util
-from astakos.im import presentation
-from astakos.im.models import AstakosUser
+from synnefo.astakos.im import settings
+from synnefo.astakos.im.models import ProjectResourceGrant, Project
+from synnefo.astakos.im.views import util as views_util
+from synnefo.astakos.im import util
+from synnefo.astakos.im import presentation
+from synnefo.astakos.im.models import AstakosUser
 
-from astakos.im import quotas
+from synnefo.astakos.im import quotas
 
 register = template.Library()
 

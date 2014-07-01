@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import astakos.oa2.models as oa2_models
+import synnefo.astakos.oa2.models as oa2_models
 
-from astakos.oa2.backends import base as oa2base
-from astakos.oa2.backends import base as errors
+from synnefo.astakos.oa2.backends import base as oa2base
+from synnefo.astakos.oa2.backends import base as errors
 
 from django import http
 from django.conf import settings

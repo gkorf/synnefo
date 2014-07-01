@@ -16,6 +16,6 @@
 from django.conf.urls import url
 
 urlpatterns = (
-    url(r'^login$', 'astakos.im.views.target.redirect.login',
+    url(r'^login$', 'synnefo.astakos.im.views.target.redirect.login',
         name="weblogin"),
 )

@@ -18,8 +18,8 @@ from optparse import make_option
 from synnefo.lib.ordereddict import OrderedDict
 from snf_django.management.commands import SynnefoCommand, CommandError
 from snf_django.management import utils
-from astakos.im.models import ProjectApplication, Project
-from astakos.im import quotas
+from synnefo.astakos.im.models import ProjectApplication, Project
+from synnefo.astakos.im import quotas
 from ._common import show_resource_value, style_options, check_style
 from synnefo.util import units
 

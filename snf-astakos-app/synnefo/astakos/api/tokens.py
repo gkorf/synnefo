@@ -20,10 +20,10 @@ from django.views.decorators.csrf import csrf_exempt
 from snf_django.lib.api import faults, utils, api_method
 from django.core.cache import cache
 
-from astakos.im import settings
-from astakos.im.models import Service, AstakosUser
-from astakos.oa2.backends.base import OA2Error
-from astakos.oa2.backends.djangobackend import DjangoBackend
+from synnefo.astakos.im import settings
+from synnefo.astakos.im.models import Service, AstakosUser
+from synnefo.astakos.oa2.backends.base import OA2Error
+from synnefo.astakos.oa2.backends.djangobackend import DjangoBackend
 from .util import json_response, xml_response, validate_user,\
     get_content_length
 

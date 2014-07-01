@@ -15,9 +15,9 @@
 import datetime
 from django.db.models import Sum, Count
 
-from astakos.im import settings
-from astakos.im.models import AstakosUser, Resource
-from astakos.quotaholder_app.models import Holding
+from synnefo.astakos.im import settings
+from synnefo.astakos.im.models import AstakosUser, Resource
+from synnefo.astakos.quotaholder_app.models import Holding
 
 
 def get_public_stats():

@@ -14,10 +14,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from optparse import make_option
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 
-from astakos.im.models import Project
-from astakos.im import quotas
+from synnefo.astakos.im.models import Project
+from synnefo.astakos.im import quotas
 from snf_django.management.utils import pprint_table
 from snf_django.management.commands import SynnefoCommand
 

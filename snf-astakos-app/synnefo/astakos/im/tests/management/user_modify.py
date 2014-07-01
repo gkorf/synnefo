@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from astakos.im.user_logic import (verify, accept, deactivate,)
+from synnefo.astakos.im.user_logic import (verify, accept, deactivate,)
 
 from .common import SynnefoManagementTestCase, call_synnefo_command
 

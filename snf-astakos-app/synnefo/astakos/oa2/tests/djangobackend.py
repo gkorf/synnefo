@@ -28,9 +28,9 @@ from django.core.urlresolvers import reverse
 from django.utils import simplejson as json
 from django.utils.encoding import smart_str, iri_to_uri
 
-from astakos.oa2 import settings
-from astakos.oa2.models import Client, AuthorizationCode, Token
-from astakos.im.tests import common
+from synnefo.astakos.oa2 import settings
+from synnefo.astakos.oa2.models import Client, AuthorizationCode, Token
+from synnefo.astakos.im.tests import common
 
 from synnefo.util.urltools import normalize
 

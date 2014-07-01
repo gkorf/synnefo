@@ -20,8 +20,8 @@ from urllib import quote, unquote
 from django.contrib.auth.models import AnonymousUser
 from django.utils.translation import ugettext as _
 
-from astakos.im import settings
-import astakos.im.messages as astakos_messages
+from synnefo.astakos.im import settings
+import synnefo.astakos.im.messages as astakos_messages
 
 logger = logging.getLogger(__name__)
 
