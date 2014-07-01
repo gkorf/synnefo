@@ -17,7 +17,7 @@
 import logging
 from collections import OrderedDict
 
-from astakos.im import user_logic as users
+from synnefo.astakos.im import user_logic as users
 
 from synnefo_admin.admin.actions import AdminAction
 from synnefo_admin.admin.utils import update_actions_rbac, send_admin_email

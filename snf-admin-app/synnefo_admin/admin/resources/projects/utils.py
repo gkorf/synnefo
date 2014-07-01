@@ -18,8 +18,8 @@ import logging
 
 from django.core.exceptions import ObjectDoesNotExist
 
-from astakos.im.models import Project
-from astakos.im.quotas import get_project_quota
+from synnefo.astakos.im.models import Project
+from synnefo.astakos.im.quotas import get_project_quota
 
 from synnefo.util import units
 from synnefo_admin.admin.exceptions import AdminHttp404

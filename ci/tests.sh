@@ -5,7 +5,7 @@ runAstakosTests () {
     if [ -z "$astakos_tests" ]; then return; fi
 
     export SYNNEFO_EXCLUDE_PACKAGES="snf-cyclades-app:snf-admin-app:snf-pithos-app"
-    CURRENT_COMPONENT=astakos
+    CURRENT_COMPONENT=synnefo.astakos
     createSnfManageTest $astakos_tests
     runTest
 }
