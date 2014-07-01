@@ -490,13 +490,16 @@ Astakos incorporates Django user authentication system and extends its User mode
 
 Since username field of django User model has a limitation of 30 characters,
 AstakosUser is **uniquely** identified by the ``email`` instead. Therefore,
-``astakos.im.authentication_backends.EmailBackend`` is served to authenticate a
+``synnefo.astakos.im.authentication_backends.EmailBackend`` is served to
+authenticate a
 user using email if the first argument is actually an email, otherwise tries
 the username.
 
 A new AstakosUser instance is assigned with a uui as username and also with a
 ``auth_token`` used by the cloud services to authenticate the user.
-``astakos.im.authentication_backends.TokenBackend`` is also specified in order
+``synnefo.astakos.im.authentication_backends.TokenBackend`` is also
+specified
+in order
 to authenticate the user using the email and the token fields.
 
 Logged on users can perform a number of actions:
