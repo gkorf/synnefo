@@ -18,7 +18,7 @@ import logging
 from collections import OrderedDict
 
 from synnefo_admin.admin.actions import AdminAction
-from astakos.im import functions as pactions
+from synnefo.astakos.im import functions as pactions
 
 from synnefo_admin.admin.utils import update_actions_rbac, send_admin_email
 
@@ -44,7 +44,7 @@ def do_project_action(action):
         return lambda p: pactions.deny_application(p.last_application.id)
     else:
         # The action name should be the same as the function name in
-        # astakos.im.functions.
+        # synnefo.astakos.im.functions.
         func = getattr(pactions, action)
         return lambda p: func(p.id)
 

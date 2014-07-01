@@ -18,7 +18,7 @@ import logging
 
 from django.core.exceptions import ObjectDoesNotExist
 
-from astakos.im.models import AstakosUser
+from synnefo.astakos.im.models import AstakosUser
 from synnefo.db.models import Network
 
 from synnefo_admin.admin.exceptions import AdminHttp404

@@ -15,7 +15,7 @@
 
 from django.core.urlresolvers import reverse
 
-from astakos.im.models import AstakosUserAuthProvider
+from synnefo.astakos.im.models import AstakosUserAuthProvider
 from synnefo_admin.admin.tables import AdminJSONView
 
 templates = {

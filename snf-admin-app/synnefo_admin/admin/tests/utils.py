@@ -21,7 +21,7 @@ from django.core import mail
 from django.conf import settings
 
 from synnefo.db import models_factory as mf
-from astakos.im import settings as astakos_settings
+from synnefo.astakos.im import settings as astakos_settings
 from snf_django.lib.api import faults
 from snf_django.utils.testing import override_settings
 
