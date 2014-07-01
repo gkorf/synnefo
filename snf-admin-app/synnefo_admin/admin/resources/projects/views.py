@@ -21,8 +21,8 @@ from django.utils.html import escape
 
 from synnefo.db.models import (VirtualMachine, Network, Volume,
                                IPAddress)
-from astakos.im.models import AstakosUser, Project
-from astakos.im import transaction
+from synnefo.astakos.im.models import AstakosUser, Project
+from synnefo.astakos.im import transaction
 
 from synnefo_admin import admin_settings
 from synnefo_admin.admin.actions import (has_permission_or_403,

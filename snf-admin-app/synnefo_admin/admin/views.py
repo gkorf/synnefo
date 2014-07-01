@@ -32,9 +32,9 @@ from synnefo_branding.utils import render_to_string
 from snf_django.lib.api import faults
 
 
-from astakos.im.messages import PLAIN_EMAIL_SUBJECT as sample_subject
-from astakos.im import settings as astakos_settings
-from astakos.admin import stats as astakos_stats
+from synnefo.astakos.im.messages import PLAIN_EMAIL_SUBJECT as sample_subject
+from synnefo.astakos.im import settings as astakos_settings
+from synnefo.astakos.admin import stats as astakos_stats
 from synnefo.admin import stats as cyclades_stats
 
 from synnefo_admin.admin.exceptions import AdminHttp404, AdminHttp405

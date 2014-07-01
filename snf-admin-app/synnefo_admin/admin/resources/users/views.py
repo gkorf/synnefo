@@ -21,9 +21,9 @@ from django.utils.html import escape
 
 from synnefo.db.models import (VirtualMachine, Network, IPAddressLog, Volume,
                                NetworkInterface, IPAddress)
-from astakos.im.models import AstakosUser, Project
-from astakos.im import user_logic as users
-from astakos.im import transaction
+from synnefo.astakos.im.models import AstakosUser, Project
+from synnefo.astakos.im import user_logic as users
+from synnefo.astakos.im import transaction
 
 from django.db.models import Q
 

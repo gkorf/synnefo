@@ -20,7 +20,7 @@ import unittest
 from django.core import mail
 
 from synnefo.db import models_factory as mf
-from astakos.im import settings as astakos_settings
+from synnefo.astakos.im import settings as astakos_settings
 from snf_django.lib.api import faults
 
 from synnefo_admin import admin_settings

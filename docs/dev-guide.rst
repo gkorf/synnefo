@@ -251,7 +251,7 @@ Developer Guidelines
 
   .. code-block:: python
 
-     from astakos.im import transaction
+     from synnefo.astakos.im import transaction
 
 
   while for Cyclades models do:
