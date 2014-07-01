@@ -19,10 +19,10 @@ from optparse import make_option
 
 from snf_django.management.commands import SynnefoCommand, CommandError
 from snf_django.management.utils import pprint_table
-from astakos.admin import stats as statistics
-from astakos.im.models import Resource
+from synnefo.astakos.admin import stats as statistics
+from synnefo.astakos.im.models import Resource
 from synnefo.util import units
-from astakos.im.management.commands import _common as common
+from synnefo.astakos.im.management.commands import _common as common
 
 RESOURCES = Resource.objects.values_list("name", "desc")
 

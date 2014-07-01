@@ -27,27 +27,28 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_str
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 from django.core import validators
 
 from synnefo.util import units
 from synnefo_branding.utils import render_to_string
 from synnefo.lib import join_urls
-from astakos.im.fields import EmailField, InfiniteChoiceField
-from astakos.im.models import AstakosUser, EmailChange, Invitation, Resource, \
+from synnefo.astakos.im.fields import EmailField, InfiniteChoiceField
+from synnefo.astakos.im.models import AstakosUser, EmailChange, Invitation, \
+    Resource, \
     PendingThirdPartyUser, get_latest_terms, ProjectApplication, Project
-from astakos.im import presentation
-from astakos.im.widgets import DummyWidget, RecaptchaWidget
-from astakos.im.functions import submit_application, \
+from synnefo.astakos.im import presentation
+from synnefo.astakos.im.widgets import DummyWidget, RecaptchaWidget
+from synnefo.astakos.im.functions import submit_application, \
     accept_membership_project_checks, ProjectError
-from astakos.im.user_utils import send_change_email
+from synnefo.astakos.im.user_utils import send_change_email
 
-from astakos.im.util import reserved_verified_email, model_to_dict
-from astakos.im import auth_providers
-from astakos.im import settings
-from astakos.im import auth
+from synnefo.astakos.im.util import reserved_verified_email, model_to_dict
+from synnefo.astakos.im import auth_providers
+from synnefo.astakos.im import settings
+from synnefo.astakos.im import auth
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 
 import logging
 import hashlib
@@ -1021,7 +1022,7 @@ class ProjectApplicationForm(forms.ModelForm):
         return data
 
     def save(self, commit=True, **kwargs):
-        from astakos.api import projects as api
+        from synnefo.astakos.api import projects as api
         data = self.get_api_data()
         return api.submit_new_project(data, self.user)
 
@@ -1035,7 +1036,7 @@ class ProjectModificationForm(ProjectApplicationForm):
                   'member_leave_policy', 'limit_on_members_number')
 
     def save(self, commit=True, **kwargs):
-        from astakos.api import projects as api
+        from synnefo.astakos.api import projects as api
         data = self.get_api_data()
         return api.submit_modification(data, self.user, self.instance.uuid)
 

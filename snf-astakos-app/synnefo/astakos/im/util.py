@@ -29,11 +29,11 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.utils.encoding import iri_to_uri
 from django.utils.translation import ugettext as _
 
-from astakos.im.models import AstakosUser, Invitation
-from astakos.im.user_utils import login
-from astakos.im import settings
+from synnefo.astakos.im.models import AstakosUser, Invitation
+from synnefo.astakos.im.user_utils import login
+from synnefo.astakos.im import settings
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 
 logger = logging.getLogger(__name__)
 

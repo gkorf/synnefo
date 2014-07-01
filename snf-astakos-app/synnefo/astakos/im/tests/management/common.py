@@ -24,8 +24,8 @@ from django.core.management import call_command
 # These tests can be found here:
 # https://github.com/django/django/blob/master/tests/user_commands/tests.py
 
-from astakos.im.auth import make_local_user
-from astakos.im.models import AstakosUser
+from synnefo.astakos.im.auth import make_local_user
+from synnefo.astakos.im.models import AstakosUser
 
 
 class SynnefoManagementTestCase(TestCase):

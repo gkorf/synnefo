@@ -14,8 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from synnefo.util import units
-from astakos.im.models import Resource, Service, Endpoint, EndpointData
-from astakos.im import quotas
+from synnefo.astakos.im.models import Resource, Service, Endpoint, EndpointData
+from synnefo.astakos.im import quotas
 import logging
 
 logger = logging.getLogger(__name__)

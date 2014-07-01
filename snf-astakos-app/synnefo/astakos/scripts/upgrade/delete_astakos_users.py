@@ -7,7 +7,7 @@ from time import sleep
 os.environ['DJANGO_SETTINGS_MODULE'] = 'synnefo.settings'
 
 import astakos
-from astakos.im.models import AstakosUser as A
+from synnefo.astakos.im.models import AstakosUser as A
 
 
 def user_filter(user):

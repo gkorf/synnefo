@@ -21,7 +21,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import redirect
@@ -34,28 +34,30 @@ from django.template import RequestContext
 from synnefo_branding import utils as branding
 from synnefo_branding import settings as branding_settings
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 
-from astakos.im import activation_backends, user_logic
-from astakos.im.models import AstakosUser, ApprovalTerms, EmailChange, \
+from synnefo.astakos.im import activation_backends, user_logic
+from synnefo.astakos.im.models import AstakosUser, ApprovalTerms, \
+    EmailChange, \
     AstakosUserAuthProvider, PendingThirdPartyUser, Component, Project
-from astakos.im.util import get_context, prepare_response, get_query, \
+from synnefo.astakos.im.util import get_context, prepare_response, get_query, \
     restrict_next
-from astakos.im.forms import LoginForm, InvitationForm, FeedbackForm, \
+from synnefo.astakos.im.forms import LoginForm, InvitationForm, FeedbackForm, \
     SignApprovalTermsForm, EmailChangeForm
-from astakos.im.forms import ExtendedProfileForm as ProfileForm
+from synnefo.astakos.im.forms import ExtendedProfileForm as ProfileForm
 from synnefo.lib.services import get_public_endpoint
-from astakos.im.user_utils import send_feedback, logout as auth_logout, \
-    invite as invite_func
-from astakos.im import settings
-from astakos.im import presentation
-from astakos.im import auth_providers as auth
-from astakos.im import quotas
-from astakos.im.views.util import render_response, _resources_catalog
-from astakos.im.views.decorators import cookie_fix, signed_terms_required,\
+from synnefo.astakos.im.user_utils import send_feedback, \
+    logout as auth_logout, invite as invite_func
+from synnefo.astakos.im import settings
+from synnefo.astakos.im import presentation
+from synnefo.astakos.im import auth_providers as auth
+from synnefo.astakos.im import quotas
+from synnefo.astakos.im.views.util import render_response, _resources_catalog
+from synnefo.astakos.im.views.decorators import cookie_fix, \
+    signed_terms_required,\
     required_auth_methods_assigned, valid_astakos_user_required, login_required
-from astakos.api import projects as projects_api
-from astakos.api.util import _dthandler
+from synnefo.astakos.api import projects as projects_api
+from synnefo.astakos.api.util import _dthandler
 
 logger = logging.getLogger(__name__)
 
@@ -357,9 +359,9 @@ def signup(request, template_name='im/signup.html', on_success='index',
 
     The user activation will be delegated to the backend specified by the
     ``activation_backend`` keyword argument if present, otherwise to the
-    ``astakos.im.activation_backends.InvitationBackend`` if
+    ``synnefo.astakos.im.activation_backends.InvitationBackend`` if
     settings.ASTAKOS_INVITATIONS_ENABLED is True or
-    ``astakos.im.activation_backends.SimpleBackend`` if not (see
+    ``synnefo.astakos.im.activation_backends.SimpleBackend`` if not (see
     activation_backends);
 
     Upon successful user creation, if ``next`` url parameter is present the

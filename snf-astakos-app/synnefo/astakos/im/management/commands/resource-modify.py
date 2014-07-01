@@ -17,8 +17,8 @@ from optparse import make_option
 from snf_django.management.commands import SynnefoCommand, CommandError
 
 from snf_django.management import utils
-from astakos.im.models import Resource
-from astakos.im import register
+from synnefo.astakos.im.models import Resource
+from synnefo.astakos.im import register
 from ._common import style_options, check_style, units
 
 

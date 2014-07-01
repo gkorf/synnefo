@@ -16,7 +16,7 @@
 from django.utils import simplejson as json
 # import from settings, after any post-processing
 
-from astakos.im.settings import astakos_services
+from synnefo.astakos.im.settings import astakos_services
 from synnefo.lib.services import filter_public
 from snf_django.management.commands import SynnefoCommand
 

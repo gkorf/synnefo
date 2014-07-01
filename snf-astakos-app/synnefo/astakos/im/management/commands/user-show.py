@@ -14,8 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from optparse import make_option
-from astakos.im.models import AstakosUser, get_latest_terms, Project
-from astakos.im.quotas import get_user_quotas
+from synnefo.astakos.im.models import AstakosUser, get_latest_terms, Project
+from synnefo.astakos.im.quotas import get_user_quotas
 
 from synnefo.lib.ordereddict import OrderedDict
 from snf_django.management.commands import SynnefoCommand, CommandError

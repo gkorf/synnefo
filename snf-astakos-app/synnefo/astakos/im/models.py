@@ -25,7 +25,7 @@ from random import randint
 import os
 
 from django.db import models
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 from django.contrib.auth.models import User, UserManager, Group, Permission
 from django.utils.translation import ugettext as _
 from django.db.models.signals import pre_save, post_save
@@ -41,14 +41,14 @@ from django.utils.safestring import mark_safe
 
 from synnefo.lib.utils import dict_merge
 
-from astakos.im import settings as astakos_settings
-from astakos.im import auth_providers as auth
+from synnefo.astakos.im import settings as astakos_settings
+from synnefo.astakos.im import auth_providers as auth
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 from synnefo.lib.ordereddict import OrderedDict
 
 from synnefo.util import units
-from astakos.im import presentation
+from synnefo.astakos.im import presentation
 
 logger = logging.getLogger(__name__)
 
@@ -744,7 +744,7 @@ class AstakosUser(User):
                        kwargs={'user_id': self.pk})
 
     def get_activation_url(self, nxt=False):
-        activate_url = reverse('astakos.im.views.activate',
+        activate_url = reverse('synnefo.astakos.im.views.activate',
                                urlconf="synnefo.webproject.urls")
         url = "%s?auth=%s" % (activate_url, quote(self.verification_code))
         if nxt:
@@ -752,8 +752,9 @@ class AstakosUser(User):
         return url
 
     def get_password_reset_url(self, token_generator=default_token_generator):
-        return reverse('astakos.im.views.target.local.password_reset_confirm',
-                       urlconf="synnefo.webproject.urls",
+        return reverse(
+            'synnefo.astakos.im.views.target.local.password_reset_confirm',
+            urlconf="synnefo.webproject.urls",
                        kwargs={'uidb36': int_to_base36(self.id),
                                'token': token_generator.make_token(self)})
 

@@ -14,14 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import patterns, url
-from astakos.im.forms import (
+from synnefo.astakos.im.forms import (
     ExtendedPasswordResetForm,
     ExtendedPasswordChangeForm,
     ExtendedSetPasswordForm, LoginForm)
-from astakos.im import settings
+from synnefo.astakos.im import settings
 
 urlpatterns = patterns(
-    'astakos.im.views',
+    'synnefo.astakos.im.views',
     url(r'^$', 'index', {}, name='index'),
     url(r'^login/?$', 'login', {}, name='login'),
     url(r'^landing/?$', 'landing', {}, name='landing'),
@@ -118,7 +118,7 @@ urlpatterns = patterns(
 
 if settings.EMAILCHANGE_ENABLED:
     urlpatterns += patterns(
-        'astakos.im.views',
+        'synnefo.astakos.im.views',
         url(r'^email_change/?$', 'change_email', {}, name='email_change'),
         url(r'^email_change/confirm/(?P<activation_key>\w+)/?$',
             'change_email', {},
@@ -126,7 +126,7 @@ if settings.EMAILCHANGE_ENABLED:
 
 if 'local' in settings.IM_MODULES:
     urlpatterns += patterns(
-        'astakos.im.views.target.local',
+        'synnefo.astakos.im.views.target.local',
         url(r'^local/?$', 'login', name='local_login'),
         url(r'^password_change/?$', 'password_change', {
             'post_change_redirect': 'profile',
@@ -149,37 +149,37 @@ if 'local' in settings.IM_MODULES:
 
 if settings.INVITATIONS_ENABLED:
     urlpatterns += patterns(
-        'astakos.im.views',
+        'synnefo.astakos.im.views',
         url(r'^invite/?$', 'invite', {}, name='invite'))
 
 if 'shibboleth' in settings.IM_MODULES:
     urlpatterns += patterns(
-        'astakos.im.views.target',
+        'synnefo.astakos.im.views.target',
         url(r'^login/shibboleth/?$', 'shibboleth.login'),
     )
 
 if 'twitter' in settings.IM_MODULES:
     urlpatterns += patterns(
-        'astakos.im.views.target',
+        'synnefo.astakos.im.views.target',
         url(r'^login/twitter/?$', 'twitter.login'),
         url(r'^login/twitter/authenticated/?$',
             'twitter.authenticated'))
 
 if 'google' in settings.IM_MODULES:
     urlpatterns += patterns(
-        'astakos.im.views.target',
+        'synnefo.astakos.im.views.target',
         url(r'^login/google/?$', 'google.login'),
         url(r'^login/google/authenticated/?$',
             'google.authenticated'))
 
 if 'linkedin' in settings.IM_MODULES:
     urlpatterns += patterns(
-        'astakos.im.views.target',
+        'synnefo.astakos.im.views.target',
         url(r'^login/linkedin/?$', 'linkedin.login'),
         url(r'^login/linkedin/authenticated/?$',
             'linkedin.authenticated'))
 
 urlpatterns += patterns(
-    'astakos.im.views',
+    'synnefo.astakos.im.views',
     url(r'^get_menu/?$', 'get_menu'),
     url(r'^get_services/?$', 'get_services'))

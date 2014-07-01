@@ -22,7 +22,7 @@ from django.core.mail import send_mail, get_connection
 from django.utils.translation import ugettext as _
 from synnefo_branding.utils import render_to_string
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 
 logger = logging.getLogger(__name__)
 

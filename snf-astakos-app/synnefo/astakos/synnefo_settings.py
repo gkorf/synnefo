@@ -20,15 +20,15 @@ Django settings metadata. To be used in setup.py snf-webproject entry points.
 
 installed_apps = [
     {'before': 'django.contrib.admin',
-     'insert': 'astakos.im', },
+     'insert': 'synnefo.astakos.im', },
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django_tables2',
-    'astakos.quotaholder_app',
+    'synnefo.astakos.quotaholder_app',
     'synnefo_branding',
-    'astakos.oa2',
+    'synnefo.astakos.oa2',
 ]
 
 context_processors = [
@@ -37,16 +37,16 @@ context_processors = [
     'django.core.context_processors.request',
     'django.core.context_processors.csrf',
     'django.contrib.messages.context_processors.messages',
-    'astakos.im.context_processors.media',
-    'astakos.im.context_processors.im_modules',
-    'astakos.im.context_processors.auth_providers',
-    'astakos.im.context_processors.next',
-    'astakos.im.context_processors.code',
-    'astakos.im.context_processors.invitations',
-    'astakos.im.context_processors.menu',
-    'astakos.im.context_processors.custom_messages',
-    'astakos.im.context_processors.last_login_method',
-    'astakos.im.context_processors.membership_policies',
+    'synnefo.astakos.im.context_processors.media',
+    'synnefo.astakos.im.context_processors.im_modules',
+    'synnefo.astakos.im.context_processors.auth_providers',
+    'synnefo.astakos.im.context_processors.next',
+    'synnefo.astakos.im.context_processors.code',
+    'synnefo.astakos.im.context_processors.invitations',
+    'synnefo.astakos.im.context_processors.menu',
+    'synnefo.astakos.im.context_processors.custom_messages',
+    'synnefo.astakos.im.context_processors.last_login_method',
+    'synnefo.astakos.im.context_processors.membership_policies',
     'synnefo.webproject.context_processors.cloudbar'
 ]
 
@@ -60,14 +60,14 @@ middlware_classes = [
     # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-static_files = {'astakos.im': ''}
+static_files = {'synnefo.astakos.im': ''}
 
 # The following settings will replace the default django settings
 AUTHENTICATION_BACKENDS = (
-    'astakos.im.auth_backends.EmailBackend',
-    'astakos.im.auth_backends.TokenBackend')
+    'synnefo.astakos.im.auth_backends.EmailBackend',
+    'synnefo.astakos.im.auth_backends.TokenBackend')
 
-CUSTOM_USER_MODEL = 'astakos.im.AstakosUser'
+CUSTOM_USER_MODEL = 'synnefo.astakos.im.AstakosUser'
 
 #SOUTH_TESTS_MIGRATE = False
 

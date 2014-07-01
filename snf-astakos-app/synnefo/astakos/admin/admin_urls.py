@@ -16,7 +16,7 @@
 from django.conf.urls import url, patterns, include
 from django.http import Http404
 
-from astakos.admin import views
+from synnefo.astakos.admin import views
 
 
 def index(request):
