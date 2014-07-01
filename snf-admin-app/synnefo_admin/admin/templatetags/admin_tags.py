@@ -32,7 +32,7 @@ import synnefo_admin.admin.resources.projects.utils as project_utils
 import synnefo_admin.admin.resources.users.utils as user_utils
 import synnefo_admin.admin.resources.vms.utils as vm_utils
 from synnefo_admin.admin import utils
-mod = import_module('astakos.im.management.commands.project-show')
+mod = import_module('synnefo.astakos.im.management.commands.project-show')
 
 register = template.Library()
 

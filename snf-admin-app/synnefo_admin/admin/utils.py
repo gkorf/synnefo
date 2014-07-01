@@ -23,17 +23,17 @@ from django.template import Context, Template
 from django.core.urlresolvers import reverse
 from django.utils.html import escape
 
-from astakos.im.models import Resource
+from synnefo.astakos.im.models import Resource
 from synnefo.db.models import (VirtualMachine, Volume, Network, IPAddress,
                                IPAddressLog)
-from astakos.im.models import AstakosUser, Project, ProjectApplication
+from synnefo.astakos.im.models import AstakosUser, Project, ProjectApplication
 
 from synnefo.util import units
-from astakos.im.user_utils import send_plain as send_email
+from synnefo.astakos.im.user_utils import send_plain as send_email
 from snf_django.lib.api import faults
 
 from synnefo_admin import admin_settings
-from astakos.im import settings as astakos_settings
+from synnefo.astakos.im import settings as astakos_settings
 
 from .actions import get_allowed_actions, get_permitted_actions
 logger = logging.getLogger(__name__)

@@ -17,7 +17,7 @@ import django_filters
 
 from django.db.models import Q
 
-from astakos.im.models import Project, ProjectApplication
+from synnefo.astakos.im.models import Project, ProjectApplication
 from synnefo_admin.admin.queries_common import (query, model_filter,
                                                 get_model_field)
 

@@ -17,8 +17,8 @@
 #import logging
 from django.core.urlresolvers import reverse
 
-from astakos.im.models import ProjectMembership, Resource
-from astakos.im.functions import remove_membership, enroll_member
+from synnefo.astakos.im.models import ProjectMembership, Resource
+from synnefo.astakos.im.functions import remove_membership, enroll_member
 from synnefo.db import models_factory as mf
 
 from synnefo_admin import admin_settings

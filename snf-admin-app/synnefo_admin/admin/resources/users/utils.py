@@ -19,9 +19,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import Group
 
 from synnefo.db.models import VirtualMachine
-from astakos.im.models import AstakosUser, Project
+from synnefo.astakos.im.models import AstakosUser, Project
 
-from astakos.im.quotas import get_user_quotas
+from synnefo.astakos.im.quotas import get_user_quotas
 
 from synnefo.util import units
 
