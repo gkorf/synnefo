@@ -13,11 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from astakos.im import settings
-from astakos.im import presentation
-from astakos.im.views import get_menu
-from astakos.im.util import get_query
-from astakos.im.auth_providers import PROVIDERS as AUTH_PROVIDERS
+from synnefo.astakos.im import settings
+from synnefo.astakos.im import presentation
+from synnefo.astakos.im.views import get_menu
+from synnefo.astakos.im.util import get_query
+from synnefo.astakos.im.auth_providers import PROVIDERS as AUTH_PROVIDERS
 
 from django.utils import simplejson as json
 

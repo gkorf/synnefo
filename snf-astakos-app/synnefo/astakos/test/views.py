@@ -15,12 +15,13 @@
 
 from datetime import datetime, timedelta
 
-from astakos.im import transaction
-from astakos.im.models import AstakosUser, Project
-from astakos.im.functions import (join_project, leave_project,
-                                  submit_application, approve_application,
-                                  check_pending_app_quota,
-                                  ProjectForbidden)
+from synnefo.astakos.im import transaction
+from synnefo.astakos.im.models import AstakosUser, Project
+from synnefo.astakos.im.functions import (
+    join_project, leave_project,
+    submit_application, approve_application,
+    check_pending_app_quota,
+    ProjectForbidden)
 
 
 @transaction.commit_on_success

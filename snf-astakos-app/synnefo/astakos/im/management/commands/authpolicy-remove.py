@@ -15,7 +15,7 @@
 
 from snf_django.management.commands import SynnefoCommand, CommandError
 
-from astakos.im.models import AuthProviderPolicyProfile as Profile
+from synnefo.astakos.im.models import AuthProviderPolicyProfile as Profile
 
 
 class Command(SynnefoCommand):

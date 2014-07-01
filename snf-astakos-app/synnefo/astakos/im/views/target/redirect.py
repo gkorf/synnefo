@@ -24,12 +24,12 @@ from django.views.decorators.http import require_http_methods
 
 from urlparse import urlunsplit, urlsplit, parse_qsl
 
-from astakos.im.util import restrict_next
-from astakos.im.user_utils import login as auth_login, logout
-from astakos.im.views.decorators import cookie_fix
+from synnefo.astakos.im.util import restrict_next
+from synnefo.astakos.im.user_utils import login as auth_login, logout
+from synnefo.astakos.im.views.decorators import cookie_fix
 
-import astakos.im.messages as astakos_messages
-from astakos.im.settings import REDIRECT_ALLOWED_SCHEMES
+import synnefo.astakos.im.messages as astakos_messages
+from synnefo.astakos.im.settings import REDIRECT_ALLOWED_SCHEMES
 
 import logging
 

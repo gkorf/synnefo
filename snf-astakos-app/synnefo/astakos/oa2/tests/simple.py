@@ -17,9 +17,10 @@ import unittest
 import base64
 import urllib
 
-from astakos.oa2.backends import SimpleBackend
-from astakos.oa2.backends.base import Token, Client, AuthorizationCode, User
-from astakos.oa2.backends.base import Request, Response, OA2Error
+from synnefo.astakos.oa2.backends import SimpleBackend
+from synnefo.astakos.oa2.backends.base import Token, Client, \
+    AuthorizationCode, User
+from synnefo.astakos.oa2.backends.base import Request, Response, OA2Error
 
 
 # Test helpers

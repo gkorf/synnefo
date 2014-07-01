@@ -19,7 +19,7 @@ from optparse import make_option
 
 from snf_django.management.commands import SynnefoCommand, CommandError
 
-from astakos.im.models import AuthProviderPolicyProfile as Profile
+from synnefo.astakos.im.models import AuthProviderPolicyProfile as Profile
 
 option_list = list(SynnefoCommand.option_list) + [
     make_option('--update',

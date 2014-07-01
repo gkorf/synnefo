@@ -20,7 +20,7 @@ from django.utils.safestring import mark_safe
 from django.utils import simplejson as json
 from synnefo_branding.utils import render_to_string
 
-from astakos.im import settings
+from synnefo.astakos.im import settings
 
 
 class RecaptchaWidget(forms.Widget):

@@ -19,11 +19,11 @@ from django.core import mail
 from django.utils.translation import ugettext as _
 
 from synnefo_branding.utils import render_to_string
-from astakos.im import settings as astakos_settings
-from astakos.im.models import AstakosUser
-from astakos.im.user_utils import send_plain
-from astakos.im.auth import make_local_user
-import astakos.im.messages as astakos_messages
+from synnefo.astakos.im import settings as astakos_settings
+from synnefo.astakos.im.models import AstakosUser
+from synnefo.astakos.im.user_utils import send_plain
+from synnefo.astakos.im.auth import make_local_user
+import synnefo.astakos.im.messages as astakos_messages
 
 
 class TestUserUtils(TestCase):

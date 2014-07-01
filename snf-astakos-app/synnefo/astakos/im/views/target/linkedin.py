@@ -24,12 +24,12 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.conf import settings as django_settings
 
-from astakos.im.models import AstakosUser
-from astakos.im import settings
-from astakos.im.views.target import get_pending_key, \
+from synnefo.astakos.im.models import AstakosUser
+from synnefo.astakos.im import settings
+from synnefo.astakos.im.views.target import get_pending_key, \
     handle_third_party_signup, handle_third_party_login, \
     init_third_party_session
-from astakos.im.views.decorators import cookie_fix, \
+from synnefo.astakos.im.views.decorators import cookie_fix, \
     requires_auth_provider
 
 logger = logging.getLogger(__name__)

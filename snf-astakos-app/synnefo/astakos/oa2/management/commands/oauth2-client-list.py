@@ -17,7 +17,7 @@ from optparse import make_option
 
 from snf_django.management.commands import ListCommand
 
-from astakos.oa2.models import Client
+from synnefo.astakos.oa2.models import Client
 
 
 def get_redirect_urls(client):

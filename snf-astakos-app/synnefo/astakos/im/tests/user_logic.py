@@ -14,11 +14,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.test import TestCase
-from astakos.im.user_logic import (validate_user_action, verify, accept,
-                                   activate, deactivate, reject,
-                                   send_verification_mail)
-from astakos.im.auth import make_local_user
-from astakos.im.models import AstakosUser
+from synnefo.astakos.im.user_logic import (
+    validate_user_action, verify, accept,
+    activate, deactivate, reject,
+    send_verification_mail)
+from synnefo.astakos.im.auth import make_local_user
+from synnefo.astakos.im.models import AstakosUser
 from snf_django.lib.api import faults
 from django.core import mail
 

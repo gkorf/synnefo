@@ -13,9 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from astakos.oa2.backends import DjangoBackend
+from synnefo.astakos.oa2.backends import DjangoBackend
 
-from astakos.oa2 import settings
+from synnefo.astakos.oa2 import settings
 
 oa2_backend = DjangoBackend(endpoints_prefix=settings.ENDPOINT_PREFIX,
                             token_endpoint=settings.TOKEN_ENDPOINT,
