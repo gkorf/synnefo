@@ -22,16 +22,16 @@ from django.utils.translation import ugettext as _
 from synnefo_branding.utils import render_to_string
 from synnefo.lib import join_urls
 
-from astakos.im import settings
-from astakos.im.models import Invitation
-import astakos.im.messages as astakos_messages
+from synnefo.astakos.im import settings
+from synnefo.astakos.im.models import Invitation
+import synnefo.astakos.im.messages as astakos_messages
 
 logger = logging.getLogger(__name__)
 
 
 def login(request, user):
     auth_login(request, user)
-    from astakos.im.models import SessionCatalog
+    from synnefo.astakos.im.models import SessionCatalog
     SessionCatalog(
         session_key=request.session.session_key,
         user=user

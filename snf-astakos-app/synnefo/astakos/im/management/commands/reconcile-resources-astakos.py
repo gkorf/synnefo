@@ -17,14 +17,14 @@ from optparse import make_option
 from datetime import datetime
 
 from snf_django.management.commands import SynnefoCommand, CommandError
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 from snf_django.utils import reconcile
 from snf_django.management.utils import pprint_table
-from astakos.im.models import Component, AstakosUser
-from astakos.im import quotas
-from astakos.im.functions import count_pending_app
-import astakos.quotaholder_app.callpoint as qh
-import astakos.quotaholder_app.exception as qh_exception
+from synnefo.astakos.im.models import Component, AstakosUser
+from synnefo.astakos.im import quotas
+from synnefo.astakos.im.functions import count_pending_app
+import synnefo.astakos.quotaholder_app.callpoint as qh
+import synnefo.astakos.quotaholder_app.exception as qh_exception
 
 
 class Command(SynnefoCommand):

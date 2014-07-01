@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from astakos.oa2 import settings
+from synnefo.astakos.oa2 import settings
 
 oa2_services = {
     'astakos_oauth2': {

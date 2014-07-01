@@ -19,17 +19,17 @@ from django.utils import simplejson as json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.db.models import Q
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 
-from astakos.api.util import json_response
+from synnefo.astakos.api.util import json_response
 
 from snf_django.lib import api
 from snf_django.lib.api import faults
 from snf_django.lib.api import utils
 from .util import user_from_token, invert_dict, check_is_dict
 
-from astakos.im import functions
-from astakos.im.models import (
+from synnefo.astakos.im import functions
+from synnefo.astakos.im.models import (
     AstakosUser, Project, ProjectApplication, ProjectMembership,
     ProjectResourceQuota, ProjectResourceGrant, ProjectLog,
     ProjectMembershipLog)

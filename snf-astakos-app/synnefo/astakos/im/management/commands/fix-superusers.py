@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 from snf_django.management.commands import SynnefoCommand, CommandError
 
-from astakos.im.auth import fix_superusers
+from synnefo.astakos.im.auth import fix_superusers
 
 
 class Command(SynnefoCommand):

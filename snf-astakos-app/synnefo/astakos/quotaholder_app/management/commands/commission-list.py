@@ -16,7 +16,7 @@
 from snf_django.management.commands import ListCommand, CommandError
 
 from optparse import make_option
-from astakos.quotaholder_app.models import Commission
+from synnefo.astakos.quotaholder_app.models import Commission
 import datetime
 
 

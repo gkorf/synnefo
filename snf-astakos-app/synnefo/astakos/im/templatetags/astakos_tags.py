@@ -30,14 +30,14 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 MESSAGES_VIEWS_MAP = getattr(settings, 'ASTAKOS_MESSAGES_VIEWS_MAP', {
-    'astakos.im.views.im.index': 'LOGIN_MESSAGES',
-    'astakos.im.views.im.logout': 'LOGIN_MESSAGES',
-    'astakos.im.views.im.login': 'LOGIN_MESSAGES',
-    'astakos.im.views.im.signup': 'SIGNUP_MESSAGES',
-    'astakos.im.views.im.edit_profile': 'PROFILE_MESSAGES',
-    'astakos.im.views.im.change_password': 'PROFILE_MESSAGES',
-    'astakos.im.views.im.invite': 'PROFILE_MESSAGES',
-    'astakos.im.views.im.feedback': 'PROFILE_MESSAGES',
+    'synnefo.astakos.im.views.im.index': 'LOGIN_MESSAGES',
+    'synnefo.astakos.im.views.im.logout': 'LOGIN_MESSAGES',
+    'synnefo.astakos.im.views.im.login': 'LOGIN_MESSAGES',
+    'synnefo.astakos.im.views.im.signup': 'SIGNUP_MESSAGES',
+    'synnefo.astakos.im.views.im.edit_profile': 'PROFILE_MESSAGES',
+    'synnefo.astakos.im.views.im.change_password': 'PROFILE_MESSAGES',
+    'synnefo.astakos.im.views.im.invite': 'PROFILE_MESSAGES',
+    'synnefo.astakos.im.views.im.feedback': 'PROFILE_MESSAGES',
 })
 
 

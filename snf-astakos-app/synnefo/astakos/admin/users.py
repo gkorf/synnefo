@@ -43,10 +43,10 @@ from django.core.validators import validate_email, ValidationError
 from snf_django.lib import api
 from snf_django.lib.api import faults
 
-from astakos.im import settings
-from astakos.admin import stats
-from astakos.im.models import AstakosUser, get_latest_terms
-from astakos.im.auth import make_local_user
+from synnefo.astakos.im import settings
+from synnefo.astakos.admin import stats
+from synnefo.astakos.im.models import AstakosUser, get_latest_terms
+from synnefo.astakos.im.auth import make_local_user
 
 logger = logging.getLogger(__name__)
 

@@ -29,22 +29,23 @@ from django.http import SimpleCookie, HttpRequest, QueryDict
 from django.utils.importlib import import_module
 from django.utils import simplejson as json
 
-from astakos.im.activation_backends import *
-from astakos.im.views.target.shibboleth import Tokens as ShibbolethTokens
-from astakos.im.models import *
-from astakos.im import functions
-from astakos.im import settings as astakos_settings
-from astakos.im import forms
-from astakos.im import activation_backends
-from astakos.im import auth as auth_functions
+from synnefo.astakos.im.activation_backends import *
+from synnefo.astakos.im.views.target.shibboleth import Tokens \
+    as ShibbolethTokens
+from synnefo.astakos.im.models import *
+from synnefo.astakos.im import functions
+from synnefo.astakos.im import settings as astakos_settings
+from synnefo.astakos.im import forms
+from synnefo.astakos.im import activation_backends
+from synnefo.astakos.im import auth as auth_functions
 
 from urllib import quote
 from datetime import timedelta
 
-from astakos.im import messages
-from astakos.im import auth_providers
-from astakos.im import quotas
-from astakos.im import register
+from synnefo.astakos.im import messages
+from synnefo.astakos.im import auth_providers
+from synnefo.astakos.im import quotas
+from synnefo.astakos.im import register
 
 from django.conf import settings
 

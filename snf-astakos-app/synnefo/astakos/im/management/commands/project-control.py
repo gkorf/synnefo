@@ -15,12 +15,13 @@
 
 from optparse import make_option
 
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 from snf_django.management import utils
 from snf_django.management.commands import SynnefoCommand, CommandError
-from astakos.im.functions import (terminate, suspend, unsuspend,
-                                  reinstate, check_expiration,
-                                  approve_application, deny_application)
+from synnefo.astakos.im.functions import (
+    terminate, suspend, unsuspend,
+    reinstate, check_expiration,
+    approve_application, deny_application)
 
 
 class Command(SynnefoCommand):

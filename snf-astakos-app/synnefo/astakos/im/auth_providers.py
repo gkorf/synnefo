@@ -27,8 +27,8 @@ from django import template
 
 from django.conf import settings
 
-from astakos.im import settings as astakos_settings
-from astakos.im import messages as astakos_messages
+from synnefo.astakos.im import settings as astakos_settings
+from synnefo.astakos.im import messages as astakos_messages
 
 from synnefo_branding import utils as branding_utils
 
@@ -185,7 +185,8 @@ class AuthProvider(object):
         self.resolve_available_methods = True
 
     def get_provider_model(self):
-        from astakos.im.models import AstakosUserAuthProvider as AuthProvider
+        from synnefo.astakos.im.models import AstakosUserAuthProvider \
+            as AuthProvider
         return AuthProvider
 
     def update_last_login_at(self):
@@ -395,7 +396,7 @@ class AuthProvider(object):
         return default
 
     def get_user_policies(self):
-        from astakos.im.models import AuthProviderPolicyProfile
+        from synnefo.astakos.im.models import AuthProviderPolicyProfile
         return AuthProviderPolicyProfile.objects.for_user(self.user,
                                                           self.module)
 
@@ -603,7 +604,7 @@ class LocalAuthProvider(AuthProvider):
 
 class ShibbolethAuthProvider(AuthProvider):
     module = 'shibboleth'
-    login_view = 'astakos.im.views.target.shibboleth.login'
+    login_view = 'synnefo.astakos.im.views.target.shibboleth.login'
     username_key = 'provider_info_eppn'
 
     policies = {
@@ -627,7 +628,7 @@ class ShibbolethAuthProvider(AuthProvider):
 
 class TwitterAuthProvider(AuthProvider):
     module = 'twitter'
-    login_view = 'astakos.im.views.target.twitter.login'
+    login_view = 'synnefo.astakos.im.views.target.twitter.login'
     username_key = 'provider_info_screen_name'
 
     messages = {
@@ -638,7 +639,7 @@ class TwitterAuthProvider(AuthProvider):
 
 class GoogleAuthProvider(AuthProvider):
     module = 'google'
-    login_view = 'astakos.im.views.target.google.login'
+    login_view = 'synnefo.astakos.im.views.target.google.login'
     username_key = 'provider_info_email'
 
     messages = {
@@ -649,7 +650,7 @@ class GoogleAuthProvider(AuthProvider):
 
 class LinkedInAuthProvider(AuthProvider):
     module = 'linkedin'
-    login_view = 'astakos.im.views.target.linkedin.login'
+    login_view = 'synnefo.astakos.im.views.target.linkedin.login'
     username_key = 'provider_info_email'
 
     messages = {

@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 
-from astakos.im.models import ApprovalTerms
-from astakos.im.tests.common import *
+from synnefo.astakos.im.models import ApprovalTerms
+from synnefo.astakos.im.tests.common import *
 
 from django.core import urlresolvers
 from django.utils.translation import ugettext as _

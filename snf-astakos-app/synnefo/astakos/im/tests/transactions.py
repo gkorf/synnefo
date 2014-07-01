@@ -17,9 +17,9 @@ from django.db import transaction as django_transaction
 from django.test import TransactionTestCase
 from django.conf import settings
 
-from astakos.im.models import AstakosUser
-from astakos.im import transaction as astakos_transaction
-from astakos.im.auth import make_local_user
+from synnefo.astakos.im.models import AstakosUser
+from synnefo.astakos.im import transaction as astakos_transaction
+from synnefo.astakos.im.auth import make_local_user
 
 
 class TransactionException(Exception):
