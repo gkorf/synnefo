@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from optparse import make_option
-from astakos.im.models import Resource
+from synnefo.astakos.im.models import Resource
 from snf_django.management.commands import ListCommand
 from ._common import show_resource_value, style_options, check_style
 

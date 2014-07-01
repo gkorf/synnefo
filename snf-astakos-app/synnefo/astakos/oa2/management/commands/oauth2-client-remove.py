@@ -14,9 +14,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from snf_django.management.commands import SynnefoCommand, CommandError
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 
-from astakos.oa2.models import Client
+from synnefo.astakos.oa2.models import Client
 
 
 class Command(SynnefoCommand):

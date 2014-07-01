@@ -15,8 +15,8 @@
 
 from django.contrib.auth.backends import ModelBackend
 
-from astakos.im.models import AstakosUser
-from astakos.im import settings
+from synnefo.astakos.im.models import AstakosUser
+from synnefo.astakos.im import settings
 
 import logging
 
@@ -50,7 +50,7 @@ class EmailBackend(ModelBackend):
     If the ``username`` parameter is actually an email uses email to
     authenticate the user else tries the username.
 
-    Used from ``astakos.im.forms.LoginForm`` to authenticate.
+    Used from ``synnefo.astakos.im.forms.LoginForm`` to authenticate.
     """
     def authenticate(self, username=None, password=None):
         # First check whether a user having this email exists

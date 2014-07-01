@@ -21,12 +21,12 @@ from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.template.loader import render_to_string
 
-from astakos.im.models import AstakosUser, Component
+from synnefo.astakos.im.models import AstakosUser, Component
 from snf_django.lib.api import faults
 from snf_django.lib.api.utils import isoformat
 
-from astakos.im.forms import FeedbackForm
-from astakos.im.user_utils import send_feedback as send_feedback_func
+from synnefo.astakos.im.forms import FeedbackForm
+from synnefo.astakos.im.user_utils import send_feedback as send_feedback_func
 
 import logging
 logger = logging.getLogger(__name__)

@@ -15,7 +15,7 @@
 
 from django.core import mail
 
-from astakos.im.user_logic import verify
+from synnefo.astakos.im.user_logic import verify
 
 from .common import SynnefoManagementTestCase, call_synnefo_command
 

@@ -19,15 +19,15 @@ from datetime import datetime
 from optparse import make_option
 
 from django.core import management
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 from snf_django.management.commands import SynnefoCommand, CommandError
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
-from astakos.im.models import AstakosUser
+from synnefo.astakos.im.models import AstakosUser
 from ._common import (remove_user_permission, add_user_permission, is_uuid)
-from astakos.im import user_logic as user_action
+from synnefo.astakos.im import user_logic as user_action
 
 
 class Command(SynnefoCommand):

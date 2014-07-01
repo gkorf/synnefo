@@ -19,7 +19,7 @@ from snf_django.lib.api import api_endpoint_not_found
 
 
 astakos_account_v1_0 = patterns(
-    'astakos.api.quotas',
+    'synnefo.astakos.api.quotas',
     url(r'^quotas/?$', 'quotas', name="astakos-api-quotas"),
     url(r'^service_quotas/?$', 'service_quotas'),
     url(r'^service_project_quotas/?$', 'service_project_quotas'),
@@ -31,18 +31,18 @@ astakos_account_v1_0 = patterns(
 )
 
 astakos_account_v1_0 += patterns(
-    'astakos.api.user',
+    'synnefo.astakos.api.user',
     url(r'^feedback/?$', 'send_feedback'),
     url(r'^user_catalogs/?$', 'get_uuid_displayname_catalogs'),
 )
 
 astakos_account_v1_0 += patterns(
-    'astakos.api.service',
+    'synnefo.astakos.api.service',
     url(r'^service/user_catalogs/?$', 'get_uuid_displayname_catalogs'),
 )
 
 astakos_account_v1_0 += patterns(
-    'astakos.api.projects',
+    'synnefo.astakos.api.projects',
     url(r'^projects/?$', 'projects', name='api_projects'),
     url(r'^projects/memberships/?$', 'memberships', name='api_memberships'),
     url(r'^projects/memberships/(?P<memb_id>\d+)/?$', 'membership',

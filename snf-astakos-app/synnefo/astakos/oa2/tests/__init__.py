@@ -1,2 +1,2 @@
-from astakos.oa2.tests.simple import *
-from astakos.oa2.tests.djangobackend import *
+from synnefo.astakos.oa2.tests.simple import *
+from synnefo.astakos.oa2.tests.djangobackend import *

@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from astakos.im import activation_backends
+from synnefo.astakos.im import activation_backends
 
 activation_backend = activation_backends.get_backend()
 validate_user_action = activation_backend.validate_user_action

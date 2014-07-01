@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings
-import astakos.im.settings as astakos_settings
+import synnefo.astakos.im.settings as astakos_settings
 import synnefo_branding.settings as branding_settings
 
 

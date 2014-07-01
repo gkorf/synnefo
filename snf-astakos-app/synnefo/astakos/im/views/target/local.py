@@ -24,14 +24,15 @@ from django.core.urlresolvers import reverse
 
 import django.contrib.auth.views as django_auth_views
 
-from astakos.im.util import prepare_response, get_query
-from astakos.im.models import PendingThirdPartyUser
-from astakos.im.forms import LoginForm, ExtendedPasswordChangeForm, \
+from synnefo.astakos.im.util import prepare_response, get_query
+from synnefo.astakos.im.models import PendingThirdPartyUser
+from synnefo.astakos.im.forms import LoginForm, ExtendedPasswordChangeForm, \
     ExtendedSetPasswordForm
-from astakos.im import settings
-import astakos.im.messages as astakos_messages
-from astakos.im import auth_providers as auth
-from astakos.im.views.decorators import cookie_fix, requires_anonymous, \
+from synnefo.astakos.im import settings
+import synnefo.astakos.im.messages as astakos_messages
+from synnefo.astakos.im import auth_providers as auth
+from synnefo.astakos.im.views.decorators import cookie_fix, \
+    requires_anonymous, \
     signed_terms_required, requires_auth_provider, login_required
 
 from ratelimit.decorators import ratelimit
@@ -136,14 +137,14 @@ def password_reset_confirm_done(request, *args, **kwargs):
 @cookie_fix
 def password_reset(request, *args, **kwargs):
     kwargs['post_reset_redirect'] = reverse(
-        'astakos.im.views.target.local.password_reset_done')
+        'synnefo.astakos.im.views.target.local.password_reset_done')
     return django_auth_views.password_reset(request, *args, **kwargs)
 
 
 @cookie_fix
 def password_reset_confirm(request, *args, **kwargs):
     kwargs['post_reset_redirect'] = reverse(
-        'astakos.im.views.target.local.password_reset_complete')
+        'synnefo.astakos.im.views.target.local.password_reset_complete')
     return django_auth_views.password_reset_confirm(request, *args, **kwargs)
 
 

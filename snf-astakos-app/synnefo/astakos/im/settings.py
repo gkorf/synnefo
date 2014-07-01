@@ -16,7 +16,8 @@
 from django.conf import settings
 from synnefo_branding import settings as synnefo_settings
 from synnefo.lib import parse_base_url
-from astakos.api.services import astakos_services as vanilla_astakos_services
+from synnefo.astakos.api.services import astakos_services \
+    as vanilla_astakos_services
 from synnefo.lib import join_urls
 from synnefo.lib.services import fill_endpoints
 

@@ -13,6 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from astakos.im.settings import astakos_services
+from synnefo.astakos.im.settings import astakos_services
 
 resources = astakos_services['astakos_account']['resources'].values()

@@ -16,20 +16,20 @@
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from astakos.im import transaction
+from synnefo.astakos.im import transaction
 
 from snf_django.lib import api
 from snf_django.lib.api.faults import BadRequest, ItemNotFound
 from snf_django.lib.api import utils
 from django.core.cache import cache
 
-from astakos.im import settings
-from astakos.im import register
-from astakos.im.quotas import get_user_quotas, service_get_quotas, \
+from synnefo.astakos.im import settings
+from synnefo.astakos.im import register
+from synnefo.astakos.im.quotas import get_user_quotas, service_get_quotas, \
     service_get_project_quotas, project_ref, Project
 
-import astakos.quotaholder_app.exception as qh_exception
-import astakos.quotaholder_app.callpoint as qh
+import synnefo.astakos.quotaholder_app.exception as qh_exception
+import synnefo.astakos.quotaholder_app.callpoint as qh
 
 from .util import (json_response, is_integer, are_integer, check_is_dict,
                    user_from_token, component_from_token)
