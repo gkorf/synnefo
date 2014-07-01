@@ -15,7 +15,7 @@
 
 from optparse import make_option
 
-from astakos.im.models import AstakosUser
+from synnefo.astakos.im.models import AstakosUser
 from snf_django.management.commands import ListCommand
 
 

@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf import settings
-import astakos.im.settings as astakos_settings
+import synnefo.astakos.im.settings as astakos_settings
 
 
 LOGGED_IN_WARNING = 'It seems that you are already logged in.'

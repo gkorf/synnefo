@@ -75,7 +75,7 @@ astakos_services = {
 
 }
 
-from astakos.oa2.services import oa2_services
+from synnefo.astakos.oa2.services import oa2_services
 astakos_services.update(oa2_services)
 
 cyclades_services = {

@@ -29,10 +29,10 @@ os.environ['SYNNEFO_SETTINGS_DIR'] = path + '/settings'
 os.environ['DJANGO_SETTINGS_MODULE'] = 'synnefo.settings'
 
 from django.db import transaction
-from astakos.im.models import AstakosUser
-from astakos.im.functions import ProjectError
-from astakos.im import auth
-from astakos.im import activation_backends
+from synnefo.astakos.im.models import AstakosUser
+from synnefo.astakos.im.functions import ProjectError
+from synnefo.astakos.im import auth
+from synnefo.astakos.im import activation_backends
 from views import submit, approve, join, leave
 
 

@@ -14,11 +14,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # flake8: noqa
-from astakos.im.tests.auth import *
-from astakos.im.tests.projects import *
-from astakos.im.tests.api import *
-from astakos.im.tests.views import *
-from astakos.im.tests.services import *
-from astakos.im.tests.user_logic import *
-from astakos.im.tests.management import (TestUserModification,
+from synnefo.astakos.im.tests.auth import *
+from synnefo.astakos.im.tests.projects import *
+from synnefo.astakos.im.tests.api import *
+from synnefo.astakos.im.tests.views import *
+from synnefo.astakos.im.tests.services import *
+from synnefo.astakos.im.tests.user_logic import *
+from synnefo.astakos.im.tests.management import (TestUserModification,
                                          TestSendUserActivation)

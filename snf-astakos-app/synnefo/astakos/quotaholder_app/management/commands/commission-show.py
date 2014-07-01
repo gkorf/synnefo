@@ -16,7 +16,7 @@
 from snf_django.management.commands import SynnefoCommand, CommandError
 from snf_django.management import utils
 
-from astakos.quotaholder_app.models import Commission, Provision
+from synnefo.astakos.quotaholder_app.models import Commission, Provision
 
 
 class Command(SynnefoCommand):

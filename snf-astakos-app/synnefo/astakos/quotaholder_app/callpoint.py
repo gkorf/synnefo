@@ -15,17 +15,17 @@
 
 from datetime import datetime
 from django.db.models import Q
-from astakos.quotaholder_app.exception import (
+from synnefo.astakos.quotaholder_app.exception import (
     QuotaholderError,
     NoCommissionError,
     CorruptedError,
     NoHoldingError,
 )
 
-from astakos.quotaholder_app.commission import (
+from synnefo.astakos.quotaholder_app.commission import (
     Import, Release, Operations, finalize, undo)
 
-from astakos.quotaholder_app.models import (
+from synnefo.astakos.quotaholder_app.models import (
     Holding, Commission, Provision, ProvisionLog)
 
 

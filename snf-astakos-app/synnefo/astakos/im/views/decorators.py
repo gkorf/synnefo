@@ -23,8 +23,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.decorators import available_attrs
 from django.utils.http import urlencode
 
-from astakos.im import auth_providers as auth
-from astakos.im.cookie import CookieHandler
+from synnefo.astakos.im import auth_providers as auth
+from synnefo.astakos.im.cookie import CookieHandler
 
 REDIRECT_FIELD_NAME = 'next'
 
@@ -125,7 +125,7 @@ def requires_anonymous(func):
     def wrapper(request, *args):
         if not request.user.is_anonymous():
             next = urlencode({'next': request.build_absolute_uri()})
-            logout_uri = reverse('astakos.im.views.logout') + '?' + next
+            logout_uri = reverse('synnefo.astakos.im.views.logout') + '?' + next
             return HttpResponseRedirect(logout_uri)
         return func(request, *args)
     return wrapper

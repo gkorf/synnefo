@@ -16,7 +16,7 @@
 from django.db import transaction
 from snf_django.management.commands import SynnefoCommand, CommandError
 
-from astakos.im.auth import fix_superusers
+from synnefo.astakos.im.auth import fix_superusers
 
 
 class Command(SynnefoCommand):

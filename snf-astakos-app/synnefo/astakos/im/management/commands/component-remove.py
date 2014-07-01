@@ -15,7 +15,7 @@
 
 from snf_django.management.commands import SynnefoCommand, CommandError
 from django.db import transaction
-from astakos.im.models import Component
+from synnefo.astakos.im.models import Component
 
 
 class Command(SynnefoCommand):

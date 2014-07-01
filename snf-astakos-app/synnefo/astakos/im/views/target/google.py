@@ -25,12 +25,12 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.conf import settings as django_settings
 
-from astakos.im.models import AstakosUser
-from astakos.im import settings
-from astakos.im.views.target import get_pending_key, \
+from synnefo.astakos.im.models import AstakosUser
+from synnefo.astakos.im import settings
+from synnefo.astakos.im.views.target import get_pending_key, \
     handle_third_party_signup, handle_third_party_login, \
     init_third_party_session
-from astakos.im.views.decorators import cookie_fix, requires_auth_provider
+from synnefo.astakos.im.views.decorators import cookie_fix, requires_auth_provider
 
 logger = logging.getLogger(__name__)
 signature_method = oauth.SignatureMethod_HMAC_SHA1()
@@ -59,7 +59,7 @@ request_token_url = django_setting(
 
 def get_redirect_uri():
     return "%s%s" % (settings.BASE_HOST,
-                     reverse('astakos.im.views.target.google.authenticated'))
+                     reverse('synnefo.astakos.im.views.target.google.authenticated'))
 
 
 @requires_auth_provider('google')

@@ -14,8 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import datetime
-from astakos.im import models
-from astakos.im import functions
+from synnefo.astakos.im import models
+from synnefo.astakos.im import functions
 
 
 def _finalize_astakosuser_object(user, has_signed_terms=False):

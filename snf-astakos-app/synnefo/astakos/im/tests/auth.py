@@ -17,7 +17,7 @@
 import urlparse
 import urllib
 
-from astakos.im.tests.common import *
+from synnefo.astakos.im.tests.common import *
 
 ui_url = lambda url: '/' + astakos_settings.BASE_PATH + '/ui/%s' % url
 
@@ -200,7 +200,7 @@ class ShibbolethTests(TestCase):
         r = client.post(signup_url, post_data)
         self.assertEqual(r.status_code, 404)
 
-        r = client.post(reverse('astakos.im.views.target.local.password_reset'),
+        r = client.post(reverse('synnefo.astakos.im.views.target.local.password_reset'),
                         {'email': 'kpap@synnefo.org'})
         self.assertContains(r, 'Classic login is not enabled for your account')
 
@@ -1487,7 +1487,7 @@ class TestActivationBackend(TestCase):
 
 class TestWebloginRedirect(TestCase):
 
-    @with_settings(settings, COOKIE_DOMAIN='.astakos.synnefo.org')
+    @with_settings(settings, COOKIE_DOMAIN='.synnefo.astakos.synnefo.org')
     def test_restricts_domains(self):
         get_local_user('user1@synnefo.org')
 

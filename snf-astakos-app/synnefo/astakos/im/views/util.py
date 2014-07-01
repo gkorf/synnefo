@@ -14,9 +14,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 
-from astakos.im import settings
+from synnefo.astakos.im import settings
 from django.contrib import messages
 from django.contrib.auth.views import redirect_to_login
 from django.core.xheaders import populate_xheaders
@@ -30,12 +30,12 @@ from django.db import transaction
 
 from synnefo.lib.ordereddict import OrderedDict
 
-from astakos.im import presentation
-from astakos.im.util import model_to_dict
-from astakos.im import tables
-from astakos.im.models import Resource, ProjectApplication, ProjectMembership
-from astakos.im import functions
-from astakos.im.util import get_context, restrict_next, restrict_reverse
+from synnefo.astakos.im import presentation
+from synnefo.astakos.im.util import model_to_dict
+from synnefo.astakos.im import tables
+from synnefo.astakos.im.models import Resource, ProjectApplication, ProjectMembership
+from synnefo.astakos.im import functions
+from synnefo.astakos.im.util import get_context, restrict_next, restrict_reverse
 
 logger = logging.getLogger(__name__)
 

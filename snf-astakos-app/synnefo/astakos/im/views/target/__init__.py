@@ -22,11 +22,11 @@ from django.core.urlresolvers import reverse
 from django.core.validators import ValidationError
 from django.db import transaction
 
-from astakos.im.models import PendingThirdPartyUser, AstakosUser
-from astakos.im.util import get_query, login_url
-from astakos.im import messages as astakos_messages
-from astakos.im import auth_providers as auth
-from astakos.im.util import prepare_response
+from synnefo.astakos.im.models import PendingThirdPartyUser, AstakosUser
+from synnefo.astakos.im.util import get_query, login_url
+from synnefo.astakos.im import messages as astakos_messages
+from synnefo.astakos.im import auth_providers as auth
+from synnefo.astakos.im.util import prepare_response
 
 import logging
 

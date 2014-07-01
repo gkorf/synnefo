@@ -19,12 +19,12 @@ from django.db.models import Q
 from snf_django.management.commands import SynnefoCommand, CommandError
 from django.db import transaction
 from synnefo.util import units
-from astakos.im import functions
-from astakos.im import models
-import astakos.api.projects as api
+from synnefo.astakos.im import functions
+from synnefo.astakos.im import models
+import synnefo.astakos.api.projects as api
 import synnefo.util.date as date_util
 from snf_django.management import utils
-from astakos.im.management.commands import _common
+from synnefo.astakos.im.management.commands import _common
 
 
 def make_policies(limits):

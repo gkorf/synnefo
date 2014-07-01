@@ -40,14 +40,14 @@ from django.utils.safestring import mark_safe
 
 from synnefo.lib.utils import dict_merge
 
-from astakos.im import settings as astakos_settings
-from astakos.im import auth_providers as auth
+from synnefo.astakos.im import settings as astakos_settings
+from synnefo.astakos.im import auth_providers as auth
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 from synnefo.lib.ordereddict import OrderedDict
 
 from synnefo.util import units
-from astakos.im import presentation
+from synnefo.astakos.im import presentation
 
 logger = logging.getLogger(__name__)
 
@@ -742,14 +742,14 @@ class AstakosUser(User):
         return reverse('send_activation', kwargs={'user_id': self.pk})
 
     def get_activation_url(self, nxt=False):
-        url = "%s?auth=%s" % (reverse('astakos.im.views.activate'),
+        url = "%s?auth=%s" % (reverse('synnefo.astakos.im.views.activate'),
                               quote(self.verification_code))
         if nxt:
             url += "&next=%s" % quote(nxt)
         return url
 
     def get_password_reset_url(self, token_generator=default_token_generator):
-        return reverse('astakos.im.views.target.local.password_reset_confirm',
+        return reverse('synnefo.astakos.im.views.target.local.password_reset_confirm',
                        kwargs={'uidb36': int_to_base36(self.id),
                                'token': token_generator.make_token(self)})
 

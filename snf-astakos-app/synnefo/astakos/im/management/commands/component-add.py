@@ -15,7 +15,7 @@
 
 from optparse import make_option
 from snf_django.management.commands import SynnefoCommand, CommandError
-from astakos.im.models import Component
+from synnefo.astakos.im.models import Component
 
 
 class Command(SynnefoCommand):

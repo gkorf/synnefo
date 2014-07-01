@@ -16,8 +16,8 @@
 from optparse import make_option
 from django.db import transaction
 
-from astakos.im.models import Project
-from astakos.im import quotas
+from synnefo.astakos.im.models import Project
+from synnefo.astakos.im import quotas
 from snf_django.management.utils import pprint_table
 from snf_django.management.commands import SynnefoCommand
 

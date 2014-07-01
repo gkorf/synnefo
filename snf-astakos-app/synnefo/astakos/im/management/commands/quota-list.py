@@ -16,12 +16,12 @@
 from optparse import make_option
 from django.db import transaction
 
-from astakos.im.models import AstakosUser
-from astakos.im.quotas import list_user_quotas
+from synnefo.astakos.im.models import AstakosUser
+from synnefo.astakos.im.quotas import list_user_quotas
 from snf_django.management.commands import SynnefoCommand, CommandError
 from snf_django.management import utils
-from astakos.im.management.commands import _common as common
-from astakos.im.management.commands import _filtering as filtering
+from synnefo.astakos.im.management.commands import _common as common
+from synnefo.astakos.im.management.commands import _filtering as filtering
 from django.db.models import Q, F
 
 import logging

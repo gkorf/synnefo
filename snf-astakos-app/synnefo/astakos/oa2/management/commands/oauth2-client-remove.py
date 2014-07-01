@@ -16,7 +16,7 @@
 from snf_django.management.commands import SynnefoCommand, CommandError
 from django.db import transaction
 
-from astakos.oa2.models import Client
+from synnefo.astakos.oa2.models import Client
 
 
 class Command(SynnefoCommand):

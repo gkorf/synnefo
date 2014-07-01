@@ -19,13 +19,13 @@ from django.utils.translation import ugettext as _
 
 from snf_django.lib.api import faults
 
-from astakos.im import models
-from astakos.im import functions
-from astakos.im import settings
-from astakos.im import forms
-from astakos.im import user_utils
+from synnefo.astakos.im import models
+from synnefo.astakos.im import functions
+from synnefo.astakos.im import settings
+from synnefo.astakos.im import forms
+from synnefo.astakos.im import user_utils
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 
 import datetime
 import logging
@@ -39,14 +39,14 @@ def get_backend():
     """
     Returns an instance of an activation backend,
     according to the INVITATIONS_ENABLED setting
-    (if True returns ``astakos.im.activation_backends.InvitationsBackend``
+    (if True returns ``synnefo.astakos.im.activation_backends.InvitationsBackend``
     and if False
-    returns ``astakos.im.activation_backends.SimpleBackend``).
+    returns ``synnefo.astakos.im.activation_backends.SimpleBackend``).
 
     If the backend cannot be located
     ``django.core.exceptions.ImproperlyConfigured`` is raised.
     """
-    module = 'astakos.im.activation_backends'
+    module = 'synnefo.astakos.im.activation_backends'
     prefix = 'Invitations' if settings.INVITATIONS_ENABLED else 'Simple'
     backend_class_name = '%sBackend' % prefix
     try:

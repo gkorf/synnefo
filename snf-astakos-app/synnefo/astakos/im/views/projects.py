@@ -32,30 +32,30 @@ from django.db import transaction
 from django.template import RequestContext
 from django.db.models import Q
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 
-from astakos.im import tables
-from astakos.im.models import ProjectApplication, ProjectMembership, Project
-from astakos.im.util import get_context, restrict_next, restrict_reverse
-from astakos.im.forms import ProjectApplicationForm, AddProjectMembersForm, \
+from synnefo.astakos.im import tables
+from synnefo.astakos.im.models import ProjectApplication, ProjectMembership, Project
+from synnefo.astakos.im.util import get_context, restrict_next, restrict_reverse
+from synnefo.astakos.im.forms import ProjectApplicationForm, AddProjectMembersForm, \
     ProjectSearchForm, ProjectModificationForm
-from astakos.im.functions import check_pending_app_quota, accept_membership, \
+from synnefo.astakos.im.functions import check_pending_app_quota, accept_membership, \
     reject_membership, remove_membership, cancel_membership, leave_project, \
     join_project, enroll_member, can_join_request, can_leave_request, \
     get_related_project_id, approve_application, \
     deny_application, cancel_application, dismiss_application, ProjectError, \
     can_cancel_join_request, app_check_allowed, project_check_allowed, \
     ProjectForbidden
-from astakos.im import settings
-from astakos.im.util import redirect_back
-from astakos.im.views.util import render_response, _create_object, \
+from synnefo.astakos.im import settings
+from synnefo.astakos.im.util import redirect_back
+from synnefo.astakos.im.views.util import render_response, _create_object, \
     _update_object, _resources_catalog, ExceptionHandler, \
     get_user_projects_table, handle_valid_members_form, redirect_to_next
-from astakos.im.views.decorators import cookie_fix, signed_terms_required,\
+from synnefo.astakos.im.views.decorators import cookie_fix, signed_terms_required,\
     valid_astakos_user_required, login_required
 
-from astakos.api import projects as api
-from astakos.im import functions as project_actions
+from synnefo.astakos.api import projects as api
+from synnefo.astakos.im import functions as project_actions
 
 logger = logging.getLogger(__name__)
 
@@ -143,7 +143,7 @@ def project_add_or_modify(request, project_uuid=None):
             m = _(astakos_messages.PENDING_APPLICATION_LIMIT_ADD) % limit
             messages.error(request, m)
             return redirect(restrict_reverse(
-                'astakos.im.views.project_list'))
+                'synnefo.astakos.im.views.project_list'))
 
     project = None
     if project_uuid:

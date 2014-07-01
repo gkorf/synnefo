@@ -13,11 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from astakos.im.models import (
+from synnefo.astakos.im.models import (
     Resource, AstakosUser, Service,
     Project, ProjectMembership, ProjectResourceQuota)
-import astakos.quotaholder_app.callpoint as qh
-from astakos.quotaholder_app.exception import NoCapacityError
+import synnefo.astakos.quotaholder_app.callpoint as qh
+from synnefo.astakos.quotaholder_app.exception import NoCapacityError
 from django.db.models import Q
 from collections import defaultdict
 

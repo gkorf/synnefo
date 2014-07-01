@@ -19,8 +19,8 @@ from django.db import transaction
 from snf_django.management.commands import SynnefoCommand, CommandError
 from django.utils import simplejson as json
 
-from astakos.im.register import add_service, add_resource, RegisterException
-from astakos.im.models import Component
+from synnefo.astakos.im.register import add_service, add_resource, RegisterException
+from synnefo.astakos.im.models import Component
 from ._common import read_from_file
 
 

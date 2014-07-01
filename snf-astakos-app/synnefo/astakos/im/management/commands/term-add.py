@@ -16,7 +16,7 @@
 from os.path import abspath
 from snf_django.management.commands import SynnefoCommand, CommandError
 from django.db import transaction
-from astakos.im.models import ApprovalTerms, AstakosUser
+from synnefo.astakos.im.models import ApprovalTerms, AstakosUser
 
 
 class Command(SynnefoCommand):

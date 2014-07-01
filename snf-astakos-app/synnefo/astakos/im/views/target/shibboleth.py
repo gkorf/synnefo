@@ -19,16 +19,16 @@ from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect
 
-from astakos.im.util import login_url
-from astakos.im.models import AstakosUser, AstakosUserAuthProvider, \
+from synnefo.astakos.im.util import login_url
+from synnefo.astakos.im.models import AstakosUser, AstakosUserAuthProvider, \
     PendingThirdPartyUser
-from astakos.im import settings
-from astakos.im.views.target import get_pending_key, \
+from synnefo.astakos.im import settings
+from synnefo.astakos.im.views.target import get_pending_key, \
     handle_third_party_signup, handle_third_party_login, \
     init_third_party_session
-from astakos.im.views.decorators import cookie_fix, requires_auth_provider
+from synnefo.astakos.im.views.decorators import cookie_fix, requires_auth_provider
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 import logging
 
 logger = logging.getLogger(__name__)

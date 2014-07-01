@@ -19,8 +19,8 @@ from django.db import transaction
 
 from snf_django.management.commands import SynnefoCommand, CommandError
 
-from astakos.oa2.models import Client, RedirectUrl
-from astakos.oa2 import settings
+from synnefo.astakos.oa2.models import Client, RedirectUrl
+from synnefo.astakos.oa2 import settings
 
 
 class Command(SynnefoCommand):

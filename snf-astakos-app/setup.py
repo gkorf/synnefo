@@ -27,7 +27,7 @@ from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from astakos.version import __version__
+from synnefo.astakos.version import __version__
 
 # Package info
 VERSION = __version__
@@ -174,6 +174,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
+    namespace_packages=['synnefo'],
     packages=find_packages(),
     include_package_data=True,
     package_data=find_package_data('.'),
@@ -183,18 +184,18 @@ setup(
 
     dependency_links=['http://www.synnefo.org/packages/pypi'],
 
-    scripts=['astakos/scripts/snf-component-register'],
+    scripts=['synnefo/astakos/scripts/snf-component-register'],
     entry_points={
         'synnefo': [
-            'default_settings = astakos.synnefo_settings',
-            'web_apps = astakos.synnefo_settings:installed_apps',
-            'web_middleware = astakos.synnefo_settings:middlware_classes',
-            'web_context_processors = astakos.synnefo_settings:context_processors',
-            'urls = astakos.urls:urlpatterns',
-            'web_static = astakos.synnefo_settings:static_files'
+            'default_settings = synnefo.astakos.synnefo_settings',
+            'web_apps = synnefo.astakos.synnefo_settings:installed_apps',
+            'web_middleware = synnefo.astakos.synnefo_settings:middlware_classes',
+            'web_context_processors = synnefo.astakos.synnefo_settings:context_processors',
+            'urls = synnefo.astakos.urls:urlpatterns',
+            'web_static = synnefo.astakos.synnefo_settings:static_files'
         ],
         'console_scripts': [
-            'snf-service-export = astakos.scripts.snf_service_export:main',
+            'snf-service-export = synnefo.astakos.scripts.snf_service_export:main',
         ],
     }
 )

@@ -26,13 +26,13 @@ from django.db.utils import IntegrityError
 from snf_django.lib.api import faults
 
 import synnefo.util.date as date_util
-from astakos.im.models import AstakosUser, ProjectMembership, \
+from synnefo.astakos.im.models import AstakosUser, ProjectMembership, \
     ProjectApplication, Project, new_chain, Resource, ProjectLock, \
     create_project, ProjectResourceQuota, ProjectResourceGrant
-from astakos.im import quotas
-from astakos.im import project_notif
+from synnefo.astakos.im import quotas
+from synnefo.astakos.im import project_notif
 
-import astakos.im.messages as astakos_messages
+import synnefo.astakos.im.messages as astakos_messages
 
 logger = logging.getLogger(__name__)
 

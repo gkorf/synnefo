@@ -15,9 +15,9 @@
 
 import logging
 from django.utils.translation import ugettext as _
-from astakos.im import settings
-from astakos.im.notifications import build_notification, NotificationError
-from astakos.im import messages
+from synnefo.astakos.im import settings
+from synnefo.astakos.im.notifications import build_notification, NotificationError
+from synnefo.astakos.im import messages
 
 logger = logging.getLogger(__name__)
 

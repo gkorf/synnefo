@@ -32,11 +32,11 @@ from .util import (
     send_feedback as send_feedback_util,
     user_from_token)
 
-from astakos.im import settings
-from astakos.admin import stats
-from astakos.im.models import AstakosUser, get_latest_terms
-from astakos.im.auth import make_local_user
-from astakos.im import activation_backends
+from synnefo.astakos.im import settings
+from synnefo.astakos.admin import stats
+from synnefo.astakos.im.models import AstakosUser, get_latest_terms
+from synnefo.astakos.im.auth import make_local_user
+from synnefo.astakos.im import activation_backends
 
 ADMIN_GROUPS = settings.ADMIN_API_PERMITTED_GROUPS
 

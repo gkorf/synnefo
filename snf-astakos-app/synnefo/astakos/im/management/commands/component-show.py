@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from astakos.im.models import Component
+from synnefo.astakos.im.models import Component
 from synnefo.lib.ordereddict import OrderedDict
 from snf_django.management.commands import SynnefoCommand, CommandError
 from snf_django.management import utils
