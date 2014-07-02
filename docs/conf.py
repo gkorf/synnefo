@@ -1,11 +1,9 @@
 import sys, os
 
-sys.path.insert(0, os.path.abspath('../snf-cyclades-app'))
+sys.path.insert(0, os.path.abspath('../snf-common'))
 import synnefo
 reload(synnefo)
-import synnefo.versions
-reload(synnefo.versions)
-from synnefo.versions.app import __version__
+from synnefo.version import __version__
 
 project = u'synnefo'
 copyright = u'2012-2014, GRNET'

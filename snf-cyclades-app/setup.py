@@ -26,7 +26,7 @@ from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from synnefo.cyclades.versions.app import __version__
+from synnefo.cyclades.version import __version__
 
 # Package info
 VERSION = __version__

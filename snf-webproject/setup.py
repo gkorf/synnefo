@@ -26,7 +26,7 @@ from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from synnefo.versions.webproject import __version__
+from synnefo.webproject.version import __version__
 
 # Package info
 VERSION = __version__
@@ -154,7 +154,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
-    namespace_packages=['synnefo', 'synnefo.versions'],
+    namespace_packages=['synnefo'],
     packages=PACKAGES,
     package_dir={'': PACKAGES_ROOT},
     include_package_data=True,
