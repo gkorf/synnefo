@@ -20,7 +20,7 @@ from setuptools import setup
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from synnefo.versions.ganeti import __version__
+from synnefo.ganeti.version import __version__
 
 setup(
     name="snf-cyclades-gtools",
@@ -34,8 +34,8 @@ setup(
     maintainer_email='synnefo-devel@googlegroups.com',
 
     license="GNU GPLv3",
-    namespace_packages=["synnefo", "synnefo.versions"],
-    packages=["synnefo", "synnefo.ganeti", "synnefo.versions"],
+    namespace_packages=["synnefo"],
+    packages=["synnefo", "synnefo.ganeti"],
     dependency_links=['http://www.synnefo.org/packages/pypi'],
     install_requires=[
         'snf-common',

@@ -1,7 +1,7 @@
 import sys, os
 
 sys.path.insert(0, os.path.abspath('../'))
-from synnefo.versions.ganeti import __version__
+from synnefo.ganeti.version import __version__
 
 project = u'snf-cyclades-gtools'
 copyright = u'2012-2013, GRNET'
