@@ -2,7 +2,7 @@ import sys
 import os
 
 sys.path.insert(0, os.path.abspath('../'))
-from synnefo.versions.common import __version__
+from synnefo.version import __version__
 
 project = u'snf-common'
 copyright = u'2012-2013, GRNET'

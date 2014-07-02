@@ -48,7 +48,7 @@ copyright_message_default = 'Copyright (c) %s %s' % (copyright_period_default,
 # Defaults to Copyright (c) 2011-<current_year> GRNET.
 COPYRIGHT_MESSAGE = getattr(settings, 'BRANDING_COPYRIGHT_MESSAGE',
                             copyright_message_default)
-SYNNEFO_VERSION = get_component_version('common')
+SYNNEFO_VERSION = get_component_version('branding')
 
 # Footer message appears above Copyright message at the Compute templates
 # and the Dashboard UI. Accepts html tags

@@ -30,7 +30,7 @@ from synnefo.util.version import get_component_version
 
 from synnefo.cyclades.ui import settings as uisettings
 
-SYNNEFO_JS_LIB_VERSION = get_component_version('app')
+SYNNEFO_JS_LIB_VERSION = get_component_version('cyclades')
 
 # UI preferences settings
 TIMEOUT = getattr(settings, "TIMEOUT", 10000)

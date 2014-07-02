@@ -1,7 +1,7 @@
 import sys, os
 
 sys.path.insert(0, os.path.abspath('../'))
-from synnefo.versions.apps import __version__
+from synnefo.cyclades.version import __version__
 
 project = u'snf-cyclades-app'
 copyright = u'2012-2013, GRNET'

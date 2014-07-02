@@ -37,15 +37,17 @@ def get_dist_version(dist_name):
         return 'unknown'
 
 
-def get_component_version(modname):
+def get_component_version(modname=''):
     """
     Return the version of a synnefo module/package based on its
     corresponding distributed package version
     """
+    if modname:
+        modname += '.'
     try:
         try:
-            return __import__('synnefo.versions.%s' % modname,
-                              fromlist=['synnefo.versions']).__version__
+            return __import__('synnefo.%sversion' % modname,
+                              fromlist=['synnefo']).__version__
         except ImportError:
             return "unknown"
     except Exception:
