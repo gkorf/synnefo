@@ -20,7 +20,7 @@ from setuptools import setup
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from synnefo.versions.ganeti import __version__
+from synnefo.ganeti.version import __version__
 
 setup(
     name="snf-cyclades-gtools",
