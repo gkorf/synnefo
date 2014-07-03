@@ -17,7 +17,7 @@ import ConfigParser
 import sys
 import os
 import ipaddr
-from snfdeploy.lib import evaluate, get_hostname, get_netinfo, \
+from synnefo.deploy.lib import evaluate, get_hostname, get_netinfo, \
     get_default_route, getlist, getbool, disable_color, FQDN
 
 

@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from snfdeploy import constants
-from snfdeploy import components
+from synnefo.deploy import constants
+from synnefo.deploy import components
 
 
 _ROLE_MAP = {

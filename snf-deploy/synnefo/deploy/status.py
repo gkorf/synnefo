@@ -16,10 +16,10 @@
 import ConfigParser
 import os
 import sys
-from snfdeploy import constants
-from snfdeploy import config
-from snfdeploy import filelocker
-from snfdeploy.lib import create_passwd
+from synnefo.deploy import constants
+from synnefo.deploy import config
+from synnefo.deploy import filelocker
+from synnefo.deploy.lib import create_passwd
 
 status = sys.modules[__name__]
 

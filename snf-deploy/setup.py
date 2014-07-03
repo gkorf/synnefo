@@ -23,9 +23,9 @@ import sys
 from setuptools import setup, find_packages
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-# Add snfdeploy to sys.path and load version module
-sys.path.insert(0, "snfdeploy")
-from version import __version__
+# Add synnefo.deploy to sys.path and load version module
+sys.path.insert(0, "synnefo.deploy")
+from synnefo.deploy.version import __version__
 
 # Package info
 VERSION = __version__
@@ -59,6 +59,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
+    namespace_packages=['synnefo'],
     packages=PACKAGES,
     package_dir={'': PACKAGES_ROOT},
     include_package_data=True,
@@ -69,7 +70,7 @@ setup(
     dependency_links=['http://docs.dev.grnet.gr/pypi'],
     entry_points={
         'console_scripts': [
-            'snf-deploy=snfdeploy:main',
+            'snf-deploy=synnefo.deploy:main',
             ],
         },
 )
