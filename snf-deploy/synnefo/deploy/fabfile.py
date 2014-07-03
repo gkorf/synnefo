@@ -23,9 +23,9 @@ Fabric file for snf-deploy
 
 from __future__ import with_statement
 from fabric.api import env, execute, parallel
-from snfdeploy import context
-from snfdeploy import constants
-from snfdeploy import roles
+from synnefo.deploy import context
+from synnefo.deploy import constants
+from synnefo.deploy import roles
 import copy
 import logging
 
