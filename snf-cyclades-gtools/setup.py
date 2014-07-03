@@ -34,7 +34,7 @@ setup(
     maintainer_email='synnefo-devel@googlegroups.com',
 
     license="GNU GPLv3",
-    namespace_packages=["synnefo", "synnefo.versions"],
+    namespace_packages=["synnefo"],
     packages=["synnefo", "synnefo.ganeti", "synnefo.versions"],
     dependency_links=['http://www.synnefo.org/packages/pypi'],
     install_requires=[

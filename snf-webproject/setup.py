@@ -154,7 +154,7 @@ setup(
     maintainer='Synnefo development team',
     maintainer_email='synnefo-devel@googlegroups.com',
 
-    namespace_packages=['synnefo', 'synnefo.versions'],
+    namespace_packages=['synnefo'],
     packages=PACKAGES,
     package_dir={'': PACKAGES_ROOT},
     include_package_data=True,
