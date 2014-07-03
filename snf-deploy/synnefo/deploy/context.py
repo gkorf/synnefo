@@ -16,9 +16,9 @@
 import sys
 import datetime
 import ConfigParser
-from snfdeploy import constants
-from snfdeploy import config
-from snfdeploy import status
+from synnefo.deploy import constants
+from synnefo.deploy import config
+from synnefo.deploy import status
 
 context = sys.modules[__name__]
 

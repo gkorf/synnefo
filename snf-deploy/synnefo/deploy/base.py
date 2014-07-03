@@ -23,12 +23,12 @@ import tempfile
 import glob
 import time
 import copy
-from snfdeploy.lib import debug
-from snfdeploy import massedit
-from snfdeploy import config
-from snfdeploy import status
-from snfdeploy import context
-from snfdeploy import constants
+from synnefo.deploy.lib import debug
+from synnefo.deploy import massedit
+from synnefo.deploy import config
+from synnefo.deploy import status
+from synnefo.deploy import context
+from synnefo.deploy import constants
 
 
 #

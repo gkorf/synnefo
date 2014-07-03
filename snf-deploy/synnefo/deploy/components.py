@@ -18,11 +18,11 @@ import datetime
 import simplejson
 import copy
 import os
-from snfdeploy import base
-from snfdeploy import config
-from snfdeploy import constants
-from snfdeploy import context
-from snfdeploy.lib import FQDN, evaluate
+from synnefo.deploy import base
+from synnefo.deploy import config
+from synnefo.deploy import constants
+from synnefo.deploy import context
+from synnefo.deploy.lib import FQDN, evaluate
 
 
 _USER_INFO_RE = lambda x: \

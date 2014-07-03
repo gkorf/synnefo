@@ -20,13 +20,13 @@ import argparse
 import sys
 import glob
 from fabric.api import hide, settings, execute, show
-from snfdeploy import config
-from snfdeploy import context
-from snfdeploy import status
-from snfdeploy import fabfile
-from snfdeploy import vcluster
-from snfdeploy import constants
-from snfdeploy.lib import create_dir
+from synnefo.deploy import config
+from synnefo.deploy import context
+from synnefo.deploy import status
+from synnefo.deploy import fabfile
+from synnefo.deploy import vcluster
+from synnefo.deploy import constants
+from synnefo.deploy.lib import create_dir
 
 
 def print_help_msg(cmds):

@@ -19,10 +19,10 @@ import sys
 import random
 import subprocess
 import ipaddr
-from snfdeploy import config
-from snfdeploy import context
-from snfdeploy import constants
-from snfdeploy.lib import check_pidfile, create_dir, get_default_route, \
+from synnefo.deploy import config
+from synnefo.deploy import context
+from synnefo.deploy import constants
+from synnefo.deploy.lib import check_pidfile, create_dir, get_default_route, \
     random_mac, get_netinfo
 
 
