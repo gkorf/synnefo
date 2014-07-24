@@ -28,9 +28,9 @@ from django.conf import settings
 from synnefo.pithos.backends.modular import CLUSTER_NORMAL, CLUSTER_HISTORY, CLUSTER_DELETED
 from synnefo.pithos.backends.lib.sqlalchemy.node import Node, ROOTNODE
 
-from pithos.tools.lib.transfer import upload
-from pithos.tools.lib.hashmap import HashMap
-from pithos.tools.lib.client import Fault
+from synnefo.pithos.tools.lib.transfer import upload
+from synnefo.pithos.tools.lib.hashmap import HashMap
+from synnefo.pithos.tools.lib.client import Fault
 
 from migrate import Migration, Cache
 

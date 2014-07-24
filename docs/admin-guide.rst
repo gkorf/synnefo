@@ -667,7 +667,7 @@ For those users that need to migrate from NFS to RADOS and have not enabled the
 dual mode of operation from the beginning of their installation, you can
 use a synchronization script that is provided in order to synchronize the data
 from NFS to Rados. The script can be found at
-`/usr/lib/pithos/tools/pithos-sync-rados.sh`.
+`/usr/lib/synnefo/pithos/tools/pithos-sync-rados.sh`.
 
 Since this version the dual mode of operation is not supported any more,
 meaning you will not be able to keep double Pithos objects anymore in NFS and
