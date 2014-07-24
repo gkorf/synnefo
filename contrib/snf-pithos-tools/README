@@ -18,7 +18,7 @@ pithos-fs       Pithos FUSE implementation
 pithos-test     Pithos server tests
 ==============  =============================
 
-Also, installs the pithos.tools.lib, which contains a python library that can be used to access Pithos and manage stored objects. All tools use the included lib.
+Also, installs the synnefo.pithos.tools.lib, which contains a python library that can be used to access Pithos and manage stored objects. All tools use the included lib.
 
 Connection options can be set via environmental variables:
 

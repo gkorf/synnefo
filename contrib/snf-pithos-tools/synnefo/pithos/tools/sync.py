@@ -23,10 +23,10 @@ from os.path import exists, expanduser, isdir, isfile, join, split
 from shutil import copyfile
 from time import time
 
-from pithos.tools.lib.transfer import download, upload
-from pithos.tools.lib.client import Pithos_Client, Fault
-from pithos.tools.lib.hashmap import merkle
-from pithos.tools.lib.util import get_user, get_auth, get_url
+from synnefo.pithos.tools.lib.transfer import download, upload
+from synnefo.pithos.tools.lib.client import Pithos_Client, Fault
+from synnefo.pithos.tools.lib.hashmap import merkle
+from synnefo.pithos.tools.lib.util import get_user, get_auth, get_url
 
 
 DEFAULT_CONTAINER = 'pithos'

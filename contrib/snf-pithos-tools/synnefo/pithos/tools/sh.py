@@ -23,9 +23,9 @@ from datetime import datetime
 
 from django.core.validators import email_re
 
-from pithos.tools.lib.client import Pithos_Client, Fault
-from pithos.tools.lib.util import get_user, get_auth, get_url
-from pithos.tools.lib.transfer import upload, download
+from synnefo.pithos.tools.lib.client import Pithos_Client, Fault
+from synnefo.pithos.tools.lib.util import get_user, get_auth, get_url
+from synnefo.pithos.tools.lib.transfer import upload, download
 
 import json
 import logging

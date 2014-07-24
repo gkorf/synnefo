@@ -16,8 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pithos.tools.lib.client import Pithos_Client, Fault
-from pithos.tools.lib.util import get_user, get_auth, get_url
+from synnefo.pithos.tools.lib.client import Pithos_Client, Fault
+from synnefo.pithos.tools.lib.util import get_user, get_auth, get_url
 
 from xml.dom import minidom
 from StringIO import StringIO
@@ -3520,7 +3520,7 @@ o_names = ['kate.jpg',
 
 def main():
     if get_user() == 'test':
-        unittest.main(module='pithos.tools.test')
+        unittest.main(module='synnefo.pithos.tools.test')
     else:
         print 'Will not run tests as any other user except \'test\' (current user: %s).' % get_user()
 

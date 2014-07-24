@@ -28,7 +28,7 @@ from setuptools import setup, find_packages
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from pithos.tools.version import __version__
+from synnefo.pithos.tools.version import __version__
 
 # Package info
 VERSION = __version__
@@ -177,11 +177,11 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'pithos-sh = pithos.tools.sh:main',
-            'pithos-sync = pithos.tools.sync:main',
-            'pithos-test = pithos.tools.test:main',
-            'pithos-fs = pithos.tools.fs:main',
-            'pithos-dispatcher = pithos.tools.dispatcher:main',
+            'pithos-sh = synnefo.pithos.tools.sh:main',
+            'pithos-sync = synnefo.pithos.tools.sync:main',
+            'pithos-test = synnefo.pithos.tools.test:main',
+            'pithos-fs = synnefo.pithos.tools.fs:main',
+            'pithos-dispatcher = synnefo.pithos.tools.dispatcher:main',
         ],
     },
 )
