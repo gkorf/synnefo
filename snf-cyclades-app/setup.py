@@ -200,7 +200,7 @@ setup(
          'web_apps = synnefo.cyclades.app_settings:synnefo_web_apps',
          'web_middleware = synnefo.cyclades.app_settings:synnefo_web_middleware',
          'web_context_processors = synnefo.cyclades.app_settings:synnefo_web_context_processors',
-         'urls = synnefo.cyclades.app_settings.urls:urlpatterns',
+         'urls = synnefo.cyclades.urls:urlpatterns',
          'web_static = synnefo.cyclades.app_settings:synnefo_static_files',
          ]
       },
