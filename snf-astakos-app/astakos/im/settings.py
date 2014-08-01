@@ -13,29 +13,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf import settings
-from synnefo_branding import settings as synnefo_settings
-from synnefo.lib import parse_base_url
-from astakos.api.services import astakos_services as vanilla_astakos_services
+from synnefo import settings
+from synnefo_branding import branding_settings
 from synnefo.lib import join_urls
-from synnefo.lib.services import fill_endpoints
-
-from copy import deepcopy
+from synnefo.lib.services import get_service_prefix
 
 
-BASE_URL = getattr(settings, 'ASTAKOS_BASE_URL',
-                   'https://accounts.example.synnefo.org')
+BASE_URL = settings.ASTAKOS_BASE_URL
+BASE_HOST = settings.ASTAKOS_BASE_HOST
+BASE_PATH = settings.ASTAKOS_BASE_PATH
 
+synnefo_services = settings.SYNNEFO_SERVICES
+astakos_services = settings.SYNNEFO_COMPONENTS['astakos']
 
-BASE_HOST, BASE_PATH = parse_base_url(BASE_URL)
-
-astakos_services = deepcopy(vanilla_astakos_services)
-fill_endpoints(astakos_services, BASE_URL)
-ACCOUNTS_PREFIX = astakos_services['astakos_account']['prefix']
-VIEWS_PREFIX = astakos_services['astakos_ui']['prefix']
-KEYSTONE_PREFIX = astakos_services['astakos_identity']['prefix']
-WEBLOGIN_PREFIX = astakos_services['astakos_weblogin']['prefix']
-ADMIN_PREFIX = astakos_services['astakos_admin']['prefix']
+ACCOUNTS_PREFIX = get_service_prefix(synnefo_services, 'astakos_account')
+VIEWS_PREFIX = get_service_prefix(synnefo_services, 'astakos_ui')
+KEYSTONE_PREFIX = get_service_prefix(synnefo_services, 'astakos_identity')
+WEBLOGIN_PREFIX = get_service_prefix(synnefo_services, 'astakos_weblogin')
+ADMIN_PREFIX = get_service_prefix(synnefo_services, 'astakos_admin')
 
 # Set the expiration time of newly created auth tokens
 # to be this many hours after their creation time.
