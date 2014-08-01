@@ -6,6 +6,17 @@ Unified Changelog file for Synnefo versions >= 0.13
 Since v0.13 most of the Synnefo components have been merged into a single
 repository and have aligned versions.
 
+v0.16next
+=========
+
+Released: UNRELEASED
+
+Synnefo-wide
+------------
+
+* Unified namespace for Synnefo python code: Python packages have been
+  renamed so that all reside under `synnefo.'
+
 .. _Changelog-0.16:
 
 v0.16rc1
