@@ -187,12 +187,13 @@ setup(
     scripts=['synnefo/astakos/scripts/snf-component-register'],
     entry_points={
         'synnefo': [
-            'default_settings = synnefo.astakos.synnefo_settings',
-            'web_apps = synnefo.astakos.synnefo_settings:installed_apps',
-            'web_middleware = synnefo.astakos.synnefo_settings:middlware_classes',
-            'web_context_processors = synnefo.astakos.synnefo_settings:context_processors',
+            'default_settings = synnefo.astakos.settings.default',
+            'web_apps = synnefo.astakos.settings:installed_apps',
+            'web_middleware = synnefo.astakos.settings:middlware_classes',
+            'web_context_processors = synnefo.astakos.settings:context_processors',
             'urls = synnefo.astakos.urls:urlpatterns',
-            'web_static = synnefo.astakos.synnefo_settings:static_files'
+            'web_static = synnefo.astakos.settings:static_files',
+            'services = synnefo.astakos.api.services:astakos_services',
         ],
         'console_scripts': [
             'snf-service-export = synnefo.astakos.scripts.snf_service_export:main',
