@@ -19,8 +19,9 @@ from synnefo.django.utils.testing import BaseAPITest
 from synnefo.cyclades.db.models import Flavor
 from synnefo.cyclades.db.models_factory import FlavorFactory
 from synnefo.lib.services import get_service_path
-from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
 
 class FlavorAPITest(BaseAPITest):
@@ -29,7 +30,8 @@ class FlavorAPITest(BaseAPITest):
         self.flavor1 = FlavorFactory()
         self.flavor2 = FlavorFactory(deleted=True)
         self.flavor3 = FlavorFactory()
-        self.compute_path = get_service_path(cyclades_services, 'compute',
+        self.compute_path = get_service_path(synnefo_services,
+                                             'cyclades_compute',
                                              version='v2.0')
 
     def myget(self, path):
