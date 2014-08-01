@@ -15,14 +15,14 @@
 
 from django.conf.urls import include, patterns
 
-from synnefo.astakos.im.settings import BASE_PATH, ACCOUNTS_PREFIX, \
-    VIEWS_PREFIX, KEYSTONE_PREFIX, WEBLOGIN_PREFIX, ADMIN_PREFIX
-from synnefo.django.lib.api.utils import prefix_pattern
+from synnefo.django.lib.api.utils import prefix_pattern_of, prefix_pattern
 from synnefo.django.utils.urls import \
     extend_with_root_redirects, extend_endpoint_with_slash
-from synnefo.astakos.im.settings import astakos_services
+from django.conf import settings
 
 urlpatterns = []
+
+astakos_services = settings.SYNNEFO_COMPONENTS['astakos']
 
 # Redirects should be first, otherwise they may get overridden by wildcards
 extend_endpoint_with_slash(urlpatterns, astakos_services, 'astakos_ui')
@@ -30,24 +30,24 @@ extend_endpoint_with_slash(urlpatterns, astakos_services, 'astakos_weblogin')
 
 astakos_patterns = patterns(
     '',
-    (prefix_pattern(VIEWS_PREFIX),
+    (prefix_pattern_of('astakos_ui'),
      include('synnefo.astakos.im.urls')),
-    (prefix_pattern(ACCOUNTS_PREFIX),
+    (prefix_pattern_of('astakos_account'),
      include('synnefo.astakos.api.urls')),
-    (prefix_pattern(KEYSTONE_PREFIX),
+    (prefix_pattern_of('astakos_identity'),
      include('synnefo.astakos.api.keystone_urls')),
-    (prefix_pattern(WEBLOGIN_PREFIX),
+    (prefix_pattern_of('astakos_weblogin'),
      include('synnefo.astakos.im.weblogin_urls')),
-    (prefix_pattern(ADMIN_PREFIX),
+    (prefix_pattern_of('astakos_admin'),
      include('synnefo.astakos.admin.admin_urls')),
     ('', include('synnefo.astakos.oa2.urls')),
 )
 
 urlpatterns += patterns(
     '',
-    (prefix_pattern(BASE_PATH), include(astakos_patterns)),
+    (prefix_pattern(settings.ASTAKOS_BASE_PATH), include(astakos_patterns)),
 )
 
 # set utility redirects
 extend_with_root_redirects(urlpatterns, astakos_services,
-                           'astakos_ui', BASE_PATH)
+                           'astakos_ui', settings.ASTAKOS_BASE_PATH)
