@@ -3,4 +3,7 @@ from synnefo.webproject.settings.default.apps import *
 from synnefo.webproject.settings.default.deploy import *
 from synnefo.webproject.settings.default.site import *
 from synnefo.webproject.settings.default.logging import *
-
+from synnefo.webproject.settings.default.admins import *
+from synnefo.webproject.settings.default.cloudbar import *
+from synnefo.webproject.settings.default.services import *
+from synnefo.webproject.settings.default.cache import *
