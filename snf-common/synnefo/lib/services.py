@@ -18,18 +18,21 @@ from synnefo.lib import join_urls
 from urlparse import urlparse
 
 
-def fill_endpoints(services, base_url):
-    for name, service in services.iteritems():
-        prefix = service['prefix']
-        endpoints = service['endpoints']
-        for endpoint in endpoints:
-            version = endpoint['versionId']
-            publicURL = endpoint['publicURL']
-            if publicURL is not None:
-                continue
+class ServiceNotFound(Exception):
+    pass
 
-            publicURL = join_urls(base_url, prefix, version).rstrip('/')
-            endpoint['publicURL'] = publicURL
+
+def fill_endpoints(service, base_url):
+    prefix = service['prefix']
+    endpoints = service['endpoints']
+    for endpoint in endpoints:
+        version = endpoint['versionId']
+        publicURL = endpoint['publicURL']
+        if publicURL is not None:
+            continue
+
+        publicURL = join_urls(base_url, prefix, version).rstrip('/')
+        endpoint['publicURL'] = publicURL
 
 
 def filter_public(services):
@@ -38,6 +41,22 @@ def filter_public(services):
         if service.get('public', False):
             public_services[name] = deepcopy(service)
     return public_services
+
+
+def filter_component(services, component_name):
+    component_services = {}
+    for name, service in services.iteritems():
+        if service['component'] == component_name:
+            component_services[name] = service
+    return component_services
+
+
+def get_service_prefix(services, service_name):
+    return services[service_name]['prefix']
+
+
+def get_service_resources(services, service_name):
+    return services[service_name]['resources']
 
 
 def get_public_endpoint(services, service_type, version=None):
@@ -57,12 +76,30 @@ def get_public_endpoint(services, service_type, version=None):
         m = "No endpoint found for service type '{0}'".format(service_type)
         if version is not None:
             m += " and version '{0}'".format(version)
-        raise ValueError(m)
+        raise ServiceNotFound(m)
 
     selected = sorted(found_endpoints.keys())[-1]
     return found_endpoints[selected]['publicURL']
 
 
-def get_service_path(services, service_type, version=None):
-    service_url = get_public_endpoint(services, service_type, version=version)
+def get_service_endpoints(services, service_name, version=None):
+    endpoints = services[service_name]['endpoints']
+    if version is not None:
+        filtered = []
+        for endpoint in endpoints:
+            if endpoint['versionId'] != version:
+                continue
+            filtered.append(endpoint)
+        endpoints = filtered
+    return endpoints
+
+
+def get_service_path(services, service_name, version=None):
+    endpoints = get_service_endpoints(services, service_name, version=version)
+    if not endpoints:
+        m = "No endpoint found for service '{0}'".format(service_name)
+        if version is not None:
+            m += " and version '{0}'".format(version)
+        raise ServiceNotFound(m)
+    service_url = endpoints[0]['publicURL']
     return urlparse(service_url).path.rstrip('/')
