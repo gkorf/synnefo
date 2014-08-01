@@ -59,6 +59,8 @@ from synnefo.astakos.im.views.decorators import cookie_fix, \
 from synnefo.astakos.api import projects as projects_api
 from synnefo.astakos.api.util import _dthandler
 
+from django.conf import settings as django_settings
+
 logger = logging.getLogger(__name__)
 
 
@@ -207,7 +209,7 @@ def api_access_config(request, template_name='im/api_access_config.html',
     else:
         cloud_name = branding_settings.SERVICE_NAME.replace(' ', '_').lower()
 
-    url = get_public_endpoint(settings.astakos_services, 'identity')
+    url = get_public_endpoint(django_settings.SYNNEFO_SERVICES, 'identity')
 
     context = {
         'user': request.user,
@@ -238,7 +240,7 @@ def api_access(request, template_name='im/api_access.html',
     """
     context = {}
 
-    url = get_public_endpoint(settings.astakos_services, 'identity')
+    url = get_public_endpoint(django_settings.SYNNEFO_SERVICES, 'identity')
     context['services'] = Component.catalog()
     context['token_url'] = url
     context['user'] = request.user
