@@ -25,11 +25,11 @@ from synnefo.cyclades.db.models import (
     IPAddress, NetworkInterface, Volume)
 from synnefo.cyclades.db import models_factory as mfactory
 from synnefo.cyclades.logic.utils import get_rsapi_state
-from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
 from django.conf import settings
 from synnefo.cyclades.logic.rapi import GanetiApiError
+synnefo_services = settings.SYNNEFO_SERVICES
 
 from mock import patch, Mock
 
@@ -37,8 +37,8 @@ from mock import patch, Mock
 class ComputeAPITest(BaseAPITest):
     def __init__(self, *args, **kwargs):
         super(ComputeAPITest, self).__init__(*args, **kwargs)
-        self.compute_path = get_service_path(cyclades_services, 'compute',
-                                             version='v2.0')
+        self.compute_path = get_service_path(synnefo_services, 'compute',
+                                             version='2')
 
     def myget(self, path, *args, **kwargs):
         path = join_urls(self.compute_path, path)
