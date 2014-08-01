@@ -61,16 +61,3 @@ middlware_classes = [
 ]
 
 static_files = {'synnefo.astakos.im': ''}
-
-# The following settings will replace the default django settings
-AUTHENTICATION_BACKENDS = (
-    'synnefo.astakos.im.auth_backends.EmailBackend',
-    'synnefo.astakos.im.auth_backends.TokenBackend')
-
-CUSTOM_USER_MODEL = 'synnefo.astakos.im.AstakosUser'
-
-#SOUTH_TESTS_MIGRATE = False
-
-BROKER_URL = ''
-
-# INTERNAL_IPS = ('127.0.0.1',)
