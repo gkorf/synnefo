@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.astakos.im.settings import astakos_services
+from synnefo.settings import SYNNEFO_SERVICES
+from synnefo.lib.services import get_service_resources
 
-resources = astakos_services['astakos_account']['resources'].values()
+resources = get_service_resources(SYNNEFO_SERVICES, 'astakos_account')
