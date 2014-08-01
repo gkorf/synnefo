@@ -18,13 +18,14 @@ import json
 from synnefo.django.lib.api import faults
 from synnefo.django.utils.testing import BaseAPITest
 from synnefo.lib.services import get_service_path
-from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
 from mock import patch
 from functools import wraps
 
-compute_path = get_service_path(cyclades_services, 'compute',
+compute_path = get_service_path(synnefo_services, 'cyclades_compute',
                                 version='v2.0')
 IMAGES_URL = join_urls(compute_path, "images/")
 
