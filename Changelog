@@ -13,6 +13,12 @@ v0.16next
 
 Released: UNRELEASED
 
+Synnefo-wide
+------------
+
+* Unified namespace for Synnefo python code: Python packages have been
+  renamed so that all reside under `synnefo.'
+
 Pithos
 ------
 
