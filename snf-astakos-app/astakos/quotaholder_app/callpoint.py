@@ -26,7 +26,7 @@ from astakos.quotaholder_app.commission import (
     Import, Release, Operations, finalize, undo)
 
 from astakos.quotaholder_app.models import (
-    Holding, Commission, Provision, ProvisionLog)
+    Holder, Holding, Commission, Provision, ProvisionLog)
 
 
 def format_datetime(d):
@@ -67,8 +67,8 @@ def delete_quota(keys):
 def _get_holdings_for_update(holding_keys, resource=None, delete=False):
     flt = Q(resource=resource) if resource is not None else Q()
     holders = set(holder for (holder, source, resource) in holding_keys)
-    objs = Holding.objects.filter(flt, holder__in=holders).order_by('pk')
-    hs = objs.select_for_update()
+    list(Holder.objects.filter(holder__in=holders).select_for_update())
+    hs = Holding.objects.filter(flt, holder__in=holders).order_by('pk')
 
     keys = set(holding_keys)
     holdings = {}
@@ -81,7 +81,7 @@ def _get_holdings_for_update(holding_keys, resource=None, delete=False):
             put_back.append(h)
 
     if delete:
-        objs.delete()
+        hs.delete()
         Holding.objects.bulk_create(put_back)
     return holdings
 
@@ -101,10 +101,12 @@ def set_quota(quotas, resource=None):
         holding_keys, resource=resource, delete=True)
 
     new_holdings = {}
+    holders = set()
     for key, limit in quotas:
         holder, source, res = key
         if resource is not None and resource != res:
             continue
+        holders.add(holder)
         h = Holding(holder=holder,
                     source=source,
                     resource=res,
@@ -118,6 +120,11 @@ def set_quota(quotas, resource=None):
             pass
         new_holdings[key] = h
 
+    existing_holders = Holder.objects.filter(holder__in=holders).\
+        values_list('holder', flat=True)
+    new_holders = holders.difference(existing_holders)
+    hrs = [Holder(holder=holder) for holder in new_holders]
+    Holder.objects.bulk_create(hrs)
     Holding.objects.bulk_create(new_holdings.values())
 
 

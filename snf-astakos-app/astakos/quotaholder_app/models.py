@@ -17,6 +17,10 @@ from django.db.models import (Model, BigIntegerField, CharField, DateTimeField,
                               ForeignKey, AutoField)
 
 
+class Holder(Model):
+    holder = CharField(max_length=4096, db_index=True, unique=True, null=False)
+
+
 class Holding(Model):
 
     holder = CharField(max_length=4096, db_index=True)
