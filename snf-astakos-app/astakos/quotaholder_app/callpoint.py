@@ -98,26 +98,23 @@ def _mkProvision(key, quantity):
 def set_quota(quotas, resource=None):
     holding_keys = [key for (key, limit) in quotas]
     holdings = _get_holdings_for_update(
-        holding_keys, resource=resource, delete=True)
+        holding_keys, resource=resource, delete=False)
 
     new_holdings = {}
     for key, limit in quotas:
         holder, source, res = key
         if resource is not None and resource != res:
             continue
-        h = Holding(holder=holder,
-                    source=source,
-                    resource=res,
-                    limit=limit)
         try:
-            h_old = holdings[key]
-            h.usage_min = h_old.usage_min
-            h.usage_max = h_old.usage_max
-            h.id = h_old.id
+            h = holdings[key]
+            h.limit = limit
+            h.save()
         except KeyError:
-            pass
-        new_holdings[key] = h
-
+            h = Holding(holder=holder,
+                        source=source,
+                        resource=res,
+                        limit=limit)
+            new_holdings[key] = h
     Holding.objects.bulk_create(new_holdings.values())
 
 
