@@ -17,6 +17,12 @@ Synnefo-wide
 * Unified namespace for Synnefo python code: Python packages have been
   renamed so that all reside under `synnefo.'
 
+* New settings framework. Settings are annotated with descriptions,
+  default values, and callbacks for configuration and validation.
+  The framework can distinguish between settings configured in files
+  and settings left default. A management command allows listing
+  settings with filtering and various display modes.
+
 .. _Changelog-0.16:
 
 v0.16rc2
