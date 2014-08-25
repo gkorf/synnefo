@@ -181,10 +181,11 @@ setup(
             'pithos-manage-accounts = synnefo.pithos.api.manage_accounts.cli:main'
         ],
         'synnefo': [
-            'default_settings = synnefo.pithos.api.synnefo_settings',
+            'default_settings = synnefo.pithos.settings.default',
             'web_apps = synnefo.pithos.api.synnefo_settings:synnefo_installed_apps',
             'web_middleware = synnefo.pithos.api.synnefo_settings:synnefo_middlewares',
-            'urls = synnefo.pithos.api.urls:urlpatterns'
+            'urls = synnefo.pithos.api.urls:urlpatterns',
+            'services = synnefo.pithos.api.services:pithos_services',
         ]
     },
 )
