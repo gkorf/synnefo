@@ -202,6 +202,7 @@ setup(
          'web_context_processors = synnefo.cyclades.app_settings:synnefo_web_context_processors',
          'urls = synnefo.cyclades.urls:urlpatterns',
          'web_static = synnefo.cyclades.app_settings:synnefo_static_files',
+         'services = synnefo.cyclades.api.services:cyclades_services',
          ]
       },
 )
