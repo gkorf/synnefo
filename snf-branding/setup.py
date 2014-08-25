@@ -156,6 +156,7 @@ setup(
     dependency_links=['http://docs.dev.grnet.gr/pypi'],
     entry_points={
         'synnefo': [
+             'default_settings = synnefo.branding.settings.default',
              'web_apps = synnefo.branding.synnefo_settings:installed_apps',
              'web_context_processors = synnefo.branding.synnefo_settings:context_processors',
              'web_static = synnefo.branding.synnefo_settings:static_files',
