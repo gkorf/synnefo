@@ -1,11 +1,26 @@
-# -*- coding: utf-8 -*-
-#
+from synnefo.lib.settings.setup import Mandatory, Default
+
 # Queues, exchanges and bindings for AMQP
-###########################################
+#########################################
 
-# List of RabbitMQ endpoints
-AMQP_HOSTS = ["amqp://username:password@host:port"]
-# AMQP Backend Client. Currently only puka
-AMQP_BACKEND = 'puka'
+AMQP_HOSTS = Mandatory(
+    example_value=["amqp://username:password@host:port"],
+    description="List of RabbitMQ endpoints.",
+    category="snf-cyclades-queues",
+)
 
-EXCHANGE_GANETI = "ganeti"  # Messages from Ganeti
+EXCHANGE_GANETI = Default(
+    default_value="ganeti",
+    description=(
+        "The message queue's exchange name. Notifications from "
+        "Ganeti will get dispatched from this exchange."),
+    export=False,
+)
+
+AMQP_BACKEND = Default(
+    default_value="puka",
+    example_value="puka",
+    description=(
+        "The AMQP backend client. Currently, only 'puka' is supported."),
+    export=False,
+)

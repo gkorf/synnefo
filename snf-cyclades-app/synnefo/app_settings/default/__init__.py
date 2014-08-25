@@ -19,6 +19,5 @@ from synnefo.app_settings.default.api import *
 from synnefo.app_settings.default.plankton import *
 from synnefo.app_settings.default.ui import *
 from synnefo.app_settings.default.userdata import *
-from synnefo.app_settings.default.reconciliation import *
-from synnefo.app_settings.default.tests import *
-from synnefo.app_settings.default.cloudbar import *
+from synnefo.app_settings.default.helpdesk import *
+from synnefo.app_settings.default.vmapi import *
