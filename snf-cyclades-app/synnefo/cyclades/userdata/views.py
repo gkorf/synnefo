@@ -43,7 +43,7 @@ class PublicKeyPairCollectionView(rest.UserCollectionView):
     exclude_fields = ["user"]
 
 
-SSH_KEY_LENGTH = getattr(settings, 'USERDATA_SSH_KEY_LENGTH', 2048)
+SSH_KEY_LENGTH = settings.USERDATA_SSH_KEY_LENGTH
 
 
 def generate_key_pair(request):

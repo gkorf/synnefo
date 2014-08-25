@@ -21,11 +21,12 @@ from functools import wraps
 from copy import deepcopy
 from decimal import Decimal
 from synnefo.django.utils.testing import BaseAPITest
-from synnefo.cyclades.cyclades_settings import cyclades_services
 from synnefo.lib.services import get_service_path
 from synnefo.lib import join_urls
+from django.conf import settings
+synnefo_services = settings.SYNNEFO_SERVICES
 
-PLANKTON_URL = get_service_path(cyclades_services, 'image',
+PLANKTON_URL = get_service_path(synnefo_services, 'cyclades_image',
                                 version='v1.0')
 IMAGES_URL = join_urls(PLANKTON_URL, "images/")
 
