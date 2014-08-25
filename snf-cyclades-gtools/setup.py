@@ -35,7 +35,7 @@ setup(
 
     license="GNU GPLv3",
     namespace_packages=["synnefo"],
-    packages=["synnefo", "synnefo.ganeti"],
+    packages=["synnefo", "synnefo.ganeti", "synnefo.ganeti.default"],
     dependency_links=['http://www.synnefo.org/packages/pypi'],
     install_requires=[
         'snf-common',
@@ -50,7 +50,7 @@ setup(
             'snf-progress-monitor = synnefo.ganeti.progress_monitor:main'
         ],
         'synnefo': [
-            'default_settings = synnefo.ganeti.settings'
+            'default_settings = synnefo.ganeti.default'
         ]
     },
 )
