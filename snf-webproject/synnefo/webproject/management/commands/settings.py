@@ -1,0 +1,381 @@
+# Copyright (C) 2010-2014 GRNET S.A.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+from synnefo.lib.settings import setup
+from django.core.management.base import BaseCommand, CommandError
+from optparse import make_option
+from os.path import isdir, exists
+from pprint import pformat
+from textwrap import wrap
+
+NoValue = setup.NoValue
+available_categories = sorted(setup.Catalogs['categories'].keys())
+available_types = sorted(setup.Catalogs['types'].keys())
+
+
+class Command(BaseCommand):
+    help = """Display synnefo settings.
+
+    Example:
+        settings --select type=mandatory,configured
+        settings --select hidden --select type=default,
+
+    Examples to export settings for config files:
+        settings --select \!hidden --printout-files /etc/synnefo.new
+        settings --select \\
+            ${EXPORT_SETTINGS_COMMA_LIST} --printout-files /etc/synnefo.new
+
+    To export runtime values in config files include --runtime."""
+
+    option_list = BaseCommand.option_list + (
+        make_option(
+            "-s", "--select",
+            type='string',
+            dest="selection_strings",
+            action="append",
+            metavar='[!]selection,...',
+            help=("List settings that match any comma-separated criteria: "
+                  "all, type=<setting type>, "
+                  "category=<setting category>, "
+                  "hidden, configured, <SETTING_NAME>.  "
+                  "Available types: {types}.  "
+                  "Available categories: {categories}.  "
+                  "Multiple --select options yield the intersection "
+                  "of their results."
+                  "Prepending '!' negates the selection criterion."
+                  ).format(types=', '.join(available_types),
+                           categories=', '.join(available_categories))),
+        make_option(
+            "-o", "--sort-order",
+            type='string',
+            dest="sort_order",
+            action="store",
+            default='lexical',
+            help=("Order settings. Available orderings: "
+                  "['lexical', 'source', "
+                  "'category-lexical', 'category-source']")),
+        make_option(
+            "-d", "--defaults",
+            dest="display_defaults",
+            action="store_true",
+            default=False,
+            help=("Include setting default value.")),
+
+        make_option(
+            "-t", "--status",
+            dest="display_status",
+            action="store_true",
+            default=False,
+            help=("Display internal setting status.")),
+        make_option(
+            "-1", "--oneline",
+            dest="display_multiline",
+            action="store_false",
+            default=True,
+            help=("Display setting in multiple lines")),
+        make_option(
+            "-l", "--details",
+            dest="display_details",
+            action="store_true",
+            default=False,
+            help=("Display full setting details")),
+        make_option(
+            "-r", "--runtime",
+            dest="printout_runtime",
+            action="store_true",
+            default=False,
+            help=("Append runtime values in printout.")),
+        make_option(
+            "-p", "--printout",
+            dest="printout",
+            action="store_true",
+            default=False,
+            help=("Create a printout of settings as comment blocks.")),
+        make_option(
+            "-f", "--printout-files",
+            dest="printout_files",
+            action="store",
+            metavar="SETTINGS-DIRECTORY",
+            help=("Create a printout of settings grouped "
+                  "in files by category.")),
+    )
+
+    def mk_filter_all(self, param):
+        if param != '':
+            m = "Invalid filter parameter '{0}'".format(param)
+            raise AssertionError(m)
+
+        def filter_all(setting):
+            return True
+        return filter_all
+
+    def mk_filter_category(self, category):
+        if category not in setup.Catalogs['categories']:
+            m = "Unknown category '{0}'".format(category)
+            raise CommandError(m)
+
+        def filter_category(setting):
+            return setting.category == category
+        return filter_category
+
+    def mk_filter_type(self, setting_type):
+        if setting_type not in setup.Catalogs['types']:
+            m = "Unknown type '{0}'".format(setting_type)
+            raise CommandError(m)
+
+        def filter_type(setting):
+            return setting.setting_type == setting_type
+        return filter_type
+
+    def mk_filter_hidden(self, hidden):
+        if hidden != '':
+            m = "Invalid hidden filter parameter '{0}'".format(hidden)
+            raise AssertionError(m)
+
+        def filter_hidden(setting):
+            return not setting.export
+        return filter_hidden
+
+    def mk_filter_configured(self, configured):
+        if configured != '':
+            m = "Invalid configured filter parameter '{0}'".format(configured)
+            raise AssertionError(m)
+
+        def filter_configured(setting):
+            return setting.configured_value is not NoValue
+        return filter_configured
+
+    def mk_filter_setting(self, setting_name):
+        if not setup.is_valid_setting_name(setting_name):
+            m = "Invalid setting name '{0}'".format(setting_name)
+            raise AssertionError(m)
+
+        def filter_setting(setting):
+            return setting.setting_name == setting_name
+        return filter_setting
+
+    def mk_negate(self, filter_method):
+        def negated_filter(*args, **kwargs):
+            return not filter_method(*args, **kwargs)
+        return negated_filter
+
+    _mk_filters = {
+        'all': 'mk_filter_all',
+        'category': 'mk_filter_category',
+        'type': 'mk_filter_type',
+        'configured': 'mk_filter_configured',
+        'hidden': 'mk_filter_hidden',
+        'setting': 'mk_filter_setting',
+    }
+
+    def parse_selection_filters(self, string):
+        filters = []
+        for term in string.split(','):
+            key, sep, value = term.partition('=')
+            if key.startswith('!'):
+                negate = True
+                key = key[1:]
+            else:
+                negate = False
+
+            if key not in self._mk_filters:
+                if not setup.is_valid_setting_name(key):
+                    return None
+                value = key
+                key = 'setting'
+
+            mk_filter_method = getattr(self, self._mk_filters[key])
+            if not mk_filter_method:
+                m = "Unknown filter '{0}'".format(key)
+                raise CommandError(m)
+
+            filter_method = mk_filter_method(value)
+            if negate:
+                filter_method = self.mk_negate(filter_method)
+            filters.append(filter_method)
+        return filters
+
+    def sort_lexical(display_settings):
+        return sorted(display_settings.iteritems())
+
+    def sort_source(display_settings):
+        registry = setup.Catalogs['registry']
+        sortable = []
+        for name, setting in display_settings.iteritems():
+            sortable.append((registry[name], name, setting))
+        sortable.sort()
+        return [(t[1], t[2]) for t in sortable]
+
+    def sort_category_lexical(display_settings):
+        sortable = []
+        for name, setting in display_settings.iteritems():
+            sortable.append((setting.category, name, setting))
+        sortable.sort()
+        return [(t[1], t[2]) for t in sortable]
+
+    def sort_category_source(display_settings):
+        registry = setup.Catalogs['registry']
+        sortable = []
+        for name, setting in display_settings.iteritems():
+            sortable.append((setting.category, registry[name], setting))
+        sortable.sort()
+        return [(t[1], t[2]) for t in sortable]
+
+    sort_methods = {
+        'lexical': sort_lexical,
+        'source': sort_source,
+        'category-lexical': sort_category_lexical,
+        'category-source': sort_category_source,
+    }
+
+    def display_console(self, display_settings_list, options):
+        for name, setting in display_settings_list:
+            format_str = "{name} = {value}"
+            flags = []
+
+            if setting.runtime_value == setting.default_value:
+                flags.append('default')
+
+            if setting.configured_value is not NoValue:
+                flags.append('configured')
+                if setting.runtime_value != setting.configured_value:
+                    flags.append('runtime')
+
+            value = setting.runtime_value
+            default_value = setting.default_value
+            example_value = setting.example_value
+            dependencies = setting.dependencies
+            description = str(setting.description)
+            sep = " # "
+            eol = ""
+
+            if options['display_multiline']:
+                value = pformat(value)
+                default_value = pformat(default_value)
+                example_value = pformat(example_value)
+                dependencies = pformat(dependencies)
+                sep = "\n  # "
+                description = (sep + '  ').join(wrap(description, 70))
+                eol = "\n"
+
+            format_args = {'name': name,
+                           'value': value,
+                           'example': example_value,
+                           'default': default_value,
+                           'description': description,
+                           'dependencies': dependencies,
+                           'serial': setting.serial,
+                           'configured_depth': setting.configured_depth,
+                           'configured_source': setting.configured_source,
+                           'configure_callback': setting.configure_callback,
+                           'flags': ','.join(flags)}
+
+            sep = "\n  # " if options['display_multiline'] else " # "
+            eol = "\n" if options['display_multiline'] else ""
+
+            if options['display_details'] or options['display_defaults']:
+                format_str += sep + "Default: {default}"
+
+            if options['display_details'] or options['display_status']:
+                format_str += sep + "Flags: {flags}"
+
+            if options['display_details']:
+                format_str += sep + "Description: {description}"
+                format_str += sep + "Dependencies: {dependencies}"
+                format_str += sep + "Depth: {configured_depth}"
+                format_str += sep + "Serial: {serial}"
+                format_str += sep + "Callback: {configure_callback}"
+                format_str += sep + "Source: {configured_source}"
+
+            line = format_str.format(**format_args) + eol
+            print line
+
+    def display_printout(self, display_settings_list, runtime=False):
+        for name, setting in display_settings_list:
+            comment = setting.present_as_comment(runtime=runtime) + '\n'
+            print comment
+
+    def printout_files(self, display_settings_list, path, runtime=False):
+        if not isdir(path):
+            m = "Cannot find directory '{path}'".format(path=path)
+            raise CommandError(m)
+
+        category_depths = {}
+        for name, setting in display_settings_list:
+            key = (setting.configured_depth, setting.category)
+            if key not in category_depths:
+                category_depths[key] = []
+            category_depths[key].append((name, setting))
+
+        old_filepath = None
+        conffile = None
+        filepath = None
+        for (depth, category), setting_list in \
+                sorted(category_depths.iteritems()):
+            depth *= 10
+            filepath = '{path}/{depth}-{category}.conf'
+            filepath = filepath.format(path=path,
+                                       depth=depth,
+                                       category=category)
+            if filepath != old_filepath:
+                if conffile:
+                    conffile.close()
+                if exists(filepath):
+                    m = "File {f} already exists! aborting."
+                    m = m.format(f=filepath)
+                    raise CommandError(m)
+                self.stdout.write("Writing {f}\n".format(f=filepath))
+                conffile = open(filepath, "a")
+                old_filepath = filepath
+            setting_list.sort()
+            for name, setting in setting_list:
+                conffile.write(setting.present_as_comment(runtime=runtime))
+                conffile.write('\n\n')
+
+    def handle(self, *args, **options):
+        if args:
+            raise CommandError("This command takes no arguments. Only options")
+
+        selection_strings = options["selection_strings"]
+        if not selection_strings:
+            selection_strings = ['configured']
+
+        and_filters = [self.parse_selection_filters(s)
+                       for s in selection_strings]
+
+        settings_dict = setup.Catalogs['settings']
+        display_settings = {}
+        for name, setting in settings_dict.items():
+            if all(any(or_filter(setting) for or_filter in and_filter)
+                   for and_filter in and_filters):
+                display_settings[name] = setting
+
+        sort_order = options['sort_order']
+        if sort_order not in self.sort_methods:
+            m = "Unknown sort method '{0}'".format(sort_order)
+            raise CommandError(m)
+
+        sort_method = self.sort_methods[sort_order]
+        display_settings_list = sort_method(display_settings)
+
+        if options['printout']:
+            self.display_printout(display_settings_list,
+                                  options['printout_runtime'])
+        elif options['printout_files']:
+            self.printout_files(display_settings_list,
+                                options['printout_files'],
+                                options['printout_runtime'])
+        else:
+            self.display_console(display_settings_list, options)
