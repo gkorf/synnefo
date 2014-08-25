@@ -78,7 +78,7 @@ def get_pithos_backend():
     global _pithos_backend_pool
     if _pithos_backend_pool is None:
         _pithos_backend_pool = PithosBackendPool(
-            settings.PITHOS_BACKEND_POOL_SIZE,
+            settings.PLANKTON_PITHOS_BACKEND_POOL_SIZE,
             astakos_auth_url=settings.ASTAKOS_AUTH_URL,
             service_token=settings.CYCLADES_SERVICE_TOKEN,
             astakosclient_poolsize=settings.CYCLADES_ASTAKOSCLIENT_POOLSIZE,

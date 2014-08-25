@@ -1,98 +1,215 @@
 # -*- coding: utf-8 -*-
-#
-# UI settings
-###################
 
-# API URL
-#COMPUTE_API_URL = '/api/v1.1'
+from synnefo.lib.settings.setup import NoValue, Mandatory, Default, Auto
 
-# base url for ui static files
-# if not set, defaults to MEDIA_URL + 'snf-<latest_ui_version>/'
-UI_MEDIA_URL = '/static/ui/static/snf/'
+# UI configuration
+##################
 
-# UI requests to the API layer time out after that many milliseconds
-TIMEOUT = 10 * 1000
+def _auto_configure_ui_media_url(deps):
+    return deps['MEDIA_URL'] + "ui/static/snf/"
+
+UI_MEDIA_URL = Auto(
+    description="Base URL for UI static files.",
+    autoconfigure=_auto_configure_ui_media_url,
+    dependencies=['MEDIA_URL'],
+    export=False,
+)
+
+TIMEOUT = Default(
+    default_value=10*1000,
+    example_value=10*1000,
+    description=(
+        "UI requests to the API layer will time out after that many "
+        "milliseconds."),
+    export=False,
+)
 
 # A list of suggested server tags (server metadata keys)
 DEFAULT_KEYWORDS = ["OS", "Role", "Location", "Owner"]
 
-# A list of allowed icons for OS Images
-IMAGE_ICONS = ["rhel", "ubuntu", "debian", "windows", "gentoo", "archlinux",
-               "centos", "fedora", "freebsd", "netbsd", "openbsd", "slackware",
-               "sles", "opensuse", "kubuntu", "oraclelinux"]
+IMAGE_ICONS = Default(
+    default_value=["rhel", "ubuntu", "debian", "windows", "gentoo",
+                   "archlinux", "centos", "fedora", "freebsd", "netbsd",
+                   "openbsd", "slackware", "sles", "opensuse", "kubuntu",
+                   "oraclelinux"],
+    description="List of supported icons for OS Images.",
+    export=False,
+)
 
-# How often should the UI request changes from the API
-UI_UPDATE_INTERVAL = 5000
+UI_UPDATE_INTERVAL = Default(
+    default_value=5000,
+    example_value=5000,
+    description=(
+        "Interval in milliseconds after which the UI should fetch "
+        "API changes."),
+    category="snf-cyclades-app-ui",
+    export=True,
+)
 
-# Milieconds to increase the interval after
-# UI_UPDATE_INTERVAL_INCREASE_AFTER_CALLS_COUNT calls
-# of recurrent api requests
-UI_UPDATE_INTERVAL_INCREASE = UI_UPDATE_INTERVAL / 4
-UI_UPDATE_INTERVAL_INCREASE_AFTER_CALLS_COUNT = 4
+def _auto_configure_ui_update_interval_increase(deps):
+    return deps['UI_UPDATE_INTERVAL'] / 4
 
-# Maximum update interval
-UI_UPDATE_INTERVAL_MAX = UI_UPDATE_INTERVAL * 3
+UI_UPDATE_INTERVAL_INCREASE = Auto(
+    default_value="auto-default: [UI_UPDATE_INTERVAL/4]",
+    description=(
+        "Increase the interval by that many milliseconds, as time goes "
+        "by and no action on the UI occurs."),
+    export=False,
+    dependencies=['UI_UPDATE_INTERVAL'],
+    autoconfigure=_auto_configure_ui_update_interval_increase,
+)
 
-# Fast update interval
-UI_UPDATE_INTERVAL_FAST = UI_UPDATE_INTERVAL / 2
+UI_UPDATE_INTERVAL_INCREASE_AFTER_CALLS_COUNT = Default(
+    default_value=4,
+    description="After so many recurrent calls, increase the interval.",
+    export=False,
+)
 
-# Miliseconds to remove from the previous server response time used in
-# consecutive API calls (aligning changes-since attribute).
-UI_CHANGES_SINCE_ALIGNMENT = 0
+def _auto_configure_ui_update_interval_max(deps):
+    return deps['UI_UPDATE_INTERVAL'] * 3
 
+UI_UPDATE_INTERVAL_MAX = Auto(
+    default_value="auto-default: [UI_UPDATE_INTERVAL*3]",
+    description="Maximum time in milliseconds that an interval can last.",
+    dependencies=['UI_UPDATE_INTERVAL'],
+    autoconfigure=_auto_configure_ui_update_interval_max,
+    export=False,
+)
+
+
+def _auto_configure_ui_update_interval_fast(deps):
+    return deps['UI_UPDATE_INTERVAL'] / 2
+
+UI_UPDATE_INTERVAL_FAST = Auto(
+    default_value="auto-default: [UI_UPDATE_INTERVAL/2]",
+    description=(
+        "Interval will drop to so many milliseconds, when specific "
+        "actions happen on the UI, to increase responsiveness."),
+    export=False,
+    dependencies=['UI_UPDATE_INTERVAL'],
+    autoconfigure=_auto_configure_ui_update_interval_fast,
+)
+
+UI_CHANGES_SINCE_ALIGNMENT = Default(
+    default_value=0,
+    description=(
+        "Milliseconds to remove from the previous server response time "
+        "used in consecutive API calls (aligning the 'changes-since'"
+        "attribute)."),
+    export=False,
+)
+
+# NOT USED
 # How often to check for user usage changes
 UI_QUOTAS_UPDATE_INTERVAL = 10000
 
-# Cookie name to retrieve authentication data from
-UI_AUTH_COOKIE_NAME = '_pithos2_a'
+UI_AUTH_COOKIE_NAME = Default(
+    default_value="_pithos2_a",
+    example_value="my_service_cookie_name_here",
+    description="Cookie name to retrieve authentication data from.",
+    export=False,
+)
 
-# Flavor options that we provide to the user as predefined
-# cpu/ram/disk combinations on vm create wizard
-VM_CREATE_SUGGESTED_FLAVORS = {
-    'small': {
-        'cpu': 1,
-        'ram': 1024,
-        'disk': 20,
-        'disk_template': 'drbd'
+VM_CREATE_SUGGESTED_FLAVORS = Default(
+    default_value={
+        "small": {
+            "cpu": 1,
+            "ram": 1024,
+            "disk": 20,
+            "disk_template": "drbd"
+        },
+        "medium": {
+            "cpu": 2,
+            "ram": 2048,
+            "disk": 30,
+            "disk_template": "drbd"
+        },
+        "large": {
+            "cpu": 4,
+            "ram": 4096,
+            "disk": 40,
+            "disk_template": "drbd"
+        }
     },
-    'medium': {
-        'cpu': 2,
-        'ram': 2048,
-        'disk': 30,
-        'disk_template': 'drbd'
+    description=(
+        "Flavor options that the wizard suggests to the user as "
+        "predefined CPU/RAM/Disk combinations."),
+    category="snf-cyclades-app-ui",
+    export=True,
+)
 
+UI_VM_IMAGE_COMMON_METADATA = Default(
+    default_value=["OS", "loginname", "logindomain", "users", "remote"],
+    description=(
+        "List of metadata keys to clone from the image to the virtual "
+        "machine during its creation."),
+    export=False,
+)
+
+VM_CREATE_SUGGESTED_ROLES = Default(
+    default_value=["Database server", "File server", "Mail server",
+                   "Web server", "Proxy"],
+    description=(
+        "Suggested VM roles to be displayed by the create wizard to "
+        "the user. If selected by the user, they will be added as metadata to "
+        "the newly created VM, with 'Role' as the key."),
+    category="snf-cyclades-app-ui",
+    export=True,
+)
+
+VM_CREATE_NAME_TPL = Default(
+    default_value="My {0} server",
+    example_value="My {0} server",
+    description=(
+        "Default suggested name for a new VM. '{0}' gets replaced by "
+        "the image's OS value."),
+    category="snf-cyclades-app-ui",
+    export=True,
+)
+
+UI_VM_HOSTNAME_FORMAT = Mandatory(
+    example_value="snf-%(id)s.vm.example.synnefo.org",
+    description="Template to use to build the VM's hostname.",
+    category="snf-cyclades-app-ui",
+)
+
+UI_FLAVORS_DISK_TEMPLATES_INFO = Default(
+    default_value={
+        "drbd": {
+            "name": "Standard",
+            "description": "Highly available persistent storage (DRBD)."
+        }
     },
-    'large': {
-        'cpu': 4,
-        'ram': 4096,
-        'disk': 40,
-        'disk_template': 'drbd'
-
-    }
-}
-
-# A list of metadata keys to clone from image
-# to the virtual machine on its creation.
-VM_IMAGE_COMMON_METADATA = ["OS", "loginname", "logindomain", "users",
-                            "remote"]
-
-# A list of suggested vm roles to display to user on create wizard
-VM_CREATE_SUGGESTED_ROLES = ["Database server", "File server", "Mail server",
-                             "Web server", "Proxy"]
-
-# Template to be used for suggesting the user a default name for newly created
-# vms. {0} gets replaced by the image OS value
-VM_CREATE_NAME_TPL = "My {0} server"
-
-# Template to use to build vm hostname
-UI_VM_HOSTNAME_FORMAT = 'snf-%(id)s.vm.synnefo.org'
-
-# Name/description metadata for the available flavor disk templates
-# Dict key is the disk_template value as stored in database
-UI_FLAVORS_DISK_TEMPLATES_INFO = {
-    'drbd': {'name': 'DRBD',
-             'description': 'DRBD storage.'},
-}
+    example_value={
+        "drbd": {
+            "name": "Standard",
+            "description": "Highly available persistent storage (DRBD)."
+        },
+        "plain": {
+            "name": "Local",
+            "description": "Fast, not high available local storage (LVM)."
+        },
+        "rbd": {
+            "name": "RBD",
+            "description": "VM disks residing inside a RADOS cluster."
+        },
+        "file": {
+            "name": "File",
+            "description": "VM disks are files on a local filesystem."
+        },
+        "ext_archipelago": {
+            "name": "Archipelago",
+            "description": "Volumes residing on our custom storage layer "
+                           "Archipelago, supporting fast VM spawning using "
+                           "cloning."
+        }
+    },
+    description=(
+        "Name/Description of the available disk templates for flavors. "
+        "Dict key is the 'disk_template' value as stored in the Cyclades DB."),
+    category="snf-cyclades-app-ui",
+    export=True,
+)
 
 # Override default connect prompt messages. The setting gets appended to the
 # ui default values so you only need to modify parameters you need to alter.
@@ -114,82 +231,151 @@ UI_FLAVORS_DISK_TEMPLATES_INFO = {
 #
 # you may assign a callable python object to the ssh_message, if so the above
 # parameters get passed as arguments to the provided object.
-UI_CONNECT_PROMPT_MESSAGES = {}
+UI_CONNECT_PROMPT_MESSAGES = Default(
+    default_value={},
+    description="Connect prompt messages.",
+    export=False,
+)
 
-# extend rdp file content. May be a string with format parameters similar to
-# those used in UI_CONNECT_PROMPT_MESSAGES `ssh_message` or a callable object.
-UI_EXTRA_RDP_CONTENT = None
-
-
-#######################
-# UI BEHAVIOUR SETTINGS
-#######################
-
-# Whether to increase the time of recurrent requests (networks/vms update) if
-# window loses its focus
-UI_DELAY_ON_BLUR = False
-
-# Whether not visible vm views will update their content if vm changes
-UI_UPDATE_HIDDEN_VIEWS = False
-
-# After how many timeouts of reccurent ajax requests to display the timeout
-# error overlay
-UI_SKIP_TIMEOUTS = 1
-
-# Whether UI should display error overlay for all Javascript exceptions
-UI_HANDLE_WINDOW_EXCEPTIONS = True
-
-# A list of os names that support ssh public key assignment
-UI_SUPPORT_SSH_OS_LIST = ['debian', 'fedora', 'okeanos', 'ubuntu', 'kubuntu',
-                          'centos', 'archlinux']
-
-# OS/username map to identify default user name for the specified os
-UI_OS_DEFAULT_USER_MAP = {
-    'debian': 'root', 'fedora': 'root', 'okeanos': 'root',
-    'ubuntu': 'root', 'kubuntu': 'root', 'centos': 'root',
-    'windows': 'Administrator'
-}
-
-##########################
-# UI NETWORK VIEW SETTINGS
-##########################
-
-# Available network types for use to choose when creating a private network
-# If only one set, no select options will be displayed
-UI_NETWORK_AVAILABLE_NETWORK_TYPES = {'MAC_FILTERED': 'mac-filtering'}
-
-# Suggested private networks to let the user choose from when creating a
-# private network with dhcp enabled
-UI_NETWORK_AVAILABLE_SUBNETS = ['10.0.0.0/24', '192.168.0.0/24']
-
-# UI will use this setting to find an available network subnet if user requests
-# automatic subnet selection.
-UI_AUTOMATIC_NETWORK_RANGE_FORMAT = "192.168.%d.0/24"
-
-# Whether to display already connected vm's to the network connect overlay
-UI_NETWORK_ALLOW_DUPLICATE_VM_NICS = False
-
-# Whether to display destroy action on private networks that contain vms. If
-# set to True, destroy action will only get displayed if user disconnect all
-# virtual machines from the network.
-UI_NETWORK_STRICT_DESTROY = True
-
-# Whether or not to group public networks nics in a single network view
-UI_GROUP_PUBLIC_NETWORKS = True
+UI_EXTRA_RDP_CONTENT = Default(
+    default_value=None,
+    description=(
+        "Extend RDP file content. May be a string with format "
+        "parameters similar to those used in 'UI_CONNECT_PROMPT_MESSAGES' "
+        "`ssh_message` or a callable object."),
+    export=False,
+)
 
 
-###############
-# UI EXTENSIONS
-###############
+UI_DELAY_ON_BLUR = Default(
+    default_value=False,
+    description=(
+        "Whether to increase the time of recurrent requests "
+        "(networks/vms update), if window loses its focus."),
+    export=False,
+)
 
-# Whether or not UI should display images from the Glance API
-# set in UI_GLANCE_API_URL, if setting is set to False, ui will
-# request images from Compute API
-UI_ENABLE_GLANCE = True
+UI_UPDATE_HIDDEN_VIEWS = Default(
+    default_value=False,
+    description=(
+        "Whether not visible VM views will update their content, "
+        "if VM changes."),
+    export=False,
+)
 
-# a dict of image owner ids and their associate name
-# to be displayed on images list
-UI_SYSTEM_IMAGES_OWNERS = {
-    'admin@synnefo.org': 'system',
-    'images@synnefo.org': 'system'
-}
+UI_SKIP_TIMEOUTS = Default(
+    default_value=1,
+    description=(
+        "After how many timeouts of recurrent Ajax requests to display "
+        "the timeout error overlay."),
+    export=False,
+)
+
+UI_HANDLE_WINDOW_EXCEPTIONS = Default(
+    default_value=True,
+    description=(
+        "Whether the UI should display error overlays for all "
+        "Javascript exceptions."),
+    export=False,
+)
+
+# FIXME: This setting can be calculated since v0.14 and should go away.
+UI_SUPPORT_SSH_OS_LIST = Default(
+    default_value=["debian", "fedora", "okeanos", "ubuntu", "kubuntu",
+                   "centos", "archlinux", "sles", "opensuse", "rhel"],
+    description="List of OS names that support SSH public key assignment.",
+    export=False,
+)
+
+# FIXME: This setting can be calculated since v0.14 and should go away.
+UI_OS_DEFAULT_USER_MAP = Default(
+    default_value={
+        "debian": "root",
+        "fedora": "root",
+        "okeanos": "root",
+        "ubuntu": "root",
+        "kubuntu": "root",
+        "centos": "root",
+        "archlinux": "root",
+        "sles": "root",
+        "opensuse": "root",
+        "rhel": "root",
+        "windows": "Administrator"
+    },
+    description=(
+        "OS/Username map to identify default user name for specified OS."),
+    export=False,
+)
+
+UI_NETWORK_AVAILABLE_NETWORK_TYPES = Default(
+    default_value={"MAC_FILTERED": "mac-filtering"},
+    description=(
+        "Available network types to choose from, when creating a new "
+        "private virtual network. If only one is set, no options will be "
+        "displayed and all networks will have that type."),
+    category="snf-cyclades-app-ui",
+    export=True,
+)
+
+UI_NETWORK_AVAILABLE_SUBNETS = Default(
+    default_value=['10.0.0.0/24', '192.168.0.0/24'],
+    description=(
+        "Suggested CIDRs to choose from, when creating a private "
+        "virtual network with DHCP enabled."),
+    category="snf-cyclades-app-ui",
+    export=True,
+)
+
+UI_AUTOMATIC_NETWORK_RANGE_FORMAT = Default(
+    default_value="192.168.%d.0/24",
+    description=(
+        "UI will use this setting to find an available network subnet, "
+        "if user requests automatic subnet allocation."),
+    category="snf-cyclades-app-ui",
+    export=True,
+)
+
+UI_NETWORK_ALLOW_DUPLICATE_VM_NICS = Default(
+    default_value=False,
+    description="Whether to allow a VM to connect twice in the same network.",
+    export=False,
+)
+
+UI_NETWORK_STRICT_DESTROY = Default(
+    default_value=True,
+    description=(
+        "If True, display the 'Destroy' action on private networks "
+        "only if all VMs are disconnected from it."),
+    export=False,
+)
+
+UI_GROUP_PUBLIC_NETWORKS = Default(
+    default_value=True,
+    description="Whether or not to group all public networks to a single one.",
+    export=False,
+)
+
+# FIXME: This should go away; we always fetch from Glance.
+UI_ENABLE_GLANCE = Default(
+    default_value=True,
+    description=(
+        "Whether or not the UI should display images from the Glance "
+        "API set in UI_GLANCE_API_URL. If False, the UI will request images "
+        "from the Compute API."),
+    export=False,
+)
+
+UI_SYSTEM_IMAGES_OWNERS = Default(
+    default_value={},
+    example_value={
+        "admin@example.synnefo.org": "system",
+        "images@example.synnefo.org": "system"
+    },
+    description=(
+        "Dict of Image owner IDs and their associated name to be "
+        "displayed on Images list. If a user appears in this dict, his/her "
+        "images will appear under the 'System' images tab on the VM creation "
+        "wizard."),
+    category="snf-cyclades-app-ui",
+    export=True,
+)

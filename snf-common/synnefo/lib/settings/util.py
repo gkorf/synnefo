@@ -16,19 +16,15 @@
 from synnefo.lib.settings.setup import NoValue, SettingsError
 
 
-def auto_configure_default_from_dep(setting, value, deps):
+def auto_configure_default_from_dep(deps):
     """If no value was given by the user, set the value to that
        of the depenency (must be dependent to a single setting).
 
     """
-    if value is not NoValue:
-        # acknowledge user-provided setting
-        return NoValue
-
     if len(deps) != 1:
-        m = ("The callback of setting '{name}' requires the setting to "
+        m = ("The callback requires the setting to "
              "have exactly one dependency, not {n}.")
-        m = m.format(name=setting.setting_name, n=len(deps))
+        m = m.format(n=len(deps))
         raise SettingsError(m)
 
     return deps.values()[0]
