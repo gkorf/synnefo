@@ -33,65 +33,55 @@ from synnefo.cyclades.ui import settings as uisettings
 SYNNEFO_JS_LIB_VERSION = get_component_version('cyclades')
 
 # UI preferences settings
-TIMEOUT = getattr(settings, "TIMEOUT", 10000)
-UPDATE_INTERVAL = getattr(settings, "UI_UPDATE_INTERVAL", 5000)
-CHANGES_SINCE_ALIGNMENT = getattr(settings, "UI_CHANGES_SINCE_ALIGNMENT", 0)
-UPDATE_INTERVAL_INCREASE = getattr(settings, "UI_UPDATE_INTERVAL_INCREASE",
-                                   500)
+TIMEOUT = settings.TIMEOUT
+UPDATE_INTERVAL = settings.UI_UPDATE_INTERVAL
+CHANGES_SINCE_ALIGNMENT = settings.UI_CHANGES_SINCE_ALIGNMENT
+UPDATE_INTERVAL_INCREASE = settings.UI_UPDATE_INTERVAL_INCREASE
 UPDATE_INTERVAL_INCREASE_AFTER_CALLS_COUNT = \
-    getattr(settings, "UI_UPDATE_INTERVAL_INCREASE_AFTER_CALLS_COUNT", 3)
-UPDATE_INTERVAL_FAST = getattr(settings, "UI_UPDATE_INTERVAL_FAST", 2500)
-UPDATE_INTERVAL_MAX = getattr(settings, "UI_UPDATE_INTERVAL_MAX", 10000)
+    settings.UI_UPDATE_INTERVAL_INCREASE_AFTER_CALLS_COUNT
+UPDATE_INTERVAL_FAST = settings.UI_UPDATE_INTERVAL_FAST
+UPDATE_INTERVAL_MAX = settings.UI_UPDATE_INTERVAL_MAX
 
 # predefined values settings
-VM_IMAGE_COMMON_METADATA = \
-    getattr(settings, "UI_VM_IMAGE_COMMON_METADATA", ["OS", "users"])
-SUGGESTED_FLAVORS_DEFAULT = {}
-SUGGESTED_FLAVORS = getattr(settings, "VM_CREATE_SUGGESTED_FLAVORS",
-                            SUGGESTED_FLAVORS_DEFAULT)
+VM_IMAGE_COMMON_METADATA = settings.UI_VM_IMAGE_COMMON_METADATA
+SUGGESTED_FLAVORS = settings.VM_CREATE_SUGGESTED_FLAVORS
 SUGGESTED_ROLES_DEFAULT = ["Database server", "File server", "Mail server",
                            "Web server", "Proxy"]
-SUGGESTED_ROLES = getattr(settings, "VM_CREATE_SUGGESTED_ROLES",
-                          SUGGESTED_ROLES_DEFAULT)
+SUGGESTED_ROLES = settings.VM_CREATE_SUGGESTED_ROLES
 IMAGE_ICONS = settings.IMAGE_ICONS
 IMAGE_DELETED_TITLE = \
     getattr(settings, 'UI_IMAGE_DELETED_TITLE', '(deleted)')
 IMAGE_DELETED_SIZE_TITLE = \
     getattr(settings, 'UI_IMAGE_DELETED_SIZE_TITLE', '(none)')
 
-
 SSH_SUPPORT_OSFAMILY_EXCLUDE_LIST = getattr(
     settings, "UI_SSH_SUPPORT_OSFAMILY_EXCLUDE_LIST", ['windows'])
-
-OS_CREATED_USERS = getattr(settings, "UI_OS_DEFAULT_USER_MAP")
+OS_CREATED_USERS = settings.UI_OS_DEFAULT_USER_MAP
 UNKNOWN_OS = getattr(settings, "UI_UNKNOWN_OS", "unknown")
 
-AUTH_COOKIE_NAME = getattr(settings, "UI_AUTH_COOKIE_NAME", 'synnefo_user')
+AUTH_COOKIE_NAME = settings.UI_AUTH_COOKIE_NAME
 
 # never change window location. Helpful in development environments
 AUTH_SKIP_REDIRECTS = getattr(settings, "UI_AUTH_SKIP_REDIRECTS", False)
 
 # UI behaviour settings
-DELAY_ON_BLUR = getattr(settings, "UI_DELAY_ON_BLUR", True)
-UPDATE_HIDDEN_VIEWS = getattr(settings, "UI_UPDATE_HIDDEN_VIEWS", False)
-HANDLE_WINDOW_EXCEPTIONS = \
-    getattr(settings, "UI_HANDLE_WINDOW_EXCEPTIONS", True)
-SKIP_TIMEOUTS = getattr(settings, "UI_SKIP_TIMEOUTS", 1)
+DELAY_ON_BLUR = settings.UI_DELAY_ON_BLUR
+UPDATE_HIDDEN_VIEWS = settings.UI_UPDATE_HIDDEN_VIEWS
+HANDLE_WINDOW_EXCEPTIONS = settings.UI_HANDLE_WINDOW_EXCEPTIONS
+SKIP_TIMEOUTS = settings.UI_SKIP_TIMEOUTS
 
 # Additional settings
-VM_NAME_TEMPLATE = getattr(settings, "VM_CREATE_NAME_TPL", "My {0} server")
+VM_NAME_TEMPLATE = settings.VM_CREATE_NAME_TPL
 NO_FQDN_MESSAGE = getattr(settings, "UI_NO_FQDN_MESSAGE", "No available FQDN")
 
-MAX_SSH_KEYS_PER_USER = getattr(settings, "USERDATA_MAX_SSH_KEYS_PER_USER")
-FLAVORS_DISK_TEMPLATES_INFO = \
-    getattr(settings, "UI_FLAVORS_DISK_TEMPLATES_INFO", {})
-SYSTEM_IMAGES_OWNERS = getattr(settings, "UI_SYSTEM_IMAGES_OWNERS", {})
+MAX_SSH_KEYS_PER_USER = settings.USERDATA_MAX_SSH_KEYS_PER_USER
+FLAVORS_DISK_TEMPLATES_INFO = settings.UI_FLAVORS_DISK_TEMPLATES_INFO
+SYSTEM_IMAGES_OWNERS = settings.UI_SYSTEM_IMAGES_OWNERS
 CUSTOM_IMAGE_HELP_URL = getattr(settings, "UI_CUSTOM_IMAGE_HELP_URL", None)
 
 # MEDIA PATHS
-UI_MEDIA_URL = \
-    getattr(settings, "UI_MEDIA_URL",
-            "%sui/static/snf/" % (settings.MEDIA_URL,))
+UI_MEDIA_URL = settings.UI_MEDIA_URL
+
 UI_SYNNEFO_IMAGES_URL = \
     getattr(settings,
             "UI_SYNNEFO_IMAGES_URL", UI_MEDIA_URL + "images/")
@@ -108,35 +98,21 @@ UI_SYNNEFO_JS_WEB_URL = \
     getattr(settings, "UI_SYNNEFO_JS_WEB_URL", UI_SYNNEFO_JS_URL + "ui/web/")
 
 # extensions
-ENABLE_GLANCE = getattr(settings, 'UI_ENABLE_GLANCE', True)
+ENABLE_GLANCE = settings.UI_ENABLE_GLANCE
 
 DIAGNOSTICS_UPDATE_INTERVAL = \
     getattr(settings, 'UI_DIAGNOSTICS_UPDATE_INTERVAL', 2000)
 
 # network settings
-DEFAULT_NETWORK_TYPES = {'MAC_FILTERED': 'mac-filtering',
-                         'PHYSICAL_VLAN': 'physical-vlan'}
-NETWORK_TYPES = \
-    getattr(settings,
-            'UI_NETWORK_AVAILABLE_NETWORK_TYPES', DEFAULT_NETWORK_TYPES)
-DEFAULT_NETWORK_SUBNETS = ['10.0.0.0/24', '192.168.1.1/24']
-NETWORK_SUBNETS = \
-    getattr(settings,
-            'UI_NETWORK_AVAILABLE_SUBNETS', DEFAULT_NETWORK_SUBNETS)
-NETWORK_DUPLICATE_NICS = \
-    getattr(settings,
-            'UI_NETWORK_ALLOW_DUPLICATE_VM_NICS', False)
-NETWORK_STRICT_DESTROY = \
-    getattr(settings,
-            'UI_NETWORK_STRICT_DESTROY', False)
+NETWORK_TYPES = settings.UI_NETWORK_AVAILABLE_NETWORK_TYPES
+NETWORK_SUBNETS = settings.UI_NETWORK_AVAILABLE_SUBNETS
+NETWORK_DUPLICATE_NICS = settings.UI_NETWORK_ALLOW_DUPLICATE_VM_NICS
+NETWORK_STRICT_DESTROY = settings.UI_NETWORK_STRICT_DESTROY
 NETWORK_ALLOW_MULTIPLE_DESTROY = \
     getattr(settings,
             'UI_NETWORK_ALLOW_MULTIPLE_DESTROY', False)
-AUTOMATIC_NETWORK_RANGE_FORMAT = getattr(settings,
-                                         'UI_AUTOMATIC_NETWORK_RANGE_FORMAT',
-                                         "192.168.%d.0/24").replace("%d",
-                                                                    "{0}")
-GROUP_PUBLIC_NETWORKS = getattr(settings, 'UI_GROUP_PUBLIC_NETWORKS', True)
+AUTOMATIC_NETWORK_RANGE_FORMAT = settings.UI_AUTOMATIC_NETWORK_RANGE_FORMAT
+GROUP_PUBLIC_NETWORKS = settings.UI_GROUP_PUBLIC_NETWORKS
 
 DEFAULT_FORCED_SERVER_NETWORKS = \
     getattr(settings, "CYCLADES_FORCED_SERVER_NETWORKS", [])
@@ -316,8 +292,7 @@ CONNECT_PROMPT_MESSAGES = {
     },
 }
 
-APPEND_CONNECT_PROMPT_MESSAGES = \
-    getattr(settings, 'UI_CONNECT_PROMPT_MESSAGES', {})
+APPEND_CONNECT_PROMPT_MESSAGES = settings.UI_CONNECT_PROMPT_MESSAGES
 for k, v in APPEND_CONNECT_PROMPT_MESSAGES.iteritems():
     CONNECT_PROMPT_MESSAGES[k].update(v)
 
@@ -374,7 +349,7 @@ def machines_connect(request):
         extra_rdp_content = ''
         # UI sent domain info (from vm metadata) use this
         # otherwise use our default snf-<vm_id> domain
-        EXTRA_RDP_CONTENT = getattr(settings, 'UI_EXTRA_RDP_CONTENT', '')
+        EXTRA_RDP_CONTENT = settings.UI_EXTRA_RDP_CONTENT
         if callable(EXTRA_RDP_CONTENT):
             extra_rdp_content = EXTRA_RDP_CONTENT(server_id, ip_address,
                                                   hostname, username)
