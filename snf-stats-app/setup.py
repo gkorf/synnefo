@@ -68,7 +68,7 @@ setup(
     dependency_links=['http://www.synnefo.org/packages/pypi'],
     entry_points={
         'synnefo': [
-             'default_settings = synnefo.stats.synnefo_settings',
+             'default_settings = synnefo.stats.settings.default',
              'web_apps = synnefo.stats.synnefo_settings:installed_apps',
              'urls = synnefo.stats.urls:urlpatterns',
         ]
