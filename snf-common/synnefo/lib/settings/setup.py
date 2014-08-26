@@ -18,7 +18,7 @@ from pprint import pformat
 from textwrap import wrap
 from itertools import chain
 from os import environ
-
+import sys
 
 class SettingsError(Exception):
     pass
@@ -63,7 +63,7 @@ def initialize_settings(settings_dict, source="unknown", strict=False):
                 m = m.format(name=name, value=setting)
                 raise SettingsError(m)
             else:
-                print "non-annotated %s, %s" % (source, name)
+                print >> sys.stderr, "non-annotated %s, %s" % (source, name)
                 setting = Setting(default_value=setting)
 
         #FIXME: duplicate annotations?
@@ -73,7 +73,7 @@ def initialize_settings(settings_dict, source="unknown", strict=False):
            m = m.format(name=name, orig=settings[name].annotation_source,
                         new=source)
            # raise SettingsError(m)
-           print m
+           print >> sys.stderr, m
         for init_dep in setting.init_dependencies:
             if init_dep in settings:
                 if init_dep in init_dependents:
