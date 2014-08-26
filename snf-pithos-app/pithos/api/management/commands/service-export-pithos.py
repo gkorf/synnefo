@@ -15,7 +15,7 @@
 
 from django.utils import simplejson as json
 from snf_django.management.commands import SynnefoCommand
-from django.conf.settings import SYNNEFO_SERVICES
+from synnefo.settings import SYNNEFO_SERVICES
 from synnefo.lib.services import filter_public, filter_component
 
 
