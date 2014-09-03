@@ -391,7 +391,7 @@ POLL_LIMIT = Default(
 #####################################
 # Astakos and Proxy
 
-ASTAKOS_AUTH_URL = Mandatory(
+CYCLADES_ASTAKOS_AUTH_URL = Mandatory(
     example_value='https://accounts.example.synnefo.org/astakos/identity/v2.0',
     description="Astakos auth URL",
     category="",
