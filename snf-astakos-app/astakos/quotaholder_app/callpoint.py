@@ -28,6 +28,8 @@ from astakos.quotaholder_app.commission import (
 from astakos.quotaholder_app.models import (
     Holding, Commission, Provision, ProvisionLog)
 
+from astakos.im import models as im_models
+
 
 def format_datetime(d):
     return d.strftime('%Y-%m-%dT%H:%M:%S.%f')[:24]
@@ -125,6 +127,8 @@ def _merge_same_keys(provisions):
         tuples.append((key, sum(values)))
     return tuples
 
+
+def projects_from_keys(
 
 def issue_commission(clientkey, provisions, name="", force=False):
     operations = Operations()

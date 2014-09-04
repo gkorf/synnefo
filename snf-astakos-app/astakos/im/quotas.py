@@ -277,6 +277,51 @@ def astakos_project_quotas(projects, resource=None):
     return project_quota, user_quota
 
 
+def astakos_project_quotas2(projects, req_policies):
+    objs = ProjectResourceQuota.objects.select_related()
+    flt = Q(resource__name=resource) if resource is not None else Q()
+    grants = objs.filter(project__in=projects).filter(flt)
+    grants_d = _partition_by(lambda g: g.project_id, grants)
+
+    objs = ProjectMembership.objects
+    memberships = objs.initialized(projects).select_related(
+        "person", "project")
+    memberships_d = _partition_by(lambda m: m.project_id, memberships)
+
+    user_quota = QuotaDict()
+    project_quota = QuotaDict()
+
+
+    project_queries = defaultdict([])
+    member_queries = defaultdict(default_dict([]))
+    for resource, m_capacity, p_capacity in req_policies:
+        for project in projects:
+            pr_ref = get_project_ref(project)
+            state = project.state
+            if state == Project.NORMAL:
+                project_queries[resource].append(pr_ref)
+
+            project_memberships = memberships_d.get(project.id, [])
+            for membership in project_memberships:
+                u_ref = get_user_ref(membership.person)
+                if membership.is_active():
+                    member_queries[resource][pr_ref].append(u_ref)
+
+
+        project_grants = grants_d.get(project.id, [])
+        project_memberships = memberships_d.get(project.id, [])
+        for grant in project_grants:
+            resource = grant.resource.name
+            val = grant.project_capacity if state == Project.NORMAL else 0
+            project_quota[pr_ref][None][resource] = val
+            for membership in project_memberships:
+                u_ref = get_user_ref(membership.person)
+                val = grant.member_capacity if membership.is_active() else 0
+                user_quota[u_ref][pr_ref][resource] = val
+
+    return project_quota, user_quota
+
+
 def list_user_quotas(users, qhflt=None):
     qh_quotas = get_users_quotas(users, flt=qhflt)
     return qh_quotas
