@@ -25,10 +25,10 @@ from synnefo.astakos.im import settings as astakos_settings
 from synnefo.django.lib.api import faults
 from synnefo.django.utils.testing import override_settings
 
-from synnefo_admin import admin_settings
-from synnefo_admin.admin import views
-from synnefo_admin.admin import utils
-from synnefo_admin.admin.exceptions import AdminHttp404
+from synnefo.admin import admin_settings
+from synnefo.admin.admin import views
+from synnefo.admin.admin import utils
+from synnefo.admin.admin.exceptions import AdminHttp404
 from .common import for_all_views, AdminTestCase, gibberish
 
 model_views = admin_settings.ADMIN_VIEWS.copy()
@@ -57,7 +57,7 @@ class MockRequest(object):
 
 def reload_settings():
     """Reload admin settings after a Django setting has changed."""
-    reload(sys.modules['synnefo_admin.admin_settings'])
+    reload(sys.modules['synnefo.admin.admin_settings'])
 
 
 class TestAdminUtilsUnit(unittest.TestCase):

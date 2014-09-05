@@ -46,8 +46,8 @@ def reload_urlconf(urlconf=None):
     arguments once the ADMIN_BASE_URL is restored, in order to bring the test
     suite in its initial state.
     """
-    reload(sys.modules['synnefo_admin.admin_settings'])
-    reload(sys.modules['synnefo_admin.urls'])
+    reload(sys.modules['synnefo.admin.admin_settings'])
+    reload(sys.modules['synnefo.admin.urls'])
     reload(sys.modules['synnefo.webproject.urls'])
     # Using this function with no urlconf will reset the ROOT_URLCONF to its
     # initial value.
@@ -128,7 +128,7 @@ class TestAdminUrls(django.test.TestCase):
         # their urls, we will use the Admin urls as our ROOT_URLCONF for this
         # part of the test.
         with override_settings(settings, ADMIN_BASE_URL=URL2):
-            reload_urlconf('synnefo_admin.urls')
+            reload_urlconf('synnefo.admin.urls')
 
             # Check that hitting the node URL sends us to Admin.
             r = resolve('/')
