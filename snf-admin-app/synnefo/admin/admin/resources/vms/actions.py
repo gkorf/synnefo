@@ -19,8 +19,8 @@ from collections import OrderedDict
 from synnefo.cyclades.logic import servers as servers_backend
 from synnefo.cyclades.logic.commands import validate_server_action
 
-from synnefo_admin.admin.actions import (AdminAction, noop)
-from synnefo_admin.admin.utils import update_actions_rbac, send_admin_email
+from synnefo.admin.admin.actions import (AdminAction, noop)
+from synnefo.admin.admin.utils import update_actions_rbac, send_admin_email
 
 
 class VMAction(AdminAction):

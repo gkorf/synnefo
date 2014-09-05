@@ -18,6 +18,6 @@
 Django settings metadata. To be used in setup.py snf-webproject entry points.
 """
 
-installed_apps = ['eztables', 'django_filters', 'synnefo_admin.admin']
-static_files = {'synnefo_admin': 'admin/static'}
-middleware_classes = ['synnefo_admin.admin.middleware.AdminMiddleware']
+installed_apps = ['eztables', 'django_filters', 'synnefo.admin.admin']
+static_files = {'synnefo.admin': 'admin/static'}
+middleware_classes = ['synnefo.admin.admin.middleware.AdminMiddleware']

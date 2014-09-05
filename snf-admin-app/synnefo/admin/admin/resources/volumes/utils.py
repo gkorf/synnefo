@@ -21,8 +21,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from synnefo.cyclades.db.models import Volume
 from synnefo.astakos.im.models import AstakosUser, Project
 
-from synnefo_admin.admin.exceptions import AdminHttp404
-from synnefo_admin.admin.utils import create_details_href
+from synnefo.admin.admin.exceptions import AdminHttp404
+from synnefo.admin.admin.utils import create_details_href
 
 
 def get_volume_or_404(query):

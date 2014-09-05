@@ -21,11 +21,11 @@ path (BASE_PATH) is constructed from the ADMIN_BASE_URL setting.
 from django.conf.urls import patterns, include
 from synnefo.django.utils.urls import extend_path_with_slash
 from synnefo.django.lib.api.utils import prefix_pattern
-from synnefo_admin.admin_settings import BASE_PATH
+from synnefo.admin.admin_settings import BASE_PATH
 
 urlpatterns = patterns(
     '',
-    (prefix_pattern(BASE_PATH), include('synnefo_admin.admin.urls')),
+    (prefix_pattern(BASE_PATH), include('synnefo.admin.admin.urls')),
 )
 
 extend_path_with_slash(urlpatterns, BASE_PATH)

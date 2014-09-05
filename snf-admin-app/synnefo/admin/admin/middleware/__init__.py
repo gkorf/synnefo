@@ -16,8 +16,8 @@
 import logging
 from django.template import RequestContext, loader
 from django.http import HttpResponseNotFound
-from synnefo_admin.admin.exceptions import AdminHttp404, AdminHttp405
-from synnefo_admin.admin.views import default_dict
+from synnefo.admin.admin.exceptions import AdminHttp404, AdminHttp405
+from synnefo.admin.admin.views import default_dict
 
 ADMIN_404_TEMPLATE = 'admin/admin_404.html'
 ADMIN_405_TEMPLATE = 'admin/admin_405.html'

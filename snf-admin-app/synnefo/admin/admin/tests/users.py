@@ -21,8 +21,8 @@ from synnefo.astakos.im.models import ProjectMembership, Resource
 from synnefo.astakos.im.functions import remove_membership, enroll_member
 from synnefo.cyclades.db import models_factory as mf
 
-from synnefo_admin import admin_settings
-from synnefo_admin.admin.resources.users.utils import get_suspended_vms, get_quotas
+from synnefo.admin import admin_settings
+from synnefo.admin.admin.resources.users.utils import get_suspended_vms, get_quotas
 from .common import AdminTestCase
 
 

@@ -16,7 +16,7 @@
 from django import http
 # Add the exceptions that are defined in actions.py in this file too, so that
 # all exceptions can exist under the same namespace.
-from synnefo_admin.admin.actions import (AdminActionNotPermitted,
+from synnefo.admin.admin.actions import (AdminActionNotPermitted,
                                          AdminActionUnknown,
                                          AdminActionNotImplemented,
                                          AdminActionCannotApply)

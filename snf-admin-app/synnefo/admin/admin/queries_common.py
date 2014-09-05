@@ -21,8 +21,8 @@ from django.db.models import Q
 from django.core.exceptions import FieldError
 from django.conf import settings
 
-from synnefo_admin.admin.utils import model_dict
-from synnefo_admin import admin_settings
+from synnefo.admin.admin.utils import model_dict
+from synnefo.admin import admin_settings
 
 sign = admin_settings.ADMIN_FIELD_SIGN
 

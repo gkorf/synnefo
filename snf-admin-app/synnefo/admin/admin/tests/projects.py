@@ -17,7 +17,7 @@
 #import logging
 from synnefo.astakos.im.models import Resource
 
-from synnefo_admin.admin.resources.projects.utils import get_project_quota_category
+from synnefo.admin.admin.resources.projects.utils import get_project_quota_category
 from .common import AdminTestCase
 
 
