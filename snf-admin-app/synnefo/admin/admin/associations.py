@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo_admin.admin.utils import get_actions
+from synnefo.admin.admin.utils import get_actions
 
 
 class AdminAssociation(object):

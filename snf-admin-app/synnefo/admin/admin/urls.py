@@ -19,7 +19,7 @@
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
-    'synnefo_admin.admin.views',
+    'synnefo.admin.admin.views',
     url(r'^$', 'catalog', name='admin-default'),
     url(r'^home$', 'home', name='admin-home'),
     url(r'^logout$', 'logout', name='admin-logout'),

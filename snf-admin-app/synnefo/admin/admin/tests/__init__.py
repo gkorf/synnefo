@@ -14,8 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # flake8: noqa
-from synnefo_admin.admin.tests.urls import *
-from synnefo_admin.admin.tests.views import *
-from synnefo_admin.admin.tests.utils import *
-from synnefo_admin.admin.tests.users import *
-from synnefo_admin.admin.tests.projects import *
+from synnefo.admin.admin.tests.urls import *
+from synnefo.admin.admin.tests.views import *
+from synnefo.admin.admin.tests.utils import *
+from synnefo.admin.admin.tests.users import *
+from synnefo.admin.admin.tests.projects import *

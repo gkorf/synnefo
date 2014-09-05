@@ -15,8 +15,8 @@
 
 from django.contrib.auth.models import Group
 
-from synnefo_admin.admin.exceptions import AdminHttp404
-from synnefo_admin.admin.tables import AdminJSONView
+from synnefo.admin.admin.exceptions import AdminHttp404
+from synnefo.admin.admin.tables import AdminJSONView
 
 
 templates = {
