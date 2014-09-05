@@ -33,7 +33,7 @@ from synnefo.util import units
 from synnefo.astakos.im.user_utils import send_plain as send_email
 from synnefo.django.lib.api import faults
 
-from synnefo_admin import admin_settings
+from synnefo.admin import admin_settings
 from synnefo.astakos.im import settings as astakos_settings
 
 from .actions import get_allowed_actions, get_permitted_actions
@@ -123,7 +123,7 @@ def get_actions(target, user=None, inst=None):
     if target in ['quota', 'nic', 'ip_log']:
         return None
 
-    mod = import_module('synnefo_admin.admin.resources.%ss.actions' % target)
+    mod = import_module('synnefo.admin.admin.resources.%ss.actions' % target)
     actions = mod.cached_actions
     if inst:
         return get_allowed_actions(actions, inst, user)

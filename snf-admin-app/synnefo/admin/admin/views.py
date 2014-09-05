@@ -36,11 +36,11 @@ from synnefo.astakos.im import settings as astakos_settings
 from synnefo.astakos.admin import stats as astakos_stats
 from synnefo.cyclades.admin import stats as cyclades_stats
 
-from synnefo_admin.admin.exceptions import AdminHttp404, AdminHttp405
-from synnefo_admin import admin_settings
+from synnefo.admin.admin.exceptions import AdminHttp404, AdminHttp405
+from synnefo.admin import admin_settings
 
-from synnefo_admin.admin import exceptions
-from synnefo_admin.admin.utils import (conditionally_gzip_page,
+from synnefo.admin.admin import exceptions
+from synnefo.admin.admin.utils import (conditionally_gzip_page,
                                        customize_details_context, admin_log)
 
 from synnefo.cyclades.ui.views import UI_MEDIA_URL
@@ -61,7 +61,7 @@ def get_view_module(view_type):
     """
     if view_type in admin_settings.ADMIN_VIEWS:
         # The modules will not be loaded per-call but only once.
-        return import_module('synnefo_admin.admin.resources.%ss.views' % view_type)
+        return import_module('synnefo.admin.admin.resources.%ss.views' % view_type)
     return None
 
 

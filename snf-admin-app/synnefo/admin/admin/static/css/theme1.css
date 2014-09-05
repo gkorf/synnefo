@@ -1,9 +1,9 @@
 /*
 Syntax error: Undefined variable: "$snf_gray-dark".
-        on line 15 of /root/synnefo/snf-admin-app/synnefo_admin/admin/static/sass/theme1.scss
+        on line 15 of /root/synnefo/snf-admin-app/synnefo.admin/admin/static/sass/theme1.scss
 
 Backtrace:
-/root/synnefo/snf-admin-app/synnefo_admin/admin/static/sass/theme1.scss:15
+/root/synnefo/snf-admin-app/synnefo.admin/admin/static/sass/theme1.scss:15
 /var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/script/variable.rb:49:in `_perform'
 /var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/script/node.rb:40:in `perform'
 /var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:327:in `visit_variable'
@@ -64,4 +64,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$snf_gray-dark\".\A         on line 15 of /root/synnefo/snf-admin-app/synnefo_admin/admin/static/sass/theme1.scss"; }
+  content: "Syntax error: Undefined variable: \"$snf_gray-dark\".\A         on line 15 of /root/synnefo/snf-admin-app/synnefo.admin/admin/static/sass/theme1.scss"; }

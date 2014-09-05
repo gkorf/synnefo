@@ -28,12 +28,12 @@ from synnefo.astakos.im import transaction
 
 from django.db.models import Q
 
-from synnefo_admin import admin_settings
-from synnefo_admin.admin.actions import (has_permission_or_403,
+from synnefo.admin import admin_settings
+from synnefo.admin.admin.actions import (has_permission_or_403,
                                          get_allowed_actions,
                                          get_permitted_actions,)
-from synnefo_admin.admin.tables import AdminJSONView
-from synnefo_admin.admin.associations import (
+from synnefo.admin.admin.tables import AdminJSONView
+from synnefo.admin.admin.associations import (
     UserAssociation, QuotaAssociation, VMAssociation, VolumeAssociation,
     NetworkAssociation, NicAssociation, IPAssociation, IPLogAssociation,
     ProjectAssociation)

@@ -20,8 +20,8 @@ from collections import OrderedDict
 from synnefo.cyclades.logic.networks import validate_network_action
 from synnefo.cyclades.logic import networks
 
-from synnefo_admin.admin.actions import AdminAction, noop
-from synnefo_admin.admin.utils import update_actions_rbac, send_admin_email
+from synnefo.admin.admin.actions import AdminAction, noop
+from synnefo.admin.admin.utils import update_actions_rbac, send_admin_email
 
 
 class NetworkAction(AdminAction):

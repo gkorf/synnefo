@@ -21,7 +21,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from synnefo.astakos.im.models import AstakosUser
 from synnefo.cyclades.db.models import IPAddress, VirtualMachine, Network
 
-from synnefo_admin.admin.utils import create_details_href
+from synnefo.admin.admin.utils import create_details_href
 
 
 def get_ip_details_href(ip_log):

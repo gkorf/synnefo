@@ -21,7 +21,7 @@ from django.db.models import Q
 from synnefo.astakos.im.models import AstakosUser, Project
 from synnefo.astakos.im import auth_providers
 
-from synnefo_admin.admin.queries_common import (query, model_filter,
+from synnefo.admin.admin.queries_common import (query, model_filter,
                                                 get_model_field)
 
 from .utils import get_groups

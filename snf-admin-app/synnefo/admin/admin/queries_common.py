@@ -21,7 +21,7 @@ from django.db.models import Q
 from django.core.exceptions import FieldError
 from django.conf import settings
 
-from synnefo_admin.admin.utils import model_dict
+from synnefo.admin.admin.utils import model_dict
 
 
 def prefix_strip(query):

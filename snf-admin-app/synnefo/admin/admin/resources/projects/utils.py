@@ -22,8 +22,8 @@ from synnefo.astakos.im.models import Project
 from synnefo.astakos.im.quotas import get_project_quota
 
 from synnefo.util import units
-from synnefo_admin.admin.exceptions import AdminHttp404
-from synnefo_admin.admin.utils import is_resource_useful
+from synnefo.admin.admin.exceptions import AdminHttp404
+from synnefo.admin.admin.utils import is_resource_useful
 
 
 def get_actual_owner(inst):

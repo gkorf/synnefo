@@ -23,10 +23,10 @@ from synnefo.cyclades.db import models_factory as mf
 from synnefo.astakos.im import settings as astakos_settings
 from synnefo.django.lib.api import faults
 
-from synnefo_admin import admin_settings
-from synnefo_admin.admin import views
-from synnefo_admin.admin import utils
-from synnefo_admin.admin.exceptions import AdminHttp404
+from synnefo.admin import admin_settings
+from synnefo.admin.admin import views
+from synnefo.admin.admin import utils
+from synnefo.admin.admin.exceptions import AdminHttp404
 from .common import for_all_views, AdminTestCase, gibberish
 
 model_views = admin_settings.ADMIN_VIEWS.copy()
