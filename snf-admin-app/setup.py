@@ -26,7 +26,7 @@ from distutils.util import convert_path
 
 HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
-from synnefo_admin.version import __version__
+from synnefo.admin.version import __version__
 
 # Package info
 VERSION = __version__
@@ -162,11 +162,11 @@ setup(
 
     entry_points={
         'synnefo': [
-            'default_settings = synnefo_admin.app_settings.default',
-            'web_apps = synnefo_admin.app_settings:installed_apps',
-            'web_middleware = synnefo_admin.app_settings:middleware_classes',
-            'urls = synnefo_admin.urls:urlpatterns',
-            'web_static = synnefo_admin.app_settings:static_files'
+            'default_settings = synnefo.admin.app_settings.default',
+            'web_apps = synnefo.admin.app_settings:installed_apps',
+            'web_middleware = synnefo.admin.app_settings:middleware_classes',
+            'urls = synnefo.admin.urls:urlpatterns',
+            'web_static = synnefo.admin.app_settings:static_files'
         ]
     },
 )

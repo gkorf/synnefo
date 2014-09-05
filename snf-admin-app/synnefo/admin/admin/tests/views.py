@@ -20,9 +20,9 @@ import django.test
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
-from synnefo_admin.admin.exceptions import AdminHttp404
-from synnefo_admin.admin import views
-from synnefo_admin import admin_settings
+from synnefo.admin.admin.exceptions import AdminHttp404
+from synnefo.admin.admin import views
+from synnefo.admin import admin_settings
 
 from .common import (for_all_views, AuthClient, get_user_mock,
                      AstakosClientMock, gibberish)

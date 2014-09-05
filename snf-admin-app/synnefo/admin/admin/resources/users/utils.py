@@ -25,9 +25,9 @@ from synnefo.astakos.im.quotas import get_user_quotas
 
 from synnefo.util import units
 
-from synnefo_admin import admin_settings
-from synnefo_admin.admin.exceptions import AdminHttp404
-from synnefo_admin.admin.utils import (get_resource, is_resource_useful,
+from synnefo.admin import admin_settings
+from synnefo.admin.admin.exceptions import AdminHttp404
+from synnefo.admin.admin.utils import (get_resource, is_resource_useful,
                                        create_details_href)
 
 

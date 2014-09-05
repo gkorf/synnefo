@@ -19,9 +19,9 @@ from collections import OrderedDict
 
 from synnefo.cyclades.db.models import IPAddressLog
 
-from synnefo_admin.admin.exceptions import AdminHttp404
-from synnefo_admin.admin.utils import _filter_public_ip_log
-from synnefo_admin.admin.tables import AdminJSONView
+from synnefo.admin.admin.exceptions import AdminHttp404
+from synnefo.admin.admin.utils import _filter_public_ip_log
+from synnefo.admin.admin.tables import AdminJSONView
 
 from .utils import (get_user_details_href, get_ip_details_href,
                     get_vm_details_href, get_network_details_href)

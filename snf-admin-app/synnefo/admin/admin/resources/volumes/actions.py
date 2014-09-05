@@ -17,8 +17,8 @@
 import logging
 from collections import OrderedDict
 
-from synnefo_admin.admin.actions import AdminAction
-from synnefo_admin.admin.utils import update_actions_rbac, send_admin_email
+from synnefo.admin.admin.actions import AdminAction
+from synnefo.admin.admin.utils import update_actions_rbac, send_admin_email
 
 
 class VolumeAction(AdminAction):

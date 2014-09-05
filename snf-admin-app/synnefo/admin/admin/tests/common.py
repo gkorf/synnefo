@@ -24,7 +24,7 @@ from synnefo.astakos.im.tests.projects import ProjectAPITest
 from synnefo.astakos.im.functions import approve_application
 from synnefo.cyclades.db import models_factory as mf
 
-from synnefo_admin import admin_settings
+from synnefo.admin import admin_settings
 
 
 USER1 = "5edcb5aa-1111-4146-a8ed-2b6287824353"

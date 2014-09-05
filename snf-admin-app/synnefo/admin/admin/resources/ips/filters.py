@@ -19,7 +19,7 @@ import django_filters
 
 from synnefo.cyclades.db.models import IPAddress
 
-from synnefo_admin.admin.queries_common import (query, model_filter,
+from synnefo.admin.admin.queries_common import (query, model_filter,
                                                 get_model_field)
 
 
