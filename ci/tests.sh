@@ -23,7 +23,7 @@ runAdminTests () {
     if [ -z "$admin_tests" ]; then return; fi
 
     export SYNNEFO_EXCLUDE_PACKAGES="snf-pithos-app"
-    CURRENT_COMPONENT=synnefo_admin
+    CURRENT_COMPONENT=synnefo.admin
     createSnfManageTest $admin_tests
     runTest
 }

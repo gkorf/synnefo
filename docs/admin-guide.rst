@@ -1737,7 +1737,7 @@ it if doesn't exist):
 
 .. code-block:: console
 
-    ROOT_URLCONF="synnefo_admin.urls"
+    ROOT_URLCONF="synnefo.admin.urls"
 
 Note that the above change does not interfere the with the ``ADMIN_BASE_URL``,
 which will be used normally.
