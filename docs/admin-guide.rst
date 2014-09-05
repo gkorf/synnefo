@@ -1718,7 +1718,7 @@ administrator can add the following line in `99-local.conf`:
 
 .. code-block:: console
 
-    ROOT_URLCONF="synnefo_admin.admin.urls"
+    ROOT_URLCONF="synnefo.admin.admin.urls"
 
 As a result, Admin will be accessible by this URL: `<Admin_Node_URL>/`. If the
 administrator wishes to use the default URL (`<Admin_Node_URL>/admin/`), then
@@ -1726,7 +1726,7 @@ the following line must be added instead.
 
 .. code-block:: console
 
-    ROOT_URLCONF="synnefo_admin.urls"
+    ROOT_URLCONF="synnefo.admin.urls"
 
 Furthermore, if Astakos and Cyclades have separate databases, then they must be
 defined in the `DATABASES` setting of `10-snf-webproject-database.conf`. An
