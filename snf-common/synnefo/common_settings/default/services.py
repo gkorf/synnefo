@@ -29,9 +29,6 @@ CUSTOMIZE_SERVICES = Default(
                  "the services registry after its automatic initialization."),
 )
 
-services = {}
-extend_dict_from_entry_point(services, 'synnefo', 'services')
-
 from sys import modules
 module = modules[__name__]
 
@@ -62,18 +59,21 @@ def mk_auto_configure_base_path(base_url_name):
     return auto_configure_base_path
 
 
-components = {}
-for service_name, service in services.items():
-    component_name = service['component']
-    if component_name not in components:
-        components[component_name] = {}
-    components[component_name][service_name] = service
+def mk_components(setting, value, deps):
+    Setting.enforce_not_configurable(setting, value)
+    services = {}
+    extend_dict_from_entry_point(services, 'synnefo', 'services')
+    components = {}
+    for service_name, service in services.items():
+        component_name = service['component']
+        if component_name not in components:
+            components[component_name] = {}
+        components[component_name][service_name] = service
 
 
 SYNNEFO_COMPONENTS = Auto(
-    configure_callback=Setting.enforce_not_configurable,
+    configure_callback=mk_components,
     export=0,
-    default_value=components,
     description=("A list with the names of all synnefo components currently "
                  "installed. Initialized from SYNNEFO_SERVICES. "
                  "It is dynamically generated and cannot be configured."),
@@ -105,7 +105,6 @@ def mk_auto_configure_services(component_name, base_url_name):
 SYNNEFO_SERVICES = Auto(
     configure_callback=auto_configure_services,
     export=0,
-    default_value=services,
     dependencies=['CUSTOMIZE_SERVICES'],
     description=("An auto-generated registry of all services provided by all "
                  "currently installed Synnefo components. "
