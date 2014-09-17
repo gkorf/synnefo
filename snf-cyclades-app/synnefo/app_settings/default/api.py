@@ -421,9 +421,9 @@ class LazyAstakosUrl(object):
                     AstakosClient(self.service_token, self.astakos_auth_url)
                 self.str = getattr(astakos_client, self.endpoints_name)
             except Exception as excpt:
-                logger.exception(
-                    "Could not retrieve endpoints from Astakos url %s: %s",
-                    ASTAKOS_AUTH_URL, excpt)
+                # logger.exception(
+                #     "Could not retrieve endpoints from Astakos url %s: %s",
+                #     ASTAKOS_AUTH_URL, excpt)
                 return ""
         return self.str
 

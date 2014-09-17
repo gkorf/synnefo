@@ -1038,16 +1038,4 @@ def initialize_modules():
         initialize_settings(synnefo_settings,
                             source=m.__name__, strict=False)
 
-
-    # e = get_module_entry_point(module, 'synnefo', 'default_settings')
-    # m = e.load()
-    # synnefo_settings = {}
-    # for name in dir(m):
-    #     if not is_valid_setting_name(name):
-    #         continue
-    #     synnefo_settings[name] = getattr(m, name)
-
-    # # set strict to True to require annotation of all settings
-    # initialize_settings(synnefo_settings, source=m.__name__,
-    #                     strict=False)
-    preconfigure_settings()
+#    preconfigure_settings()

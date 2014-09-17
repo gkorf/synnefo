@@ -23,19 +23,21 @@ synnefo.__file__ = os.path.join(synnefo.__path__[0], '__init__.py')
 
 from synnefo.lib.settings import setup
 
-# autodetect default settings provided by synnefo applications
-from synnefo.util.entry_points import get_entry_points
-for e in get_entry_points('synnefo', 'default_settings'):
-    m = e.load()
-    synnefo_settings = {}
-    for name in dir(m):
-        if not setup.is_valid_setting_name(name):
-            continue
-        synnefo_settings[name] = getattr(m, name)
+setup.initialize_modules()
 
-    # set strict to True to require annotation of all settings
-    setup.initialize_settings(synnefo_settings,
-                              source=m.__name__, strict=False)
+# # autodetect default settings provided by synnefo applications
+# from synnefo.util.entry_points import get_entry_points
+# for e in get_entry_points('synnefo', 'default_settings'):
+#     m = e.load()
+#     synnefo_settings = {}
+#     for name in dir(m):
+#         if not setup.is_valid_setting_name(name):
+#             continue
+#         synnefo_settings[name] = getattr(m, name)
+
+#     # set strict to True to require annotation of all settings
+#     setup.initialize_settings(synnefo_settings,
+#                               source=m.__name__, strict=False)
 
 _module.__dict__.update(setup.Catalogs['defaults'])
 

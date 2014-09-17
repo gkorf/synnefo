@@ -13,9 +13,7 @@ FAVICON_URL = settings.BRANDING_FAVICON_URL
 DASHBOARD_LOGO_URL = settings.BRANDING_DASHBOARD_LOGO_URL
 COMPUTE_LOGO_URL = settings.BRANDING_COMPUTE_LOGO_URL
 CONSOLE_LOGO_URL = settings.BRANDING_CONSOLE_LOGO_URL
-# Logo used in Storage pages (Pithos)
-STORAGE_LOGO_URL = getattr(settings, 'BRANDING_STORAGE_LOGO_URL',
-                           IMAGE_MEDIA_URL+'storage_logo.png')
+STORAGE_LOGO_URL = settings.BRANDING_STORAGE_LOGO_URL
 
 
 ## Copyright and footer options
