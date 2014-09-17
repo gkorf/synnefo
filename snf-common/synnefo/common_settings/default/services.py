@@ -69,6 +69,7 @@ def mk_components(setting, value, deps):
         if component_name not in components:
             components[component_name] = {}
         components[component_name][service_name] = service
+    return components
 
 
 SYNNEFO_COMPONENTS = Auto(
@@ -83,7 +84,8 @@ SYNNEFO_COMPONENTS = Auto(
 
 def auto_configure_services(setting, value, deps):
     Setting.enforce_not_configurable(setting, value)
-    services = setting.default_value
+    services = {}
+    extend_dict_from_entry_point(services, 'synnefo', 'services')
     customization = deps['CUSTOMIZE_SERVICES']
     if isinstance(customization, dict):
         customization = customization.items()
