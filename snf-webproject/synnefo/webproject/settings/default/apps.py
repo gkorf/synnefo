@@ -14,9 +14,14 @@ _INSTALLED_APPS = (
     'synnefo.webproject'
 )
 
+def mk_installed_apps(setting, value, deps):
+    return extend_list_from_entry_point(
+        _INSTALLED_APPS, 'synnefo', 'web_apps')
+
+
 INSTALLED_APPS = Default(
-    default_value=extend_list_from_entry_point(
-        _INSTALLED_APPS, 'synnefo', 'web_apps'),
+    default_value=None,
+    configure_callback=mk_installed_apps,
     description="installed apps",
     category="snf-webproject",
     export=False,

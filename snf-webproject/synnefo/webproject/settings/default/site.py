@@ -49,9 +49,13 @@ MEDIA_URL = Default(
 
 _STATIC_FILES = {'synnefo.webproject': ''}
 
+def mk_static_files(setting, value, deps):
+    return extend_dict_from_entry_point(
+        _STATIC_FILES, 'synnefo', 'web_static')
+
 STATIC_FILES = Default(
-    default_value=extend_dict_from_entry_point(
-        _STATIC_FILES, 'synnefo', 'web_static'),
+    default_value=_STATIC_FILES,
+    configure_callback=mk_static_files,
     description="Static files",
     category="snf-webproject",
     export=False,

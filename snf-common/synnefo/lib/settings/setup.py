@@ -74,6 +74,7 @@ def initialize_settings(settings_dict, source="unknown", strict=False):
                         new=source)
            # raise SettingsError(m)
            print >> sys.stderr, m
+           continue
         for init_dep in setting.init_dependencies:
             if init_dep in settings:
                 if init_dep in init_dependents:
