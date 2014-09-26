@@ -29,6 +29,9 @@ from synnefo.version import __version__
 VERSION = __version__
 SHORT_DESCRIPTION = 'Common infrastructure for all Synnefo components'
 
+DEFAULT_SETTINGS = open(
+    os.path.join(HERE, 'default_settings.conf')).readline()[:-1]
+
 PACKAGES_ROOT = '.'
 PACKAGES = find_packages(PACKAGES_ROOT)
 
@@ -73,7 +76,7 @@ setup(
     dependency_links=['http://www.synnefo.org/packages/pypi'],
     entry_points={
      'synnefo': [
-         'default_settings = synnefo.common_settings.default'
+         'default_settings = ' + DEFAULT_SETTINGS,
          ],
       },
 
