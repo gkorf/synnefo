@@ -32,7 +32,6 @@ from django.utils import simplejson as json
 from django.template import RequestContext
 
 from synnefo.branding import utils as branding
-from synnefo.branding import settings as branding_settings
 
 import synnefo.astakos.im.messages as astakos_messages
 
@@ -207,7 +206,7 @@ def api_access_config(request, template_name='im/api_access_config.html',
     if settings.KAMAKI_CONFIG_CLOUD_NAME:
         cloud_name = settings.KAMAKI_CONFIG_CLOUD_NAME
     else:
-        cloud_name = branding_settings.SERVICE_NAME.replace(' ', '_').lower()
+        cloud_name = settings.SERVICE_NAME.replace(' ', '_').lower()
 
     url = get_public_endpoint(django_settings.SYNNEFO_SERVICES, 'identity')
 
