@@ -14,7 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from synnefo import settings
-from synnefo.branding import branding_settings
 from synnefo.lib import join_urls
 from synnefo.lib.services import get_service_prefix
 
@@ -31,6 +30,8 @@ VIEWS_PREFIX = get_service_prefix(synnefo_services, 'astakos_ui')
 KEYSTONE_PREFIX = get_service_prefix(synnefo_services, 'astakos_identity')
 WEBLOGIN_PREFIX = get_service_prefix(synnefo_services, 'astakos_weblogin')
 ADMIN_PREFIX = get_service_prefix(synnefo_services, 'astakos_admin')
+
+SERVICE_NAME = settings.BRANDING_SERVICE_NAME
 
 # Set service name
 SITENAME = settings.ASTAKOS_SITENAME
