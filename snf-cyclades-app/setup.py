@@ -32,6 +32,9 @@ from synnefo.cyclades.version import __version__
 VERSION = __version__
 SHORT_DESCRIPTION = 'Synnefo Compute, Network and Image component'
 
+DEFAULT_SETTINGS = open(
+    os.path.join(HERE, 'default_settings.conf')).readline()[:-1]
+
 PACKAGES_ROOT = '.'
 PACKAGES = find_packages(PACKAGES_ROOT)
 
@@ -196,7 +199,7 @@ setup(
          'snf-dispatcher = synnefo.cyclades.logic.dispatcher:main',
          ],
      'synnefo': [
-         'default_settings = synnefo.cyclades.app_settings.default',
+         'default_settings = ' + DEFAULT_SETTINGS,
          'web_apps = synnefo.cyclades.app_settings:synnefo_web_apps',
          'web_middleware = synnefo.cyclades.app_settings:synnefo_web_middleware',
          'web_context_processors = synnefo.cyclades.app_settings:synnefo_web_context_processors',

@@ -32,6 +32,9 @@ from synnefo.admin.version import __version__
 VERSION = __version__
 SHORT_DESCRIPTION = 'Synnefo Admin component'
 
+DEFAULT_SETTINGS = open(
+    os.path.join(HERE, 'default_settings.conf')).readline()[:-1]
+
 PACKAGES_ROOT = '.'
 PACKAGES = find_packages(PACKAGES_ROOT)
 
@@ -162,7 +165,7 @@ setup(
 
     entry_points={
         'synnefo': [
-            'default_settings = synnefo.admin.app_settings.default',
+            'default_settings = ' + DEFAULT_SETTINGS,
             'web_apps = synnefo.admin.app_settings:installed_apps',
             'web_middleware = synnefo.admin.app_settings:middleware_classes',
             'urls = synnefo.admin.urls:urlpatterns',

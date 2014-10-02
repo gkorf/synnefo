@@ -32,6 +32,9 @@ from synnefo.webproject.version import __version__
 VERSION = __version__
 SHORT_DESCRIPTION = "Synnefo common infrastructure for Django"
 
+DEFAULT_SETTINGS = open(
+    os.path.join(HERE, 'default_settings.conf')).readline()[:-1]
+
 PACKAGES_ROOT = "."
 PACKAGES = find_packages(PACKAGES_ROOT)
 
@@ -172,7 +175,7 @@ setup(
          'snf-manage = synnefo.webproject.manage:main',
          ],
      'synnefo': [
-         'default_settings = synnefo.webproject.settings.default'
+         'default_settings = ' + DEFAULT_SETTINGS,
          ]
       },
 )

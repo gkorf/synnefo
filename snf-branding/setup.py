@@ -32,6 +32,9 @@ from synnefo.branding.version import __version__
 VERSION = __version__
 SHORT_DESCRIPTION = 'Branding components for Synnefo'
 
+DEFAULT_SETTINGS = open(
+    os.path.join(HERE, 'default_settings.conf')).readline()[:-1]
+
 PACKAGES_ROOT = '.'
 PACKAGES = find_packages(PACKAGES_ROOT)
 
@@ -156,7 +159,7 @@ setup(
     dependency_links=['http://docs.dev.grnet.gr/pypi'],
     entry_points={
         'synnefo': [
-             'default_settings = synnefo.branding.settings.default',
+             'default_settings = ' + DEFAULT_SETTINGS,
              'web_apps = synnefo.branding.synnefo_settings:installed_apps',
              'web_context_processors = synnefo.branding.synnefo_settings:context_processors',
              'web_static = synnefo.branding.synnefo_settings:static_files',

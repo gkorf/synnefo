@@ -32,6 +32,9 @@ from synnefo.pithos.api.version import __version__
 VERSION = __version__
 SHORT_DESCRIPTION = 'Synnefo File/Object Storage component'
 
+DEFAULT_SETTINGS = open(
+    os.path.join(HERE, 'default_settings.conf')).readline()[:-1]
+
 PACKAGES_ROOT = '.'
 PACKAGES = find_packages(PACKAGES_ROOT)
 
@@ -181,7 +184,7 @@ setup(
             'pithos-manage-accounts = synnefo.pithos.api.manage_accounts.cli:main'
         ],
         'synnefo': [
-            'default_settings = synnefo.pithos.settings.default',
+            'default_settings = ' + DEFAULT_SETTINGS,
             'web_apps = synnefo.pithos.api.synnefo_settings:synnefo_installed_apps',
             'web_middleware = synnefo.pithos.api.synnefo_settings:synnefo_middlewares',
             'urls = synnefo.pithos.api.urls:urlpatterns',
