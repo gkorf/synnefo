@@ -33,6 +33,9 @@ from synnefo.astakos.version import __version__
 VERSION = __version__
 SHORT_DESCRIPTION = 'Synnefo Identity Management component'
 
+DEFAULT_SETTINGS = open(
+    os.path.join(HERE, 'default_settings.conf')).readline()[:-1]
+
 PACKAGES_ROOT = '.'
 PACKAGES = find_packages(PACKAGES_ROOT)
 
@@ -187,7 +190,7 @@ setup(
     scripts=['synnefo/astakos/scripts/snf-component-register'],
     entry_points={
         'synnefo': [
-            'default_settings = synnefo.astakos.settings.default',
+            'default_settings = ' + DEFAULT_SETTINGS,
             'web_apps = synnefo.astakos.settings:installed_apps',
             'web_middleware = synnefo.astakos.settings:middlware_classes',
             'web_context_processors = synnefo.astakos.settings:context_processors',

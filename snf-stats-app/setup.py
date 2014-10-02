@@ -29,6 +29,9 @@ from synnefo.stats.version import __version__
 VERSION = __version__
 SHORT_DESCRIPTION = 'Synnefo graphic statistics component'
 
+DEFAULT_SETTINGS = open(
+    os.path.join(HERE, 'default_settings.conf')).readline()[:-1]
+
 PACKAGES_ROOT = '.'
 PACKAGES = find_packages(PACKAGES_ROOT)
 
@@ -68,7 +71,7 @@ setup(
     dependency_links=['http://www.synnefo.org/packages/pypi'],
     entry_points={
         'synnefo': [
-             'default_settings = synnefo.stats.settings.default',
+             'default_settings = ' + DEFAULT_SETTINGS,
              'web_apps = synnefo.stats.synnefo_settings:installed_apps',
              'urls = synnefo.stats.urls:urlpatterns',
         ]

@@ -22,6 +22,9 @@ HERE = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
 
 from synnefo.ganeti.version import __version__
 
+DEFAULT_SETTINGS = open(
+    os.path.join(HERE, 'default_settings.conf')).readline()[:-1]
+
 setup(
     name="snf-cyclades-gtools",
     version=__version__,
@@ -50,7 +53,7 @@ setup(
             'snf-progress-monitor = synnefo.ganeti.progress_monitor:main'
         ],
         'synnefo': [
-            'default_settings = synnefo.ganeti.default'
+            'default_settings = ' + DEFAULT_SETTINGS,
         ]
     },
 )
