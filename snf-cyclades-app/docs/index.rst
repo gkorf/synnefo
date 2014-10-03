@@ -86,19 +86,19 @@ Package settings
 Component :ref:`snf-cyclades-app <snf-cyclades-app>` requires the following
 settings, as managed by :ref:`snf-common <snf-common>`:
 
-.. literalinclude:: ../synnefo/cyclades/app_settings/default/api.py
+.. literalinclude:: ../synnefo/cyclades/settings/default/api.py
     :lines: 4-
-.. literalinclude:: ../synnefo/cyclades/app_settings/default/logging.py
+.. literalinclude:: ../synnefo/cyclades/settings/default/logging.py
     :lines: 4-
-.. literalinclude:: ../synnefo/cyclades/app_settings/default/backend.py
+.. literalinclude:: ../synnefo/cyclades/settings/default/backend.py
     :lines: 4-
-.. literalinclude:: ../synnefo/cyclades/app_settings/default/plankton.py
+.. literalinclude:: ../synnefo/cyclades/settings/default/plankton.py
     :lines: 4-
-.. literalinclude:: ../synnefo/cyclades/app_settings/default/queues.py
+.. literalinclude:: ../synnefo/cyclades/settings/default/queues.py
     :lines: 4-
-.. literalinclude:: ../synnefo/cyclades/app_settings/default/ui.py
+.. literalinclude:: ../synnefo/cyclades/settings/default/ui.py
     :lines: 4-
-.. literalinclude:: ../synnefo/cyclades/app_settings/default/userdata.py
+.. literalinclude:: ../synnefo/cyclades/settings/default/userdata.py
     :lines: 4-
 
 .. todo:: make sure the file headers are included properly in documentation.
