@@ -200,11 +200,11 @@ setup(
          ],
      'synnefo': [
          'default_settings = ' + DEFAULT_SETTINGS,
-         'web_apps = synnefo.cyclades.app_settings:synnefo_web_apps',
-         'web_middleware = synnefo.cyclades.app_settings:synnefo_web_middleware',
-         'web_context_processors = synnefo.cyclades.app_settings:synnefo_web_context_processors',
+         'web_apps = synnefo.cyclades.settings:synnefo_web_apps',
+         'web_middleware = synnefo.cyclades.settings:synnefo_web_middleware',
+         'web_context_processors = synnefo.cyclades.settings:synnefo_web_context_processors',
          'urls = synnefo.cyclades.urls:urlpatterns',
-         'web_static = synnefo.cyclades.app_settings:synnefo_static_files',
+         'web_static = synnefo.cyclades.settings:synnefo_static_files',
          'services = synnefo.cyclades.api.services:cyclades_services',
          ]
       },
