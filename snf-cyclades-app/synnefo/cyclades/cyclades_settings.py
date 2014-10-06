@@ -49,7 +49,7 @@ COMPUTE_ROOT_URL = join_urls(BASE_URL, COMPUTE_PREFIX)
 # --------------------------------------------------------------------
 # Process Astakos settings
 
-ASTAKOS_AUTH_URL = settings.CYCLADES_ASTAKOS_AUTH_URL
+CYCLADES_ASTAKOS_AUTH_URL = settings.CYCLADES_ASTAKOS_AUTH_URL
 ASTAKOS_ACCOUNT_URL = settings.ASTAKOS_ACCOUNT_URL
 ASTAKOS_UI_URL = settings.ASTAKOS_UI_URL
 

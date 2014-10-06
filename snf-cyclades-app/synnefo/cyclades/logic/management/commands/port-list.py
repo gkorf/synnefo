@@ -18,7 +18,7 @@ from optparse import make_option
 from synnefo.django.management.commands import ListCommand
 from synnefo.cyclades.db.models import NetworkInterface
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
-                              ASTAKOS_AUTH_URL)
+                              CYCLADES_ASTAKOS_AUTH_URL)
 
 from logging import getLogger
 log = getLogger(__name__)
@@ -43,7 +43,7 @@ class Command(ListCommand):
 
     object_class = NetworkInterface
     user_uuid_field = "userid"
-    astakos_auth_url = ASTAKOS_AUTH_URL
+    astakos_auth_url = CYCLADES_ASTAKOS_AUTH_URL
     astakos_token = ASTAKOS_TOKEN
     prefetch_related = ["ips"]
 

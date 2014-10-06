@@ -55,7 +55,7 @@ def parse_user_option(option, option_str, value, parser):
 
     """
     astakos = astakosclient.AstakosClient(settings.CYCLADES_SERVICE_TOKEN,
-                                          settings.ASTAKOS_AUTH_URL,
+                                          settings.CYCLADES_ASTAKOS_AUTH_URL,
                                           retry=2)
     try:
         if "@" in value:

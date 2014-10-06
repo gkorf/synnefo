@@ -18,7 +18,7 @@ from synnefo.django.management.utils import pprint_table
 from synnefo.lib.ordereddict import OrderedDict
 from synnefo.django.lib.astakos import UserCache
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
-                              ASTAKOS_AUTH_URL)
+                              CYCLADES_ASTAKOS_AUTH_URL)
 from synnefo.cyclades.db.models import Backend, pooled_rapi_client
 
 from synnefo.cyclades.logic.rapi import GanetiApiError
@@ -33,7 +33,7 @@ def pprint_network(network, display_mails=False, stdout=None, title=None):
     if title is None:
         title = "State of Network %s in DB" % network.id
 
-    ucache = UserCache(ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
+    ucache = UserCache(CYCLADES_ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
     userid = network.userid
 
     total_ips, free_ips = network.ip_count()
@@ -198,7 +198,7 @@ def pprint_port(port, display_mails=False, stdout=None, title=None):
     if title is None:
         title = "State of Port %s in DB" % port.id
 
-    ucache = UserCache(ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
+    ucache = UserCache(CYCLADES_ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
     userid = port.userid
 
     port = OrderedDict([
@@ -271,7 +271,7 @@ def pprint_server(server, display_mails=False, stdout=None, title=None):
     if title is None:
         title = "State of Server %s in DB" % server.id
 
-    ucache = UserCache(ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
+    ucache = UserCache(CYCLADES_ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
     userid = server.userid
 
     try:
@@ -407,7 +407,7 @@ def pprint_volume(volume, display_mails=False, stdout=None, title=None):
     if title is None:
         title = "State of volume %s in DB" % volume.id
 
-    ucache = UserCache(ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
+    ucache = UserCache(CYCLADES_ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
     userid = volume.userid
 
     volume_type = volume.volume_type

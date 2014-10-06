@@ -20,7 +20,7 @@ from synnefo.cyclades.management.common import (
     get_image)
 from synnefo.django.lib.astakos import UserCache
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
-                              ASTAKOS_AUTH_URL)
+                              CYCLADES_ASTAKOS_AUTH_URL)
 from synnefo.django.management import utils
 
 
@@ -44,7 +44,7 @@ class Command(SynnefoCommand):
             image_name = "None"
         image = '%s (%s)' % (imageid, image_name)
 
-        usercache = UserCache(ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
+        usercache = UserCache(CYCLADES_ASTAKOS_AUTH_URL, ASTAKOS_TOKEN)
         kv = {
             'id': server.id,
             'name': server.name,

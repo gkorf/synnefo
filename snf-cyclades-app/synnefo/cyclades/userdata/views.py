@@ -51,7 +51,7 @@ def generate_key_pair(request):
     Response to generate private/public RSA key pair
     """
 
-    get_user(request, settings.ASTAKOS_AUTH_URL)
+    get_user(request, settings.CYCLADES_ASTAKOS_AUTH_URL)
 
     if request.method != "POST":
         return http.HttpResponseNotAllowed(["POST"])
