@@ -13,4 +13,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.ganeti.default.settings import *
+from synnefo.ganeti.settings.default.settings import *
