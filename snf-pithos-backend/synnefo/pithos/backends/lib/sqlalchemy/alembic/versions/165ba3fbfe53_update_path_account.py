@@ -220,7 +220,7 @@ def upgrade():
         return
     else:
         astakos_client = AstakosClient(
-            settings.SERVICE_TOKEN, settings.ASTAKOS_AUTH_URL,
+            settings.SERVICE_TOKEN, settings.PITHOS_ASTAKOS_AUTH_URL,
             retry=3, use_pool=True)
         get_uuid = functools.partial(_get_uuid,
                                      service_token=settings.SERVICE_TOKEN,
@@ -235,7 +235,7 @@ def downgrade():
         return
     else:
         astakos_client = AstakosClient(
-            settings.SERVICE_TOKEN, settings.ASTAKOS_AUTH_URL,
+            settings.SERVICE_TOKEN, settings.PITHOS_ASTAKOS_AUTH_URL,
             retry=3, use_pool=True)
         get_displayname = functools.partial(
             _get_displayname,

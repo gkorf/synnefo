@@ -243,7 +243,7 @@ PITHOS_TRANSLATE_UUIDS = Default(
 )
 
 
-ASTAKOS_AUTH_URL = Mandatory(
+PITHOS_ASTAKOS_AUTH_URL = Mandatory(
     example_value='https://accounts.example.synnefo.org/astakos/identity/v2.0',
     description="Astakos auth URL",
     category="",

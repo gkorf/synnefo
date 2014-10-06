@@ -40,7 +40,7 @@ from synnefo.pithos.api.util import (
 
 from synnefo.pithos.api.settings import (
     UPDATE_MD5, TRANSLATE_UUIDS,
-    SERVICE_TOKEN, ASTAKOS_AUTH_URL)
+    SERVICE_TOKEN, PITHOS_ASTAKOS_AUTH_URL)
 
 from synnefo.pithos.api import settings
 
@@ -57,7 +57,7 @@ logger = logging.getLogger(__name__)
 
 def get_uuids(names):
     try:
-        astakos = AstakosClient(SERVICE_TOKEN, ASTAKOS_AUTH_URL,
+        astakos = AstakosClient(SERVICE_TOKEN, PITHOS_ASTAKOS_AUTH_URL,
                                 retry=2, use_pool=True, logger=logger)
         uuids = astakos.service_get_uuids(names)
     except Exception, e:
