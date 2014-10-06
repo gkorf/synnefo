@@ -103,7 +103,7 @@ def helpdesk_user_required(func, permitted_groups=PERMITTED_GROUPS):
             raise Http404
 
         token = get_token_from_cookie(request, AUTH_COOKIE_NAME)
-        astakos.get_user(request, settings.ASTAKOS_AUTH_URL,
+        astakos.get_user(request, settings.CYCLADES_ASTAKOS_AUTH_URL,
                          fallback_token=token, logger=logger)
         if hasattr(request, 'user') and request.user:
             groups = request.user['access']['user']['roles']
@@ -191,7 +191,7 @@ def account(request, search_query):
             search_query = vmid
 
     astakos_client = astakosclient.AstakosClient(
-        auth_token, settings.ASTAKOS_AUTH_URL,
+        auth_token, settings.CYCLADES_ASTAKOS_AUTH_URL,
         retry=2, use_pool=True, logger=logger)
 
     account = None
@@ -259,7 +259,7 @@ def search_by_ip(request, search_query):
     """Search IP history for all uses of an IP address."""
     auth_token = request.user['access']['token']['id']
     astakos_client = astakosclient.AstakosClient(auth_token,
-                                                 settings.ASTAKOS_AUTH_URL,
+                                                 settings.CYCLADES_ASTAKOS_AUTH_URL,
                                                  retry=2, use_pool=True,
                                                  logger=logger)
 

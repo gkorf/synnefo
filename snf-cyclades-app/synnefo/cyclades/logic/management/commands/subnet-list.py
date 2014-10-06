@@ -17,7 +17,7 @@ from optparse import make_option
 
 from synnefo.django.management.commands import ListCommand, CommandError
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
-                              ASTAKOS_AUTH_URL)
+                              CYCLADES_ASTAKOS_AUTH_URL)
 from synnefo.cyclades.db.models import Subnet
 
 from logging import getLogger
@@ -55,7 +55,7 @@ class Command(ListCommand):
     )
 
     object_class = Subnet
-    astakos_auth_url = ASTAKOS_AUTH_URL
+    astakos_auth_url = CYCLADES_ASTAKOS_AUTH_URL
     astakos_token = ASTAKOS_TOKEN
     deleted_field = "deleted"
 

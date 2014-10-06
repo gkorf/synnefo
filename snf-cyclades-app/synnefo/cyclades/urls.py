@@ -73,7 +73,7 @@ urlpatterns += patterns(
 # PROXY settings
 astakos_auth_proxy = \
     partial(proxy, proxy_base=settings.ASTAKOS_AUTH_PROXY_PATH,
-            target_base=settings.ASTAKOS_AUTH_URL)
+            target_base=settings.CYCLADES_ASTAKOS_AUTH_URL)
 astakos_account_proxy = \
     partial(proxy, proxy_base=settings.ASTAKOS_ACCOUNT_PROXY_PATH,
             target_base=settings.ASTAKOS_ACCOUNT_URL)

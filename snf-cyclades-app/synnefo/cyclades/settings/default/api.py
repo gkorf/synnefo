@@ -436,7 +436,7 @@ def mk_auto_lazy_astakos_url(url):
     def auto_lazy_astakos_url(setting, value, deps):
         Setting.enforce_not_configurable(setting, value)
         service_token = deps["CYCLADES_SERVICE_TOKEN"]
-        astakos_auth_url = deps["ASTAKOS_AUTH_URL"]
+        astakos_auth_url = deps["CYCLADES_ASTAKOS_AUTH_URL"]
         return LazyAstakosUrl(service_token, astakos_auth_url, url)
     return auto_lazy_astakos_url
 
@@ -445,14 +445,14 @@ ASTAKOS_ACCOUNT_URL = Auto(
     configure_callback=mk_auto_lazy_astakos_url("account_url"),
     export=False,
     description="Astakos account URL",
-    dependencies=("CYCLADES_SERVICE_TOKEN", "ASTAKOS_AUTH_URL"),
+    dependencies=("CYCLADES_SERVICE_TOKEN", "CYCLADES_ASTAKOS_AUTH_URL"),
 )
 
 ASTAKOS_UI_URL = Auto(
     configure_callback=mk_auto_lazy_astakos_url("account_ui"),
     export=False,
     description="Astakos UI URL",
-    dependencies=("CYCLADES_SERVICE_TOKEN", "ASTAKOS_AUTH_URL"),
+    dependencies=("CYCLADES_SERVICE_TOKEN", "CYCLADES_ASTAKOS_AUTH_URL"),
 )
 
 def mk_auto_prefix(one, two):

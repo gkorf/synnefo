@@ -21,7 +21,7 @@ from synnefo.cyclades.db.models import (
     IPAddress, Volume)
 
 from synnefo.settings import (CYCLADES_SERVICE_TOKEN as ASTAKOS_TOKEN,
-                              ASTAKOS_AUTH_URL)
+                              CYCLADES_ASTAKOS_AUTH_URL)
 from astakosclient import AstakosClient
 from astakosclient import errors
 
@@ -52,7 +52,7 @@ class Quotaholder(object):
     def get(cls):
         if cls._object is None:
             cls._object = AstakosClient(ASTAKOS_TOKEN,
-                                        ASTAKOS_AUTH_URL,
+                                        CYCLADES_ASTAKOS_AUTH_URL,
                                         use_pool=True,
                                         retry=3,
                                         logger=log)

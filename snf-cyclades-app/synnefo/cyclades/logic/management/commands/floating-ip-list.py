@@ -15,7 +15,7 @@
 
 from synnefo.cyclades.db.models import IPAddress
 from synnefo.django.management.commands import ListCommand
-from synnefo.settings import CYCLADES_SERVICE_TOKEN, ASTAKOS_AUTH_URL
+from synnefo.settings import CYCLADES_SERVICE_TOKEN, CYCLADES_ASTAKOS_AUTH_URL
 from logging import getLogger
 log = getLogger(__name__)
 
@@ -26,7 +26,7 @@ class Command(ListCommand):
     select_related = ["nic"]
     deleted_field = "deleted"
     user_uuid_field = "userid"
-    astakos_auth_url = ASTAKOS_AUTH_URL
+    astakos_auth_url = CYCLADES_ASTAKOS_AUTH_URL
     astakos_token = CYCLADES_SERVICE_TOKEN
     filters = {'floating_ip': True}
 
