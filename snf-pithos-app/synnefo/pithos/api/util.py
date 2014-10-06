@@ -41,7 +41,7 @@ from synnefo.pithos.api.settings import (
     BACKEND_QUEUE_EXCHANGE,
     ASTAKOSCLIENT_POOLSIZE,
     SERVICE_TOKEN,
-    ASTAKOS_AUTH_URL,
+    PITHOS_ASTAKOS_AUTH_URL,
     BACKEND_ACCOUNT_QUOTA,
     BACKEND_CONTAINER_QUOTA,
     BACKEND_VERSIONING, BACKEND_FREE_VERSIONING,
@@ -310,7 +310,7 @@ def is_uuid(str):
 ##########################
 
 def retrieve_displayname(token, uuid, fail_silently=True):
-    astakos = AstakosClient(token, ASTAKOS_AUTH_URL,
+    astakos = AstakosClient(token, PITHOS_ASTAKOS_AUTH_URL,
                             retry=2, use_pool=True,
                             logger=logger)
     try:
@@ -325,7 +325,7 @@ def retrieve_displayname(token, uuid, fail_silently=True):
 
 
 def retrieve_displaynames(token, uuids, return_dict=False, fail_silently=True):
-    astakos = AstakosClient(token, ASTAKOS_AUTH_URL,
+    astakos = AstakosClient(token, PITHOS_ASTAKOS_AUTH_URL,
                             retry=2, use_pool=True,
                             logger=logger)
     catalog = astakos.get_usernames(uuids) or {}
@@ -340,7 +340,7 @@ def retrieve_uuid(token, displayname):
     if is_uuid(displayname):
         return displayname
 
-    astakos = AstakosClient(token, ASTAKOS_AUTH_URL,
+    astakos = AstakosClient(token, PITHOS_ASTAKOS_AUTH_URL,
                             retry=2, use_pool=True,
                             logger=logger)
     try:
@@ -351,7 +351,7 @@ def retrieve_uuid(token, displayname):
 
 
 def retrieve_uuids(token, displaynames, return_dict=False, fail_silently=True):
-    astakos = AstakosClient(token, ASTAKOS_AUTH_URL,
+    astakos = AstakosClient(token, PITHOS_ASTAKOS_AUTH_URL,
                             retry=2, use_pool=True,
                             logger=logger)
     catalog = astakos.get_uuids(displaynames) or {}
@@ -1036,7 +1036,7 @@ BACKEND_KWARGS = dict(
     queue_module=BACKEND_QUEUE_MODULE,
     queue_hosts=BACKEND_QUEUE_HOSTS,
     queue_exchange=BACKEND_QUEUE_EXCHANGE,
-    astakos_auth_url=ASTAKOS_AUTH_URL,
+    astakos_auth_url=PITHOS_ASTAKOS_AUTH_URL,
     service_token=SERVICE_TOKEN,
     astakosclient_poolsize=ASTAKOSCLIENT_POOLSIZE,
     free_versioning=BACKEND_FREE_VERSIONING,
@@ -1103,7 +1103,7 @@ def api_method(http_method=None, token_required=True, user_required=True,
         @api.api_method(http_method=http_method, token_required=token_required,
                         user_required=user_required,
                         logger=logger, format_allowed=format_allowed,
-                        astakos_auth_url=ASTAKOS_AUTH_URL,
+                        astakos_auth_url=PITHOS_ASTAKOS_AUTH_URL,
                         serializations=serializations,
                         strict_serlization=strict_serlization)
         @wraps(func)
@@ -1196,7 +1196,7 @@ def view_method():
                 requested_resource = request.path.split(VIEW_PREFIX, 2)[-1]
                 requested_resource = smart_str(requested_resource,
                                                encoding="utf-8")
-                astakos = AstakosClient(SERVICE_TOKEN, ASTAKOS_AUTH_URL,
+                astakos = AstakosClient(SERVICE_TOKEN, PITHOS_ASTAKOS_AUTH_URL,
                                         retry=2, use_pool=True,
                                         logger=logger)
                 if access_token is not None:

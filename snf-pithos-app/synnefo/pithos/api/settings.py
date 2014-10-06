@@ -53,9 +53,7 @@ ASTAKOS_VIEWS_PREFIX = get_service_prefix(synnefo_services, 'astakos_ui')
 # --------------------------------------------------------------------
 # Process Astakos settings
 
-ASTAKOS_AUTH_URL = getattr(
-    settings, 'ASTAKOS_AUTH_URL',
-    'https://accounts.example.synnefo.org/astakos/identity/v2.0')
+PITHOS_ASTAKOS_AUTH_URL = settings.PITHOS_ASTAKOS_AUTH_URL
 
 ASTAKOSCLIENT_POOLSIZE = \
     getattr(settings, 'PITHOS_ASTAKOSCLIENT_POOLSIZE', 200)
@@ -73,12 +71,12 @@ class LazyAstakosUrl(object):
         if not hasattr(self, 'str'):
             try:
                 astakos_client = \
-                    AstakosClient(SERVICE_TOKEN, ASTAKOS_AUTH_URL)
+                    AstakosClient(SERVICE_TOKEN, PITHOS_ASTAKOS_AUTH_URL)
                 self.str = getattr(astakos_client, self.endpoints_name)
             except Exception as excpt:
                 logger.exception(
                     "Could not retrieve endpoints from Astakos url %s: %s",
-                    ASTAKOS_AUTH_URL, excpt)
+                    PITHOS_ASTAKOS_AUTH_URL, excpt)
                 return ""
         return self.str
 

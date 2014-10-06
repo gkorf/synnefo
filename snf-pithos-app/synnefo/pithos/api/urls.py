@@ -23,7 +23,7 @@ from synnefo.django.lib.api import api_endpoint_not_found
 from synnefo.django.utils.urls import extend_endpoint_with_slash
 from synnefo.pithos.api.settings import (
     BASE_PATH, PITHOS_PREFIX, PUBLIC_PREFIX, VIEW_PREFIX,
-    ASTAKOS_AUTH_PROXY_PATH, ASTAKOS_AUTH_URL,
+    ASTAKOS_AUTH_PROXY_PATH, PITHOS_ASTAKOS_AUTH_URL,
     ASTAKOS_ACCOUNT_PROXY_PATH, ASTAKOS_ACCOUNT_URL,
     ASTAKOS_UI_PROXY_PATH, ASTAKOS_UI_URL, pithos_services)
 
@@ -75,7 +75,7 @@ urlpatterns += patterns(
 # PROXY settings
 astakos_auth_proxy = \
     partial(proxy, proxy_base=ASTAKOS_AUTH_PROXY_PATH,
-            target_base=ASTAKOS_AUTH_URL)
+            target_base=PITHOS_ASTAKOS_AUTH_URL)
 astakos_account_proxy = \
     partial(proxy, proxy_base=ASTAKOS_ACCOUNT_PROXY_PATH,
             target_base=ASTAKOS_ACCOUNT_URL)
