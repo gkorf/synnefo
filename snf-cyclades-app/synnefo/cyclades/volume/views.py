@@ -23,7 +23,7 @@ from django.conf import settings
 
 from dateutil.parser import parse as date_parse
 
-from synnefo.django.lib import api
+from synnefo.cyclades.api import api
 from synnefo.django.lib.api import faults, utils
 
 from synnefo.cyclades.volume import volumes, snapshots, util

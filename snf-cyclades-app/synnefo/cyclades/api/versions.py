@@ -20,7 +20,7 @@ from django.template.loader import render_to_string
 from django.utils import simplejson as json
 from synnefo.cyclades.cyclades_settings import COMPUTE_ROOT_URL
 
-from synnefo.django.lib import api
+from synnefo.cyclades.api import api
 
 
 log = getLogger('synnefo.cyclades.api')

@@ -17,7 +17,7 @@ import logging
 from django import http
 from django.utils import simplejson as json
 from django.conf import settings
-from synnefo.django.lib import api
+from synnefo.cyclades.api import api
 from synnefo.django.lib.api import faults
 from synnefo.cyclades.db.models import Backend
 
