@@ -31,7 +31,7 @@ from django.core.exceptions import PermissionDenied
 
 from synnefo.django.lib.api.parsedate import parse_http_date_safe, \
     parse_http_date
-from synnefo.django.lib import api
+from synnefo.pithos.api import api
 from synnefo.django.lib.api import faults, utils
 
 from synnefo.pithos.api.settings import (
