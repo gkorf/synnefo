@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from logging import getLogger
-from synnefo.django.lib import api
+from synnefo.cyclades.api import api
 
 from django.conf.urls import patterns
 from django.http import HttpResponse

@@ -23,7 +23,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils import simplejson as json
 
-from synnefo.django.lib import api
+from synnefo.cyclades.api import api
 from synnefo.django.lib.api import faults, utils
 from synnefo.cyclades.api import util
 from synnefo.cyclades.plankton import backend
