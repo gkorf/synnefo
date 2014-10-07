@@ -21,7 +21,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from astakosclient import AstakosClient
 
-from synnefo.django.lib import api
+from synnefo.pithos.api import api
 from synnefo.django.lib.api import faults
 
 from synnefo.pithos.api.util import (

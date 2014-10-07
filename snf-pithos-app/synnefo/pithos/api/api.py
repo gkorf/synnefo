@@ -13,25 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.views.decorators.csrf import csrf_exempt
-
-from synnefo.pithos.api import api
-
-from synnefo.pithos.api.functions import _object_read
-from synnefo.pithos.api.util import api_method, view_method
-
-import logging
-logger = logging.getLogger(__name__)
+from synnefo.django.lib import api as api_lib
+from synnefo.django.lib.api import *
+from django.conf import settings
 
 
-@csrf_exempt
-def object_demux(request, v_account, v_container, v_object):
-    if request.method == 'GET':
-        return object_read(request, v_account, v_container, v_object)
-    else:
-        return api.api_method_not_allowed(request, allowed_methods=['GET'])
+def api_method(*args, **kwargs):
+    if 'astakos_auth_url' not in kwargs:
+        kwargs['astakos_auth_url'] = settings.ASTAKOS_AUTH_URL
 
-
-@view_method()
-def object_read(request, v_account, v_container, v_object):
-    return _object_read(request, v_account, v_container, v_object)
+    return api_lib.api_method(args, kwargs)
