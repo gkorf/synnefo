@@ -15,7 +15,7 @@
 #
 from optparse import make_option
 
-from synnefo.lib.amqp import AMQPClient
+from synnefo.cyclades.logic.amqp import AMQPClient
 from synnefo.django.management.commands import SynnefoCommand
 
 from synnefo.cyclades.logic import queues

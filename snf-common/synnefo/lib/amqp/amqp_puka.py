@@ -59,14 +59,15 @@ class AMQPPukaClient(object):
     AMQP generic client implementing most of the basic AMQP operations.
 
     """
-    def __init__(self, hosts=settings.AMQP_HOSTS, max_retries=30,
+    def __init__(self, hosts=None, max_retries=30,
                  confirms=True, confirm_buffer=100, logger=None):
         """
         Format hosts as "amqp://username:pass@host:port"
         max_retries=0 defaults to unlimited retries
 
         """
-
+        if hosts is None:
+            raise ValueError("Need to specify hosts.")
         self.hosts = hosts
         shuffle(self.hosts)
 
