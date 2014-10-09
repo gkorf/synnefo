@@ -19,7 +19,7 @@ import pprint
 from optparse import make_option
 from django.core.management.base import CommandError
 
-from synnefo.lib.amqp import AMQPClient
+from synnefo.cyclades.logic.amqp import AMQPClient
 from synnefo.django.management.commands import SynnefoCommand
 
 

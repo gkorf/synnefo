@@ -67,7 +67,7 @@ from ganeti.ssconf import SimpleStore
 
 
 from synnefo import settings
-from synnefo.lib.amqp import AMQPClient
+from synnefo.ganeti.amqp import AMQPClient
 
 
 def get_time_from_status(op, job):

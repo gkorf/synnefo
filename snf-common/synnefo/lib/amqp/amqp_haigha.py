@@ -53,8 +53,10 @@ def reconnect_decorator(func):
 
 
 class AMQPHaighaClient():
-    def __init__(self, hosts=settings.AMQP_HOSTS, max_retries=30,
+    def __init__(self, hosts=None, max_retries=30,
                  confirms=True, confirm_buffer=200):
+        if hosts is None:
+            raise ValueError("Need to specify hosts.")
         self.hosts = hosts
         shuffle(self.hosts)
 

@@ -49,7 +49,7 @@ except:
     from daemon import pidlockfile
 import setproctitle
 
-from synnefo.lib.amqp import AMQPClient
+from synnefo.cyclades.logic.amqp import AMQPClient
 from synnefo.cyclades.logic import callbacks
 from synnefo.cyclades.logic import queues
 from synnefo.cyclades.db.models import Backend, pooled_rapi_client
