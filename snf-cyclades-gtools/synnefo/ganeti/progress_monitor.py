@@ -28,7 +28,7 @@ import time
 import json
 
 from synnefo import settings
-from synnefo.lib.amqp import AMQPClient
+from synnefo.ganeti.amqp import AMQPClient
 from synnefo.lib.utils import split_time
 
 PROGNAME = os.path.basename(sys.argv[0])

@@ -40,7 +40,7 @@ import json
 
 
 # Test Callbacks
-@patch('synnefo.lib.amqp.AMQPClient')
+@patch('synnefo.cyclades.logic.amqp.AMQPClient')
 class UpdateDBTest(TestCase):
     def create_msg(self, **kwargs):
         """Create snf-ganeti-eventd message"""
@@ -351,7 +351,7 @@ class UpdateDBTest(TestCase):
                         .assert_called_once_with("test_snapshot_id", state=1)
 
 
-@patch('synnefo.lib.amqp.AMQPClient')
+@patch('synnefo.cyclades.logic.amqp.AMQPClient')
 class UpdateNetTest(TestCase):
     def create_msg(self, **kwargs):
         """Create snf-ganeti-hook message"""
@@ -427,7 +427,7 @@ class UpdateNetTest(TestCase):
         pool.save()
 
 
-@patch('synnefo.lib.amqp.AMQPClient')
+@patch('synnefo.cyclades.logic.amqp.AMQPClient')
 class UpdateNetworkTest(TestCase):
     def create_msg(self, **kwargs):
         """Create snf-ganeti-eventd message"""
@@ -660,7 +660,7 @@ class UpdateNetworkTest(TestCase):
         self.assertTrue(pool.is_reserved('10.0.0.20'))
 
 
-@patch('synnefo.lib.amqp.AMQPClient')
+@patch('synnefo.cyclades.logic.amqp.AMQPClient')
 class UpdateBuildProgressTest(TestCase):
     def setUp(self):
         self.vm = mfactory.VirtualMachineFactory()
