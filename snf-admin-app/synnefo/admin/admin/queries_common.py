@@ -40,7 +40,7 @@ def prefix_strip(query):
     """
     query = str(query)
     lookup_type = 'contains'
-    prefix = settings.BACKEND_PREFIX_ID
+    prefix = settings.CYCLADES_BACKEND_PREFIX_ID
 
     if query.startswith(prefix):
         query = query.replace(prefix, '')

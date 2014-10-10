@@ -83,7 +83,7 @@ class NetworkTest(TestCase):
             net = networks.create(**kwargs)
         self.assertEqual(net.mode, "routed")
         self.assertEqual(net.mac_prefix, settings.DEFAULT_MAC_PREFIX)
-        self.assertEqual(net.link, "%slink-%d" % (settings.BACKEND_PREFIX_ID,
+        self.assertEqual(net.link, "%slink-%d" % (settings.CYCLADES_BACKEND_PREFIX_ID,
                                                   net.id))
         self.assertEqual(net.backend_tag, ["ip-less-routed"])
 

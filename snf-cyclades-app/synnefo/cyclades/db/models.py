@@ -398,7 +398,7 @@ class VirtualMachine(models.Model):
         """Returns the backend id for this VM by prepending backend-prefix."""
         if not self.id:
             raise VirtualMachine.InvalidBackendIdError("self.id is None")
-        return "%s%s" % (settings.BACKEND_PREFIX_ID, str(self.id))
+        return "%s%s" % (settings.CYCLADES_BACKEND_PREFIX_ID, str(self.id))
 
     class Meta:
         verbose_name = u'Virtual machine instance'
@@ -575,7 +575,7 @@ class Network(models.Model):
         """Return the backend id by prepending backend-prefix."""
         if not self.id:
             raise Network.InvalidBackendIdError("self.id is None")
-        return "%snet-%s" % (settings.BACKEND_PREFIX_ID, str(self.id))
+        return "%snet-%s" % (settings.CYCLADES_BACKEND_PREFIX_ID, str(self.id))
 
     @property
     def backend_tag(self):
@@ -905,7 +905,7 @@ class NetworkInterface(models.Model):
     @property
     def backend_uuid(self):
         """Return the backend id by prepending backend-prefix."""
-        return u"%snic-%s" % (settings.BACKEND_PREFIX_ID, str(self.id))
+        return u"%snic-%s" % (settings.CYCLADES_BACKEND_PREFIX_ID, str(self.id))
 
     @property
     def ipv4_address(self):
@@ -933,7 +933,7 @@ class SecurityGroup(models.Model):
     @property
     def backend_uuid(self):
         """Return the name of NIC in Ganeti."""
-        return "%snic-%s" % (settings.BACKEND_PREFIX_ID, str(self.id))
+        return "%snic-%s" % (settings.CYCLADES_BACKEND_PREFIX_ID, str(self.id))
 
 
 class PoolTable(models.Model):
@@ -1131,11 +1131,11 @@ class Volume(models.Model):
 
     @property
     def backend_volume_uuid(self):
-        return u"%svol-%d" % (settings.BACKEND_PREFIX_ID, self.id)
+        return u"%svol-%d" % (settings.CYCLADES_BACKEND_PREFIX_ID, self.id)
 
     @property
     def backend_disk_uuid(self):
-        return u"%sdisk-%d" % (settings.BACKEND_PREFIX_ID, self.id)
+        return u"%sdisk-%d" % (settings.CYCLADES_BACKEND_PREFIX_ID, self.id)
 
     @property
     def source_image_id(self):

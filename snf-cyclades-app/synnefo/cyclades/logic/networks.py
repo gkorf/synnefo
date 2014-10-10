@@ -104,7 +104,7 @@ def create(userid, name, flavor, link=None, mac_prefix=None, mode=None,
         drained=drained)
 
     if link is None:
-        network.link = "%slink-%d" % (settings.BACKEND_PREFIX_ID, network.id)
+        network.link = "%slink-%d" % (settings.CYCLADES_BACKEND_PREFIX_ID, network.id)
         network.save()
 
     # Issue commission to Quotaholder and accept it since at the end of

@@ -3,12 +3,12 @@ from synnefo.lib.settings.setup import Default
 # Ganeti backends configuration
 ###############################
 
-BACKEND_PREFIX_ID = Default(
+CYCLADES_BACKEND_PREFIX_ID = Default(
     default_value="snf-",
     example_value="my_service_name_prefix-",
     description=(
         "When Synnefo creates an instance on a Ganeti backend, it "
-        "names the instance by concatenating the BACKEND_PREFIX_ID with the "
+        "names the instance by concatenating the CYCLADES_BACKEND_PREFIX_ID with the "
         "instance's ID as appears in the Cyclades DB."),
     category="snf-cyclades-app-backend",
     export=True,

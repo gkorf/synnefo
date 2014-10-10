@@ -14,12 +14,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from synnefo.settings import BACKEND_PREFIX_ID, DEBUG, CYCLADES_EXCHANGE_GANETI
+from synnefo.settings import CYCLADES_BACKEND_PREFIX_ID, DEBUG, CYCLADES_EXCHANGE_GANETI
 
 try:
-    prefix = BACKEND_PREFIX_ID.split('-')[0]
+    prefix = CYCLADES_BACKEND_PREFIX_ID.split('-')[0]
 except TypeError, IndexError:
-    raise Exception("Invalid BACKEND_PREFIX_ID")
+    raise Exception("Invalid CYCLADES_BACKEND_PREFIX_ID")
 
 # EXCHANGES
 EXCHANGES = (CYCLADES_EXCHANGE_GANETI,)

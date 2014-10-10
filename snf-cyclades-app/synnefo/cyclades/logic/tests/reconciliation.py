@@ -103,7 +103,7 @@ class ServerReconciliationTest(TestCase):
     def test_orphan_server(self, mrapi):
         cmrapi = self.reconciler.client
         mrapi().GetInstances.return_value =\
-            [{"name": "%s22" % settings.BACKEND_PREFIX_ID,
+            [{"name": "%s22" % settings.CYCLADES_BACKEND_PREFIX_ID,
              "beparams": {"maxmem": 1024,
                           "minmem": 1024,
                           "vcpus": 4},
@@ -119,7 +119,7 @@ class ServerReconciliationTest(TestCase):
              "tags": []}]
         self.reconciler.reconcile()
         cmrapi.DeleteInstance\
-              .assert_called_once_with("%s22" % settings.BACKEND_PREFIX_ID)
+              .assert_called_once_with("%s22" % settings.CYCLADES_BACKEND_PREFIX_ID)
 
     def test_unsynced_operstate(self, mrapi):
         vm1 = mfactory.VirtualMachineFactory(backend=self.backend,
