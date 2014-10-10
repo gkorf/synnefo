@@ -49,7 +49,7 @@ def isoformat(d):
     return d.replace(tzinfo=UTC()).isoformat()
 
 
-def isoparse(s):
+def isoparse(s, offset=None):
     """Parse an ISO8601 date string into a datetime object."""
 
     if not s:
@@ -65,7 +65,8 @@ def isoparse(s):
     if utc_since > now:
         raise faults.BadRequest('changes-since value set in the future.')
 
-    if now - utc_since > datetime.timedelta(seconds=settings.POLL_LIMIT):
+    if offset is not None and \
+            now - utc_since > datetime.timedelta(seconds=offset):
         raise faults.BadRequest('Too old changes-since value.')
 
     return utc_since

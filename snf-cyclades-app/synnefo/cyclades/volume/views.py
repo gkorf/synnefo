@@ -26,6 +26,7 @@ from dateutil.parser import parse as date_parse
 from synnefo.cyclades.api import api
 from synnefo.django.lib.api import faults, utils
 
+from synnefo.cyclades.api import util as api_util
 from synnefo.cyclades.volume import volumes, snapshots, util
 from synnefo.cyclades.db.models import Volume, VolumeType, VolumeMetadata
 from synnefo.cyclades.plankton import backend
@@ -377,7 +378,7 @@ def create_snapshot(request):
 @api.api_method(http_method="GET", user_required=True, logger=log)
 def list_snapshots(request, detail=False):
     log.debug('list_snapshots detail=%s', detail)
-    since = utils.isoparse(request.GET.get('changes-since'))
+    since = api_util.isoparse(request.GET.get('changes-since'))
     with backend.PlanktonBackend(request.user_uniq) as b:
         snapshots = b.list_snapshots()
         if since:
