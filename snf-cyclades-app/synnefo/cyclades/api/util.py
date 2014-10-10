@@ -28,7 +28,7 @@ from django.template.loader import render_to_string
 from django.utils import simplejson as json
 from django.db.models import Q
 
-from synnefo.django.lib.api import faults
+from synnefo.django.lib.api import faults, utils
 from synnefo.cyclades.db.models import (
     Flavor, VirtualMachine, VirtualMachineMetadata,
     Network, NetworkInterface, SecurityGroup,
@@ -460,3 +460,7 @@ def start_action(vm, action, jobId):
     vm.backendjobstatus = None
     vm.backendlogmsg = None
     vm.save()
+
+
+def isoparse(s):
+    return utils.isoparse(s, offset=settings.POLL_LIMIT)

@@ -123,7 +123,7 @@ def list_images(request, detail=False):
     #                       overLimit (413)
 
     log.debug('list_images detail=%s', detail)
-    since = utils.isoparse(request.GET.get('changes-since'))
+    since = util.isoparse(request.GET.get('changes-since'))
     with backend.PlanktonBackend(request.user_uniq) as b:
         images = b.list_images()
         if since:
