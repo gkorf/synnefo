@@ -29,9 +29,9 @@ def id_from_instance_name(name):
 
     """
     sname = smart_unicode(name)
-    if not sname.startswith(settings.BACKEND_PREFIX_ID):
+    if not sname.startswith(settings.CYCLADES_BACKEND_PREFIX_ID):
         raise VirtualMachine.InvalidBackendIdError(sname)
-    ns = sname.replace(settings.BACKEND_PREFIX_ID, "", 1)
+    ns = sname.replace(settings.CYCLADES_BACKEND_PREFIX_ID, "", 1)
     if not ns.isdigit():
         raise VirtualMachine.InvalidBackendIdError(sname)
 
@@ -39,7 +39,7 @@ def id_from_instance_name(name):
 
 
 def id_to_instance_name(id):
-    return "%s%s" % (settings.BACKEND_PREFIX_ID, smart_unicode(id))
+    return "%s%s" % (settings.CYCLADES_BACKEND_PREFIX_ID, smart_unicode(id))
 
 
 def id_from_network_name(name):
@@ -49,9 +49,9 @@ def id_from_network_name(name):
 
     """
     name = smart_unicode(name)
-    if not name.startswith(settings.BACKEND_PREFIX_ID):
+    if not name.startswith(settings.CYCLADES_BACKEND_PREFIX_ID):
         raise Network.InvalidBackendIdError(name)
-    ns = name.replace(settings.BACKEND_PREFIX_ID + 'net-', "", 1)
+    ns = name.replace(settings.CYCLADES_BACKEND_PREFIX_ID + 'net-', "", 1)
     if not ns.isdigit():
         raise Network.InvalidBackendIdError(smart_unicode(name))
 
@@ -59,7 +59,7 @@ def id_from_network_name(name):
 
 
 def id_to_network_name(id):
-    return "%snet-%s" % (settings.BACKEND_PREFIX_ID, smart_unicode(id))
+    return "%snet-%s" % (settings.CYCLADES_BACKEND_PREFIX_ID, smart_unicode(id))
 
 
 def id_from_nic_name(name):
@@ -67,9 +67,9 @@ def id_from_nic_name(name):
 
     """
     name = smart_unicode(name)
-    if not name.startswith(settings.BACKEND_PREFIX_ID):
+    if not name.startswith(settings.CYCLADES_BACKEND_PREFIX_ID):
         raise ValueError("Invalid NIC name: %s" % name)
-    ns = name.replace(settings.BACKEND_PREFIX_ID + 'nic-', "", 1)
+    ns = name.replace(settings.CYCLADES_BACKEND_PREFIX_ID + 'nic-', "", 1)
     if not ns.isdigit():
         raise ValueError("Invalid NIC name: %s" % name)
 
@@ -80,9 +80,9 @@ def id_from_disk_name(name):
     """Returns Disk Django id, given a Ganeti's Disk name.
 
     """
-    if not str(name).startswith(settings.BACKEND_PREFIX_ID):
+    if not str(name).startswith(settings.CYCLADES_BACKEND_PREFIX_ID):
         raise ValueError("Invalid Disk name: %s" % name)
-    ns = str(name).replace(settings.BACKEND_PREFIX_ID + 'vol-', "", 1)
+    ns = str(name).replace(settings.CYCLADES_BACKEND_PREFIX_ID + 'vol-', "", 1)
     if not ns.isdigit():
         raise ValueError("Invalid Disk name: %s" % name)
 
@@ -90,7 +90,7 @@ def id_from_disk_name(name):
 
 
 def id_to_disk_name(id):
-    return "%svol-%s" % (settings.BACKEND_PREFIX_ID, str(id))
+    return "%svol-%s" % (settings.CYCLADES_BACKEND_PREFIX_ID, str(id))
 
 
 def get_rsapi_state(vm):

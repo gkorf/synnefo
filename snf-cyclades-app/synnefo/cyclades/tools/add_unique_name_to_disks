@@ -106,13 +106,13 @@ def get_instances_with_anonymous_disks(backend):
         instances = rc.GetInstances(bulk=True)
     # Filter snf- instances
     instances = filter(lambda i:
-                       i["name"].startswith(settings.BACKEND_PREFIX_ID),
+                       i["name"].startswith(settings.CYCLADES_BACKEND_PREFIX_ID),
                        instances)
     # Filter instances with anonymous disks
     instances = filter(lambda i: None in i["disk.names"], instances)
     # Get IDs of those instances
     instances_ids = map(lambda i:
-                        i["name"].replace(settings.BACKEND_PREFIX_ID, "", 1),
+                        i["name"].replace(settings.CYCLADES_BACKEND_PREFIX_ID, "", 1),
                         instances)
     return instances_ids
 

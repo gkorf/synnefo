@@ -298,7 +298,7 @@ for k, v in APPEND_CONNECT_PROMPT_MESSAGES.iteritems():
 
 # retrieve domain prefix from settings
 DOMAIN_PREFIX = getattr(settings, 'MACHINE_DOMAIN_PREFIX', getattr(settings,
-                        'BACKEND_PREFIX_ID', ""))
+                        'CYCLADES_BACKEND_PREFIX_ID', ""))
 
 # domain template string
 DOMAIN_TPL = "%s%%s" % DOMAIN_PREFIX

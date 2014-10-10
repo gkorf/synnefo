@@ -451,7 +451,7 @@ def format_gnt_disk(disk):
 
 
 def get_networks_from_ganeti(backend):
-    prefix = settings.BACKEND_PREFIX_ID + 'net-'
+    prefix = settings.CYCLADES_BACKEND_PREFIX_ID + 'net-'
 
     networks = {}
     with pooled_rapi_client(backend) as c:
@@ -500,7 +500,7 @@ def get_database_servers(backend):
 def get_ganeti_servers(backend):
     gnt_instances = backend_mod.get_instances(backend)
     # Filter out non-synnefo instances
-    snf_backend_prefix = settings.BACKEND_PREFIX_ID
+    snf_backend_prefix = settings.CYCLADES_BACKEND_PREFIX_ID
     gnt_instances = filter(lambda i: i["name"].startswith(snf_backend_prefix),
                            gnt_instances)
     gnt_instances = map(parse_gnt_instance, gnt_instances)

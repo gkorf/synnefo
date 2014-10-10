@@ -70,7 +70,7 @@ def get_resource(name, value, for_update=False):
     PREFIXED_RESOURCES = ["server", "network", "port", "volume"]
 
     if isinstance(value, basestring) and name in PREFIXED_RESOURCES:
-        if value.startswith(settings.BACKEND_PREFIX_ID):
+        if value.startswith(settings.CYCLADES_BACKEND_PREFIX_ID):
             try:
                 if name == "server":
                     value = id_from_instance_name(value)

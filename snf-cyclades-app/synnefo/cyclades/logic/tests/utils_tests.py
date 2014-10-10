@@ -23,7 +23,7 @@ from synnefo.cyclades.db.models_factory import VirtualMachineFactory
 
 class NameConversionTest(TestCase):
     def setUp(self):
-        settings.BACKEND_PREFIX_ID = 'snf-'
+        settings.CYCLADES_BACKEND_PREFIX_ID = 'snf-'
 
     def test_id_from_iname(self):
         self.assertEqual(utils.id_from_instance_name('snf-42'), 42)

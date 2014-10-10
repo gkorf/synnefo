@@ -8,7 +8,7 @@ GTOOLS_AMQP_HOSTS = Mandatory(
     category="snf-cyclades-gtools",
 )
 
-BACKEND_PREFIX_ID = Default(
+GTOOLS_BACKEND_PREFIX_ID = Default(
     default_value="snf-",
     example_value="my_service_name_prefix-",
     description=(
