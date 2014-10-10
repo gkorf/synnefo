@@ -134,7 +134,7 @@ class Dispatcher:
         self.client.connect()
 
         # Declare queues and exchanges
-        exchange = settings.EXCHANGE_GANETI
+        exchange = settings.CYCLADES_EXCHANGE_GANETI
         exchange_dl = queues.convert_exchange_to_dead(exchange)
         self.client.exchange_declare(exchange=exchange,
                                      type="topic")
@@ -217,7 +217,7 @@ def handle_request(client, msg):
     # declared with a 'ttl' option in order to be automatically deleted.
     hostname, pid = get_hostname(), os.getpid()
     queue = queues.get_dispatcher_heartbeat_queue(hostname, pid)
-    exchange = settings.EXCHANGE_GANETI
+    exchange = settings.CYCLADES_EXCHANGE_GANETI
     routing_key = queues.EVENTD_HEARTBEAT_ROUTING_KEY
     client.queue_declare(queue=queue, mirrored=False, ttl=HEARTBEAT_QUEUE_TTL)
     client.queue_bind(queue=queue, exchange=exchange,
