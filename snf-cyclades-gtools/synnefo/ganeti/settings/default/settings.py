@@ -2,7 +2,7 @@ from synnefo.lib.settings.setup import Mandatory, Default
 
 # snf-cyclades-gtools settings
 
-AMQP_HOSTS = Mandatory(
+GTOOLS_AMQP_HOSTS = Mandatory(
     example_value=["amqp://username:password@host:port"],
     description="List of RabbitMQ endpoints.",
     category="snf-cyclades-gtools",
@@ -29,7 +29,7 @@ EXCHANGE_GANETI = Default(
     export=False,
 )
 
-AMQP_BACKEND = Default(
+GTOOLS_AMQP_BACKEND = Default(
     default_value="puka",
     example_value="puka",
     description=(
