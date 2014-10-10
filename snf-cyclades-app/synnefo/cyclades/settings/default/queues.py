@@ -9,7 +9,7 @@ CYCLADES_AMQP_HOSTS = Mandatory(
     category="snf-cyclades-queues",
 )
 
-EXCHANGE_GANETI = Default(
+CYCLADES_EXCHANGE_GANETI = Default(
     default_value="ganeti",
     description=(
         "The message queue's exchange name. Notifications from "

@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from synnefo.settings import BACKEND_PREFIX_ID, DEBUG, EXCHANGE_GANETI
+from synnefo.settings import BACKEND_PREFIX_ID, DEBUG, CYCLADES_EXCHANGE_GANETI
 
 try:
     prefix = BACKEND_PREFIX_ID.split('-')[0]
@@ -22,7 +22,7 @@ except TypeError, IndexError:
     raise Exception("Invalid BACKEND_PREFIX_ID")
 
 # EXCHANGES
-EXCHANGES = (EXCHANGE_GANETI,)
+EXCHANGES = (CYCLADES_EXCHANGE_GANETI,)
 
 
 # QUEUES
@@ -49,10 +49,10 @@ KEY_CLUSTER = 'ganeti.event.cluster'
 # BINDINGS:
 BINDINGS = (
     # Queue           # Exchange        # RouteKey    # Handler
-    (QUEUE_OP,        EXCHANGE_GANETI,  KEY_OP,       'update_db'),
-    (QUEUE_NETWORK,   EXCHANGE_GANETI,  KEY_NETWORK,  'update_network'),
-    (QUEUE_PROGRESS,  EXCHANGE_GANETI,  KEY_PROGRESS, 'update_build_progress'),
-    (QUEUE_CLUSTER,   EXCHANGE_GANETI,  KEY_CLUSTER,  'update_cluster'),
+    (QUEUE_OP,        CYCLADES_EXCHANGE_GANETI,  KEY_OP,       'update_db'),
+    (QUEUE_NETWORK,   CYCLADES_EXCHANGE_GANETI,  KEY_NETWORK,  'update_network'),
+    (QUEUE_PROGRESS,  CYCLADES_EXCHANGE_GANETI,  KEY_PROGRESS, 'update_build_progress'),
+    (QUEUE_CLUSTER,   CYCLADES_EXCHANGE_GANETI,  KEY_CLUSTER,  'update_cluster'),
 )
 
 
@@ -61,7 +61,7 @@ if DEBUG is True:
     # Debug queue, retrieves all messages
     QUEUE_DEBUG = "%s-debug" % prefix
     QUEUES += (QUEUE_DEBUG,)
-    BINDINGS += ((QUEUE_DEBUG, EXCHANGE_GANETI, "#", "dummy_proc"),)
+    BINDINGS += ((QUEUE_DEBUG, CYCLADES_EXCHANGE_GANETI, "#", "dummy_proc"),)
 
 
 def convert_queue_to_dead(queue):

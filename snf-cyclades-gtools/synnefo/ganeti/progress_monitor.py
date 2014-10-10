@@ -69,7 +69,7 @@ def main():
     routekey = "ganeti.%s.event.progress" % prefix
     amqp_client = AMQPClient(confirm_buffer=10)
     amqp_client.connect()
-    amqp_client.exchange_declare(settings.EXCHANGE_GANETI, "topic")
+    amqp_client.exchange_declare(settings.GTOOLS_EXCHANGE_GANETI, "topic")
 
     for msg in jsonstream(sys.stdin):
         msg['event_time'] = split_time(time.time())
@@ -79,7 +79,7 @@ def main():
         sys.stderr.write("[MONITOR] %s\n" % json.dumps(msg))
 
         # then send it over AMQP
-        amqp_client.basic_publish(exchange=settings.EXCHANGE_GANETI,
+        amqp_client.basic_publish(exchange=settings.GTOOLS_EXCHANGE_GANETI,
                                   routing_key=routekey,
                                   body=json.dumps(msg))
 

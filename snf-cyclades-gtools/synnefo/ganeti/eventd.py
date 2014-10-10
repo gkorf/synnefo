@@ -203,7 +203,7 @@ class JobFileHandler(pyinotify.ProcessEvent):
         self.client.connect()
         handler_logger.info("Connected succesfully")
 
-        self.client.exchange_declare(settings.EXCHANGE_GANETI, type='topic')
+        self.client.exchange_declare(settings.GTOOLS_EXCHANGE_GANETI, type='topic')
 
         self.op_handlers = {"INSTANCE": self.process_instance_op,
                             "NETWORK": self.process_network_op,
@@ -275,7 +275,7 @@ class JobFileHandler(pyinotify.ProcessEvent):
             self.logger.debug("Delivering msg: %s (key=%s)", msg, routekey)
 
             # Send the message to RabbitMQ
-            self.client.basic_publish(settings.EXCHANGE_GANETI,
+            self.client.basic_publish(settings.GTOOLS_EXCHANGE_GANETI,
                                       routekey,
                                       msg)
 
