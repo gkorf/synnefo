@@ -3,7 +3,7 @@ from synnefo.lib.settings.setup import Mandatory, Default
 # Queues, exchanges and bindings for AMQP
 #########################################
 
-AMQP_HOSTS = Mandatory(
+CYCLADES_AMQP_HOSTS = Mandatory(
     example_value=["amqp://username:password@host:port"],
     description="List of RabbitMQ endpoints.",
     category="snf-cyclades-queues",
@@ -17,7 +17,7 @@ EXCHANGE_GANETI = Default(
     export=False,
 )
 
-AMQP_BACKEND = Default(
+CYCLADES_AMQP_BACKEND = Default(
     default_value="puka",
     example_value="puka",
     description=(

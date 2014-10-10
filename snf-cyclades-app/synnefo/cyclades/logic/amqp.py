@@ -23,13 +23,13 @@ ClientMap = {
 }
 
 try:
-    Client = ClientMap[settings.AMQP_BACKEND]
+    Client = ClientMap[settings.CYCLADES_AMQP_BACKEND]
 except KeyError:
-    raise Exception('Unknown Backend %s' % settings.AMQP_BACKEND)
+    raise Exception('Unknown Backend %s' % settings.CYCLADES_AMQP_BACKEND)
 
 
 class AMQPClient(Client):
     def __init__(self, *args, **kwargs):
         if 'hosts' not in kwargs:
-            kwargs['hosts'] = settings.AMQP_HOSTS
+            kwargs['hosts'] = settings.CYCLADES_AMQP_HOSTS
             return Client(args, kwargs)

@@ -194,7 +194,8 @@ class JobFileHandler(pyinotify.ProcessEvent):
         self.cluster_name = cluster_name
 
         # Set max_retries to 0 for unlimited retries.
-        self.client = AMQPClient(hosts=settings.AMQP_HOSTS, confirm_buffer=25,
+        self.client = AMQPClient(hosts=settings.GTOOLS_AMQP_HOSTS,
+                                 confirm_buffer=25,
                                  max_retries=0, logger=logger)
 
         handler_logger.info("Attempting to connect to RabbitMQ hosts")
