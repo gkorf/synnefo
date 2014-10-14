@@ -16,7 +16,6 @@
 from synnefo.lib.settings import setup
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
-from os.path import isdir, exists
 from pprint import pformat
 from textwrap import wrap
 
@@ -30,14 +29,8 @@ class Command(BaseCommand):
 
     Example:
         settings --select type=mandatory,configured
-        settings --select hidden --select type=default,
-
-    Examples to export settings for config files:
-        settings --select \!hidden --printout-files /etc/synnefo.new
-        settings --select \\
-            ${EXPORT_SETTINGS_COMMA_LIST} --printout-files /etc/synnefo.new
-
-    To export runtime values in config files include --runtime."""
+        settings --select hidden --select type=default
+"""
 
     option_list = BaseCommand.option_list + (
         make_option(
@@ -91,25 +84,6 @@ class Command(BaseCommand):
             action="store_true",
             default=False,
             help=("Display full setting details")),
-        make_option(
-            "-r", "--runtime",
-            dest="printout_runtime",
-            action="store_true",
-            default=False,
-            help=("Append runtime values in printout.")),
-        make_option(
-            "-p", "--printout",
-            dest="printout",
-            action="store_true",
-            default=False,
-            help=("Create a printout of settings as comment blocks.")),
-        make_option(
-            "-f", "--printout-files",
-            dest="printout_files",
-            action="store",
-            metavar="SETTINGS-DIRECTORY",
-            help=("Create a printout of settings grouped "
-                  "in files by category.")),
     )
 
     def mk_filter_all(self, param):
@@ -302,48 +276,6 @@ class Command(BaseCommand):
             line = format_str.format(**format_args) + eol
             print line
 
-    def display_printout(self, display_settings_list, runtime=False):
-        for name, setting in display_settings_list:
-            comment = setting.present_as_comment(runtime=runtime) + '\n'
-            print comment
-
-    def printout_files(self, display_settings_list, path, runtime=False):
-        if not isdir(path):
-            m = "Cannot find directory '{path}'".format(path=path)
-            raise CommandError(m)
-
-        category_depths = {}
-        for name, setting in display_settings_list:
-            key = (setting.configured_depth, setting.category)
-            if key not in category_depths:
-                category_depths[key] = []
-            category_depths[key].append((name, setting))
-
-        old_filepath = None
-        conffile = None
-        filepath = None
-        for (depth, category), setting_list in \
-                sorted(category_depths.iteritems()):
-            depth *= 10
-            filepath = '{path}/{depth}-{category}.conf'
-            filepath = filepath.format(path=path,
-                                       depth=depth,
-                                       category=category)
-            if filepath != old_filepath:
-                if conffile:
-                    conffile.close()
-                if exists(filepath):
-                    m = "File {f} already exists! aborting."
-                    m = m.format(f=filepath)
-                    raise CommandError(m)
-                self.stdout.write("Writing {f}\n".format(f=filepath))
-                conffile = open(filepath, "a")
-                old_filepath = filepath
-            setting_list.sort()
-            for name, setting in setting_list:
-                conffile.write(setting.present_as_comment(runtime=runtime))
-                conffile.write('\n\n')
-
     def handle(self, *args, **options):
         if args:
             raise CommandError("This command takes no arguments. Only options")
@@ -369,13 +301,4 @@ class Command(BaseCommand):
 
         sort_method = self.sort_methods[sort_order]
         display_settings_list = sort_method(display_settings)
-
-        if options['printout']:
-            self.display_printout(display_settings_list,
-                                  options['printout_runtime'])
-        elif options['printout_files']:
-            self.printout_files(display_settings_list,
-                                options['printout_files'],
-                                options['printout_runtime'])
-        else:
-            self.display_console(display_settings_list, options)
+        self.display_console(display_settings_list, options)
