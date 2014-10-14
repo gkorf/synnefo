@@ -1,9 +1,12 @@
+import logging
 from synnefo.lib.settings.setup import (NoValue, Default, Auto,
                                         Mandatory, SubMandatory)
 from synnefo.webproject.settings.default import (
     mk_auto_configure_base_host,
     mk_auto_configure_base_path,
     mk_auto_configure_services)
+from synnefo.lib import join_urls
+from synnefo.lib.services import get_service_prefix
 
 #
 # Astakos configuration
@@ -290,6 +293,12 @@ ASTAKOS_SHIBBOLETH_REQUIRE_NAME_INFO = Default(
     export=False,
 )
 
+ASTAKOS_SHIBBOLETH_MIGRATE_EPPN = Default(
+    default_value=False,
+    description="Migrate eppn identifiers to remote id",
+    category="snf-astakos-app-settings",
+)
+
 # FIXME: Mandatory with condition
 ASTAKOS_TWITTER_TOKEN = Default(
     default_value="",
@@ -541,4 +550,97 @@ ASTAKOS_TRANSLATE_UUIDS = Default(
     default_value=False,
     description="Transitional setting to allow UUID translations.",
     export=False,
+)
+
+def _auto_configure_astakos_sitename(setting, value, deps):
+    if value is not NoValue:
+        # acknowledge user-provided setting
+        return NoValue
+    # User did not provide setting, create one out of MEDIA_URL
+    value = deps["BRANDING_SERVICE_NAME"]
+    return value
+
+ASTAKOS_SITENAME = Auto(
+    configure_callback=_auto_configure_astakos_sitename,
+    description="Astakos site name",
+    dependencies=["BRANDING_SERVICE_NAME"],
+    category="snf-astakos-app-settings",
+    )
+
+ASTAKOS_LOGGING_LEVEL = Default(
+    default_value=logging.INFO,
+    description=\
+        "Set the astakos main functions logging severity (None to disable)",
+    category="snf-astakos-app-settings",
+)
+
+def _mk_views_url(suffix):
+    def _mk_f(setting, value, deps):
+        if value is not NoValue:
+            # acknowledge user-provided setting
+            return NoValue
+        base_path = deps["ASTAKOS_BASE_PATH"]
+        views_prefix = get_service_prefix(deps["SYNNEFO_SERVICES"],
+                                          'astakos_ui')
+        return join_urls('/', base_path, views_prefix, suffix)
+    return _mk_f
+
+ASTAKOS_ACTIVATION_REDIRECT_URL = Auto(
+    configure_callback=_mk_views_url("landing"),
+    description='ASTAKOS_ACTIVATION_REDIRECT_URL',
+    dependencies=["ASTAKOS_BASE_PATH", "SYNNEFO_SERVICES"],
+    category="snf-astakos-app-settings",
+)
+
+ASTAKOS_LOGIN_SUCCESS_URL = Auto(
+    configure_callback=_mk_views_url("landing"),
+    description=(
+        "URL to redirect the user after successful login when no next "
+        "parameter is set"),
+    dependencies=["ASTAKOS_BASE_PATH", "SYNNEFO_SERVICES"],
+    category="snf-astakos-app-settings",
+)
+
+ASTAKOS_ADMIN_STATS_PERMITTED_GROUPS = Default(
+    default_value=['admin-stats'],
+    description="ASTAKOS_ADMIN_STATS_PERMITTED_GROUPS",
+    category="snf-astakos-app-settings",
+)
+
+ASTAKOS_ENDPOINT_CACHE_TIMEOUT = Default(
+    default_value=60,
+    description="ASTAKOS_ENDPOINT_CACHE_TIMEOUT",
+    category="snf-astakos-app-settings",
+)
+
+ASTAKOS_RESOURCE_CACHE_TIMEOUT = Default(
+    default_value=60,
+    description="ASTAKOS_RESOURCE_CACHE_TIMEOUT",
+    category="snf-astakos-app-settings",
+)
+
+ASTAKOS_ADMIN_API_ENABLED = Default(
+    default_value=False,
+    description="ASTAKOS_ADMIN_API_ENABLED",
+    category="snf-astakos-app-settings",
+)
+
+ASTAKOS_ADMIN_API_PERMITTED_GROUPS = Default(
+    default_value=['admin-api'],
+    description="ASTAKOS_ADMIN_API_PERMITTED_GROUPS",
+    category="snf-astakos-app-settings",
+)
+
+_default_project_members_limit_choices = (
+    ('Unlimited', 'Unlimited'),
+    ('5', '5'),
+    ('15', '15'),
+    ('50', '50'),
+    ('100', '100')
+)
+
+ASTAKOS_PROJECT_MEMBERS_LIMIT_CHOICES = Default(
+    default_value=_default_project_members_limit_choices,
+    description="ASTAKOS_PROJECT_MEMBERS_LIMIT_CHOICES",
+    category="snf-astakos-app-settings",
 )

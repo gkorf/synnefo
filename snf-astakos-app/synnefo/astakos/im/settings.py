@@ -34,8 +34,7 @@ ADMIN_PREFIX = get_service_prefix(synnefo_services, 'astakos_admin')
 SERVICE_NAME = settings.BRANDING_SERVICE_NAME
 
 # Set service name
-SITENAME = getattr(settings, 'ASTAKOS_SITENAME',
-                   SERVICE_NAME)
+SITENAME = settings.ASTAKOS_SITENAME
 
 # These get annotated by snf-webproject
 ADMINS = settings.ADMINS
@@ -47,18 +46,12 @@ SECRET_KEY = settings.SECRET_KEY
 SESSION_ENGINE = settings.SESSION_ENGINE
 
 # Set the astakos main functions logging severity (None to disable)
-from logging import INFO
-LOGGING_LEVEL = getattr(settings, 'ASTAKOS_LOGGING_LEVEL', INFO)
+LOGGING_LEVEL = settings.ASTAKOS_LOGGING_LEVEL
 
-default_activation_redirect_url = join_urls('/', BASE_PATH, VIEWS_PREFIX,
-                                            "landing")
-ACTIVATION_REDIRECT_URL = getattr(settings, 'ASTAKOS_ACTIVATION_REDIRECT_URL',
-                                  default_activation_redirect_url)
+ACTIVATION_REDIRECT_URL = settings.ASTAKOS_ACTIVATION_REDIRECT_URL
 
 # URL to redirect the user after successful login when no next parameter is set
-default_success_url = join_urls('/', BASE_PATH, VIEWS_PREFIX, "landing")
-LOGIN_SUCCESS_URL = getattr(settings, 'ASTAKOS_LOGIN_SUCCESS_URL',
-                            default_success_url)
+LOGIN_SUCCESS_URL = settings.ASTAKOS_LOGIN_SUCCESS_URL
 
 #
 # Local defaults
@@ -99,13 +92,7 @@ PROJECT_ADMINS = settings.ASTAKOS_PROJECT_ADMINS
 
 SHIBBOLETH_REQUIRE_NAME_INFO = settings.ASTAKOS_SHIBBOLETH_REQUIRE_NAME_INFO
 
-# Migrate eppn identifiers to remote id
-SHIBBOLETH_MIGRATE_EPPN = getattr(settings, 'ASTAKOS_SHIBBOLETH_MIGRATE_EPPN',
-                                  False)
-
-# Migrate eppn identifiers to remote id
-SHIBBOLETH_MIGRATE_EPPN = getattr(settings, 'ASTAKOS_SHIBBOLETH_MIGRATE_EPPN',
-                                  False)
+SHIBBOLETH_MIGRATE_EPPN = settings.ASTAKOS_SHIBBOLETH_MIGRATE_EPPN
 
 TWITTER_TOKEN = settings.ASTAKOS_TWITTER_TOKEN
 TWITTER_SECRET = settings.ASTAKOS_TWITTER_SECRET
@@ -145,38 +132,16 @@ INVITATIONS_PER_LEVEL = settings.ASTAKOS_INVITATIONS_PER_LEVEL
 
 FORCE_PROFILE_UPDATE = settings.ASTAKOS_FORCE_PROFILE_UPDATE
 
-REDIRECT_ALLOWED_SCHEMES = getattr(settings,
-                                   'ASTAKOS_REDIRECT_ALLOWED_SCHEMES',
-                                   ('pithos', 'pithosdev'))
+ADMIN_STATS_PERMITTED_GROUPS = settings.ASTAKOS_ADMIN_STATS_PERMITTED_GROUPS
 
-ADMIN_STATS_PERMITTED_GROUPS = getattr(settings,
-                                       'ASTAKOS_ADMIN_STATS_PERMITTED_GROUPS',
-                                       ['admin-stats'])
+ENDPOINT_CACHE_TIMEOUT = settings.ASTAKOS_ENDPOINT_CACHE_TIMEOUT
 
-ENDPOINT_CACHE_TIMEOUT = getattr(settings,
-                                 'ASTAKOS_ENDPOINT_CACHE_TIMEOUT',
-                                 60)
+RESOURCE_CACHE_TIMEOUT = settings.ASTAKOS_RESOURCE_CACHE_TIMEOUT
 
-RESOURCE_CACHE_TIMEOUT = getattr(settings,
-                                 'ASTAKOS_RESOURCE_CACHE_TIMEOUT',
-                                 60)
+ADMIN_API_ENABLED = settings.ASTAKOS_ADMIN_API_ENABLED
 
-ADMIN_API_ENABLED = getattr(settings, 'ASTAKOS_ADMIN_API_ENABLED', False)
+PROJECT_MEMBERS_LIMIT_CHOICES = settings.ASTAKOS_PROJECT_MEMBERS_LIMIT_CHOICES
 
-_default_project_members_limit_choices = (
-    ('Unlimited', 'Unlimited'),
-    ('5', '5'),
-    ('15', '15'),
-    ('50', '50'),
-    ('100', '100')
-)
-
-PROJECT_MEMBERS_LIMIT_CHOICES = getattr(settings,
-                                 'ASTAKOS_PROJECT_MEMBERS_LIMIT_CHOICES',
-                                 _default_project_members_limit_choices)
-
-ADMIN_API_PERMITTED_GROUPS = getattr(settings,
-                                     'ASTAKOS_ADMIN_API_PERMITTED_GROUPS',
-                                     ['admin-api'])
+ADMIN_API_PERMITTED_GROUPS = settings.ASTAKOS_ADMIN_API_PERMITTED_GROUPS
 
 TRANSLATE_UUIDS = settings.ASTAKOS_TRANSLATE_UUIDS
