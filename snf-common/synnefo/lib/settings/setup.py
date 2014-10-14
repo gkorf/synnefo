@@ -231,6 +231,7 @@ def _load_configuration(new_settings,
         else:
             if allow_unknown:
                 # pretend it was declared in a default settings module
+                print >> sys.stderr, "Unknown:", name
                 desc = "Unknown setting from {source}"
                 desc = desc.format(source=source)
                 setting = Default(default_value=value,
