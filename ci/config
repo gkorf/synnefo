@@ -10,4 +10,5 @@ PROJECTS="\
  snf-cyclades-app\
  snf-pithos-app\
  snf-admin-app\
+ snf-stats-app\
  snf-tools"
