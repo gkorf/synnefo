@@ -137,3 +137,16 @@ DEFAULT_CHARSET = Default(
     description="The default charset.",
     export=False,
 )
+
+EMAIL_BACKEND = Default(
+    default_value='django.core.mail.backends.smtp.EmailBackend',
+    description='The backend to use for sending emails.',
+    category="snf-webproject-admins",
+)
+
+EMAIL_FILE_PATH = Default(
+    default_value=None,
+    description=(
+        "The directory used by the file email backend to store output files."),
+    category="snf-webproject-admins",
+)
