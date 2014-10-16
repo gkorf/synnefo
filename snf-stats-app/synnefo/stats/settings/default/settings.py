@@ -88,3 +88,12 @@ STATS_BAR_BG_COLOR = Default(
     description="",
     export=False,
 )
+
+STATS_SECRET_KEY = Mandatory(
+    example_value="example_secret_key",
+    description=("This key is used to decrypt the instance id / hostname "
+                 "in tha stats graph URL. It should be set to the same "
+                 "value that is used by Cyclades to encrypt the hostname "
+                 "(CYCLADES_STATS_SECRET_KEY)."),
+    category="snf-stats-app-settings",
+)
