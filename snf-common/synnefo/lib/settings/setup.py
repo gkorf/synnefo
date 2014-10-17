@@ -605,13 +605,20 @@ class Setting(object):
         return
 
     @staticmethod
+    def check_value(setting, value):
+        return True
+
+    @staticmethod
+    def make_value(setting, dependencies):
+        return setting.default_value
+
+    @staticmethod
     def configure_callback(setting, value, dependencies):
         if value is NoValue:
-            return setting.default_value
+            return setting.make_value(setting, dependencies)
         else:
-            # by default, acknowledge the configured value
-            # and allow it to be used.
-            return NoValue
+            setting.check_value(setting, value)
+            return value
 
     def validate(self):
         """Example setting validate method"""
@@ -654,7 +661,7 @@ class Setting(object):
 
         attr_names = ['default_value', 'example_value', 'description',
                       'category', 'export',
-                      'init_dependencies', 'init_callback',
+                      'init_dependencies', 'init_callback', 'make_value',
                       'dependencies', 'configure_callback']
 
         self.check_arguments(kwargs)
@@ -804,21 +811,7 @@ class Setting(object):
             setting.fail_exception = e
             raise
 
-        if new_value is not NoValue:
-            if setting_value is not NoValue:
-                m = ("Configure callback of setting '{name}' does not "
-                     "acknowledge the fact that a value '{value}' was "
-                     "provided by '{source}' and wants to assign "
-                     "a value '{newval}' anyway!")
-                m = m.format(name=setting_name, value=setting_value,
-                             source=setting.configured_source,
-                             newval=new_value)
-                exc = SettingsError(m)
-                setting.fail_exception = exc
-                raise exc
-            else:
-                setting_value = new_value
-
+        setting_value = new_value
         setting.runtime_value = setting_value
         runtime[setting_name] = setting_value
 
@@ -847,19 +840,16 @@ class Mandatory(Setting):
         Setting.__init__(self, **kwargs)
 
     @staticmethod
-    def configure_callback(setting, value, deps):
-        if value is NoValue:
-            if environ.get('SYNNEFO_RELAX_MANDATORY_SETTINGS'):
-                return setting.example_value
+    def make_value(setting, deps):
+        if environ.get('SYNNEFO_RELAX_MANDATORY_SETTINGS'):
+            return setting.example_value
 
-            m = ("Setting '{name}' is mandatory. "
-                 "Please provide a real value. "
-                 "Example value: '{example}'")
-            m = m.format(name=setting.setting_name,
-                         example=setting.example_value)
-            raise SettingsError(m)
-
-        return NoValue
+        m = ("Setting '{name}' is mandatory. "
+             "Please provide a real value. "
+             "Example value: '{example}'")
+        m = m.format(name=setting.setting_name,
+                     example=setting.example_value)
+        raise SettingsError(m)
 
 
 class SubMandatory(Setting):
@@ -905,7 +895,7 @@ class SubMandatory(Setting):
             self.condition_callback = condition_callback
 
     @staticmethod
-    def condition_callback(setting, value, deps):
+    def condition_callback(setting, deps):
         if not deps:
             m = "Setting '{name}' requires at least one dependency."
             m = m.format(name=setting.setting_name)
@@ -913,31 +903,26 @@ class SubMandatory(Setting):
         return any(bool(setting_value) for setting_value in deps.itervalues())
 
     @staticmethod
-    def configure_callback(setting, value, deps):
+    def make_value(setting, deps):
         condition_callback = setting.condition_callback
-        if condition_callback(setting, value, deps):
-            # We are mandatory
-            if value is NoValue:
-                if environ.get('SYNNEFO_RELAX_MANDATORY_SETTINGS'):
-                    return setting.example_value
+        if condition_callback(setting, deps):
+            if environ.get('SYNNEFO_RELAX_MANDATORY_SETTINGS'):
+                return setting.example_value
 
-                m = ("Setting '{name}' is mandatory due to configuration of "
-                     "{due}. Please provide a real value. "
-                     "Example value: '{example}'")
-                if deps:
-                    due = "[" + ', '.join(sorted(deps.keys())) + "]"
-                else:
-                    due = "[runtime-determined parameters]"
-                m = m.format(name=setting.setting_name,
-                             example=setting.example_value,
-                             due=due)
-                raise SettingsError(m)
+            m = ("Setting '{name}' is mandatory due to configuration of "
+                 "{due}. Please provide a real value. "
+                 "Example value: '{example}'")
+            if deps:
+                due = "[" + ', '.join(sorted(deps.keys())) + "]"
+            else:
+                due = "[runtime-determined parameters]"
+            m = m.format(name=setting.setting_name,
+                         example=setting.example_value,
+                         due=due)
+            raise SettingsError(m)
 
-        elif value is NoValue:
+        else:
             return setting.default_value
-
-        # acknowledge configured value
-        return NoValue
 
     @staticmethod
     def init_callback(setting):
@@ -1017,10 +1002,6 @@ class Auto(Setting):
     setting_type = 'auto'
     required_args = ('configure_callback', 'description')
 
-    @staticmethod
-    def configure_callback(setting, value, deps):
-        raise NotImplementedError()
-
 
 class Deprecated(Setting):
     """Deprecated settings must be removed, renamed, or otherwise fixed."""
@@ -1036,7 +1017,7 @@ class Deprecated(Setting):
         Setting.__init__(self, **kwargs)
 
     @staticmethod
-    def configure_callback(setting, value, deps):
+    def check_value(setting, value):
         m = ("Setting {name} has been deprecated. "
              "Please consult upgrade notes and ")
 
