@@ -1022,7 +1022,7 @@ class Auto(Setting):
         raise NotImplementedError()
 
 
-class Deprecated(object):
+class Deprecated(Setting):
     """Deprecated settings must be removed, renamed, or otherwise fixed."""
 
     setting_type = 'deprecated'
