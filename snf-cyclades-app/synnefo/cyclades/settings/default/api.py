@@ -1,5 +1,6 @@
 from synnefo.lib import join_urls
-from synnefo.lib.settings.setup import Setting, Default, Auto, Mandatory, SubMandatory
+from synnefo.lib.settings.setup import \
+    Setting, Default, Auto, Mandatory, SubMandatory, Deprecated
 from synnefo.webproject.settings.default import (
     mk_auto_configure_base_host,
     mk_auto_configure_base_path,
@@ -395,6 +396,11 @@ POLL_LIMIT = Default(
 
 #####################################
 # Astakos and Proxy
+
+ASTAKOS_AUTH_URL = Deprecated(
+    description="deprecated",
+    rename_to='CYCLADES_ASTAKOS_AUTH_URL',
+)
 
 CYCLADES_ASTAKOS_AUTH_URL = Mandatory(
     example_value='https://accounts.example.synnefo.org/astakos/identity/v2.0',
