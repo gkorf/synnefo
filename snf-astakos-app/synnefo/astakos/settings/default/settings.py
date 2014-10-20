@@ -14,6 +14,7 @@ from synnefo.lib.services import get_service_prefix
 
 ASTAKOS_BASE_URL = Mandatory(
     example_value="https://accounts.example.synnefo.org/astakos/",
+    check=lambda value: isinstance(value, basestring),
     description=(
         "The complete URL which is forwarded by the front-end web server "
         "to the Astakos application server (gunicorn). "),
@@ -21,22 +22,22 @@ ASTAKOS_BASE_URL = Mandatory(
 )
 
 ASTAKOS_BASE_HOST = Auto(
-    configure_callback=mk_auto_configure_base_host("ASTAKOS_BASE_URL"),
+    autoconfig=mk_auto_configure_base_host("ASTAKOS_BASE_URL"),
     export=False,
     description="The host part of ASTAKOS_BASE_URL. Cannot be configured.",
     dependencies=["ASTAKOS_BASE_URL"],
 )
 
 ASTAKOS_BASE_PATH = Auto(
-    configure_callback=mk_auto_configure_base_path("ASTAKOS_BASE_URL"),
+    autoconfigure=mk_auto_configure_base_path("ASTAKOS_BASE_URL"),
+    allow_override=False,
     export=False,
     description="The path part of ASTAKOS_BASE_URL. Cannot be configured.",
     dependencies=["ASTAKOS_BASE_URL"],
 )
 
 ASTAKOS_SERVICES = Auto(
-    configure_callback=mk_auto_configure_services("astakos",
-                                                  "ASTAKOS_BASE_URL"),
+    autoconfigure=mk_auto_configure_services("astakos", "ASTAKOS_BASE_URL"),
     description="Definition of services provided by the Astakos component",
     export=False,
     dependencies=["ASTAKOS_BASE_URL", "SYNNEFO_COMPONENTS"],
@@ -466,19 +467,9 @@ ASTAKOS_LOGOUT_NEXT = Default(
 )
 
 
-def _auto_configure_im_static_url(setting, value, deps):
-    if value is not NoValue:
-        # acknowledge user-provided setting
-        return NoValue
-    # User did not provide setting, create one out of MEDIA_URL
-    value = deps['MEDIA_URL'].rstrip('/') + "/im/"
-    return value
-
-
-ASTAKOS_IM_STATIC_URL = Default(
-    default_value=None,
+ASTAKOS_IM_STATIC_URL = Auto(
     description="Base URL for Astakos static files.",
-    configure_callback=_auto_configure_im_static_url,
+    autoconfigure=(lambda deps: deps['MEDIA_URL'].rstrip('/') + "/im/"),
     dependencies=['MEDIA_URL'],
     export=False,
 )
@@ -552,16 +543,9 @@ ASTAKOS_TRANSLATE_UUIDS = Default(
     export=False,
 )
 
-def _auto_configure_astakos_sitename(setting, value, deps):
-    if value is not NoValue:
-        # acknowledge user-provided setting
-        return NoValue
-    # User did not provide setting, create one out of MEDIA_URL
-    value = deps["BRANDING_SERVICE_NAME"]
-    return value
-
 ASTAKOS_SITENAME = Auto(
-    configure_callback=_auto_configure_astakos_sitename,
+    autoconfigure=lambda deps: deps["BRANDING_SERVICE_NAME"],
+    check=lambda value: isinstance(value, basestring),
     description="Astakos site name",
     dependencies=["BRANDING_SERVICE_NAME"],
     category="snf-astakos-app-settings",
@@ -575,10 +559,7 @@ ASTAKOS_LOGGING_LEVEL = Default(
 )
 
 def _mk_views_url(suffix):
-    def _mk_f(setting, value, deps):
-        if value is not NoValue:
-            # acknowledge user-provided setting
-            return NoValue
+    def _mk_f(deps):
         base_path = deps["ASTAKOS_BASE_PATH"]
         views_prefix = get_service_prefix(deps["SYNNEFO_SERVICES"],
                                           'astakos_ui')
@@ -586,14 +567,14 @@ def _mk_views_url(suffix):
     return _mk_f
 
 ASTAKOS_ACTIVATION_REDIRECT_URL = Auto(
-    configure_callback=_mk_views_url("landing"),
+    autoconfigure=_mk_views_url("landing"),
     description='ASTAKOS_ACTIVATION_REDIRECT_URL',
     dependencies=["ASTAKOS_BASE_PATH", "SYNNEFO_SERVICES"],
     category="snf-astakos-app-settings",
 )
 
 ASTAKOS_LOGIN_SUCCESS_URL = Auto(
-    configure_callback=_mk_views_url("landing"),
+    autoconfigure=_mk_views_url("landing"),
     description=(
         "URL to redirect the user after successful login when no next "
         "parameter is set"),
