@@ -59,22 +59,21 @@ CYCLADES_BASE_URL = Mandatory(
 )
 
 CYCLADES_BASE_HOST = Auto(
-    configure_callback=mk_auto_configure_base_host("CYCLADES_BASE_URL"),
+    autoconfigure=mk_auto_configure_base_host("CYCLADES_BASE_URL"),
     export=False,
     description="The host part of CYCLADES_BASE_URL. Cannot be configured.",
     dependencies=("CYCLADES_BASE_URL",),
 )
 
 CYCLADES_BASE_PATH = Auto(
-    configure_callback=mk_auto_configure_base_path("CYCLADES_BASE_URL"),
+    autoconfigure=mk_auto_configure_base_path("CYCLADES_BASE_URL"),
     export=False,
     description="The path part of CYCLADES_BASE_URL. Cannot be configured.",
     dependencies=("CYCLADES_BASE_URL",),
 )
 
 CYCLADES_SERVICES = Auto(
-    configure_callback=mk_auto_configure_services("cyclades",
-                                                  "CYCLADES_BASE_URL"),
+    autoconfigure=mk_auto_configure_services("cyclades", "CYCLADES_BASE_URL"),
     description="Definition of services provided by the Cyclades component",
     export=False,
     dependencies=["CYCLADES_BASE_URL", "SYNNEFO_COMPONENTS"],
@@ -439,8 +438,7 @@ class LazyAstakosUrl(object):
         return self.str
 
 def mk_auto_lazy_astakos_url(url):
-    def auto_lazy_astakos_url(setting, value, deps):
-        Setting.enforce_not_configurable(setting, value)
+    def auto_lazy_astakos_url(deps):
         service_token = deps["CYCLADES_SERVICE_TOKEN"]
         astakos_auth_url = deps["CYCLADES_ASTAKOS_AUTH_URL"]
         return LazyAstakosUrl(service_token, astakos_auth_url, url)
@@ -448,29 +446,29 @@ def mk_auto_lazy_astakos_url(url):
 
 
 ASTAKOS_ACCOUNT_URL = Auto(
-    configure_callback=mk_auto_lazy_astakos_url("account_url"),
+    autoconfigure=mk_auto_lazy_astakos_url("account_url"),
+    allow_override=False,
     export=False,
     description="Astakos account URL",
     dependencies=("CYCLADES_SERVICE_TOKEN", "CYCLADES_ASTAKOS_AUTH_URL"),
 )
 
 ASTAKOS_UI_URL = Auto(
-    configure_callback=mk_auto_lazy_astakos_url("account_ui"),
+    autoconfigure=mk_auto_lazy_astakos_url("account_ui"),
+    allow_override=False,
     export=False,
     description="Astakos UI URL",
     dependencies=("CYCLADES_SERVICE_TOKEN", "CYCLADES_ASTAKOS_AUTH_URL"),
 )
 
 def mk_auto_prefix(one, two):
-    def auto_prefix(setting, value, deps):
-        Setting.enforce_not_configurable(setting, value)
+    def auto_prefix(deps):
         part_one = deps[one]
         return join_urls('/', part_one, two)
     return auto_prefix
 
 def mk_auto_path(one, two):
-    def auto_path(setting, value, deps):
-        Setting.enforce_not_configurable(setting, value)
+    def auto_path(deps):
         part_one = deps[one]
         part_two = deps[two]
         return join_urls(part_one, part_two)
@@ -478,45 +476,42 @@ def mk_auto_path(one, two):
 
 
 ASTAKOS_AUTH_PREFIX = Auto(
-    configure_callback=mk_auto_prefix("CYCLADES_PROXY_PREFIX", "identity"),
+    autoconfigure=mk_auto_prefix("CYCLADES_PROXY_PREFIX", "identity"),
     export=False,
     description="Astakos auth proxy prefix",
     dependencies=("CYCLADES_PROXY_PREFIX",),
 )
 
 ASTAKOS_ACCOUNT_PREFIX = Auto(
-    configure_callback=mk_auto_prefix("CYCLADES_PROXY_PREFIX", "account"),
+    autoconfigure=mk_auto_prefix("CYCLADES_PROXY_PREFIX", "account"),
     export=False,
     description="Astakos account proxy prefix",
     dependencies=("CYCLADES_PROXY_PREFIX",),
 )
 
 ASTAKOS_UI_PREFIX = Auto(
-    configure_callback=mk_auto_prefix("CYCLADES_PROXY_PREFIX", "ui"),
+    autoconfigure=mk_auto_prefix("CYCLADES_PROXY_PREFIX", "ui"),
     export=False,
     description="Astakos ui proxy prefix",
     dependencies=("CYCLADES_PROXY_PREFIX",),
 )
 
 ASTAKOS_AUTH_PROXY_PATH = Auto(
-    configure_callback=mk_auto_path("CYCLADES_BASE_PATH",
-                                    "ASTAKOS_AUTH_PREFIX"),
+    autoconfigure=mk_auto_path("CYCLADES_BASE_PATH", "ASTAKOS_AUTH_PREFIX"),
     export=False,
     description="Astakos auth proxy path",
     dependencies=("CYCLADES_BASE_PATH", "ASTAKOS_AUTH_PREFIX",),
 )
 
 ASTAKOS_ACCOUNT_PROXY_PATH = Auto(
-    configure_callback=mk_auto_path("CYCLADES_BASE_PATH",
-                                    "ASTAKOS_ACCOUNT_PREFIX"),
+    autoconfigure=mk_auto_path("CYCLADES_BASE_PATH", "ASTAKOS_ACCOUNT_PREFIX"),
     export=False,
     description="Astakos account proxy path",
     dependencies=("CYCLADES_BASE_PATH", "ASTAKOS_ACCOUNT_PREFIX",),
 )
 
 ASTAKOS_UI_PROXY_PATH = Auto(
-    configure_callback=mk_auto_path("CYCLADES_BASE_PATH",
-                                    "ASTAKOS_UI_PREFIX"),
+    autoconfigure=mk_auto_path("CYCLADES_BASE_PATH", "ASTAKOS_UI_PREFIX"),
     export=False,
     description="Astakos ui proxy path",
     dependencies=("CYCLADES_BASE_PATH", "ASTAKOS_UI_PREFIX",),

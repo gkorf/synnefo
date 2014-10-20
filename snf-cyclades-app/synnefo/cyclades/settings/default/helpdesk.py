@@ -1,4 +1,4 @@
-from synnefo.lib.settings.setup import Default
+from synnefo.lib.settings.setup import Default, Auto
 from synnefo.lib.settings.util import auto_configure_default_from_dep
 
 # Helpdesk app configuration
@@ -12,14 +12,13 @@ HELPDESK_ENABLED = Default(
     export=False,
 )
 
-HELPDESK_AUTH_COOKIE_NAME = Default(
-    default_value=None,
+HELPDESK_AUTH_COOKIE_NAME = Auto(
     example_value="cookie_name_here",
     description=(
         "The cookie name that stores the token. By default it has the "
         "same value with UI_AUTH_COOKIE_NAME."),
     dependencies=['UI_AUTH_COOKIE_NAME'],
-    configure_callback=auto_configure_default_from_dep,
+    autoconfigure=auto_configure_default_from_dep,
     export=False,
 )
 

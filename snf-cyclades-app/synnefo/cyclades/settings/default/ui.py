@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from synnefo.lib.settings.setup import NoValue, Mandatory, Default
+from synnefo.lib.settings.setup import NoValue, Mandatory, Default, Auto
 
 # UI configuration
 ##################
@@ -8,17 +8,12 @@ from synnefo.lib.settings.setup import NoValue, Mandatory, Default
 # A list of suggested server tags (server metadata keys)
 DEFAULT_KEYWORDS = ["OS", "Role", "Location", "Owner"]
 
-def _auto_configure_ui_media_url(setting, value, deps):
-    if value is not NoValue:
-        # acknowledge user-provided setting
-        return NoValue
-    # User did not provide setting, create one out of MEDIA_URL
+def _auto_configure_ui_media_url(deps):
     return deps['MEDIA_URL'] + "ui/static/snf/"
 
-UI_MEDIA_URL = Default(
-    default_value=None,
+UI_MEDIA_URL = Auto(
     description="Base URL for UI static files.",
-    configure_callback=_auto_configure_ui_media_url,
+    autoconfigure=_auto_configure_ui_media_url,
     dependencies=['MEDIA_URL'],
     export=False,
 )
@@ -228,22 +223,17 @@ UI_UPDATE_INTERVAL = Default(
 )
 
 
-def _auto_configure_ui_update_interval_increase(setting, value, deps):
-    if value is not NoValue:
-        # acknowledge user-provided value
-        return NoValue
-
-    # auto-create a default one
+def _auto_configure_ui_update_interval_increase(deps):
     return deps['UI_UPDATE_INTERVAL'] / 4
 
-UI_UPDATE_INTERVAL_INCREASE = Default(
+UI_UPDATE_INTERVAL_INCREASE = Auto(
     default_value="auto-default: [UI_UPDATE_INTERVAL/4]",
     description=(
         "Increase the interval by that many milliseconds, as time goes "
         "by and no action on the UI occurs."),
     export=False,
     dependencies=['UI_UPDATE_INTERVAL'],
-    configure_callback=_auto_configure_ui_update_interval_increase,
+    autoconfigure=_auto_configure_ui_update_interval_increase,
 )
 
 UI_UPDATE_INTERVAL_INCREASE_AFTER_CALLS_COUNT = Default(
@@ -253,39 +243,29 @@ UI_UPDATE_INTERVAL_INCREASE_AFTER_CALLS_COUNT = Default(
 )
 
 
-def _auto_configure_ui_update_interval_max(setting, value, deps):
-    if value is not NoValue:
-        # acknowledge user-provided value
-        return NoValue
-
-    # auto-create a default one
+def _auto_configure_ui_update_interval_max(deps):
     return deps['UI_UPDATE_INTERVAL'] * 3
 
-UI_UPDATE_INTERVAL_MAX = Default(
+UI_UPDATE_INTERVAL_MAX = Auto(
     default_value="auto-default: [UI_UPDATE_INTERVAL*3]",
     description="Maximum time in milliseconds that an interval can last.",
     dependencies=['UI_UPDATE_INTERVAL'],
-    configure_callback=_auto_configure_ui_update_interval_max,
+    autoconfigure=_auto_configure_ui_update_interval_max,
     export=False,
 )
 
 
-def _auto_configure_ui_update_interval_fast(setting, value, deps):
-    if value is not NoValue:
-        # acknowledge user-provided value
-        return NoValue
-
-    # auto-create a default one
+def _auto_configure_ui_update_interval_fast(deps):
     return deps['UI_UPDATE_INTERVAL'] / 2
 
-UI_UPDATE_INTERVAL_FAST = Default(
+UI_UPDATE_INTERVAL_FAST = Auto(
     default_value="auto-default: [UI_UPDATE_INTERVAL/2]",
     description=(
         "Interval will drop to so many milliseconds, when specific "
         "actions happen on the UI, to increase responsiveness."),
     export=False,
     dependencies=['UI_UPDATE_INTERVAL'],
-    configure_callback=_auto_configure_ui_update_interval_fast,
+    autoconfigure=_auto_configure_ui_update_interval_fast,
 )
 
 UI_CHANGES_SINCE_ALIGNMENT = Default(

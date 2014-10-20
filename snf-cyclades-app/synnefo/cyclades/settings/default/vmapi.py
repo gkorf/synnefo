@@ -1,9 +1,7 @@
 from synnefo.lib.settings.setup import NoValue, Default, Auto
 
 
-def configure_vmapi_cache_b(setting, value, deps):
-    if value is not NoValue:
-        return NoValue
+def configure_vmapi_cache_b(deps):
     return deps["CACHE_BACKEND"]
 
 CACHE_BACKEND = Default(
@@ -19,6 +17,6 @@ VMAPI_CACHE_BACKEND = Auto(
     description="VMAPI cache backend",
     dependencies=["CACHE_BACKEND"],
     category="snf-cyclades-app-vmapi",
-    configure_callback=configure_vmapi_cache_b,
+    autoconfigure=configure_vmapi_cache_b,
     export=True,
 )
