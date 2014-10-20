@@ -606,11 +606,16 @@ class Setting(object):
 
     @staticmethod
     def check_value(setting, value):
-        return True
+        check = getattr(setting, 'check', None)
+        if check is not None and callable(check):
+            if not setting.check(value):
+                raise SettingsError(
+                    "Failed to check value '%s' provided for setting %s" %
+                    (value, setting.setting_name))
 
     @staticmethod
     def make_value(setting, dependencies):
-        return setting.default_value
+        return NoValue
 
     @staticmethod
     def configure_callback(setting, value, dependencies):
@@ -660,7 +665,7 @@ class Setting(object):
     def __init__(self, **kwargs):
 
         attr_names = ['default_value', 'example_value', 'description',
-                      'category', 'export',
+                      'category', 'export', 'check',
                       'init_dependencies', 'init_callback', 'make_value',
                       'dependencies', 'configure_callback']
 
@@ -811,6 +816,8 @@ class Setting(object):
             setting.fail_exception = e
             raise
 
+        if new_value is NoValue:
+            return
         setting_value = new_value
         setting.runtime_value = setting_value
         runtime[setting_name] = setting_value
@@ -922,7 +929,7 @@ class SubMandatory(Setting):
             raise SettingsError(m)
 
         else:
-            return setting.default_value
+            return NoValue
 
     @staticmethod
     def init_callback(setting):
@@ -975,6 +982,10 @@ class Default(Setting):
             kwargs['example_value'] = kwargs['default_value']
         Setting.__init__(self, **kwargs)
 
+    @staticmethod
+    def make_value(setting, deps):
+        return setting.default_value
+
 
 class Constant(Setting):
     """Constant settings are a like defaults, only they are not intended to be
@@ -991,6 +1002,10 @@ class Constant(Setting):
         kwargs['export'] = False
         Setting.__init__(self, **kwargs)
 
+    @staticmethod
+    def make_value(setting, dependencies):
+        return setting.default_value
+
 
 class Auto(Setting):
     """Auto settings can be computed automatically.
@@ -1000,8 +1015,26 @@ class Auto(Setting):
 
     """
     setting_type = 'auto'
-    required_args = ('configure_callback', 'description')
+    required_args = ('description',)
 
+    def __init__(self, autoconfigure=None, allow_override=True, **kwargs):
+        self.autoconfigure = autoconfigure
+        self.allow_override = allow_override
+        self.check_arguments(kwargs)
+        Setting.__init__(self, **kwargs)
+
+    @staticmethod
+    def make_value(setting, deps):
+        if setting.autoconfigure:
+            return setting.autoconfigure(deps)
+
+    @staticmethod
+    def check_value(setting, value):
+        if not setting.allow_override:
+            m = "Setting '{name}' is not configurable."
+            m = m.format(name=setting.setting_name)
+            raise SettingsError(m)
+        Setting.check_value(setting, value)
 
 class Deprecated(Setting):
     """Deprecated settings must be removed, renamed, or otherwise fixed."""
