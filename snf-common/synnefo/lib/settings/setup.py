@@ -1036,6 +1036,7 @@ class Auto(Setting):
             raise SettingsError(m)
         Setting.check_value(setting, value)
 
+
 class Deprecated(Setting):
     """Deprecated settings must be removed, renamed, or otherwise fixed."""
 
