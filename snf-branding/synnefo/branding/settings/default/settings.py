@@ -44,84 +44,70 @@ BRANDING_COMPANY_URL = Default(
 #
 
 
-def _auto_configure_branding_image_media_url(setting, value, deps):
-    if value is not NoValue:
-        # acknowledge user-provided setting
-        return NoValue
-    # User did not provide setting, create one out of MEDIA_URL
+def _auto_configure_branding_image_media_url(deps):
     return deps['MEDIA_URL'] + "branding/images/"
 
 
-def auto_configure_append_default_value(setting, value, deps):
-    if value is not NoValue:
-        # acknowledge user-provided setting
-        return NoValue
-    dependency = setting.dependencies[0]
-    # User did not provide setting, create one by appending
-    return deps[dependency] + setting.default_value
+def auto_configure_append_value(value):
+    def auto_configure_append(deps):
+        return deps.values()[0] + value
+    return auto_configure_append
 
-
-BRANDING_IMAGE_MEDIA_URL = Default(
-    default_value=None,
+BRANDING_IMAGE_MEDIA_URL = Auto(
     description=(
         "The default path to the folder that contains all branding images. "),
     category="snf-branding-settings",
     export=True,
     dependencies=["MEDIA_URL"],
-    configure_callback=_auto_configure_branding_image_media_url,
+    autoconfigure=_auto_configure_branding_image_media_url,
 )
 
-BRANDING_FAVICON_URL = Default(
-    default_value="favicon.ico",
+BRANDING_FAVICON_URL = Auto(
     description=(
         "The service's favicon that will appear on the browser's "
         "address bar."),
     dependencies=['BRANDING_IMAGE_MEDIA_URL'],
     category="snf-branding-settings",
     export=True,
-    configure_callback=auto_configure_append_default_value,
+    autoconfigure=auto_configure_append_value("favicon.ico"),
 )
 
-BRANDING_DASHBOARD_LOGO_URL = Default(
-    default_value="dashboard_logo.png",
+BRANDING_DASHBOARD_LOGO_URL = Auto(
     description=(
         "The service logo that appears on all Dashboard (Astakos) pages."),
     dependencies=['BRANDING_IMAGE_MEDIA_URL'],
     category="snf-branding-settings",
     export=True,
-    configure_callback=auto_configure_append_default_value,
+    autoconfigure=auto_configure_append_value("dashboard_logo.png"),
 )
 
-BRANDING_COMPUTE_LOGO_URL = Default(
-    default_value="compute_logo.png",
+BRANDING_COMPUTE_LOGO_URL = Auto(
     description=(
         "The service logo that appears on all Compute and Network "
         "(Cyclades) pages."),
     dependencies=['BRANDING_IMAGE_MEDIA_URL'],
     category="snf-branding-settings",
     export=True,
-    configure_callback=auto_configure_append_default_value,
+    autoconfigure=auto_configure_append_value("compute_logo.png"),
 )
 
-BRANDING_CONSOLE_LOGO_URL = Default(
-    default_value="console_logo.png",
+BRANDING_CONSOLE_LOGO_URL = Auto(
     description=(
         "The service logo that appears on the VM Console page "
         "(in Cyclades)."),
     dependencies=['BRANDING_IMAGE_MEDIA_URL'],
     category="snf-branding-settings",
     export=True,
-    configure_callback=auto_configure_append_default_value,
+    autoconfigure=auto_configure_append_value("console_logo.png"),
 )
 
-BRANDING_STORAGE_LOGO_URL = Default(
-    default_value="storage_logo.png",
+BRANDING_STORAGE_LOGO_URL = Auto(
     description=(
         "The service logo that appears on all Storage (Pithos) pages."),
     dependencies=['BRANDING_IMAGE_MEDIA_URL'],
     category="snf-branding-settings",
     export=True,
-    configure_callback=auto_configure_append_default_value,
+    autoconfigure=auto_configure_append_value("storage_logo.png"),
 )
 
 #
@@ -136,11 +122,7 @@ BRANDING_SHOW_COPYRIGHT = Default(
 )
 
 
-def _auto_configure_copyright_message(setting, value, deps):
-    if value is not NoValue:
-        # acknowledge user-provided setting
-        return NoValue
-
+def _auto_configure_copyright_message(deps):
     # Auto-configure a default one
     copyright_period_default = "2011-%s" % (datetime.datetime.now().year)
     copyright_message_default = "Copyright (c) %s %s" % (
@@ -149,12 +131,11 @@ def _auto_configure_copyright_message(setting, value, deps):
 
 
 BRANDING_COPYRIGHT_MESSAGE = Auto(
-    default_value=None,
     description=(
         "The copyright message that will appear in the UI's footer. "
         "Defaults to 'Copyright (c) 2011-<now> <BRANDING_COMPANY_NAME>'"),
     dependencies=['BRANDING_SHOW_COPYRIGHT', 'BRANDING_COMPANY_NAME'],
     category="snf-branding-settings",
     export=True,
-    configure_callback=_auto_configure_copyright_message,
+    autoconfigure=_auto_configure_copyright_message,
 )
