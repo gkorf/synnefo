@@ -42,8 +42,7 @@ def customize_from_items(document, items):
 
 
 def mk_auto_configure_base_host(base_url_name):
-    def auto_configure_base_host(setting, value, deps):
-        Setting.enforce_not_configurable(setting, value)
+    def auto_configure_base_host(deps):
         base_url = deps[base_url_name]
         base_host, base_path = parse_base_url(base_url)
         return base_host
@@ -51,16 +50,14 @@ def mk_auto_configure_base_host(base_url_name):
 
 
 def mk_auto_configure_base_path(base_url_name):
-    def auto_configure_base_path(setting, value, deps):
-        Setting.enforce_not_configurable(setting, value)
+    def auto_configure_base_path(deps):
         base_url = deps[base_url_name]
         base_host, base_path = parse_base_url(base_url)
         return base_path
     return auto_configure_base_path
 
 
-def mk_components(setting, value, deps):
-    Setting.enforce_not_configurable(setting, value)
+def mk_components(deps):
     services = {}
     extend_dict_from_entry_point(services, 'synnefo', 'services')
     components = {}
@@ -73,8 +70,9 @@ def mk_components(setting, value, deps):
 
 
 SYNNEFO_COMPONENTS = Auto(
-    configure_callback=mk_components,
-    export=0,
+    autoconfigure=mk_components,
+    allow_override=False,
+    export=False,
     description=("A list with the names of all synnefo components currently "
                  "installed. Initialized from SYNNEFO_SERVICES. "
                  "It is dynamically generated and cannot be configured."),
@@ -82,8 +80,7 @@ SYNNEFO_COMPONENTS = Auto(
 )
 
 
-def auto_configure_services(setting, value, deps):
-    Setting.enforce_not_configurable(setting, value)
+def auto_configure_services(deps):
     services = {}
     extend_dict_from_entry_point(services, 'synnefo', 'services')
     customization = deps['CUSTOMIZE_SERVICES']
@@ -94,7 +91,7 @@ def auto_configure_services(setting, value, deps):
 
 
 def mk_auto_configure_services(component_name, base_url_name):
-    def auto_configure_service(setting, value, deps):
+    def auto_configure_service(deps):
         components = deps['SYNNEFO_COMPONENTS']
         component = components[component_name]
         base_url = deps[base_url_name]
@@ -105,8 +102,9 @@ def mk_auto_configure_services(component_name, base_url_name):
 
 
 SYNNEFO_SERVICES = Auto(
-    configure_callback=auto_configure_services,
-    export=0,
+    autoconfigure=auto_configure_services,
+    allow_override=False,
+    export=False,
     dependencies=['CUSTOMIZE_SERVICES'],
     description=("An auto-generated registry of all services provided by all "
                  "currently installed Synnefo components. "

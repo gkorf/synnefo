@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from synnefo.lib.settings.setup import Default
+from synnefo.lib.settings.setup import Default, Auto
 from synnefo.util.entry_points import extend_list_from_entry_point, \
         extend_dict_from_entry_point
 
@@ -14,14 +14,14 @@ _INSTALLED_APPS = (
     'synnefo.webproject'
 )
 
-def mk_installed_apps(setting, value, deps):
+def mk_installed_apps(deps):
     return extend_list_from_entry_point(
         _INSTALLED_APPS, 'synnefo', 'web_apps')
 
 
-INSTALLED_APPS = Default(
-    default_value=None,
-    configure_callback=mk_installed_apps,
+INSTALLED_APPS = Auto(
+    autoconfigure=mk_installed_apps,
+    allow_override=False,
     description="installed apps",
     category="snf-webproject",
     export=False,

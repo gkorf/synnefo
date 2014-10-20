@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.lib.settings.setup import Default, Mandatory
+from synnefo.lib.settings.setup import Default, Mandatory, Auto
 from synnefo.util.entry_points import extend_list_from_entry_point, \
         extend_dict_from_entry_point
 
@@ -125,13 +125,12 @@ _TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media'
 )
 
-def mk_template_context_processors(setting, value, deps):
+def mk_template_context_processors(deps):
     return extend_list_from_entry_point(
         _TEMPLATE_CONTEXT_PROCESSORS, 'synnefo', 'web_context_processors')
 
-TEMPLATE_CONTEXT_PROCESSORS = Default(
-    default_value=None,
-    configure_callback=mk_template_context_processors,
+TEMPLATE_CONTEXT_PROCESSORS = Auto(
+    autoconfigure=mk_template_context_processors,
     description="Template context processors.",
     category="snf-webproject",
     export=False,
@@ -145,13 +144,12 @@ _MIDDLEWARE_CLASSES = (
     'synnefo.webproject.middleware.LoggingConfigMiddleware',
 )
 
-def mk_middleware_classes(setting, value, deps):
+def mk_middleware_classes(deps):
     return extend_list_from_entry_point(
         _MIDDLEWARE_CLASSES, 'synnefo', 'web_middleware')
 
-MIDDLEWARE_CLASSES = Default(
-    default_value=None,
-    configure_callback=mk_middleware_classes,
+MIDDLEWARE_CLASSES = Auto(
+    autoconfigure=mk_middleware_classes,
     description="Middleware classes",
     category="snf-webproject",
     export=False,

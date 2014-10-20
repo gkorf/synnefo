@@ -3,7 +3,7 @@
 # Site-specific Django conf
 ##################################
 
-from synnefo.lib.settings.setup import Default
+from synnefo.lib.settings.setup import Default, Auto
 from synnefo.util.entry_points import extend_list_from_entry_point, \
         extend_dict_from_entry_point
 
@@ -49,13 +49,12 @@ MEDIA_URL = Default(
 
 _STATIC_FILES = {'synnefo.webproject': ''}
 
-def mk_static_files(setting, value, deps):
+def mk_static_files(deps):
     return extend_dict_from_entry_point(
         _STATIC_FILES, 'synnefo', 'web_static')
 
-STATIC_FILES = Default(
-    default_value=_STATIC_FILES,
-    configure_callback=mk_static_files,
+STATIC_FILES = Auto(
+    autoconfigure=mk_static_files,
     description="Static files",
     category="snf-webproject",
     export=False,
