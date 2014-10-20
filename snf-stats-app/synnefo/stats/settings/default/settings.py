@@ -12,14 +12,14 @@ STATS_BASE_URL = Mandatory(
 )
 
 STATS_BASE_HOST = Auto(
-    configure_callback=mk_auto_configure_base_host("STATS_BASE_URL"),
+    autoconfigure=mk_auto_configure_base_host("STATS_BASE_URL"),
     export=False,
     description="The host part of STATS_BASE_URL. Cannot be configured.",
     dependencies=("STATS_BASE_URL",),
 )
 
 STATS_BASE_PATH = Auto(
-    configure_callback=mk_auto_configure_base_path("STATS_BASE_URL"),
+    autoconfigure=mk_auto_configure_base_path("STATS_BASE_URL"),
     export=False,
     description="The path part of STATS_BASE_URL. Cannot be configured.",
     dependencies=("STATS_BASE_URL",),
