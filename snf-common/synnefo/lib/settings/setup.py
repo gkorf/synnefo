@@ -517,8 +517,8 @@ class Setting(object):
     setting_name = '__unnamed__'
     setting_type = 'setting'
 
-    default_value = None
-    example_value = None
+    default_value = NoValue
+    example_value = NoValue
     description = 'This setting is missing documentation'
     category = 'misc'
     dependencies = ()
@@ -822,13 +822,6 @@ class Setting(object):
         setting.runtime_value = setting_value
         runtime[setting_name] = setting_value
 
-    def enforce_not_configurable(setting, value, deps=None):
-        if value is not NoValue:
-            m = "Setting '{name}' is not configurable."
-            m = m.format(name=setting.setting_name)
-            raise SettingsError(m)
-        return setting.default_value
-
 
 class Mandatory(Setting):
     """Mandatory settings have to be to be configured by the
@@ -1003,7 +996,7 @@ class Constant(Setting):
         Setting.__init__(self, **kwargs)
 
     @staticmethod
-    def make_value(setting, dependencies):
+    def make_value(setting, deps):
         return setting.default_value
 
 
