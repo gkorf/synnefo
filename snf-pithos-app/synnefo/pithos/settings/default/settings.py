@@ -16,22 +16,21 @@ PITHOS_BASE_URL = Mandatory(
 )
 
 PITHOS_BASE_HOST = Auto(
-    configure_callback=mk_auto_configure_base_host("PITHOS_BASE_URL"),
+    autoconfigure=mk_auto_configure_base_host("PITHOS_BASE_URL"),
     export=False,
     description="The host part of PITHOS_BASE_URL. Cannot be configured.",
     dependencies=["PITHOS_BASE_URL"],
 )
 
 PITHOS_BASE_PATH = Auto(
-    configure_callback=mk_auto_configure_base_path("PITHOS_BASE_URL"),
+    autoconfigure=mk_auto_configure_base_path("PITHOS_BASE_URL"),
     export=False,
     description="The path part of PITHOS_BASE_URL. Cannot be configured.",
     dependencies=["PITHOS_BASE_URL"],
 )
 
 PITHOS_SERVICES = Auto(
-    configure_callback=mk_auto_configure_services("pithos",
-                                                  "PITHOS_BASE_URL"),
+    autoconfigure=mk_auto_configure_services("pithos", "PITHOS_BASE_URL"),
     description="Definition of services provided by the Pithos component",
     export=False,
     dependencies=["PITHOS_BASE_URL", "SYNNEFO_COMPONENTS"],
