@@ -1,3 +1,6 @@
+# This must be always first
+from synnefo.webproject.settings.default.django import *
+
 from synnefo.webproject.settings.default.database import *
 from synnefo.webproject.settings.default.apps import *
 from synnefo.webproject.settings.default.deploy import *
