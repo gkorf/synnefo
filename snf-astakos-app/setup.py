@@ -197,6 +197,7 @@ setup(
             'urls = synnefo.astakos.urls:urlpatterns',
             'web_static = synnefo.astakos.settings:static_files',
             'services = synnefo.astakos.api.services:astakos_services',
+            'auth_backends = synnefo.astakos.settings:auth_backends',
         ],
         'console_scripts': [
             'snf-service-export = synnefo.astakos.scripts.snf_service_export:main',

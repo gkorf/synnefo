@@ -90,3 +90,14 @@ TIME_ZONE = Default(
     category="snf-webproject",
     export=False,
 )
+
+
+def _mk_auth_backends(deps):
+    return extend_list_from_entry_point([], "synnefo", "auth_backends")
+
+AUTHENTICATION_BACKENDS = Auto(
+    autoconfigure=_mk_auth_backends,
+    description="Authentication Backends",
+    category="snf-webproject",
+    export=False,
+)
