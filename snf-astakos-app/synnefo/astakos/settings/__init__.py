@@ -61,3 +61,7 @@ middlware_classes = [
 ]
 
 static_files = {'synnefo.astakos.im': ''}
+
+auth_backends = (
+    'synnefo.astakos.im.auth_backends.EmailBackend',
+    'synnefo.astakos.im.auth_backends.TokenBackend')

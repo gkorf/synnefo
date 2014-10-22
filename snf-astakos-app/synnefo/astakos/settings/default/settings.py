@@ -478,11 +478,6 @@ ASTAKOS_IM_STATIC_URL = Auto(
 # FIXME: Document the following
 #
 
-# The following settings will replace the default django settings
-AUTHENTICATION_BACKENDS = (
-    'synnefo.astakos.im.auth_backends.EmailBackend',
-    'synnefo.astakos.im.auth_backends.TokenBackend')
-
 CUSTOM_USER_MODEL = 'synnefo.astakos.im.AstakosUser'
 
 #SOUTH_TESTS_MIGRATE = False
