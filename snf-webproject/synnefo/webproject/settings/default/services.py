@@ -58,8 +58,7 @@ def mk_auto_configure_base_path(base_url_name):
 
 
 def mk_components(deps):
-    services = {}
-    extend_dict_from_entry_point(services, 'synnefo', 'services')
+    services = deps["SYNNEFO_SERVICES"]
     components = {}
     for service_name, service in services.items():
         component_name = service['component']
