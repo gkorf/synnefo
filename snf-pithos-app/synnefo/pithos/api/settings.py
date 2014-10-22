@@ -165,9 +165,7 @@ TRANSLATE_UUIDS = settings.PITHOS_TRANSLATE_UUIDS
 # Set the credentials (client identifier, client secret) issued for
 # authenticating the views with astakos during the resource access token
 # generation procedure
-OAUTH2_CLIENT_CREDENTIALS = getattr(settings,
-                                    'PITHOS_OAUTH2_CLIENT_CREDENTIALS',
-                                    (None, None))
+OAUTH2_CLIENT_CREDENTIALS = settings.PITHOS_OAUTH2_CLIENT_CREDENTIALS
 
 # Set domain to restrict requests of pithos object contents serve endpoint or
 # None for no domain restriction

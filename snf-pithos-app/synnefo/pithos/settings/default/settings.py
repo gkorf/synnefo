@@ -247,3 +247,11 @@ PITHOS_ASTAKOS_AUTH_URL = Mandatory(
     description="Astakos auth URL",
     category="",
 )
+
+
+PITHOS_OAUTH2_CLIENT_CREDENTIALS = Default(
+    default_value=(None, None),
+    example_value=('pithos-view', 'oa_secret'),
+    description="Credentials for the oauth2 client",
+    category="snf-pithos-app-settings",
+)
