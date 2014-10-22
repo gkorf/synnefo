@@ -1014,6 +1014,8 @@ class Auto(Setting):
         self.autoconfigure = autoconfigure
         self.allow_override = allow_override
         self.check_arguments(kwargs)
+        if 'export' not in kwargs:
+            kwargs['export'] = False
         Setting.__init__(self, **kwargs)
 
     @staticmethod
