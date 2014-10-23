@@ -50,8 +50,37 @@ COMPUTE_ROOT_URL = join_urls(BASE_URL, COMPUTE_PREFIX)
 # Process Astakos settings
 
 CYCLADES_ASTAKOS_AUTH_URL = settings.CYCLADES_ASTAKOS_AUTH_URL
-ASTAKOS_ACCOUNT_URL = settings.ASTAKOS_ACCOUNT_URL
-ASTAKOS_UI_URL = settings.ASTAKOS_UI_URL
+
+# --------------------------------------
+# Define a LazyAstakosUrl
+# This is used to define ASTAKOS_ACCOUNT_URL and
+# ASTAKOS_UI_URL and should never be used as is.
+class LazyAstakosUrl(object):
+    def __init__(self, service_token, astakos_auth_url, endpoints_name):
+        self.service_token = service_token
+        self.astakos_auth_url = astakos_auth_url
+        self.endpoints_name = endpoints_name
+
+    def __str__(self):
+        if not hasattr(self, 'str'):
+            try:
+                astakos_client = \
+                    AstakosClient(self.service_token, self.astakos_auth_url)
+                self.str = getattr(astakos_client, self.endpoints_name)
+            except Exception as excpt:
+                logger.exception(
+                    "Could not retrieve endpoints from Astakos url %s: %s",
+                    self.astakos_auth_url, excpt)
+                return ""
+        return self.str
+
+def mk_auto_lazy_astakos_url(url):
+    return LazyAstakosUrl(SERVICE_TOKEN,
+                          CYCLADES_ASTAKOS_AUTH_URL,
+                          url)
+
+ASTAKOS_ACCOUNT_URL = mk_auto_lazy_astakos_url("account_url")
+ASTAKOS_UI_URL = mk_auto_lazy_astakos_url("account_ui"),
 
 ASTAKOS_BASE_URL = settings.ASTAKOS_BASE_URL
 ASTAKOS_BASE_HOST = settings.ASTAKOS_BASE_HOST

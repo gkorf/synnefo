@@ -13,42 +13,6 @@ logger = logging.getLogger(__name__)
 # API configuration
 ###################
 
-# Astakos groups that have access to '/admin' views.
-ADMIN_STATS_PERMITTED_GROUPS = ["admin-stats"]
-
-# Enable/Disable the snapshots feature altogether at the API level.
-# If set to False, Cyclades will not expose the '/snapshots' API URL
-# of the 'volume' app.
-CYCLADES_SNAPSHOTS_ENABLED = True
-
-#
-# Network Configuration
-#
-
-# CYCLADES_DEFAULT_SERVER_NETWORKS setting contains a list of networks to
-# connect a newly created server to, *if the user has not* specified them
-# explicitly in the POST /server API call.
-# Each member of the list may be a network UUID, a tuple of network UUIDs,
-# "SNF:ANY_PUBLIC_IPV4" [any public network with an IPv4 subnet defined],
-# "SNF:ANY_PUBLIC_IPV6 [any public network with only an IPV6 subnet defined],
-#  or "SNF:ANY_PUBLIC" [any public network].
-#
-# Access control and quota policy are enforced, just as if the user had
-# specified the value of CYCLADES_DEFAULT_SERVER_NETWORKS in the content
-# of the POST /call, after processing of "SNF:*" directives."
-CYCLADES_DEFAULT_SERVER_NETWORKS = []
-
-# This setting contains a list of networks which every new server
-# will be forced to connect to, regardless of the contents of the POST
-# /servers call, or the value of CYCLADES_DEFAULT_SERVER_NETWORKS.
-# Its format is identical to that of CYCLADES_DEFAULT_SERVER_NETWORKS.
-
-# WARNING: No access control or quota policy are enforced.
-# The server will get all IPv4/IPv6 addresses needed to connect to the
-# networks specified in CYCLADES_FORCED_SERVER_NETWORKS, regardless
-# of the state of the floating IP pool of the user, and without
-# allocating any floating IPs."
-CYCLADES_FORCED_SERVER_NETWORKS = []
 
 CYCLADES_BASE_URL = Mandatory(
     example_value="https://compute.example.synnefo.org/cyclades/",
@@ -79,49 +43,52 @@ CYCLADES_SERVICES = Auto(
     dependencies=["CYCLADES_BASE_URL", "SYNNEFO_COMPONENTS"],
 )
 
-DEFAULT_INSTANCE_NETWORKS = Default(
-    default_value=["SNF:ANY_PUBLIC"],
-    example_value=["SNF:ANY_PUBLIC", "1", "2"],
+POLL_LIMIT = Default(
+    default_value=3600,
+    example_value=3600,
     description=(
-        "List of network IDs as known by Cyclades. All newly created "
-        "instances will get a number of NICs each one connected to a network "
-        "of this list. If the special network ID 'SNF:ANY_PUBLIC' is used, "
-        "Cyclades will automatically choose a public network and connect the "
-        "instance to it."),
-    category="snf-cyclades-app-api",
-    export=True,
+        "The API will return HTTP Bad Request if the ?changes-since "
+        "parameter refers to a point in time older than POLL_LIMIT seconds."),
+    export=False,
 )
 
-API_ENABLED_NETWORK_FLAVORS = Default(
-    default_value=["MAC_FILTERED"],
-    example_value=["MAC_FILTERED", "PHYSICAL_VLAN"],
-    description=(
-        "The supported types of Private Virtual Networks to be "
-        "exported to users via the API. End users will be able to create "
-        "Private Networks only of the types included in this list."),
-    category="snf-cyclades-app-api",
-    export=True,
-)
+# Astakos groups that have access to '/admin' views.
+ADMIN_STATS_PERMITTED_GROUPS = ["admin-stats"]
 
-DEFAULT_MAC_FILTERED_BRIDGE = Default(
-    default_value="prv0",
-    example_value="prv0",
-    description=(
-        "The name of the bridge that all MAC_FILTERED type networks "
-        "will use."),
-    category="snf-cyclades-app-api",
-    export=True,
-)
+# Enable/Disable the snapshots feature altogether at the API level.
+# If set to False, Cyclades will not expose the '/snapshots' API URL
+# of the 'volume' app.
+CYCLADES_SNAPSHOTS_ENABLED = True
 
-DEFAULT_ROUTING_TABLE = Default(
-    default_value="snf_public",
-    example_value="snf_public",
-    description=(
-        "The host's routing table that will be used by the "
-        "IP_LESS_ROUTED type network."),
-    category="snf-cyclades-app-api",
-    export=True,
-)
+
+#
+# Network Configuration
+#
+
+# CYCLADES_DEFAULT_SERVER_NETWORKS setting contains a list of networks to
+# connect a newly created server to, *if the user has not* specified them
+# explicitly in the POST /server API call.
+# Each member of the list may be a network UUID, a tuple of network UUIDs,
+# "SNF:ANY_PUBLIC_IPV4" [any public network with an IPv4 subnet defined],
+# "SNF:ANY_PUBLIC_IPV6 [any public network with only an IPV6 subnet defined],
+#  or "SNF:ANY_PUBLIC" [any public network].
+#
+# Access control and quota policy are enforced, just as if the user had
+# specified the value of CYCLADES_DEFAULT_SERVER_NETWORKS in the content
+# of the POST /call, after processing of "SNF:*" directives."
+CYCLADES_DEFAULT_SERVER_NETWORKS = []
+
+# This setting contains a list of networks which every new server
+# will be forced to connect to, regardless of the contents of the POST
+# /servers call, or the value of CYCLADES_DEFAULT_SERVER_NETWORKS.
+# Its format is identical to that of CYCLADES_DEFAULT_SERVER_NETWORKS.
+
+# WARNING: No access control or quota policy are enforced.
+# The server will get all IPv4/IPv6 addresses needed to connect to the
+# networks specified in CYCLADES_FORCED_SERVER_NETWORKS, regardless
+# of the state of the floating IP pool of the user, and without
+# allocating any floating IPs."
+CYCLADES_FORCED_SERVER_NETWORKS = []
 
 MAX_CIDR_BLOCK = Default(
     default_value=22,
@@ -145,6 +112,27 @@ DEFAULT_BRIDGE = Default(
     example_value="br0",
     description="The default bridge to connect all CUSTOM networks.",
     export=False,
+)
+
+API_ENABLED_NETWORK_FLAVORS = Default(
+    default_value=["MAC_FILTERED"],
+    example_value=["MAC_FILTERED", "PHYSICAL_VLAN"],
+    description=(
+        "The supported types of Private Virtual Networks to be "
+        "exported to users via the API. End users will be able to create "
+        "Private Networks only of the types included in this list."),
+    category="snf-cyclades-app-api",
+    export=True,
+)
+
+DEFAULT_MAC_FILTERED_BRIDGE = Default(
+    default_value="prv0",
+    example_value="prv0",
+    description=(
+        "The name of the bridge that all MAC_FILTERED type networks "
+        "will use."),
+    category="snf-cyclades-app-api",
+    export=True,
 )
 
 #
@@ -186,6 +174,22 @@ DEFAULT_FIREWALL_PROFILE = Default(
     description="Default firewall profile to apply, if no tags are defined.",
     export=False,
 )
+
+BACKEND_PER_USER = Default(
+    default_value={},
+    example_value={'user1@synnefo.org': 2,
+                   'user2@synnefo.org': 3},
+    description=(
+        "Associate a user with a specific Ganeti backend. All VMs of the "
+        "users in this dict will get allocated to the specified backends."),
+    category="snf-cyclades-app-api",
+    export=True,
+)
+
+# Encryption key for the instance hostname in the stat graphs URLs. Set it to
+# a random string and update the STATS_SECRET_KEY setting in the snf-stats-app
+# host (20-snf-stats-app-settings.conf) accordingly.
+CYCLADES_STATS_SECRET_KEY = "secret_key"
 
 #
 # Stat graphs configuration
@@ -260,14 +264,6 @@ MAX_PERSONALITY_SIZE = Default(
 # Misc configuration
 #
 
-# Encryption key for the instance hostname in the stat graphs URLs. Set it to
-# a random string and update the STATS_SECRET_KEY setting in the snf-stats-app
-# host (20-snf-stats-app-settings.conf) accordingly.
-CYCLADES_STATS_SECRET_KEY = "secret_key"
-
-# Recommended refresh period for server stats
-STATS_REFRESH_PERIOD = 60
-
 # Template to use to build the FQDN of VMs. The setting will be formated with
 # the id of the VM.
 CYCLADES_SERVERS_FQDN = 'snf-%(id)s.vm.example.synnefo.org'
@@ -322,17 +318,6 @@ CYCLADES_VOLUME_MAX_METADATA = 10
 # The maximmum allowed metadata items for a Cyclades Virtual Machine
 CYCLADES_VM_MAX_METADATA = 10
 
-BACKEND_PER_USER = Default(
-    default_value={},
-    example_value={'user1@synnefo.org': 2,
-                   'user2@synnefo.org': 3},
-    description=(
-        "Associate a user with a specific Ganeti backend. All VMs of the "
-        "users in this dict will get allocated to the specified backends."),
-    category="snf-cyclades-app-api",
-    export=True,
-)
-
 ARCHIPELAGO_BACKENDS = Default(
     default_value=[],
     example_value=["1", "2", "3"],
@@ -384,15 +369,6 @@ CYCLADES_PROXY_USER_SERVICES = Default(
     export=True,
 )
 
-POLL_LIMIT = Default(
-    default_value=3600,
-    example_value=3600,
-    description=(
-        "The API will return HTTP Bad Request if the ?changes-since "
-        "parameter refers to a point in time older than POLL_LIMIT seconds."),
-    export=False,
-)
-
 #####################################
 # Astakos and Proxy
 
@@ -411,54 +387,6 @@ CYCLADES_PROXY_PREFIX = Default(
     default_value="_astakos",
     description="Proxy Astakos services under the following path.",
     export=True,
-)
-
-
-# --------------------------------------
-# Define a LazyAstakosUrl
-# This is used to define ASTAKOS_ACCOUNT_URL and
-# ASTAKOS_UI_URL and should never be used as is.
-class LazyAstakosUrl(object):
-    def __init__(self, service_token, astakos_auth_url, endpoints_name):
-        self.service_token = service_token
-        self.astakos_auth_url = astakos_auth_url
-        self.endpoints_name = endpoints_name
-
-    def __str__(self):
-        if not hasattr(self, 'str'):
-            try:
-                astakos_client = \
-                    AstakosClient(self.service_token, self.astakos_auth_url)
-                self.str = getattr(astakos_client, self.endpoints_name)
-            except Exception as excpt:
-                logger.exception(
-                    "Could not retrieve endpoints from Astakos url %s: %s",
-                    self.astakos_auth_url, excpt)
-                return ""
-        return self.str
-
-def mk_auto_lazy_astakos_url(url):
-    def auto_lazy_astakos_url(deps):
-        service_token = deps["CYCLADES_SERVICE_TOKEN"]
-        astakos_auth_url = deps["CYCLADES_ASTAKOS_AUTH_URL"]
-        return LazyAstakosUrl(service_token, astakos_auth_url, url)
-    return auto_lazy_astakos_url
-
-
-ASTAKOS_ACCOUNT_URL = Auto(
-    autoconfigure=mk_auto_lazy_astakos_url("account_url"),
-    allow_override=False,
-    export=False,
-    description="Astakos account URL",
-    dependencies=("CYCLADES_SERVICE_TOKEN", "CYCLADES_ASTAKOS_AUTH_URL"),
-)
-
-ASTAKOS_UI_URL = Auto(
-    autoconfigure=mk_auto_lazy_astakos_url("account_ui"),
-    allow_override=False,
-    export=False,
-    description="Astakos UI URL",
-    dependencies=("CYCLADES_SERVICE_TOKEN", "CYCLADES_ASTAKOS_AUTH_URL"),
 )
 
 def mk_auto_prefix(one, two):

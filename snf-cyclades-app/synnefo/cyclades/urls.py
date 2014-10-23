@@ -20,14 +20,14 @@ from synnefo.django.lib.api.utils import prefix_pattern, prefix_pattern_of
 from synnefo.django.utils.urls import \
     extend_with_root_redirects, extend_endpoint_with_slash
 from synnefo.django.lib.api.urls import api_patterns
-from django.conf import settings
+from synnefo.cyclades import cyclades_settings as settings
 
 from functools import partial
 
 
 urlpatterns = []
 
-cyclades_services = settings.CYCLADES_SERVICES
+cyclades_services = settings.cyclades_services
 # Redirects should be first, otherwise they may get overridden by wildcards
 extend_endpoint_with_slash(urlpatterns, cyclades_services, 'cyclades_ui')
 extend_endpoint_with_slash(urlpatterns, cyclades_services, 'cyclades_helpdesk')
@@ -65,7 +65,7 @@ cyclades_patterns += api_patterns(
 
 urlpatterns += patterns(
     '',
-    (prefix_pattern(settings.CYCLADES_BASE_PATH), include(cyclades_patterns)),
+    (prefix_pattern(settings.BASE_PATH), include(cyclades_patterns)),
 )
 
 
@@ -97,4 +97,4 @@ urlpatterns += patterns(
 # --------------------------------------
 # set utility redirects
 extend_with_root_redirects(urlpatterns, cyclades_services,
-                           'cyclades_ui', settings.CYCLADES_BASE_PATH)
+                           'cyclades_ui', settings.BASE_PATH)
