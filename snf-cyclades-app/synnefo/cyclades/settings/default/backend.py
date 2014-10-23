@@ -14,14 +14,6 @@ CYCLADES_BACKEND_PREFIX_ID = Default(
     export=True,
 )
 
-# If True, Ganeti will try to allocate new instances only on nodes that are
-# not already locked. This might result in slightly unbalanced clusters.
-GANETI_USE_OPPORTUNISTIC_LOCKING = True
-
-# If False, Ganeti will not wait for the disk mirror to sync
-# (--no-wait-for-sync option in Ganeti). Useful only for DRBD template.
-GANETI_DISKS_WAIT_FOR_SYNC = False
-
 GANETI_CREATEINSTANCE_KWARGS = Default(
     default_value={
         "os": "snf-image+default",
@@ -52,6 +44,14 @@ GANETI_USE_HOTPLUG = Default(
     category="snf-cyclades-app-backend",
     export=True,
 )
+
+# If True, Ganeti will try to allocate new instances only on nodes that are
+# not already locked. This might result in slightly unbalanced clusters.
+GANETI_USE_OPPORTUNISTIC_LOCKING = True
+
+# If False, Ganeti will not wait for the disk mirror to sync
+# (--no-wait-for-sync option in Ganeti). Useful only for DRBD template.
+GANETI_DISKS_WAIT_FOR_SYNC = False
 
 BACKEND_ALLOCATOR_MODULE = Default(
     default_value="synnefo.cyclades.logic.allocators.default_allocator",

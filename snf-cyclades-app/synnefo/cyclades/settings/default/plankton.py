@@ -18,6 +18,10 @@ PLANKTON_PITHOS_BACKEND_POOL_SIZE = Default(
     export=False,
 )
 
+# NOT USED
+# The Pithos container where images will be stored by default
+DEFAULT_PLANKTON_CONTAINER = 'images'
+
 ALLOWED_DISK_FORMATS = Default(
     default_value=("diskdump", "extdump", "ntfsdump"),
     description=(
@@ -39,6 +43,12 @@ ALLOWED_CONTAINER_FORMATS = Default(
     export=False,
 )
 
+DEFAULT_CONTAINER_FORMAT = Default(
+    default_value="bare",
+    description="The default image container format.",
+    export=False,
+)
+
 # The owner of the images that will be marked as "system images" by the UI
 SYSTEM_IMAGES_OWNER = 'okeanos'
 
@@ -53,9 +63,3 @@ PITHOS_BACKEND_MAP_CHECK_INTERVAL = 1
 
 #The maximum allowed number of image metadata
 PITHOS_RESOURCE_MAX_METADATA = 32
-
-DEFAULT_CONTAINER_FORMAT = Default(
-    default_value="bare",
-    description="The default image container format.",
-    export=False,
-)
