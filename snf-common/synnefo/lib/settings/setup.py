@@ -30,7 +30,8 @@ class CycleError(SettingsError):
     pass
 
 
-NoValue = type('NoValue', (), {})
+NoValueType = type('NoValue', (), {"__repr__": lambda o: "<NoValue>"})
+NoValue = NoValueType()
 
 _serial = 0
 
@@ -131,7 +132,8 @@ def initialize_settings(settings_dict, source="unknown", strict=False):
                 raise SettingsError(m)
             else:
                 print >> sys.stderr, "non-annotated %s, %s" % (source, name)
-                setting = Setting(default_value=setting)
+                setting = Default(default_value=setting,
+                                  description="non-annotated")
 
         # FIXME: duplicate annotations?
         if name in settings:
@@ -232,7 +234,7 @@ def _load_configuration(new_settings,
                 print >> sys.stderr, "Unknown:", name
                 desc = "Unknown setting from {source}"
                 desc = desc.format(source=source)
-                setting = Setting(default_value=value,
+                setting = Default(default_value=value,
                                   category='unknown',
                                   description=desc)
                 initialize_settings({name: setting}, strict=True)
@@ -816,8 +818,8 @@ class Setting(object):
             setting.fail_exception = e
             raise
 
-        if new_value is NoValue:
-            return
+        # if new_value is NoValue:
+        #     return
         setting_value = new_value
         setting.runtime_value = setting_value
         runtime[setting_name] = setting_value
