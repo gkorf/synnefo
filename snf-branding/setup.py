@@ -160,9 +160,9 @@ setup(
     entry_points={
         'synnefo': [
              'default_settings = ' + DEFAULT_SETTINGS,
-             'web_apps = synnefo.branding.synnefo_settings:installed_apps',
-             'web_context_processors = synnefo.branding.synnefo_settings:context_processors',
-             'web_static = synnefo.branding.synnefo_settings:static_files',
+             'web_apps = synnefo.branding.settings:installed_apps',
+             'web_context_processors = synnefo.branding.settings:context_processors',
+             'web_static = synnefo.branding.settings:static_files',
         ]
     }
 )
