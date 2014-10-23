@@ -260,9 +260,45 @@ MAX_PERSONALITY_SIZE = Default(
     export=False,
 )
 
-#
-# Misc configuration
-#
+ASTAKOS_AUTH_URL = Deprecated(
+    description="deprecated",
+    rename_to='CYCLADES_ASTAKOS_AUTH_URL',
+)
+
+CYCLADES_ASTAKOS_AUTH_URL = Mandatory(
+    example_value='https://accounts.example.synnefo.org/astakos/identity/v2.0',
+    description="Astakos auth URL",
+    category="",
+)
+
+CYCLADES_ASTAKOSCLIENT_POOLSIZE = Default(
+    default_value=50,
+    example_value=50,
+    description=(
+        "Number of the concurrent Astakos http client connections, "
+        "as provided by the connection pool."),
+    export=False,
+)
+
+SECRET_ENCRYPTION_KEY = Mandatory(
+    example_value="Password Encryption Key",
+    description=(
+        "Key for password encryption-decryption. After changing this "
+        "setting, Synnefo will be unable to decrypt all existing Backend "
+        "passwords. You will need to store the new password again on all "
+        "Backends by using 'snf-manage backend-modify'. The key may be up to "
+        "32 bytes. Keys bigger than 32 bytes are not supported."),
+    category="snf-cyclades-app-api",
+)
+
+CYCLADES_SERVICE_TOKEN = Mandatory(
+    example_value="asdf+V7Cyclades_service_token_heredPG==",
+    description=(
+        "The token used to access Astakos via its API, e.g. for "
+        "retrieving a user's email using a user UUID. This can be obtained "
+        "by running 'snf-manage component-list' on the Astakos host."),
+    category="snf-cyclades-app-api",
+)
 
 # Template to use to build the FQDN of VMs. The setting will be formated with
 # the id of the VM.
@@ -318,70 +354,6 @@ CYCLADES_VOLUME_MAX_METADATA = 10
 # The maximmum allowed metadata items for a Cyclades Virtual Machine
 CYCLADES_VM_MAX_METADATA = 10
 
-ARCHIPELAGO_BACKENDS = Default(
-    default_value=[],
-    example_value=["1", "2", "3"],
-    description=(
-        "Ganeti backends on this list are used to host only "
-        "Archipelago-backed VMs. Also, all Archipelago-backed VMs will get "
-        "allocated only to backends that are included in this list."),
-    category="snf-cyclades-app-api",
-    expose=True,
-)
-
-CYCLADES_ASTAKOSCLIENT_POOLSIZE = Default(
-    default_value=50,
-    example_value=50,
-    description=(
-        "Number of the concurrent Astakos http client connections, "
-        "as provided by the connection pool."),
-    export=False,
-)
-
-SECRET_ENCRYPTION_KEY = Mandatory(
-    example_value="Password Encryption Key",
-    description=(
-        "Key for password encryption-decryption. After changing this "
-        "setting, Synnefo will be unable to decrypt all existing Backend "
-        "passwords. You will need to store the new password again on all "
-        "Backends by using 'snf-manage backend-modify'. The key may be up to "
-        "32 bytes. Keys bigger than 32 bytes are not supported."),
-    category="snf-cyclades-app-api",
-)
-
-CYCLADES_SERVICE_TOKEN = Mandatory(
-    example_value="asdf+V7Cyclades_service_token_heredPG==",
-    description=(
-        "The token used to access Astakos via its API, e.g. for "
-        "retrieving a user's email using a user UUID. This can be obtained "
-        "by running 'snf-manage component-list' on the Astakos host."),
-    category="snf-cyclades-app-api",
-)
-
-CYCLADES_PROXY_USER_SERVICES = Default(
-    default_value=True,
-    example_value=True,
-    description=(
-        "If True, Cyclades will proxy user specific API calls to "
-        "Astakos via self-served endpoints. Set this to False if you deploy "
-        "'snf-cyclades-app' and 'snf-astakos-app' on the same machine."),
-    category="snf-cyclades-app-api",
-    export=True,
-)
-
-#####################################
-# Astakos and Proxy
-
-ASTAKOS_AUTH_URL = Deprecated(
-    description="deprecated",
-    rename_to='CYCLADES_ASTAKOS_AUTH_URL',
-)
-
-CYCLADES_ASTAKOS_AUTH_URL = Mandatory(
-    example_value='https://accounts.example.synnefo.org/astakos/identity/v2.0',
-    description="Astakos auth URL",
-    category="",
-)
 
 CYCLADES_PROXY_PREFIX = Default(
     default_value="_astakos",
@@ -394,13 +366,6 @@ def mk_auto_prefix(one, two):
         part_one = deps[one]
         return join_urls('/', part_one, two)
     return auto_prefix
-
-def mk_auto_path(one, two):
-    def auto_path(deps):
-        part_one = deps[one]
-        part_two = deps[two]
-        return join_urls(part_one, part_two)
-    return auto_path
 
 
 ASTAKOS_AUTH_PREFIX = Auto(
@@ -422,25 +387,4 @@ ASTAKOS_UI_PREFIX = Auto(
     export=False,
     description="Astakos ui proxy prefix",
     dependencies=("CYCLADES_PROXY_PREFIX",),
-)
-
-ASTAKOS_AUTH_PROXY_PATH = Auto(
-    autoconfigure=mk_auto_path("CYCLADES_BASE_PATH", "ASTAKOS_AUTH_PREFIX"),
-    export=False,
-    description="Astakos auth proxy path",
-    dependencies=("CYCLADES_BASE_PATH", "ASTAKOS_AUTH_PREFIX",),
-)
-
-ASTAKOS_ACCOUNT_PROXY_PATH = Auto(
-    autoconfigure=mk_auto_path("CYCLADES_BASE_PATH", "ASTAKOS_ACCOUNT_PREFIX"),
-    export=False,
-    description="Astakos account proxy path",
-    dependencies=("CYCLADES_BASE_PATH", "ASTAKOS_ACCOUNT_PREFIX",),
-)
-
-ASTAKOS_UI_PROXY_PATH = Auto(
-    autoconfigure=mk_auto_path("CYCLADES_BASE_PATH", "ASTAKOS_UI_PREFIX"),
-    export=False,
-    description="Astakos ui proxy path",
-    dependencies=("CYCLADES_BASE_PATH", "ASTAKOS_UI_PREFIX",),
 )
