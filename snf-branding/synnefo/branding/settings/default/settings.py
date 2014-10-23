@@ -115,7 +115,7 @@ BRANDING_STORAGE_LOGO_URL = Auto(
 #
 
 BRANDING_SHOW_COPYRIGHT = Default(
-    default_value=False,
+    default_value=True,
     description="Whether to show a Copyright message in the UI's footer. ",
     category="snf-branding-settings",
     export=True,
@@ -138,4 +138,23 @@ BRANDING_COPYRIGHT_MESSAGE = Auto(
     category="snf-branding-settings",
     export=True,
     autoconfigure=_auto_configure_copyright_message,
+)
+
+BRANDING_FOOTER_EXTRA_MESSAGE = Default(
+    default_value="",
+    description=("Footer message appears above Copyright message "
+                 "at the Compute templates and the Dashboard UI. "
+                 "Accepts html tags"),
+    category="snf-branding-settings",
+)
+
+BRANDING_FONTS_CSS_URLS = Default(
+    default_value=[
+        '//fonts.googleapis.com/css?family=Open+Sans&subset=latin,greek-ext,greek',
+        '//fonts.googleapis.com/css?family=Ubuntu&subset=latin,greek'
+        ],
+    description=("The location of the css files that contain the font "
+                 "loading css code"),
+    category="snf-branding-settings",
+    export=False,
 )
