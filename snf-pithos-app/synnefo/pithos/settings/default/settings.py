@@ -45,16 +45,11 @@ PITHOS_SERVICE_TOKEN = Mandatory(
     category="snf-pithos-app-settings",
 )
 
-PITHOS_ASTAKOS_COOKIE_NAME = Default(
-    default_value="_pithos2_a",
-    example_value="my_service_cookie_name_here",
-    description="Cookie name associated with Astakos.",
-    export=False,
+PITHOS_ASTAKOS_AUTH_URL = Mandatory(
+    example_value='https://accounts.example.synnefo.org/astakos/identity/v2.0',
+    description="Astakos auth URL",
+    category="",
 )
-
-#
-# Pools configuration
-#
 
 PITHOS_ASTAKOSCLIENT_POOLSIZE = Default(
     default_value=200,
@@ -63,29 +58,9 @@ PITHOS_ASTAKOSCLIENT_POOLSIZE = Default(
     export=False,
 )
 
-PITHOS_BACKEND_POOL_ENABLED = Default(
-    default_value=True,
-    description="Whether to use objpool to pool pithos-backend instances.",
-    category="snf-pithos-app-settings",
-    export=True,
-)
-
-PITHOS_BACKEND_POOL_SIZE = Default(
-    default_value=5,
-    description="Size of the pool used for pithos-backend instances.",
-    category="snf-pithos-app-settings",
-    export=True,
-)
-
 PITHOS_BACKEND_DB_MODULE = Default(
     default_value="synnefo.pithos.backends.lib.sqlalchemy",
     description="The SQLAlchemy module to use.",
-    export=False,
-)
-
-PITHOS_BACKEND_BLOCK_MODULE = Default(
-    default_value="synnefo.pithos.backends.lib.hashfiler",
-    description="Backend block module to use.",
     export=False,
 )
 
@@ -93,6 +68,12 @@ PITHOS_BACKEND_DB_CONNECTION = Mandatory(
     example_value="sqlite:////tmp/pithos-backend.db",
     description="URI pointing to the Pithos database.",
     category="snf-pithos-app-backend",
+)
+
+PITHOS_BACKEND_BLOCK_MODULE = Default(
+    default_value="synnefo.pithos.backends.lib.hashfiler",
+    description="Backend block module to use.",
+    export=False,
 )
 
 PITHOS_BACKEND_BLOCK_PATH = Mandatory(
@@ -103,21 +84,26 @@ PITHOS_BACKEND_BLOCK_PATH = Mandatory(
     category="snf-pithos-app-backend",
 )
 
-PITHOS_BACKEND_BLOCK_SIZE = Default(
-    default_value=4*1024*1024,
-    description="Size of blocks stored by the backend.",
+# FIXME: This should be removed once the code changes accordingly.
+PITHOS_BACKEND_BLOCK_UMASK = Default(
+    default_value=0o022,
+    description="The umask of files written by Pithos under the data path.",
     export=False,
 )
 
-PITHOS_BACKEND_HASH_ALGORITHM = Default(
-    default_value="sha256",
-    description="The backend block hashing algorithm.",
+# FIXME: This should go away along with the relevant code.
+PITHOS_BACKEND_ACCOUNT_QUOTA = Default(
+    default_value=50*1024*1024*1024,
+    description="Quota for a new account.",
     export=False,
 )
 
-PITHOS_UPDATE_MD5 = Default(
-    default_value=False,
-    description="Whether to update object checksums.",
+# FIXME: This should go away along with the relevant code.
+PITHOS_BACKEND_CONTAINER_QUOTA = Default(
+    default_value=0,
+    description=(
+        "Quota limit for every newly created container. '0' means "
+        "unlimited."),
     export=False,
 )
 
@@ -140,6 +126,26 @@ PITHOS_BACKEND_FREE_VERSIONING = Default(
     description=(
         "If True only the last version of the file counts in for the "
         "user's quota usage. If False all versions will consume quotas."),
+    export=False,
+)
+
+PITHOS_BACKEND_POOL_ENABLED = Default(
+    default_value=True,
+    description="Whether to use objpool to pool pithos-backend instances.",
+    category="snf-pithos-app-settings",
+    export=True,
+)
+
+PITHOS_BACKEND_POOL_SIZE = Default(
+    default_value=5,
+    description="Size of the pool used for pithos-backend instances.",
+    category="snf-pithos-app-settings",
+    export=True,
+)
+
+PITHOS_UPDATE_MD5 = Default(
+    default_value=False,
+    description="Whether to update object checksums.",
     export=False,
 )
 
@@ -166,18 +172,14 @@ PITHOS_RADOS_POOL_MAPS = SubMandatory(
     dependencies=['PITHOS_RADOS_STORAGE'],
 )
 
-#
-# Misc
-#
-
-PITHOS_PROXY_USER_SERVICES = Default(
-    default_value=True,
-    description=(
-        "If True, snf-pithos-app will handle all Astakos user-visible "
-        "services (e.g.: feedback, login) by proxying them to Astakos. Set to "
-        "if snf-astakos-app and snf-pithos-app run on the same machine, so "
-        "Astakos handles the requests on its own."),
-    export=True,
+# FIXME: This was needed for transitional reasons, now needs to go away along
+# with the corresponding code.
+# This enables a ui compatibility layer for the introduction of UUIDs in
+# identity management.  WARNING: Setting to True will break your installation.
+PITHOS_TRANSLATE_UUIDS = Default(
+    default_value=False,
+    description="Transitional setting to allow UUID translations.",
+    export=False,
 )
 
 PITHOS_PUBLIC_URL_SECURITY = Default(
@@ -204,54 +206,75 @@ PITHOS_API_LIST_LIMIT = Default(
     export=False,
 )
 
-#
-# Obsolete settings
-#
-
-# FIXME: This should be removed once the code changes accordingly.
-PITHOS_BACKEND_BLOCK_UMASK = Default(
-    default_value=0o022,
-    description="The umask of files written by Pithos under the data path.",
+PITHOS_BACKEND_BLOCK_SIZE = Default(
+    default_value=4*1024*1024,
+    description="Size of blocks stored by the backend.",
     export=False,
 )
 
-# FIXME: This should go away along with the relevant code.
-PITHOS_BACKEND_ACCOUNT_QUOTA = Default(
-    default_value=50*1024*1024*1024,
-    description="Quota for a new account.",
+PITHOS_BACKEND_HASH_ALGORITHM = Default(
+    default_value="sha256",
+    description="The backend block hashing algorithm.",
     export=False,
 )
-
-# FIXME: This should go away along with the relevant code.
-PITHOS_BACKEND_CONTAINER_QUOTA = Default(
-    default_value=0,
-    description=(
-        "Quota limit for every newly created container. '0' means "
-        "unlimited."),
-    export=False,
-)
-
-# FIXME: This was needed for transitional reasons, now needs to go away along
-# with the corresponding code.
-# This enables a ui compatibility layer for the introduction of UUIDs in
-# identity management.  WARNING: Setting to True will break your installation.
-PITHOS_TRANSLATE_UUIDS = Default(
-    default_value=False,
-    description="Transitional setting to allow UUID translations.",
-    export=False,
-)
-
-
-PITHOS_ASTAKOS_AUTH_URL = Mandatory(
-    example_value='https://accounts.example.synnefo.org/astakos/identity/v2.0',
-    description="Astakos auth URL",
-    category="",
-)
-
 
 PITHOS_OAUTH2_CLIENT_CREDENTIALS = Default(
     default_value=(None, None),
     example_value=('pithos-view', 'oa_secret'),
     description="Credentials for the oauth2 client",
+    category="snf-pithos-app-settings",
+)
+
+PITHOS_UNSAFE_DOMAIN = Default(
+    default_value=None,
+    example_value="user-content.example.com",
+    description=("Set domain to restrict requests of pithos object "
+                 "contents serve endpoint or None for no domain restriction"),
+    category="snf-pithos-app-settings",
+)
+
+PITHOS_BACKEND_ARCHIPELAGO_CONF = Default(
+    default_value='/etc/archipelago/archipelago.conf',
+    description="Archipelago Configuration File",
+    category="snf-pithos-app-settings",
+    export=False,
+)
+
+PITHOS_BACKEND_XSEG_POOL_SIZE = Default(
+    default_value=8,
+    description="Archipelagp xseg pool size",
+    category="snf-pithos-app-settings",
+)
+
+PITHOS_BACKEND_MAP_CHECK_INTERVAL = Default(
+    default_value=5,
+    description=("The maximum interval (in seconds) for consequent backend "
+                 "object map checks"),
+    category="snf-pithos-app-settings",
+)
+
+PITHOS_BACKEND_MAPFILE_PREFIX = Default(
+    default_value='snf_file_',
+    description=("The archipelago mapfile prefix (it should not exceed "
+                 "15 characters). WARNING: Once set it should not be changed"),
+    category="snf-pithos-app-settings",
+)
+
+PITHOS_RESOURCE_MAX_METADATA = Default(
+    default_value=32,
+    description=("The maximum allowed metadata items per domain "
+                 "for a Pithos+ resource"),
+    category="snf-pithos-app-settings",
+)
+
+PITHOS_ACC_MAX_GROUPS = Default(
+    default_value=32,
+    description="The maximum allowed groups for a Pithos+ account.",
+    category="snf-pithos-app-settings",
+)
+
+PITHOS_ACC_MAX_GROUP_MEMBERS = Default(
+    default_value=32,
+    description="The maximum allowed group members per group.",
     category="snf-pithos-app-settings",
 )
