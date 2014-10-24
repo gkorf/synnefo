@@ -17,7 +17,6 @@ from synnefo import settings
 from synnefo.cyclades.cyclades_settings import BASE_URL, BASE_HOST, BASE_PATH
 
 CACHE_BACKEND = settings.VMAPI_CACHE_BACKEND
-CACHE_KEY_PREFIX = getattr(settings, 'VMAPI_CACHE_KEY_PREFIX',
-                           'vmapi')
-RESET_PARAMS = getattr(settings, 'VMAPI_RESET_PARAMS', True)
-BASE_HOST = getattr(settings, 'VMAPI_BASE_HOST', BASE_HOST)
+CACHE_KEY_PREFIX = settings.VMAPI_CACHE_KEY_PREFIX
+RESET_PARAMS = settings.VMAPI_RESET_PARAMS
+BASE_HOST = settings.VMAPI_BASE_HOST

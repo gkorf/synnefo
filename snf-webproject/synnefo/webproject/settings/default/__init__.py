@@ -9,3 +9,4 @@ from synnefo.webproject.settings.default.logging import *
 from synnefo.webproject.settings.default.admins import *
 from synnefo.webproject.settings.default.cloudbar import *
 from synnefo.webproject.settings.default.services import *
+from synnefo.webproject.settings.default.cache import *

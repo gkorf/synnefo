@@ -10,6 +10,11 @@ USERDATA_SSH_KEY_LENGTH = Default(
     export=False,
 )
 
+# NOT USED
+# Generated SSH key exponent
+USERDATA_SSH_KEY_EXPONENT = 65537
+
+
 USERDATA_MAX_SSH_KEYS_PER_USER = Default(
     default_value=10,
     example_value=10,
