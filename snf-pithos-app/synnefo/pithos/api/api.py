@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from synnefo.cyclades.api import api as api_lib
+from synnefo.django.lib import api as api_lib
 from synnefo.django.lib.api import *
 from django.conf import settings
 
