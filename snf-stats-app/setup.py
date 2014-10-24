@@ -72,7 +72,7 @@ setup(
     entry_points={
         'synnefo': [
              'default_settings = ' + DEFAULT_SETTINGS,
-             'web_apps = synnefo.stats.synnefo_settings:installed_apps',
+             'web_apps = synnefo.stats.settings:installed_apps',
              'urls = synnefo.stats.urls:urlpatterns',
         ]
     }

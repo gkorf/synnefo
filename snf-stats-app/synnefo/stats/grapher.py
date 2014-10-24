@@ -28,7 +28,7 @@ from Crypto.Cipher import AES
 from base64 import urlsafe_b64decode
 from hashlib import sha256
 
-from synnefo.stats import settings
+from synnefo.stats import stats_settings as settings
 
 from synnefo.django.lib.api import faults, api_method
 
