@@ -2,12 +2,6 @@ from synnefo.lib.settings.setup import Mandatory, Default
 
 # snf-cyclades-gtools settings
 
-GTOOLS_AMQP_HOSTS = Mandatory(
-    example_value=["amqp://username:password@host:port"],
-    description="List of RabbitMQ endpoints.",
-    category="snf-cyclades-gtools",
-)
-
 GTOOLS_BACKEND_PREFIX_ID = Default(
     default_value="snf-",
     example_value="my_service_name_prefix-",
@@ -27,6 +21,12 @@ GTOOLS_EXCHANGE_GANETI = Default(
         "Ganeti are pushed to this exchange."),
     category="snf-cyclades-gtools",
     export=False,
+)
+
+GTOOLS_AMQP_HOSTS = Mandatory(
+    example_value=["amqp://username:password@host:port"],
+    description="List of RabbitMQ endpoints.",
+    category="snf-cyclades-gtools",
 )
 
 GTOOLS_AMQP_BACKEND = Default(
