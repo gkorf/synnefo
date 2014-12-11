@@ -19,6 +19,40 @@ Pithos
 * Remove obsolete billing code
 
 
+.. _Changelog-0.16.1:
+
+v0.16.1
+=====
+
+Released: UNRELEASED
+
+Astakos
+-------
+
+* Include additional validation checks in project modification form to ensure
+  members limit is always set lower or equal than total limit.
+
+* Prevent members limit from automatically being set to unlimited in project
+  modification form.
+
+* Exclude terminated projects from responses of project list and user quota
+  api calls.
+
+
+Cyclades UI
+-----------
+
+* Improve handling of terminated projects in reassign view.
+* Remove the COPYRECT encoding from the preferred noVNC client encodings, and
+  prefer TIGHT_PNG by default.
+
+
+Stats
+-----
+
+* Aggregate the traffic of every VM interface in the net stats graphs.
+
+
 .. _Changelog-0.16:
 
 v0.16
